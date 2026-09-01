@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asisten Chatbot AI & Grounding PDF Referensi | TitikHukum - BRIN</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (v4) -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f7f6f2;
+            color: #1a1512;
+            overflow-x: hidden;
+        }
+
+        .font-serif {
+            font-family: 'Playfair Display', Georgia, serif;
+        }
+
+        .font-display {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1ede8;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d4c4b5;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #9d816f;
+        }
+
+        /* Smooth Slide Animation for PDF Viewer */
+        .pdf-panel-transition {
+            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Document Page Texture (Pure Continuous White Sheet) */
+        .pdf-page-sheet {
+            background-color: #ffffff !important;
+            box-shadow: 0 12px 35px -5px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(0, 0, 0, 0.1);
+            font-family: 'Times New Roman', Times, serif;
+            display: block !important;
+            height: auto !important;
+        }
+
+        /* Bounding Box Locator (Static, Non-blinking) */
+        .citation-box-highlight {
+            border: 2px solid #e11d48;
+            background-color: rgba(225, 29, 72, 0.05);
+            box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.12);
+        }
+
+        /* Custom selection highlight */
+        ::selection {
+            background: #26150d;
+            color: #ffffff;
+        }
+
+        /* Sidebar Smooth Collapse / Mini-Rail */
+        #chatSidebar {
+            transition: width 0.28s cubic-bezier(0.16, 1, 0.3, 1), transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #chatSidebar.sidebar-mini {
+            width: 4.25rem !important; /* 68px */
+            min-width: 4.25rem !important;
+        }
+        #chatSidebar.sidebar-mini #sidebarFullContent {
+            display: none !important;
+        }
+        #chatSidebar.sidebar-mini #sidebarMiniContent {
+            display: flex !important;
+        }
+        #chatSidebar:not(.sidebar-mini) #sidebarMiniContent {
+            display: none !important;
+        }
+
+        /* Floating Tooltip for Mini Sidebar */
+        .sidebar-mini-tooltip {
+            pointer-events: none;
+            position: absolute;
+            left: 100%;
+            margin-left: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: none;
+            align-items: center;
+            padding: 0.375rem 0.625rem;
+            border-radius: 0.5rem;
+            background-color: #26150d;
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            z-index: 60;
+            box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+        .sidebar-mini-tooltip::before {
+            content: '';
+            position: absolute;
+            right: 100%;
+            top: 50%;
+            transform: translateY(-50%);
+            border-width: 5px;
+            border-style: solid;
+            border-color: transparent #26150d transparent transparent;
+        }
+        .group:hover .sidebar-mini-tooltip {
+            display: flex;
+            animation: fadeInTooltip 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes fadeInTooltip {
+            from { opacity: 0; transform: translateY(-50%) scale(0.92); }
+            to { opacity: 1; transform: translateY(-50%) scale(1); }
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col antialiased bg-[#f7f6f2] overflow-hidden text-[#1a1512]">
+
+    <!-- ======================================================== -->
+    <!-- TOP NAVIGATION BAR                                       -->
+    <!-- ======================================================== -->
+    <header class="h-14 bg-white border-b border-[#e8dfd8] px-4 sm:px-6 flex items-center justify-between z-30 shrink-0 shadow-2xs relative">
+        <div class="flex items-center gap-3">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-2 group">
+                <img src="assets/logo.png" alt="Titik Hukum Logo" class="h-7 sm:h-8 object-contain transition-transform duration-300 group-hover:scale-105" />
+            </a>
+        </div>
+
+        <!-- Active Document Indicator (Positioned in Exact Center of Header) -->
+        <div id="topActiveDocBadge" class="hidden absolute left-1/2 -translate-x-1/2 items-center gap-2 px-3 py-1 rounded-xl bg-[#f6eee7] border border-[#d6c4b7] text-[11px] text-[#26150d] animate-in fade-in shadow-2xs z-10">
+            <i class="fa-regular fa-file-pdf text-rose-600"></i>
+            <span class="font-bold truncate max-w-[180px] sm:max-w-[280px]" id="topActiveDocName"></span>
+            <span class="text-[10px] text-stone-500 hidden sm:inline" id="topActiveDocMeta">• Dokumen Terlampir</span>
+            <button type="button" onclick="detachCurrentDoc()" class="text-stone-400 hover:text-rose-600 ml-1 text-xs cursor-pointer" title="Lepas dokumen">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+            <a href="pustaka.html" class="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-xs font-semibold text-gray-700 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-book-bookmark text-xs text-[#8c5835]"></i>
+                <span class="hidden sm:inline">Pustaka Dokumen</span>
+            </a>
+
+            <button type="button" onclick="startNewChat()" class="px-3.5 py-1.5 rounded-lg bg-[#26150d] hover:bg-[#381d12] text-white text-xs font-semibold transition active:scale-95 flex items-center gap-1.5 shadow-xs">
+                <i class="fa-solid fa-plus text-[10px]"></i>
+                <span>Chat Baru</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ======================================================== -->
+    <!-- MAIN WORKSPACE: SIDEBAR + (PDF VIEWER + CHAT CONTAINER) -->
+    <!-- ======================================================== -->
+    <div class="flex-1 flex overflow-hidden relative">
+
+        <!-- ==================================================== -->
+        <!-- 1. LEFT SIDEBAR (History & Topics + Mini-Rail Mode) -->
+        <!-- ==================================================== -->
+        <aside id="chatSidebar" class="fixed lg:static inset-y-14 left-0 z-40 w-64 bg-[#24140e] border-r border-[#3a2217] text-white flex flex-col justify-between transform -translate-x-full lg:translate-x-0 transition-all duration-300 shrink-0 shadow-xl">
+            
+            <!-- 1. FULL EXPANDED SIDEBAR (Tampil saat sidebar terbuka - Warna BG Coklat) -->
+            <div id="sidebarFullContent" class="flex flex-col justify-between h-full w-64 overflow-hidden shrink-0 bg-[#24140e]">
+                <div class="p-3.5 space-y-4 overflow-y-auto">
+                    
+                    <!-- Sidebar Header Strip with Quick Collapse Button -->
+                    <div class="flex items-center justify-between pb-2 border-b border-white/10">
+                        <span class="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-layer-group text-[#deb896] text-xs"></i>
+                            <span>Panel Riset Hukum</span>
+                        </span>
+                        <button type="button" onclick="toggleSidebar()" class="w-6 h-6 rounded-md hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center transition" title="Tutup Sidebar (Ctrl+B)">
+                            <i class="fa-solid fa-chevron-left text-[11px]"></i>
+                        </button>
+                    </div>
+
+                    <!-- New Chat Quick Action -->
+                    <button type="button" onclick="startNewChat()" class="w-full py-2 px-3 rounded-xl bg-white/10 border border-white/20 hover:border-white/40 hover:bg-white/15 text-left text-xs font-bold text-white flex items-center justify-between shadow-xs transition active:scale-98">
+                        <span class="flex items-center gap-2">
+                            <i class="fa-solid fa-pen-to-square text-[#deb896]"></i>
+                            <span>Percakapan Baru</span>
+                        </span>
+                        <span class="text-[10px] font-mono text-stone-300 bg-white/10 px-1.5 py-0.5 rounded border border-white/10">⌘K</span>
+                    </button>
+
+                    <!-- Saved Sessions / Riwayat Riset -->
+                    <div class="space-y-1">
+                        <div class="px-2 text-[10px] font-bold text-stone-400 uppercase tracking-wider">Riwayat Riset Hukum</div>
+                        <div class="space-y-1" id="historyList">
+                            
+                            <!-- History Item 1 -->
+                            <div id="historyRow_tindak_pidana" class="history-row group flex items-center justify-between rounded-xl px-2.5 py-1.5 bg-white/15 border border-[#deb896]/60 transition">
+                                <button type="button" onclick="loadSavedChat('tindak_pidana')" class="history-btn flex-1 text-left text-xs flex items-center gap-2 text-white font-semibold truncate cursor-pointer">
+                                    <i class="fa-regular fa-message text-[#deb896] text-[11px] shrink-0"></i>
+                                    <span class="truncate">Sanksi Izin & Pasal 85 Perikanan</span>
+                                </button>
+                                <button type="button" onclick="confirmDeleteHistory('tindak_pidana', 'Sanksi Izin & Pasal 85 Perikanan', event)" class="opacity-60 group-hover:opacity-100 p-1.5 rounded-lg text-stone-400 hover:text-rose-400 hover:bg-white/10 transition ml-1 text-xs shrink-0 cursor-pointer" title="Hapus Riwayat">
+                                    <i class="fa-regular fa-trash-can text-[11px]"></i>
+                                </button>
+                            </div>
+
+                            <!-- History Item 2 -->
+                            <div id="historyRow_kewenangan" class="history-row group flex items-center justify-between rounded-xl px-2.5 py-1.5 hover:bg-white/10 border border-transparent transition">
+                                <button type="button" onclick="loadSavedChat('kewenangan')" class="history-btn flex-1 text-left text-xs flex items-center gap-2 text-stone-300 hover:text-white truncate cursor-pointer">
+                                    <i class="fa-regular fa-message text-stone-400 text-[11px] shrink-0"></i>
+                                    <span class="truncate">Kewenangan PPNS vs TNI AL di ZEE</span>
+                                </button>
+                                <button type="button" onclick="confirmDeleteHistory('kewenangan', 'Kewenangan PPNS vs TNI AL di ZEE', event)" class="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-stone-400 hover:text-rose-400 hover:bg-white/10 transition ml-1 text-xs shrink-0 cursor-pointer" title="Hapus Riwayat">
+                                    <i class="fa-regular fa-trash-can text-[11px]"></i>
+                                </button>
+                            </div>
+
+                            <!-- History Item 3 -->
+                            <div id="historyRow_rezim_laut" class="history-row group flex items-center justify-between rounded-xl px-2.5 py-1.5 hover:bg-white/10 border border-transparent transition">
+                                <button type="button" onclick="loadSavedChat('rezim_laut')" class="history-btn flex-1 text-left text-xs flex items-center gap-2 text-stone-300 hover:text-white truncate cursor-pointer">
+                                    <i class="fa-regular fa-message text-stone-400 text-[11px] shrink-0"></i>
+                                    <span class="truncate">Uji Yurisdiksi Laut Teritorial 12 Mil</span>
+                                </button>
+                                <button type="button" onclick="confirmDeleteHistory('rezim_laut', 'Uji Yurisdiksi Laut Teritorial 12 Mil', event)" class="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-stone-400 hover:text-rose-400 hover:bg-white/10 transition ml-1 text-xs shrink-0 cursor-pointer" title="Hapus Riwayat">
+                                    <i class="fa-regular fa-trash-can text-[11px]"></i>
+                                </button>
+                            </div>
+
+                            <!-- History Item 4 -->
+                            <div id="historyRow_ite_cyber" class="history-row group flex items-center justify-between rounded-xl px-2.5 py-1.5 hover:bg-white/10 border border-transparent transition">
+                                <button type="button" onclick="loadSavedChat('ite_cyber')" class="history-btn flex-1 text-left text-xs flex items-center gap-2 text-stone-300 hover:text-white truncate cursor-pointer">
+                                    <i class="fa-regular fa-message text-stone-400 text-[11px] shrink-0"></i>
+                                    <span class="truncate">Perubahan Klausul UU ITE 2024</span>
+                                </button>
+                                <button type="button" onclick="confirmDeleteHistory('ite_cyber', 'Perubahan Klausul UU ITE 2024', event)" class="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-stone-400 hover:text-rose-400 hover:bg-white/10 transition ml-1 text-xs shrink-0 cursor-pointer" title="Hapus Riwayat">
+                                    <i class="fa-regular fa-trash-can text-[11px]"></i>
+                                </button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Topik Regulasi Cepat -->
+                    <div class="space-y-1 pt-2 border-t border-white/10">
+                        <div class="px-2 text-[10px] font-bold text-stone-400 uppercase tracking-wider">Kategori Dokumen</div>
+                        <div class="space-y-1 text-xs">
+                            <div onclick="filterByTopic('Kelautan & Perikanan')" class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/10 cursor-pointer transition">
+                                <span class="flex items-center gap-2">
+                                    <i class="fa-solid fa-water text-[#deb896] text-xs"></i>
+                                    <span class="text-xs">Kelautan & Perikanan</span>
+                                </span>
+                                <span class="text-[10px] font-bold text-stone-300 bg-white/10 px-2 py-0.5 rounded">4 UU</span>
+                            </div>
+                            <div onclick="filterByTopic('Pemerintahan SPBE')" class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/10 cursor-pointer transition">
+                                <span class="flex items-center gap-2">
+                                    <i class="fa-solid fa-building-columns text-[#deb896] text-xs"></i>
+                                    <span class="text-xs">Pemerintahan SPBE</span>
+                                </span>
+                                <span class="text-[10px] font-bold text-stone-300 bg-white/10 px-2 py-0.5 rounded">2 PP</span>
+                            </div>
+                            <div onclick="filterByTopic('Digital & Siber')" class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/10 cursor-pointer transition">
+                                <span class="flex items-center gap-2">
+                                    <i class="fa-solid fa-shield-halved text-[#deb896] text-xs"></i>
+                                    <span class="text-xs">Digital & Siber</span>
+                                </span>
+                                <span class="text-[10px] font-bold text-stone-300 bg-white/10 px-2 py-0.5 rounded">1 UU</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Footer / Account -->
+                <div class="p-3 border-t border-white/10 bg-[#1d0e08] flex items-center justify-between">
+                    <a href="profil.html" class="flex items-center gap-2.5 group hover:opacity-90 transition cursor-pointer" title="Buka Profil Pengguna">
+                        <div class="w-8 h-8 rounded-full bg-white/15 group-hover:bg-white/25 text-[#deb896] border border-white/20 flex items-center justify-center text-xs font-bold font-serif shadow-xs transition">
+                            BR
+                        </div>
+                        <div class="flex flex-col">
+                            <span class="text-xs font-bold text-white group-hover:text-[#deb896] transition">Peneliti Hukum BRIN</span>
+                            <span class="text-[10px] text-stone-400">Akses Legal Penuh</span>
+                        </div>
+                    </a>
+                    <a href="index.html" title="Kembali ke Beranda" class="text-stone-400 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition">
+                        <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 2. MINI-RAIL SIDEBAR (Sleek Icon Rail Saat Sidebar Ditutup) -->
+            <div id="sidebarMiniContent" class="hidden flex-col justify-between items-center h-full w-full py-3.5 px-2 select-none shrink-0 bg-[#24140e]">
+                
+                <!-- Top Mini Actions Column -->
+                <div class="flex flex-col items-center gap-2.5 w-full">
+                    
+                    <!-- Mini Toggle Button (Expand) -->
+                    <button type="button" onclick="toggleSidebar()" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 text-stone-300 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer shadow-2xs border border-transparent hover:border-white/20">
+                        <i class="fa-solid fa-bars-staggered text-sm"></i>
+                        <div class="sidebar-mini-tooltip">
+                            <span>Buka Panel Riset</span>
+                            <span class="text-[9px] text-[#deb896] font-mono bg-white/10 px-1 py-0.2 rounded ml-1.5">Ctrl+B</span>
+                        </div>
+                    </button>
+
+                    <!-- Mini Percakapan Baru -->
+                    <button type="button" onclick="startNewChat()" class="group relative w-10 h-10 rounded-xl bg-white/10 border border-white/20 hover:bg-white/20 hover:border-white/40 text-[#deb896] flex items-center justify-center transition active:scale-95 cursor-pointer shadow-2xs">
+                        <i class="fa-solid fa-pen-to-square text-sm"></i>
+                        <div class="sidebar-mini-tooltip">
+                            <span>Percakapan Baru</span>
+                            <span class="text-[9px] text-[#deb896] font-mono bg-white/10 px-1 py-0.2 rounded ml-1.5">⌘K</span>
+                        </div>
+                    </button>
+
+                    <!-- Divider -->
+                    <div class="w-7 h-px bg-white/10 my-1"></div>
+
+                    <!-- Mini Riwayat 1 -->
+                    <button type="button" onclick="loadSavedChat('tindak_pidana')" class="group relative w-10 h-10 rounded-xl bg-white/15 text-white border border-[#deb896]/60 flex items-center justify-center transition active:scale-95 cursor-pointer shadow-2xs">
+                        <i class="fa-regular fa-message text-sm text-[#deb896]"></i>
+                        <div class="sidebar-mini-tooltip">
+                            <span>Sanksi Izin & Pasal 85 Perikanan</span>
+                        </div>
+                    </button>
+
+                    <!-- Mini Riwayat 2 -->
+                    <button type="button" onclick="loadSavedChat('kewenangan')" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
+                        <i class="fa-solid fa-scale-unbalanced text-sm text-stone-400 group-hover:text-white"></i>
+                        <div class="sidebar-mini-tooltip">
+                            <span>Kewenangan PPNS vs TNI AL di ZEE</span>
+                        </div>
+                    </button>
+
+                    <!-- Mini Riwayat 3 -->
+                    <button type="button" onclick="loadSavedChat('rezim_laut')" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
+                        <i class="fa-regular fa-clock text-sm text-stone-400 group-hover:text-white"></i>
+                        <div class="sidebar-mini-tooltip">
+                            <span>Uji Laut Teritorial 12 Mil</span>
+                        </div>
+                    </button>
+
+                    <!-- Divider -->
+                    <div class="w-7 h-px bg-white/10 my-1"></div>
+
+                    <!-- Mini Kategori Kelautan -->
+                    <button type="button" onclick="filterByTopic('Kelautan & Perikanan')" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
+                        <i class="fa-solid fa-water text-sm text-[#deb896]"></i>
+                        <div class="sidebar-mini-tooltip">
+                            <span>Kategori Kelautan (4 UU)</span>
+                        </div>
+                    </button>
+
+                    <!-- Mini Kategori SPBE -->
+                    <button type="button" onclick="filterByTopic('Pemerintahan SPBE')" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
+                        <i class="fa-solid fa-building-columns text-sm text-[#deb896]"></i>
+                        <div class="sidebar-mini-tooltip">
+                            <span>Pemerintahan SPBE (2 PP)</span>
+                        </div>
+                    </button>
+
+                    <!-- Mini Kategori Digital -->
+                    <button type="button" onclick="filterByTopic('Digital & Siber')" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
+                        <i class="fa-solid fa-shield-halved text-sm text-[#deb896]"></i>
+                        <div class="sidebar-mini-tooltip">
+                            <span>Digital & Siber (1 UU)</span>
+                        </div>
+                    </button>
+
+                </div>
+
+                <!-- Bottom Mini Actions Column -->
+                <div class="flex flex-col items-center gap-2.5 w-full pt-3 border-t border-white/10 bg-[#1d0e08]">
+                    
+                    <!-- Pustaka Dokumen Link -->
+                    <a href="pustaka.html" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 text-stone-300 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
+                        <i class="fa-solid fa-book-bookmark text-sm text-[#deb896]"></i>
+                        <div class="sidebar-mini-tooltip">
+                            <span>Buka Pustaka Dokumen</span>
+                        </div>
+                    </a>
+
+                    <!-- Mini Account Avatar -->
+                    <a href="profil.html" class="group relative w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 text-[#deb896] border border-white/20 flex items-center justify-center text-xs font-bold font-serif shadow-xs cursor-pointer transition" title="Buka Profil">
+                        BR
+                        <div class="sidebar-mini-tooltip">
+                            <span>Profil Pengguna (BRIN)</span>
+                        </div>
+                    </a>
+
+                </div>
+
+            </div>
+
+        </aside>
+
+        <!-- Backdrop for mobile sidebar -->
+        <div id="sidebarBackdrop" onclick="toggleSidebar()" class="hidden fixed inset-0 z-30 bg-black/40 lg:hidden"></div>
+
+        <!-- ==================================================== -->
+        <!-- 2. WORKSPACE AREA: (CHAT KIRI + PDF REFERENSI KANAN) -->
+        <!-- ==================================================== -->
+        <div id="workspaceContainer" class="flex-1 flex overflow-hidden relative">
+
+            <!-- ================================================ -->
+            <!-- A. CHATBOT INTERACTIVE AREA (SAMPING KIRI/UTAMA) -->
+            <!-- ================================================ -->
+            <main id="chatMainArea" class="flex-1 flex flex-col h-full bg-[#f7f6f2] relative overflow-hidden min-w-[300px]">
+                
+                <!-- 1. EMPTY / WELCOME STATE (Inspired by Grok Clean UI) -->
+                <div id="welcomeState" class="flex-1 flex flex-col items-center justify-center p-6 text-center max-w-2xl mx-auto overflow-y-auto">
+                    
+                    <!-- Center Brand Emblem (Direct Rounded Image) -->
+                    <img src="assets/iconchat.png" alt="TitikHukum AI Assistant" class="w-16 h-16 rounded-2xl object-cover mb-5 animate-in zoom-in-90 duration-300 shadow-md" />
+
+                    <h2 class="font-serif text-2xl sm:text-3xl text-[#26150d] font-normal tracking-tight">
+                        Apa yang ingin Anda teliti hari ini?
+                    </h2>
+                    <p class="text-xs sm:text-sm text-stone-600 mt-2 max-w-md">
+                        Asisten riset hukum terpadu BRIN dengan ekstraksi pasal cerdas dan penelusuran naskah asli PDF.
+                    </p>
+
+                    <!-- Initial Floating Input Card (Grok-Style with File Attachment) -->
+                    <div class="w-full mt-8 p-3 rounded-2xl bg-white border border-[#d6c4b7] shadow-md focus-within:border-[#26150d] focus-within:ring-2 focus-within:ring-[#26150d]/10 transition-all text-left">
+                        
+                        <!-- Hidden File Input -->
+                        <input type="file" id="welcomeFileInput" accept="application/pdf" class="hidden" onchange="handleFileAttachment(this)" />
+
+                        <!-- Attached Document Preview Chip (Hidden by default) -->
+                        <div id="welcomeAttachedDocChip" class="hidden items-center gap-2 mb-2 p-1.5 px-3 rounded-xl bg-[#f6eee7] border border-[#d6c4b7] text-xs text-[#26150d] w-fit animate-in fade-in">
+                            <i class="fa-solid fa-file-pdf text-rose-600"></i>
+                            <span class="font-bold truncate max-w-[220px]" id="welcomeAttachedDocName">Dokumen.pdf</span>
+                            <span class="text-[10px] text-stone-500" id="welcomeAttachedDocSize">(2.4 MB)</span>
+                            <button type="button" onclick="detachCurrentDoc()" class="text-stone-400 hover:text-rose-600 ml-1 text-xs" title="Hapus lampiran">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </div>
+
+                        <textarea 
+                            id="welcomeInput"
+                            rows="2"
+                            placeholder="Tanyakan analisis tindak pidana, kewenangan lembaga, atau lampirkan dokumen PDF..." 
+                            class="w-full resize-none border-0 focus:outline-none text-xs sm:text-sm text-gray-800 placeholder-gray-400 bg-transparent px-1 py-1"
+                            onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendWelcomeQuery(); }"
+                        ></textarea>
+
+                        <div class="flex items-center justify-between pt-2 border-t border-gray-100 mt-1">
+                            <div class="flex items-center gap-2">
+                                <!-- Tombol Lampirkan Dokumen PDF -->
+                                <button type="button" onclick="document.getElementById('welcomeFileInput').click()" class="px-2.5 py-1.5 rounded-xl border border-gray-200 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-gray-700 text-xs font-semibold flex items-center gap-1.5 transition shadow-2xs active:scale-95">
+                                    <i class="fa-solid fa-paperclip text-stone-600 text-xs"></i>
+                                    <span>Lampirkan PDF</span>
+                                </button>
+                                <span class="text-[11px] text-gray-400 hidden sm:inline">
+                                    Tekan <kbd class="px-1.5 py-0.5 rounded bg-gray-100 text-gray-600 font-mono text-[10px]">Enter ↵</kbd>
+                                </span>
+                            </div>
+
+                            <button type="button" onclick="sendWelcomeQuery()" class="w-9 h-9 rounded-xl bg-[#26150d] hover:bg-[#381d12] text-white flex items-center justify-center transition active:scale-95 shadow-xs">
+                                <i class="fa-solid fa-arrow-up text-xs"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Prompt Suggestions -->
+                    <div class="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left">
+                        <button type="button" onclick="startQueryWithPrompt('Apa saja sanksi pidana jika kapal berlayar tanpa SIPI di WPPNRI menurut UU 45/2009?')" class="p-3 rounded-xl bg-white hover:bg-[#f6eee7] border border-[#e4d7cd] hover:border-[#cbb4a3] transition text-xs space-y-1 shadow-2xs group">
+                            <div class="font-bold text-[#26150d] group-hover:text-amber-900 flex items-center gap-2">
+                                <i class="fa-solid fa-gavel text-stone-600 text-xs"></i>
+                                <span>Tindak Pidana Perikanan</span>
+                                <i class="fa-solid fa-arrow-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity ml-auto"></i>
+                            </div>
+                            <div class="text-[11px] text-gray-500 line-clamp-1">
+                                Sanksi kapal tanpa SIPI dan alat tangkap destruktif.
+                            </div>
+                        </button>
+
+                        <button type="button" onclick="startQueryWithPrompt('Siapa saja yang berwenang melakukan penangkapan kapal di ZEE Indonesia?')" class="p-3 rounded-xl bg-white hover:bg-[#f6eee7] border border-[#e4d7cd] hover:border-[#cbb4a3] transition text-xs space-y-1 shadow-2xs group">
+                            <div class="font-bold text-[#26150d] group-hover:text-amber-900 flex items-center gap-2">
+                                <i class="fa-solid fa-building-columns text-stone-600 text-xs"></i>
+                                <span>Kewenangan Lembaga</span>
+                                <i class="fa-solid fa-arrow-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity ml-auto"></i>
+                            </div>
+                            <div class="text-[11px] text-gray-500 line-clamp-1">
+                                Yurisdiksi PPNS KKP, TNI AL, dan Bakamla.
+                            </div>
+                        </button>
+
+                        <button type="button" onclick="startQueryWithPrompt('Jelaskan penegakan hukum di Laut Kepulauan vs Laut Teritorial')" class="p-3 rounded-xl bg-white hover:bg-[#f6eee7] border border-[#e4d7cd] hover:border-[#cbb4a3] transition text-xs space-y-1 shadow-2xs group">
+                            <div class="font-bold text-[#26150d] group-hover:text-amber-900 flex items-center gap-2">
+                                <i class="fa-solid fa-water text-stone-600 text-xs"></i>
+                                <span>Uji Rezim Laut</span>
+                                <i class="fa-solid fa-arrow-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity ml-auto"></i>
+                            </div>
+                            <div class="text-[11px] text-gray-500 line-clamp-1">
+                                Kedaulatan teritorial vs hak berdaulat ZEE.
+                            </div>
+                        </button>
+
+                        <button type="button" onclick="startQueryWithPrompt('Apa isi dan rujukan Pasal 85 UU Nomor 45 Tahun 2009?')" class="p-3 rounded-xl bg-white hover:bg-[#f6eee7] border border-[#e4d7cd] hover:border-[#cbb4a3] transition text-xs space-y-1 shadow-2xs group">
+                            <div class="font-bold text-[#26150d] group-hover:text-amber-900 flex items-center gap-2">
+                                <i class="fa-solid fa-file-contract text-stone-600 text-xs"></i>
+                                <span>Rujukan Pasal 85 Lengkap</span>
+                                <i class="fa-solid fa-arrow-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity ml-auto"></i>
+                            </div>
+                            <div class="text-[11px] text-gray-500 line-clamp-1">
+                                Ekstraksi visual langsung ke dokumen PDF Halaman 29.
+                            </div>
+                        </button>
+                    </div>
+
+                </div>
+
+                <!-- 2. ACTIVE CHAT STREAM (Message stream populated dynamically) -->
+                <div id="chatMessagesContainer" class="hidden flex-1 overflow-y-auto p-4 sm:p-6 space-y-5">
+                    <!-- Populated dynamically by JavaScript -->
+                </div>
+
+                <!-- 3. BOTTOM CHAT WORKSPACE COMPOSER (Premium Bespoke Floating Card) -->
+                <div id="bottomChatInputContainer" class="hidden px-4 pt-2 pb-4 bg-gradient-to-t from-[#f7f6f2] via-[#f7f6f2]/95 to-transparent shrink-0">
+                    
+                    <!-- Hidden File Input for Bottom Chat -->
+                    <input type="file" id="chatFileInput" accept="application/pdf" class="hidden" onchange="handleFileAttachment(this)" />
+
+                    <div class="max-w-3xl mx-auto space-y-2">
+                        
+                        <!-- Floating Composer Card -->
+                        <div class="bg-white rounded-2xl border border-[#d6c4b7] shadow-lg shadow-stone-900/5 transition-all focus-within:border-[#26150d] focus-within:ring-2 focus-within:ring-[#26150d]/10 focus-within:shadow-xl overflow-hidden p-2 sm:p-2.5">
+                            
+                            <!-- Attached Document Chip in Active Chat (Shown when attached) -->
+                            <div id="chatAttachedDocChip" class="hidden items-center gap-2 mb-2 p-1.5 px-3 rounded-xl bg-[#f6eee7] border border-[#d6c4b7] text-xs text-[#26150d] w-fit animate-in fade-in">
+                                <i class="fa-solid fa-file-pdf text-rose-600"></i>
+                                <span class="font-bold truncate max-w-[220px]" id="chatAttachedDocName">Dokumen.pdf</span>
+                                <span class="text-[10px] text-stone-500" id="chatAttachedDocSize">(2.4 MB)</span>
+                                <button type="button" onclick="detachCurrentDoc()" class="text-stone-400 hover:text-rose-600 ml-1 text-xs cursor-pointer" title="Hapus lampiran">
+                                    <i class="fa-solid fa-xmark"></i>
+                                </button>
+                            </div>
+
+                            <!-- Multi-line Expandable Textarea Input -->
+                            <textarea 
+                                id="chatInput" 
+                                rows="2" 
+                                placeholder="Ajukan pertanyaan hukum atau minta analisis perbandingan pasal..." 
+                                class="w-full px-2.5 py-1 text-xs sm:text-[13px] bg-transparent border-0 focus:outline-none text-stone-800 placeholder-stone-400 resize-none leading-relaxed font-sans"
+                                onkeydown="handleInputKeyDown(event)"
+                            ></textarea>
+
+                            <!-- Bottom Toolbar inside Composer Card -->
+                            <div class="flex items-center justify-between pt-2 border-t border-[#f0e8e0] px-1">
+                                
+                                <!-- Left Actions: Attachment & Grounding Indicator -->
+                                <div class="flex items-center gap-1.5">
+                                    <button 
+                                        type="button" 
+                                        onclick="document.getElementById('chatFileInput').click()" 
+                                        class="h-8 px-2.5 rounded-xl hover:bg-[#f6eee7] text-stone-600 hover:text-[#26150d] border border-transparent hover:border-[#d6c4b7] flex items-center gap-1.5 text-xs font-semibold transition active:scale-95 cursor-pointer shadow-2xs" 
+                                        title="Lampirkan Dokumen PDF"
+                                    >
+                                        <i class="fa-solid fa-paperclip text-stone-500 text-xs"></i>
+                                        <span class="hidden sm:inline">Lampirkan PDF</span>
+                                    </button>
+
+                                    <div class="h-4 w-px bg-stone-200 hidden sm:block"></div>
+
+                                    <!-- Quick Topic Filter Chips Inside Composer Toolbar -->
+                                    <div class="hidden md:flex items-center gap-1">
+                                        <button type="button" onclick="filterByTopic('Sanksi Pidana')" class="px-2 py-0.8 rounded-lg bg-[#faf8f5] hover:bg-[#f6eee7] text-stone-600 hover:text-[#26150d] border border-[#ede5dd] text-[11px] font-medium transition cursor-pointer">
+                                            <span>Sanksi</span>
+                                        </button>
+                                        <button type="button" onclick="filterByTopic('Kewenangan')" class="px-2 py-0.8 rounded-lg bg-[#faf8f5] hover:bg-[#f6eee7] text-stone-600 hover:text-[#26150d] border border-[#ede5dd] text-[11px] font-medium transition cursor-pointer">
+                                            <span>Kewenangan</span>
+                                        </button>
+                                        <button type="button" onclick="filterByTopic('Hierarki Norma')" class="px-2 py-0.8 rounded-lg bg-[#faf8f5] hover:bg-[#f6eee7] text-stone-600 hover:text-[#26150d] border border-[#ede5dd] text-[11px] font-medium transition cursor-pointer">
+                                            <span>Hierarki</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Right Action: Sleek Icon Send Button -->
+                                <button 
+                                    type="button" 
+                                    onclick="handleSendMessage()" 
+                                    class="w-8 h-8 rounded-xl bg-[#26150d] hover:bg-[#3d1f13] text-[#deb896] hover:text-white flex items-center justify-center transition active:scale-95 shadow-sm cursor-pointer"
+                                    title="Kirim pesan"
+                                >
+                                    <i class="fa-solid fa-arrow-up text-xs"></i>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Footer Legal Verification Disclaimer -->
+                        <div class="text-[10px] text-center text-stone-500 font-medium">
+                            TitikHukum AI mereferensikan naskah resmi Lembaran Negara RI. Verifikasi dokumen sebelum pertimbangan yuridis formal.
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </main>
+
+            <!-- ================================================ -->
+            <!-- B. INTERACTIVE RESIZER HANDLE (DRAG KIRI / KANAN) -->
+            <!-- ================================================ -->
+            <div id="splitResizer" class="hidden w-2 hover:w-2.5 bg-[#e8dfd8] hover:bg-[#cbb4a3] active:bg-[#8c5835] cursor-col-resize z-30 transition-all flex items-center justify-center select-none group shrink-0" title="Geser ke kiri / kanan untuk mengatur proporsi lebar panel">
+                <div class="h-8 w-1 rounded-full bg-stone-400 group-hover:bg-stone-600 transition"></div>
+            </div>
+
+            <!-- ================================================ -->
+            <!-- C. PDF REFERENCE VIEWER (SAMPING KANAN / SPLIT VIEW)-->
+            <!-- Muncul HANYA ketika kartu hasil analisis diklik!  -->
+            <!-- ================================================ -->
+            <section id="pdfViewerPanel" class="hidden pdf-panel-transition w-full md:w-[48%] lg:w-[50%] h-full bg-[#3d3835] border-l border-[#26150d] flex-col z-20 shrink-0 min-w-[300px]">
+                
+                <!-- PDF Viewer Toolbar Header -->
+                <div class="h-12 bg-[#2a2624] px-4 border-b border-[#4d4743] flex items-center justify-between text-white shrink-0">
+                    <div class="flex items-center gap-2 overflow-hidden">
+                        <i class="fa-solid fa-file-lines text-amber-400 text-xs shrink-0"></i>
+                        <span class="text-xs font-mono font-semibold truncate" id="pdfViewerDocTitle">
+                            UU_Nomor_45_Tahun_2009.pdf
+                        </span>
+                    </div>
+
+                    <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+                        <!-- Jump to Page Info -->
+                        <div class="flex items-center gap-1 bg-[#1a1716] px-2.5 py-1 rounded-lg text-[11px] font-mono text-gray-300">
+                            <span class="text-amber-400 font-bold" id="pdfPageIndicator">Hal. 29</span>
+                            <span class="text-gray-500">/ 110</span>
+                        </div>
+
+                        <!-- Zoom Controls -->
+                        <button type="button" onclick="adjustPdfZoom(-10)" class="w-7 h-7 rounded-lg bg-[#3d3835] hover:bg-[#4d4743] text-gray-300 text-xs flex items-center justify-center transition" title="Zoom Out">
+                            <i class="fa-solid fa-minus"></i>
+                        </button>
+                        <button type="button" onclick="adjustPdfZoom(10)" class="w-7 h-7 rounded-lg bg-[#3d3835] hover:bg-[#4d4743] text-gray-300 text-xs flex items-center justify-center transition" title="Zoom In">
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+
+                        <!-- Close PDF Viewer Button -->
+                        <button type="button" onclick="closePdfViewer()" class="px-2.5 py-1 rounded-lg bg-rose-900/60 hover:bg-rose-800 border border-rose-700/60 text-white text-xs font-semibold transition flex items-center gap-1 ml-1" title="Tutup Panel PDF">
+                            <i class="fa-solid fa-xmark text-xs"></i>
+                            <span class="hidden sm:inline">Tutup</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- PDF Document Content Area (High Fidelity Continuous White Paper Sheet) -->
+                <div class="flex-1 overflow-y-auto p-4 sm:p-8 bg-[#383330] flex flex-col items-center select-text" id="pdfViewport">
+                    
+                    <div id="pdfSheet" class="pdf-page-sheet bg-white w-full max-w-[600px] h-auto min-h-[920px] p-8 sm:p-14 text-[#111827] text-[13px] leading-[1.7] relative transition-transform duration-150 origin-top shadow-2xl rounded-xs shrink-0 my-4">
+                        
+                        <!-- Header Document Stamp -->
+                        <div class="text-center space-y-1 mb-8 border-b border-gray-300 pb-4">
+                            <div class="font-serif font-bold text-xs uppercase tracking-widest text-gray-700">SALINAN RESMI LEMBARAN NEGARA REPUBLIK INDONESIA</div>
+                            <div class="text-[10px] text-gray-500 font-mono">NOMOR 154 TAHUN 2009 • TAMBAHAN LEMBARAN NEGARA NOMOR 5073</div>
+                        </div>
+
+                        <!-- Preceding text snippet -->
+                        <div class="text-justify text-gray-600 mb-4 text-[12px] space-y-3">
+                            <p class="indent-6">
+                                (2) Dalam melaksanakan tugasnya, panitera muda sebagaimana dimaksud pada ayat (1) dibantu oleh beberapa orang panitera pengganti.
+                            </p>
+                            <p class="indent-6">
+                                (3) Panitera muda dan panitera pengganti pengadilan perikanan berasal dari lingkungan pengadilan negeri.
+                            </p>
+                        </div>
+
+                        <!-- 1. CLAUSE 84 CONTAINER (Interactive Bounding Box) -->
+                        <div id="clause_pasal84" class="clause-box p-3 rounded-lg my-3 text-justify transition-all">
+                            <div class="clause-indicator hidden text-[11px] font-bold text-rose-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                <i class="fa-solid fa-location-dot text-rose-600 text-xs"></i>
+                                <span>RUJUKAN PASAL TERINDEKS</span>
+                            </div>
+                            <p class="font-bold text-center text-xs text-gray-900 mb-1">Pasal 84</p>
+                            <p class="indent-6 text-gray-800 leading-relaxed text-[12px]">
+                                (1) Tindak pidana di bidang perikanan yang terjadi di wilayah pengelolaan perikanan Negara Republik Indonesia sebagaimana dimaksud dalam Pasal 5 ayat (1) huruf a dan huruf b disidik, dituntut, dan diadili menurut hukum acara yang berlaku, kecuali ditentukan lain dalam undang-undang ini.
+                            </p>
+                            <p class="indent-6 text-gray-800 leading-relaxed text-[12px]">
+                                (2) Pengadilan perikanan bertugas dan berwenang memeriksa, mengadili, dan memutus tindak pidana di bidang perikanan.
+                            </p>
+                        </div>
+
+                        <div class="text-justify text-gray-700 my-4 text-[12px]">
+                            <p class="font-semibold text-gray-900 mb-1">
+                                38. Di antara Pasal 83 dan Pasal 84 disisipkan 1 (satu) pasal yakni Pasal 83A, yang berbunyi sebagai berikut:
+                            </p>
+                            <div class="text-center font-bold my-1 text-xs text-gray-900">Pasal 83A</div>
+                            <p class="indent-6 text-gray-700">
+                                (1) Selain yang ditetapkan sebagai tersangka dalam tindak pidana perikanan atau tindak pidana lainnya, awak kapal lainnya dapat dipulangkan termasuk yang berkewarganegaraan asing.
+                            </p>
+                        </div>
+
+                        <!-- 2. CLAUSE 85 CONTAINER (Highlighted Target Clause) -->
+                        <div id="clause_pasal85" class="clause-box citation-box-highlight p-3.5 rounded-lg my-4 text-justify transition-all">
+                            <div class="clause-indicator text-[11px] font-bold text-rose-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                <i class="fa-solid fa-location-dot text-rose-600 text-xs"></i>
+                                <span>RUJUKAN PASAL TERINDEKS</span>
+                            </div>
+                            <p class="font-bold text-gray-900 mb-1 text-[12px]">
+                                39. Ketentuan Pasal 85 diubah sehingga Pasal 85 berbunyi sebagai berikut:
+                            </p>
+                            <div class="text-center font-bold my-1 text-[13px] text-gray-900">Pasal 85</div>
+                            <p class="indent-6 text-gray-900 font-medium leading-relaxed text-[13px]">
+                                Setiap orang yang dengan sengaja memiliki, menguasai, membawa, dan/atau menggunakan alat penangkap ikan dan/atau alat bantu penangkapan ikan yang mengganggu dan merusak keberlanjutan sumber daya ikan di kapal penangkap ikan di wilayah pengelolaan perikanan Negara Republik Indonesia sebagaimana dimaksud dalam Pasal 9 dipidana dengan pidana penjara paling lama 5 (lima) tahun dan denda paling banyak Rp2.000.000.000,00 (dua miliar rupiah).
+                            </p>
+                        </div>
+
+                        <!-- 3. CLAUSE 93 CONTAINER (Interactive Bounding Box) -->
+                        <div id="clause_pasal93" class="clause-box p-3.5 rounded-lg my-4 text-justify transition-all">
+                            <div class="clause-indicator hidden text-[11px] font-bold text-rose-700 uppercase tracking-wider mb-1.5 flex items-center gap-1">
+                                <i class="fa-solid fa-location-dot text-rose-600 text-xs"></i>
+                                <span>RUJUKAN PASAL TERINDEKS</span>
+                            </div>
+                            <p class="font-semibold text-gray-900 mb-1 text-[12px]">
+                                44. Ketentuan Pasal 93 diubah sehingga Pasal 93 berbunyi sebagai berikut:
+                            </p>
+                            <div class="text-center font-bold my-1 text-[13px] text-gray-900">Pasal 93</div>
+                            <p class="indent-6 text-gray-800 leading-relaxed text-[12px]">
+                                (1) Setiap orang yang memiliki dan/atau mengoperasikan kapal penangkap ikan berbendera Indonesia melakukan penangkapan ikan di WPPNRI dan/atau laut lepas yang tidak memiliki SIPI sebagaimana dimaksud dalam Pasal 27 ayat (1) dipidana dengan pidana penjara paling lama 6 (enam) tahun dan denda paling banyak Rp2.000.000.000,00 (dua miliar rupiah).
+                            </p>
+                        </div>
+
+                        <!-- Page Footer -->
+                        <div class="mt-14 pt-6 border-t border-gray-300 flex items-center justify-between text-[11px] text-gray-500 font-mono">
+                            <span>Kementerian Kelautan dan Perikanan RI</span>
+                            <span class="font-bold text-gray-800">- 29 -</span>
+                            <span>Salinan Sah Sesuai Aslinya</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- PDF Bottom Quick Navigation Strip -->
+                <div class="h-10 bg-[#2a2624] px-4 border-t border-[#4d4743] flex items-center justify-between text-xs text-gray-300 shrink-0">
+                    <span class="text-[11px] text-gray-400 flex items-center gap-1.5">
+                        <i class="fa-solid fa-bullseye text-rose-500"></i>
+                        <span>Visual Grounding: Bounding Box Pasal Aktif</span>
+                    </span>
+                    <div class="flex items-center gap-2" id="pdfShortcutButtons">
+                        <button type="button" id="btn_shortcut_pasal84" onclick="jumpToCitation('pasal84')" class="pdf-shortcut-btn px-2.5 py-0.5 rounded bg-[#3d3835] hover:bg-[#4d4743] text-[10px] text-gray-200 border border-transparent transition cursor-pointer">Pasal 84</button>
+                        <button type="button" id="btn_shortcut_pasal85" onclick="jumpToCitation('pasal85')" class="pdf-shortcut-btn px-2.5 py-0.5 rounded bg-rose-900/80 text-white font-bold text-[10px] border border-rose-600 shadow-xs transition cursor-pointer">Pasal 85</button>
+                        <button type="button" id="btn_shortcut_pasal93" onclick="jumpToCitation('pasal93')" class="pdf-shortcut-btn px-2.5 py-0.5 rounded bg-[#3d3835] hover:bg-[#4d4743] text-[10px] text-gray-200 border border-transparent transition cursor-pointer">Pasal 93</button>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- JAVASCRIPT LOGIC FOR CHAT & INTERACTIVE PDF GROUNDING     -->
+    <!-- ======================================================== -->
+    <script>
+        let currentZoom = 100;
+        let isPdfOpen = false;
+        let attachedDoc = null; // Currently attached document
+
+        // Handle PDF File Attachment
+        function handleFileAttachment(input) {
+            if (!input.files || !input.files[0]) return;
+            const file = input.files[0];
+            const sizeStr = (file.size / (1024 * 1024)).toFixed(1) + ' MB';
+
+            attachedDoc = {
+                name: file.name,
+                size: sizeStr
+            };
+
+            // Update Welcome Chip
+            const welcomeChip = document.getElementById('welcomeAttachedDocChip');
+            const welcomeDocName = document.getElementById('welcomeAttachedDocName');
+            const welcomeDocSize = document.getElementById('welcomeAttachedDocSize');
+            if (welcomeChip && welcomeDocName) {
+                welcomeDocName.textContent = file.name;
+                welcomeDocSize.textContent = `(${sizeStr})`;
+                welcomeChip.classList.remove('hidden');
+                welcomeChip.classList.add('flex');
+            }
+
+            // Update Chat Chip
+            const chatChip = document.getElementById('chatAttachedDocChip');
+            const chatDocName = document.getElementById('chatAttachedDocName');
+            const chatDocSize = document.getElementById('chatAttachedDocSize');
+            if (chatChip && chatDocName) {
+                chatDocName.textContent = file.name;
+                chatDocSize.textContent = `(${sizeStr})`;
+                chatChip.classList.remove('hidden');
+                chatChip.classList.add('flex');
+            }
+
+            // Show and update top navbar active document badge
+            const topBadge = document.getElementById('topActiveDocBadge');
+            const topDocName = document.getElementById('topActiveDocName');
+            if (topBadge && topDocName) {
+                topDocName.textContent = file.name;
+                topBadge.classList.remove('hidden');
+                topBadge.classList.add('flex');
+            }
+        }
+
+        // Detach attached document
+        function detachCurrentDoc() {
+            attachedDoc = null;
+
+            // Hide Welcome Chip
+            const welcomeChip = document.getElementById('welcomeAttachedDocChip');
+            if (welcomeChip) {
+                welcomeChip.classList.add('hidden');
+                welcomeChip.classList.remove('flex');
+            }
+
+            // Hide Chat Chip
+            const chatChip = document.getElementById('chatAttachedDocChip');
+            if (chatChip) {
+                chatChip.classList.add('hidden');
+                chatChip.classList.remove('flex');
+            }
+
+            // Hide Top Navbar Badge
+            const topBadge = document.getElementById('topActiveDocBadge');
+            if (topBadge) {
+                topBadge.classList.add('hidden');
+                topBadge.classList.remove('flex');
+            }
+
+            // Reset file input values
+            const welcomeFileInput = document.getElementById('welcomeFileInput');
+            const chatFileInput = document.getElementById('chatFileInput');
+            if (welcomeFileInput) welcomeFileInput.value = '';
+            if (chatFileInput) chatFileInput.value = '';
+        }
+
+        // Toggle Sidebar on desktop & mobile with dynamic tooltip state
+        function toggleSidebar() {
+            const sidebar = document.getElementById('chatSidebar');
+            const backdrop = document.getElementById('sidebarBackdrop');
+            const tooltipText = document.getElementById('sidebarTooltipText');
+            const toggleIcon = document.getElementById('sidebarToggleIcon');
+
+            if (window.innerWidth >= 1024) {
+                // Desktop toggle between full sidebar and sleek mini-rail
+                const isMini = sidebar.classList.toggle('sidebar-mini');
+                if (tooltipText) {
+                    tooltipText.textContent = isMini ? 'Buka Sidebar' : 'Tutup Sidebar';
+                }
+                if (toggleIcon) {
+                    toggleIcon.className = isMini ? 'fa-solid fa-bars text-xs' : 'fa-solid fa-bars-staggered text-xs';
+                }
+            } else {
+                // Mobile toggle drawer
+                sidebar.classList.toggle('-translate-x-full');
+                const isHidden = sidebar.classList.contains('-translate-x-full');
+                if (backdrop) backdrop.classList.toggle('hidden', isHidden);
+                if (tooltipText) {
+                    tooltipText.textContent = isHidden ? 'Buka Sidebar' : 'Tutup Sidebar';
+                }
+            }
+        }
+
+        // Global shortcut Ctrl+B or Cmd+B to toggle sidebar
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && (e.key === 'b' || e.key === 'B')) {
+                e.preventDefault();
+                toggleSidebar();
+            }
+        });
+
+        // Send Query from Welcome State
+        function sendWelcomeQuery() {
+            const input = document.getElementById('welcomeInput');
+            const query = input.value.trim();
+            if (!query && !attachedDoc) return;
+
+            const isGrounded = !!attachedDoc;
+            const finalQuery = query || (attachedDoc ? `Analisis ringkas untuk dokumen ${attachedDoc.name}` : '');
+            startChatWithQuery(finalQuery, isGrounded);
+        }
+
+        function startQueryWithPrompt(promptText) {
+            // When selecting a predefined prompt from legal library, show active doc badge
+            const topBadge = document.getElementById('topActiveDocBadge');
+            const topDocName = document.getElementById('topActiveDocName');
+            if (topBadge && topDocName) {
+                topDocName.textContent = 'UU_Nomor_45_Tahun_2009.pdf';
+                topBadge.classList.remove('hidden');
+                topBadge.classList.add('flex');
+            }
+            startChatWithQuery(promptText, true, 'UU_Nomor_45_Tahun_2009.pdf');
+        }
+
+        function startChatWithQuery(query, isGrounded = false, forcedDocName = null) {
+            document.getElementById('welcomeState').classList.add('hidden');
+            const bottomInput = document.getElementById('bottomChatInputContainer');
+            if (bottomInput) bottomInput.classList.remove('hidden');
+
+            const container = document.getElementById('chatMessagesContainer');
+            container.classList.remove('hidden');
+            container.innerHTML = ''; // Start fresh for query
+            document.getElementById('chatInput').value = '';
+
+            // Render User Bubble
+            renderUserMessage(query);
+
+            // Generate AI Response
+            renderAiResponse(query, isGrounded || !!attachedDoc, forcedDocName || (attachedDoc ? attachedDoc.name : null));
+        }
+
+        // Render User Message Bubble
+        function renderUserMessage(text) {
+            const container = document.getElementById('chatMessagesContainer');
+            const userDiv = document.createElement('div');
+            userDiv.className = 'flex justify-end animate-in fade-in duration-200';
+            userDiv.innerHTML = `
+                <div class="max-w-xl bg-[#26150d] text-white rounded-2xl rounded-tr-xs p-4 text-xs sm:text-[13px] shadow-sm leading-relaxed">
+                    ${escapeHtml(text)}
+                </div>
+            `;
+            container.appendChild(userDiv);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // Render AI Response (Conversational if no PDF, Grounded if PDF attached/prompt selected)
+        function renderAiResponse(query, isGrounded, docName) {
+            const container = document.getElementById('chatMessagesContainer');
+
+            setTimeout(() => {
+                const aiDiv = document.createElement('div');
+                aiDiv.className = 'flex items-start gap-3 max-w-3xl animate-in fade-in duration-300';
+
+                if (isGrounded) {
+                    // =========================================================
+                    // 1. EXECUTIVE LEGAL DOSSIER (CLEAN BESPOKE UX)
+                    // =========================================================
+                    const targetDoc = docName || 'UU_Nomor_45_Tahun_2009.pdf';
+                    aiDiv.innerHTML = `
+                        <img src="assets/iconchat.png" alt="TitikHukum AI" class="w-8 h-8 rounded-xl object-cover shrink-0 mt-1 shadow-2xs" />
+                        <div class="flex-1 space-y-3 text-xs sm:text-[13px]">
+                            
+                            <!-- Document Context Badge -->
+                            <div class="p-2.5 px-3 rounded-xl bg-[#f6eee7] border border-[#d6c4b7] flex items-center justify-between text-xs text-[#26150d]">
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-file-circle-check text-[#8c5835] text-xs"></i>
+                                    <span>Naskah Rujukan: <strong>${escapeHtml(targetDoc)}</strong></span>
+                                </div>
+                                <span class="text-[10px] bg-white px-2 py-0.5 rounded-md border border-[#cbb4a3] text-stone-600 font-semibold">Visual Grounding Aktif</span>
+                            </div>
+
+                            <!-- Executive Legal Dossier Card -->
+                            <div class="p-4 sm:p-5 rounded-2xl bg-white border border-[#e8dfd8] shadow-xs space-y-4 leading-relaxed text-gray-800">
+                                
+                                <div>
+                                    <h4 class="font-bold text-[#26150d] text-sm mb-1">Ringkasan Analisis Yuridis</h4>
+                                    <p class="text-stone-600 text-xs sm:text-[13px] leading-relaxed">
+                                        Berdasarkan penelusuran naskah regulasi <strong>${escapeHtml(targetDoc)}</strong>, berikut konstruksi norma hukum, kualifikasi tindak pidana, serta pasal rujukan yang berlaku:
+                                    </p>
+                                </div>
+
+                                <!-- Interactive Clause Table (Clean Matrix Format) -->
+                                <div class="rounded-xl border border-[#e8dfd8] divide-y divide-[#f0e8e2] overflow-hidden bg-white">
+                                    
+                                    <!-- Row 1: Pasal 85 (Primary Sanction) -->
+                                    <div onclick="openPdfViewerAtCitation('pasal85', '${targetDoc}', 29, 'Pasal 85')" class="group p-3 sm:p-3.5 hover:bg-[#faf7f4] transition cursor-pointer flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                                        <div class="space-y-1 flex-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-bold text-[#26150d] text-xs sm:text-[13px] group-hover:text-[#8c5835] transition">Pasal 85</span>
+                                                <span class="text-[10px] font-semibold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">Sanksi Pidana Utama</span>
+                                            </div>
+                                            <p class="text-xs text-stone-700 leading-relaxed">
+                                                Kepemilikan atau penggunaan alat penangkap ikan perusak keberlanjutan sumber daya di WPPNRI dipidana penjara maks. <strong>5 tahun</strong> dan denda maks. <strong>Rp 2 Miliar</strong>.
+                                            </p>
+                                        </div>
+                                        <button type="button" class="self-start sm:self-center px-2.5 py-1 rounded-lg bg-[#f6eee7] group-hover:bg-[#26150d] text-[#26150d] group-hover:text-white border border-[#d6c4b7] group-hover:border-[#26150d] text-[11px] font-mono font-medium transition flex items-center gap-1.5 shrink-0 cursor-pointer">
+                                            <span>Hal. 29</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- Row 2: Pasal 84 (Jurisdiction) -->
+                                    <div onclick="openPdfViewerAtCitation('pasal84', '${targetDoc}', 28, 'Pasal 84')" class="group p-3 sm:p-3.5 hover:bg-[#faf7f4] transition cursor-pointer flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                                        <div class="space-y-1 flex-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-bold text-[#26150d] text-xs sm:text-[13px] group-hover:text-[#8c5835] transition">Pasal 84</span>
+                                                <span class="text-[10px] font-semibold text-stone-600 bg-stone-100 px-2 py-0.5 rounded border border-stone-200">Yurisdiksi Peradilan</span>
+                                            </div>
+                                            <p class="text-xs text-stone-700 leading-relaxed">
+                                                Tindak pidana perikanan di wilayah WPPNRI merupakan kewenangan absolut Pengadilan Perikanan untuk memeriksa, mengadili, dan memutus perkara.
+                                            </p>
+                                        </div>
+                                        <button type="button" class="self-start sm:self-center px-2.5 py-1 rounded-lg bg-[#f6eee7] group-hover:bg-[#26150d] text-[#26150d] group-hover:text-white border border-[#d6c4b7] group-hover:border-[#26150d] text-[11px] font-mono font-medium transition flex items-center gap-1.5 shrink-0 cursor-pointer">
+                                            <span>Hal. 28</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                        </button>
+                                    </div>
+
+                                    <!-- Row 3: Pasal 93 (Permits & SIPI) -->
+                                    <div onclick="openPdfViewerAtCitation('pasal93', '${targetDoc}', 30, 'Pasal 93')" class="group p-3 sm:p-3.5 hover:bg-[#faf7f4] transition cursor-pointer flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                                        <div class="space-y-1 flex-1">
+                                            <div class="flex items-center gap-2">
+                                                <span class="font-bold text-[#26150d] text-xs sm:text-[13px] group-hover:text-[#8c5835] transition">Pasal 93</span>
+                                                <span class="text-[10px] font-semibold text-stone-600 bg-stone-100 px-2 py-0.5 rounded border border-stone-200">Pelanggaran SIPI</span>
+                                            </div>
+                                            <p class="text-xs text-stone-700 leading-relaxed">
+                                                Pengoperasian kapal penangkap ikan tanpa izin (SIPI) resmi dipidana penjara maks. <strong>6 tahun</strong> dan denda maks. <strong>Rp 20 Miliar</strong>.
+                                            </p>
+                                        </div>
+                                        <button type="button" class="self-start sm:self-center px-2.5 py-1 rounded-lg bg-[#f6eee7] group-hover:bg-[#26150d] text-[#26150d] group-hover:text-white border border-[#d6c4b7] group-hover:border-[#26150d] text-[11px] font-mono font-medium transition flex items-center gap-1.5 shrink-0 cursor-pointer">
+                                            <span>Hal. 30</span>
+                                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                                <!-- Dossier Actions & Verification Footer -->
+                                <div class="pt-2 flex items-center justify-between border-t border-stone-100 text-[11px] text-stone-500">
+                                    <div class="flex items-center gap-1.5">
+                                        <i class="fa-solid fa-circle-check text-emerald-600 text-xs"></i>
+                                        <span>Terverifikasi Naskah Resmi Lembaran Negara RI</span>
+                                    </div>
+                                    <button type="button" onclick="copyCitationSummary(this)" class="px-2 py-1 rounded-lg hover:bg-[#f6eee7] hover:text-[#26150d] transition flex items-center gap-1 text-[11px] font-medium cursor-pointer">
+                                        <i class="fa-regular fa-copy text-[10px]"></i>
+                                        <span>Salin Rujukan</span>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    `;
+                } else {
+                    // =========================================================
+                    // 2. CONVERSATIONAL RESPONSE (NO PDF ATTACHED / SAPAAN)
+                    // =========================================================
+                    const isGreeting = /halo|hai|pagi|siang|sore|malam|assalam|hi|hello|hei/i.test(query);
+                    let responseHtml = '';
+
+                    if (isGreeting) {
+                        responseHtml = `
+                            <p>
+                                Halo! Selamat datang di <strong>TitikHukum AI</strong>. Saya adalah asisten riset hukum terpadu BRIN yang siap membantu Anda dalam analisis regulasi, penelusuran hierarki perundang-undangan, dan penalaran yuridis.
+                            </p>
+                            <p>
+                                Ada topik hukum atau pertanyaan regulasi tertentu yang ingin Anda diskusikan hari ini?
+                            </p>
+                        `;
+                    } else {
+                        responseHtml = `
+                            <p>
+                                Mengenai pertanyaan Anda tentang <strong>"${escapeHtml(query)}"</strong>:
+                            </p>
+                            <p>
+                                Dalam konteks perundang-undangan Republik Indonesia, setiap substansi norma hukum diatur berdasarkan hierarki peraturan (UU, PP, Perpres, hingga Permen). Anda dapat menanyakan asas-asas hukum, batasan kewenangan instansi, maupun sanksi pidana dan administratif.
+                            </p>
+                        `;
+                    }
+
+                    aiDiv.innerHTML = `
+                        <img src="assets/iconchat.png" alt="TitikHukum AI" class="w-8 h-8 rounded-xl object-cover shrink-0 mt-1 shadow-2xs" />
+                        <div class="flex-1 space-y-3 text-xs sm:text-[13px]">
+                            <div class="p-4 rounded-2xl bg-white border border-[#e8dfd8] shadow-2xs space-y-3 leading-relaxed text-gray-800">
+                                ${responseHtml}
+
+                                <!-- Subtle Hint to Attach PDF if needed -->
+                                <div class="mt-3 pt-2.5 border-t border-stone-100 flex items-start gap-2 text-xs text-stone-500 bg-[#faf8f5] p-2.5 rounded-xl border border-[#ede5dd]">
+                                    <i class="fa-solid fa-paperclip text-stone-600 text-xs mt-0.5 shrink-0"></i>
+                                    <div>
+                                        <strong>Tips Riset:</strong> Untuk menguji pasal spesifik dengan fitur <em>visual grounding</em> langsung pada naskah PDF asli di panel kiri, Anda dapat melampirkan berkas melalui tombol <strong>📎</strong> di bawah.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+
+                container.appendChild(aiDiv);
+                container.scrollTop = container.scrollHeight;
+            }, 500);
+        }
+
+        // Handle Enter vs Shift+Enter in Textarea
+        function handleInputKeyDown(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                handleSendMessage();
+            }
+        }
+
+        // Send message from active chat input
+        function handleSendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            if (!text) return;
+
+            // If in welcome state, switch
+            if (!document.getElementById('welcomeState').classList.contains('hidden')) {
+                startChatWithQuery(text, !!attachedDoc);
+                return;
+            }
+
+            renderUserMessage(text);
+            input.value = '';
+
+            // Render AI response accordingly
+            renderAiResponse(text, !!attachedDoc, attachedDoc ? attachedDoc.name : null);
+        }
+
+        // Start Fresh New Chat
+        function startNewChat() {
+            document.getElementById('welcomeState').classList.remove('hidden');
+            const bottomInput = document.getElementById('bottomChatInputContainer');
+            if (bottomInput) bottomInput.classList.add('hidden');
+
+            const container = document.getElementById('chatMessagesContainer');
+            container.classList.add('hidden');
+            container.innerHTML = '';
+            document.getElementById('welcomeInput').value = '';
+            document.getElementById('chatInput').value = '';
+            detachCurrentDoc();
+            closePdfViewer();
+        }
+
+        function clearActiveChat() {
+            if (confirm('Apakah Anda ingin mengosongkan percakapan ini?')) {
+                startNewChat();
+            }
+        }
+
+        // ========================================================
+        // DRAGGABLE SPLIT VIEW RESIZER (SIDE BY SIDE RESIZING)
+        // ========================================================
+        let isResizing = false;
+
+        function initSplitResizer() {
+            const resizer = document.getElementById('splitResizer');
+            const chatMain = document.getElementById('chatMainArea');
+            const pdfPanel = document.getElementById('pdfViewerPanel');
+            const workspace = document.getElementById('workspaceContainer');
+
+            if (!resizer || !chatMain || !pdfPanel || !workspace) return;
+
+            const onMouseDown = (e) => {
+                if (window.innerWidth < 768) return;
+                isResizing = true;
+                document.body.classList.add('select-none');
+                resizer.classList.add('bg-[#8c5835]');
+                document.addEventListener('mousemove', onMouseMove);
+                document.addEventListener('mouseup', onMouseUp);
+            };
+
+            const onMouseMove = (e) => {
+                if (!isResizing) return;
+                const rect = workspace.getBoundingClientRect();
+                const offsetX = e.clientX - rect.left;
+                const totalWidth = rect.width;
+
+                const minChat = 280;
+                const minPdf = 280;
+
+                if (offsetX >= minChat && offsetX <= (totalWidth - minPdf)) {
+                    const chatPercent = (offsetX / totalWidth) * 100;
+                    const pdfPercent = 100 - chatPercent;
+
+                    chatMain.style.width = `${chatPercent}%`;
+                    chatMain.style.flex = 'none';
+                    pdfPanel.style.width = `${pdfPercent}%`;
+                }
+            };
+
+            const onMouseUp = () => {
+                if (!isResizing) return;
+                isResizing = false;
+                document.body.classList.remove('select-none');
+                resizer.classList.remove('bg-[#8c5835]');
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
+            };
+
+            resizer.addEventListener('mousedown', onMouseDown);
+
+            // Touch support for mobile/tablet drag
+            resizer.addEventListener('touchstart', (e) => {
+                if (window.innerWidth < 768) return;
+                isResizing = true;
+                document.body.classList.add('select-none');
+            }, { passive: true });
+
+            window.addEventListener('touchmove', (e) => {
+                if (!isResizing || !e.touches[0]) return;
+                const rect = workspace.getBoundingClientRect();
+                const touchX = e.touches[0].clientX - rect.left;
+                const totalWidth = rect.width;
+                const minChat = 280;
+                const minPdf = 280;
+
+                if (touchX >= minChat && touchX <= (totalWidth - minPdf)) {
+                    const chatPercent = (touchX / totalWidth) * 100;
+                    const pdfPercent = 100 - chatPercent;
+                    chatMain.style.width = `${chatPercent}%`;
+                    chatMain.style.flex = 'none';
+                    pdfPanel.style.width = `${pdfPercent}%`;
+                }
+            }, { passive: true });
+
+            window.addEventListener('touchend', () => {
+                if (!isResizing) return;
+                isResizing = false;
+                document.body.classList.remove('select-none');
+            });
+        }
+
+        // Open PDF Viewer at specific citation (HANYA MUNCUL KETIKA KARTU HASIL ANALISIS DIKLIK)
+        function openPdfViewerAtCitation(pasalKey, fileName, pageNum, clauseTitle) {
+            const pdfPanel = document.getElementById('pdfViewerPanel');
+            const pdfTitleEl = document.getElementById('pdfViewerDocTitle');
+            const pageIndicatorEl = document.getElementById('pdfPageIndicator');
+            const resizer = document.getElementById('splitResizer');
+            const chatMain = document.getElementById('chatMainArea');
+
+            pdfTitleEl.textContent = fileName || 'UU_Nomor_45_Tahun_2009.pdf';
+            pageIndicatorEl.textContent = `Hal. ${pageNum}`;
+
+            // Show PDF panel & resizer with smooth transition
+            pdfPanel.classList.remove('hidden');
+            pdfPanel.classList.add('flex');
+            if (resizer) {
+                resizer.classList.remove('hidden');
+            }
+            if (window.innerWidth >= 768 && chatMain) {
+                if (!chatMain.style.width) {
+                    chatMain.style.width = '52%';
+                    chatMain.style.flex = 'none';
+                    pdfPanel.style.width = '48%';
+                }
+            }
+            isPdfOpen = true;
+
+            // Highlight target clause and unhighlight others
+            document.querySelectorAll('.clause-box').forEach(box => {
+                box.classList.remove('citation-box-highlight');
+                const ind = box.querySelector('.clause-indicator');
+                if (ind) ind.classList.add('hidden');
+            });
+
+            const targetBox = document.getElementById(`clause_${pasalKey}`);
+            if (targetBox) {
+                targetBox.classList.add('citation-box-highlight');
+                const ind = targetBox.querySelector('.clause-indicator');
+                if (ind) ind.classList.remove('hidden');
+                setTimeout(() => {
+                    targetBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 100);
+            }
+
+            // Update bottom shortcut button styles
+            document.querySelectorAll('.pdf-shortcut-btn').forEach(btn => {
+                btn.className = 'pdf-shortcut-btn px-2.5 py-0.5 rounded bg-[#3d3835] hover:bg-[#4d4743] text-[10px] text-gray-200 border border-transparent transition cursor-pointer';
+            });
+            const activeBtn = document.getElementById(`btn_shortcut_${pasalKey}`);
+            if (activeBtn) {
+                activeBtn.className = 'pdf-shortcut-btn px-2.5 py-0.5 rounded bg-rose-900/80 text-white font-bold text-[10px] border border-rose-600 shadow-xs transition cursor-pointer';
+            }
+        }
+
+        // Close PDF Viewer
+        function closePdfViewer() {
+            const pdfPanel = document.getElementById('pdfViewerPanel');
+            const resizer = document.getElementById('splitResizer');
+            const chatMain = document.getElementById('chatMainArea');
+
+            pdfPanel.classList.add('hidden');
+            pdfPanel.classList.remove('flex');
+            if (resizer) {
+                resizer.classList.add('hidden');
+            }
+            if (chatMain) {
+                chatMain.style.width = '';
+                chatMain.style.flex = '1';
+            }
+            isPdfOpen = false;
+        }
+
+        // Adjust Zoom inside PDF
+        function adjustPdfZoom(delta) {
+            currentZoom = Math.max(70, Math.min(160, currentZoom + delta));
+            const sheet = document.getElementById('pdfSheet');
+            sheet.style.transform = `scale(${currentZoom / 100})`;
+        }
+
+        // Jump to Citation inside PDF
+        function jumpToCitation(key) {
+            if (key === 'pasal85') {
+                openPdfViewerAtCitation('pasal85', 'UU_Nomor_45_Tahun_2009.pdf', 29, 'Pasal 85');
+            } else if (key === 'pasal84') {
+                openPdfViewerAtCitation('pasal84', 'UU_Nomor_45_Tahun_2009.pdf', 28, 'Pasal 84');
+            } else if (key === 'pasal93') {
+                openPdfViewerAtCitation('pasal93', 'UU_Nomor_45_Tahun_2009.pdf', 30, 'Pasal 93');
+            }
+        }
+
+        // Handle Quick Action Pill click
+        function filterByTopic(topicName) {
+            const chatInput = document.getElementById('chatInput');
+            chatInput.value = `Fokus analisis pada ${topicName}...`;
+            chatInput.focus();
+        }
+
+        // Helper to escape HTML characters
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+
+        // Load Saved Chat from History
+        function loadSavedChat(type) {
+            const rows = document.querySelectorAll('.history-row');
+            rows.forEach(r => {
+                r.classList.remove('bg-white/15', 'border-[#deb896]/60');
+                r.classList.add('hover:bg-white/10', 'border-transparent');
+                const btn = r.querySelector('.history-btn');
+                if (btn) {
+                    btn.classList.remove('text-white', 'font-semibold');
+                    btn.classList.add('text-stone-300');
+                }
+            });
+
+            const activeRow = document.getElementById(`historyRow_${type}`);
+            if (activeRow) {
+                activeRow.classList.remove('hover:bg-white/10', 'border-transparent');
+                activeRow.classList.add('bg-white/15', 'border-[#deb896]/60');
+                const btn = activeRow.querySelector('.history-btn');
+                if (btn) {
+                    btn.classList.remove('text-stone-300');
+                    btn.classList.add('text-white', 'font-semibold');
+                }
+            }
+
+            // Show top navbar badge when loading from history
+            const topBadge = document.getElementById('topActiveDocBadge');
+            const topDocName = document.getElementById('topActiveDocName');
+            if (topBadge && topDocName) {
+                topDocName.textContent = 'UU_Nomor_45_Tahun_2009.pdf';
+                topBadge.classList.remove('hidden');
+                topBadge.classList.add('flex');
+            }
+
+            if (type === 'tindak_pidana') {
+                startChatWithQuery('Jelaskan tindak pidana penggunaan alat tangkap terlarang dan sanksi pasalnya di UU Nomor 45 Tahun 2009.', true, 'UU_Nomor_45_Tahun_2009.pdf');
+            } else if (type === 'kewenangan') {
+                startChatWithQuery('Siapa yang berwenang memeriksa dan menangkap kapal ikan ilegal di ZEE menurut UU 45/2009?', true, 'UU_Nomor_45_Tahun_2009.pdf');
+            } else {
+                startChatWithQuery('Bagaimana batasan kedaulatan di perairan Laut Teritorial vs Laut Kepulauan?', true, 'UU_Nomor_45_Tahun_2009.pdf');
+            }
+
+            if (window.innerWidth < 1024) {
+                toggleSidebar();
+            }
+        }
+
+        // Deletion Confirmation Modal Logic
+        let pendingDeleteId = null;
+
+        function confirmDeleteHistory(id, title, event) {
+            if (event) event.stopPropagation();
+            pendingDeleteId = id;
+            const titleEl = document.getElementById('deleteHistoryTitle');
+            if (titleEl) titleEl.textContent = `"${title}"`;
+            const modal = document.getElementById('deleteHistoryModal');
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeDeleteHistoryModal() {
+            const modal = document.getElementById('deleteHistoryModal');
+            if (modal) modal.classList.add('hidden');
+            pendingDeleteId = null;
+        }
+
+        function executeDeleteHistory() {
+            if (!pendingDeleteId) return;
+
+            const row = document.getElementById(`historyRow_${pendingDeleteId}`);
+            if (row) {
+                row.remove();
+            }
+
+            closeDeleteHistoryModal();
+            showToast('Riwayat percakapan telah berhasil dihapus.');
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('chatToast');
+            const msgEl = document.getElementById('chatToastMessage');
+            if (!toast || !msgEl) return;
+
+            msgEl.textContent = message;
+            toast.classList.remove('hidden');
+            toast.classList.add('flex');
+
+            setTimeout(() => {
+                toast.classList.add('hidden');
+                toast.classList.remove('flex');
+            }, 3000);
+        }
+
+        // Copy Citation Summary to Clipboard
+        function copyCitationSummary(btn) {
+            const summaryText = `Rujukan Regulasi UU No. 45 Tahun 2009:
+- Pasal 85 (Hal. 29): Sanksi pidana alat tangkap destruktif (Maks. 5 tahun, denda Rp 2 Miliar).
+- Pasal 84 (Hal. 28): Yurisdiksi absolut Pengadilan Perikanan di WPPNRI.
+- Pasal 93 (Hal. 30): Pelanggaran SIPI kapal perikanan (Maks. 6 tahun, denda Rp 20 Miliar).
+
+Dikutip dari TitikHukum AI (Naskah Resmi Lembaran Negara RI).`;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(summaryText).then(() => {
+                    showToast('Rujukan pasal berhasil disalin ke clipboard.');
+                });
+            } else {
+                showToast('Rujukan pasal berhasil disalin.');
+            }
+        }
+
+        // Initialize resizer on load
+        window.addEventListener('DOMContentLoaded', () => {
+            initSplitResizer();
+        });
+    </script>
+
+    <!-- ======================================================== -->
+    <!-- DELETE HISTORY CONFIRMATION MODAL                        -->
+    <!-- ======================================================== -->
+    <div id="deleteHistoryModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
+        <div class="bg-white rounded-2xl border border-[#e8dfd8] max-w-md w-full p-6 shadow-2xl space-y-4 animate-in zoom-in-95 duration-150">
+            <div class="flex items-start gap-3.5">
+                <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 border border-rose-100 text-base">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div class="space-y-1">
+                    <h4 class="text-sm sm:text-base font-bold text-[#26150d]">Hapus Riwayat Percakapan?</h4>
+                    <p class="text-xs text-stone-600 leading-relaxed">
+                        Apakah Anda yakin ingin menghapus riwayat riset <strong id="deleteHistoryTitle" class="text-stone-900"></strong>? Tindakan ini tidak dapat dibatalkan.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-3 flex items-center justify-end gap-2.5 border-t border-stone-100">
+                <button type="button" onclick="closeDeleteHistoryModal()" class="px-4 py-2 rounded-xl border border-[#d6c4b7] text-stone-700 hover:bg-[#f6eee7] text-xs font-semibold transition cursor-pointer">
+                    Batal
+                </button>
+                <button type="button" onclick="executeDeleteHistory()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold transition shadow-xs flex items-center gap-1.5 cursor-pointer">
+                    <i class="fa-regular fa-trash-can text-xs"></i>
+                    <span>Ya, Hapus Riwayat</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="chatToast" class="pointer-events-none fixed bottom-6 right-6 z-50 hidden items-center gap-2.5 px-4 py-3 rounded-xl bg-[#26150d] text-white text-xs font-medium shadow-2xl border border-white/10 animate-in slide-in-from-bottom-4 duration-200">
+        <i class="fa-solid fa-circle-check text-emerald-400"></i>
+        <span id="chatToastMessage">Riwayat percakapan telah berhasil dihapus.</span>
+    </div>
+</body>
+</html>

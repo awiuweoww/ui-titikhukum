@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titik Hukum - Login</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#26150d',
+                            redHover: '#3d2012',
+                            coral: '#2b170d',
+                            dark: '#111827',
+                            grayText: '#6b7280',
+                            inputBg: '#ffffff',
+                            cardBorder: '#ffffff',
+                        }
+                    },
+                    boxShadow: {
+                        'custom-card': '0 25px 60px -15px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.1)',
+                        'input-subtle': '0 1px 2px 0 rgba(0, 0, 0, 0.04)',
+                        'button-brown': '0 6px 20px -2px rgba(38, 21, 13, 0.35)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #f1f5f9;
+        }
+
+        /* Smooth input style */
+        .auth-input {
+            transition: all 0.2s ease-in-out;
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+        }
+        .auth-input:focus {
+            border-color: #2b170d;
+            box-shadow: 0 0 0 3px rgba(43, 23, 13, 0.12);
+            outline: none;
+        }
+
+        /* Luxurious Smooth Slow View Transition Animations */
+        @keyframes slideInFromLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-28px) scale(0.985);
+                filter: blur(4px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        @keyframes slideInFromRight {
+            0% {
+                opacity: 0;
+                transform: translateX(28px) scale(0.985);
+                filter: blur(4px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        .view-anim-login {
+            animation: slideInFromLeft 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        .view-anim-signup {
+            animation: slideInFromRight 0.65s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        /* Custom scrollbar if needed */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body class="min-h-screen relative flex items-center justify-center p-4 sm:p-6 md:p-8 overflow-x-hidden select-none bg-slate-100">
+
+    <!-- SVG Definitions for Perfectly Smooth Slanted & Rounded Corners -->
+    <svg class="absolute w-0 h-0 overflow-hidden pointer-events-none" width="0" height="0" aria-hidden="true">
+        <defs>
+            <!-- Left Side Slanted Clip (Used in Login: Top wider, Bottom narrower on the right edge) -->
+            <clipPath id="slantedRoundedClipLeft" clipPathUnits="objectBoundingBox">
+                <path d="M 0 0.06 
+                         Q 0 0 0.06 0 
+                         L 0.88 0 
+                         Q 0.94 0 0.93 0.06 
+                         L 0.83 0.94 
+                         Q 0.82 1 0.76 1 
+                         L 0.06 1 
+                         Q 0 1 0 0.94 
+                         Z" />
+            </clipPath>
+
+            <!-- Right Side Slanted Clip (Used in Sign Up: Top wider, Bottom narrower on the left edge) -->
+            <clipPath id="slantedRoundedClipRight" clipPathUnits="objectBoundingBox">
+                <path d="M 0.16 0 
+                         L 0.94 0 
+                         Q 1 0 1 0.06 
+                         L 1 0.94 
+                         Q 1 1 0.94 1 
+                         L 0.26 1 
+                         Q 0.20 1 0.21 0.94 
+                         L 0.11 0.06 
+                         Q 0.10 0 0.16 0 
+                         Z" />
+            </clipPath>
+        </defs>
+    </svg>
+
+    <!-- Main Modal Container -->
+    <div id="authCard" class="relative z-10 w-full max-w-[960px] min-h-[580px] bg-white rounded-[32px] sm:rounded-[36px] md:rounded-[40px] shadow-2xl border-[6px] sm:border-[8px] border-white overflow-hidden">
+        
+        <!-- ======================================================== -->
+        <!-- THE SLIDING ARTWORK BANNER (Menyapu ke samping)         -->
+        <!-- ======================================================== -->
+        <div id="slidingBanner" 
+             class="relative md:absolute top-0 bottom-0 left-0 w-full md:w-[48%] min-h-[320px] md:min-h-full overflow-hidden flex flex-col justify-between p-4 sm:p-6 bg-[#f4ede4] z-30 transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)]"
+             style="clip-path: url(#slantedRoundedClipLeft); -webkit-clip-path: url(#slantedRoundedClipLeft);">
+            
+            <!-- Full Lady Justice Image Layer -->
+            <img src="assets/image.png" alt="Titik Hukum Illustration" class="absolute inset-0 w-full h-full object-contain object-center scale-95 transition-transform duration-700 pointer-events-none" />
+
+            <!-- Spacers -->
+            <div class="relative z-10"></div>
+            <div class="relative z-10"></div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- LOGIN FORM PANEL (Right Side on Desktop)                 -->
+        <!-- ======================================================== -->
+        <div id="loginFormPanel" 
+             class="w-full md:w-[52%] md:absolute top-0 bottom-0 right-0 bg-white px-6 py-7 sm:px-10 sm:py-9 md:px-12 md:py-10 flex flex-col justify-between transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] z-10 opacity-100 translate-x-0 pointer-events-auto">
+            
+            <!-- Top Row: Brand Header & Language Selector -->
+            <div class="flex items-center justify-between mb-4 md:mb-2">
+                <a href="index.html" class="inline-flex items-center">
+                    <img src="assets/logo.png" alt="Titik Hukum Logo" class="h-6 sm:h-7 md:h-7.5 object-contain" />
+                </a>
+
+                <div class="relative">
+                    <button type="button" onclick="toggleLangMenu('langMenuLogin')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-700 shadow-sm transition-all focus:outline-none focus:ring-1 focus:ring-gray-300">
+                        <span class="langFlag flex items-center shrink-0">
+                            <svg class="w-4 h-3 rounded-[2px] shadow-xs shrink-0" viewBox="0 0 640 480">
+                                <path fill="#012169" d="M0 0h640v480H0z"/>
+                                <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 240l240 178v62h-80L320 301 81 480H0v-60l239-180L0 64V0h75z"/>
+                                <path fill="#C8102E" d="m424 288 216 159v33h-44L368 318v-30h56zm-208-96L0 33V0h44l228 162v30h-56zM640 0v10l-192 143h-48L640 0zM0 480v-10l192-143h48L0 480z"/>
+                                <path fill="#FFF" d="M240 0v480h160V0H240zM0 160v160h640V160H0z"/>
+                                <path fill="#C8102E" d="M267 0v480h106V0H267zM0 187v106h640V187H0z"/>
+                            </svg>
+                        </span>
+                        <span class="langLabel text-[11px] font-bold text-gray-800">EN</span>
+                        <i class="fa-solid fa-chevron-down text-[9px] text-gray-500 ml-0.5"></i>
+                    </button>
+
+                    <div id="langMenuLogin" class="lang-dropdown hidden absolute right-0 mt-1.5 w-32 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-30 text-xs">
+                        <button type="button" onclick="setLanguage('EN')" class="w-full px-3 py-1.5 text-left flex items-center gap-2 hover:bg-gray-50 text-gray-700 font-medium">
+                            <svg class="w-4 h-3 rounded-[2px] shadow-xs shrink-0" viewBox="0 0 640 480">
+                                <path fill="#012169" d="M0 0h640v480H0z"/>
+                                <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 240l240 178v62h-80L320 301 81 480H0v-60l239-180L0 64V0h75z"/>
+                                <path fill="#C8102E" d="m424 288 216 159v33h-44L368 318v-30h56zm-208-96L0 33V0h44l228 162v30h-56zM640 0v10l-192 143h-48L640 0zM0 480v-10l192-143h48L0 480z"/>
+                                <path fill="#FFF" d="M240 0v480h160V0H240zM0 160v160h640V160H0z"/>
+                                <path fill="#C8102E" d="M267 0v480h106V0H267zM0 187v106h640V187H0z"/>
+                            </svg>
+                            <span>English</span>
+                        </button>
+                        <button type="button" onclick="setLanguage('ID')" class="w-full px-3 py-1.5 text-left flex items-center gap-2 hover:bg-gray-50 text-gray-700 font-medium">
+                            <svg class="w-4 h-3 rounded-[2px] shadow-xs border border-gray-200 shrink-0" viewBox="0 0 640 480">
+                                <path fill="#e11d48" d="M0 0h640v240H0z"/>
+                                <path fill="#ffffff" d="M0 240h640v240H0z"/>
+                            </svg>
+                            <span>Indonesia</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Login Content -->
+            <div class="my-auto py-2">
+                <div class="text-center mb-6">
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+                        Hello!
+                    </h1>
+                    <p class="text-xs sm:text-sm text-gray-500 font-medium mt-1">
+                        Welcome to Titikhukum
+                    </p>
+                </div>
+
+                <form class="space-y-3 sm:space-y-3.5 max-w-[340px] mx-auto" onsubmit="handleLogin(event)">
+                    <div class="relative">
+                        <input 
+                            type="email" 
+                            id="emailInput" 
+                            placeholder="Email" 
+                            required 
+                            class="auth-input w-full px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-800 placeholder-gray-400 shadow-input-subtle"
+                        />
+                    </div>
+
+                    <div class="relative space-y-1.5">
+                        <div class="relative">
+                            <input 
+                                type="password" 
+                                id="passwordInput" 
+                                placeholder="Password" 
+                                required 
+                                class="auth-input w-full px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-800 placeholder-gray-400 shadow-input-subtle pr-10"
+                            />
+                            <button 
+                                type="button" 
+                                onclick="togglePasswordVisibility('passwordInput', 'eyeIconLogin')" 
+                                class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none transition"
+                            >
+                                <i id="eyeIconLogin" class="fa-regular fa-eye-slash text-xs sm:text-sm"></i>
+                            </button>
+                        </div>
+
+                        <div class="text-right">
+                            <a href="javascript:void(0)" onclick="showToast('Password recovery link sent!', 'info')" class="text-[11px] font-semibold text-brand-coral hover:text-brand-red transition-colors inline-block">
+                                Forgot password ?
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-center gap-3 py-1">
+                        <div class="h-[1px] w-12 bg-gray-200"></div>
+                        <span class="text-[11px] text-gray-400 font-medium">or</span>
+                        <div class="h-[1px] w-12 bg-gray-200"></div>
+                    </div>
+
+                    <button 
+                        type="button" 
+                        onclick="handleGoogleAuth()" 
+                        class="w-full py-2.5 px-4 bg-white hover:bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm font-semibold text-gray-700 shadow-input-subtle flex items-center justify-center gap-2.5 transition-all active:scale-[0.99]"
+                    >
+                        <span>Login with Google</span>
+                        <svg class="w-4 h-4" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                        </svg>
+                    </button>
+
+                    <button 
+                        type="submit" 
+                        class="w-full py-2.5 sm:py-3 px-4 bg-[#24140e] hover:bg-[#3d2016] text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition-all duration-200 active:scale-[0.99] flex items-center justify-center cursor-pointer"
+                    >
+                        <span>Login</span>
+                    </button>
+
+                    <div class="text-center pt-1">
+                        <p class="text-[11px] sm:text-xs text-gray-500 font-medium">
+                            Don't have an account? 
+                            <button type="button" id="goToSignupBtn" onclick="switchView('signup')" class="text-[#2b170d] font-bold hover:underline transition-all cursor-pointer">
+                                Sign up
+                            </button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Bottom Social Icons -->
+            <div class="flex items-center justify-center gap-4 pt-4 mt-auto">
+                <a href="#facebook" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="Facebook">
+                    <i class="fa-brands fa-facebook text-base"></i>
+                </a>
+                <a href="#twitter" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="Twitter / X">
+                    <i class="fa-brands fa-twitter text-base"></i>
+                </a>
+                <a href="#linkedin" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="LinkedIn">
+                    <i class="fa-brands fa-linkedin-in text-base"></i>
+                </a>
+                <a href="#instagram" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="Instagram">
+                    <i class="fa-brands fa-instagram text-base"></i>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- SIGN UP FORM PANEL (Left Side on Desktop)                -->
+        <!-- ======================================================== -->
+        <div id="signupFormPanel" 
+             class="w-full md:w-[52%] md:absolute top-0 bottom-0 left-0 bg-white px-6 py-7 sm:px-10 sm:py-8 md:px-12 md:py-9 flex flex-col justify-between transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] z-10 opacity-0 -translate-x-12 pointer-events-none">
+            
+            <!-- Top Row: Brand Header & Language Selector -->
+            <div class="flex items-center justify-between mb-3 md:mb-1">
+                <a href="index.html" class="inline-flex items-center">
+                    <img src="assets/logo.png" alt="Titik Hukum Logo" class="h-6 sm:h-7 md:h-7.5 object-contain" />
+                </a>
+
+                <div class="relative">
+                    <button type="button" onclick="toggleLangMenu('langMenuSignup')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-700 shadow-sm transition-all focus:outline-none focus:ring-1 focus:ring-gray-300">
+                        <span class="langFlag flex items-center shrink-0">
+                            <svg class="w-4 h-3 rounded-[2px] shadow-xs shrink-0" viewBox="0 0 640 480">
+                                <path fill="#012169" d="M0 0h640v480H0z"/>
+                                <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 240l240 178v62h-80L320 301 81 480H0v-60l239-180L0 64V0h75z"/>
+                                <path fill="#C8102E" d="m424 288 216 159v33h-44L368 318v-30h56zm-208-96L0 33V0h44l228 162v30h-56zM640 0v10l-192 143h-48L640 0zM0 480v-10l192-143h48L0 480z"/>
+                                <path fill="#FFF" d="M240 0v480h160V0H240zM0 160v160h640V160H0z"/>
+                                <path fill="#C8102E" d="M267 0v480h106V0H267zM0 187v106h640V187H0z"/>
+                            </svg>
+                        </span>
+                        <span class="langLabel text-[11px] font-bold text-gray-800">EN</span>
+                        <i class="fa-solid fa-chevron-down text-[9px] text-gray-500 ml-0.5"></i>
+                    </button>
+
+                    <div id="langMenuSignup" class="lang-dropdown hidden absolute right-0 mt-1.5 w-32 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-30 text-xs">
+                        <button type="button" onclick="setLanguage('EN')" class="w-full px-3 py-1.5 text-left flex items-center gap-2 hover:bg-gray-50 text-gray-700 font-medium">
+                            <svg class="w-4 h-3 rounded-[2px] shadow-xs shrink-0" viewBox="0 0 640 480">
+                                <path fill="#012169" d="M0 0h640v480H0z"/>
+                                <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 240l240 178v62h-80L320 301 81 480H0v-60l239-180L0 64V0h75z"/>
+                                <path fill="#C8102E" d="m424 288 216 159v33h-44L368 318v-30h56zm-208-96L0 33V0h44l228 162v30h-56zM640 0v10l-192 143h-48L640 0zM0 480v-10l192-143h48L0 480z"/>
+                                <path fill="#FFF" d="M240 0v480h160V0H240zM0 160v160h640V160H0z"/>
+                                <path fill="#C8102E" d="M267 0v480h106V0H267zM0 187v106h640V187H0z"/>
+                            </svg>
+                            <span>English</span>
+                        </button>
+                        <button type="button" onclick="setLanguage('ID')" class="w-full px-3 py-1.5 text-left flex items-center gap-2 hover:bg-gray-50 text-gray-700 font-medium">
+                            <svg class="w-4 h-3 rounded-[2px] shadow-xs border border-gray-200 shrink-0" viewBox="0 0 640 480">
+                                <path fill="#e11d48" d="M0 0h640v240H0z"/>
+                                <path fill="#ffffff" d="M0 240h640v240H0z"/>
+                            </svg>
+                            <span>Indonesia</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center Sign Up Content -->
+            <div class="my-auto py-1">
+                <div class="text-center mt-3 sm:mt-4 mb-4 sm:mb-5">
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+                        Create Account
+                    </h1>
+                    <p class="text-xs sm:text-sm text-gray-500 font-medium mt-1">
+                        Join Titikhukum to get started
+                    </p>
+                </div>
+
+                <form class="space-y-2.5 sm:space-y-3 max-w-[340px] mx-auto" onsubmit="handleSignup(event)">
+                    <!-- Full Name Input -->
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            id="signupName" 
+                            placeholder="Full Name" 
+                            required 
+                            class="auth-input w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm text-gray-800 placeholder-gray-400 shadow-input-subtle"
+                        />
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="relative">
+                        <input 
+                            type="email" 
+                            id="signupEmail" 
+                            placeholder="Email" 
+                            required 
+                            class="auth-input w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm text-gray-800 placeholder-gray-400 shadow-input-subtle"
+                        />
+                    </div>
+
+                    <!-- Password Input with Live Security Indicator -->
+                    <div class="space-y-1.5">
+                        <div class="relative">
+                            <input 
+                                type="password" 
+                                id="signupPassword" 
+                                placeholder="Password" 
+                                required 
+                                oninput="checkPasswordSecurity(this.value)"
+                                class="auth-input w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm text-gray-800 placeholder-gray-400 shadow-input-subtle pr-10"
+                            />
+                            <button 
+                                type="button" 
+                                onclick="togglePasswordVisibility('signupPassword', 'eyeIconSignup')" 
+                                class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none transition"
+                            >
+                                <i id="eyeIconSignup" class="fa-regular fa-eye-slash text-xs sm:text-sm"></i>
+                            </button>
+                        </div>
+
+                        <!-- Single Sleek Long Indicator Bar with Professional Status Beside It -->
+                        <div class="flex items-center gap-2.5 px-1 pt-0.5">
+                            <span id="strengthBar" class="w-8 sm:w-9 h-1.5 rounded-full bg-gray-200 transition-all duration-300 shrink-0"></span>
+                            <span id="strengthText" class="text-[11px] font-medium text-gray-400 transition-colors duration-300">
+                                Minimal 8 karakter
+                            </span>
+                        </div>
+                    </div>
+
+                    <!-- Primary Brown Sign Up Button -->
+                    <button 
+                        type="submit" 
+                        class="w-full py-2.5 sm:py-3 px-4 bg-[#24140e] hover:bg-[#3d2016] text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition-all duration-200 active:scale-[0.99] flex items-center justify-center mt-1 cursor-pointer"
+                    >
+                        <span>Sign Up</span>
+                    </button>
+
+                    <div class="flex items-center justify-center gap-3 py-0.5">
+                        <div class="h-[1px] w-12 bg-gray-200"></div>
+                        <span class="text-[10px] text-gray-400 font-medium">or</span>
+                        <div class="h-[1px] w-12 bg-gray-200"></div>
+                    </div>
+
+                    <!-- Sign up with Google Button -->
+                    <button 
+                        type="button" 
+                        onclick="handleGoogleAuth()" 
+                        class="w-full py-2 px-4 bg-white hover:bg-gray-50 border border-gray-200 rounded-xl text-xs font-semibold text-gray-700 shadow-input-subtle flex items-center justify-center gap-2.5 transition-all active:scale-[0.99]"
+                    >
+                        <span>Sign up with Google</span>
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+                            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
+                            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
+                        </svg>
+                    </button>
+
+                    <div class="text-center pt-0.5">
+                        <p class="text-[11px] sm:text-xs text-gray-500 font-medium">
+                            Already have an account? 
+                            <button type="button" id="goToLoginBtn" onclick="switchView('login')" class="text-[#2b170d] font-bold hover:underline transition-all cursor-pointer">
+                                Log in
+                            </button>
+                        </p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Bottom Social Icons -->
+            <div class="flex items-center justify-center gap-4 pt-3 mt-auto">
+                <a href="#facebook" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="Facebook">
+                    <i class="fa-brands fa-facebook text-base"></i>
+                </a>
+                <a href="#twitter" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="Twitter / X">
+                    <i class="fa-brands fa-twitter text-base"></i>
+                </a>
+                <a href="#linkedin" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="LinkedIn">
+                    <i class="fa-brands fa-linkedin-in text-base"></i>
+                </a>
+                <a href="#instagram" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="Instagram">
+                    <i class="fa-brands fa-instagram text-base"></i>
+                </a>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Notification Toast Element -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none bg-gray-900 text-white px-5 py-3 rounded-2xl shadow-xl flex items-center gap-3 text-xs font-medium border border-gray-800">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-green-400 text-sm"></i>
+        <span id="toastMsg">Action Successful!</span>
+    </div>
+
+    <!-- Interactive Script -->
+    <script>
+        // View Switching (Login <-> Sign Up) with Cinematic Sliding Banner Overlay
+        function switchView(viewName) {
+            const banner = document.getElementById('slidingBanner');
+            const loginPanel = document.getElementById('loginFormPanel');
+            const signupPanel = document.getElementById('signupFormPanel');
+
+            if (viewName === 'signup') {
+                // Banner sweeps across to the RIGHT
+                banner.style.transform = 'translateX(108.3%)';
+                banner.style.clipPath = 'url(#slantedRoundedClipRight)';
+                banner.style.webkitClipPath = 'url(#slantedRoundedClipRight)';
+
+                // Login panel slides out to the right and fades out
+                loginPanel.classList.remove('opacity-100', 'translate-x-0', 'pointer-events-auto');
+                loginPanel.classList.add('opacity-0', 'translate-x-12', 'pointer-events-none');
+
+                // Sign Up panel slides in from the left and fades in
+                signupPanel.classList.remove('opacity-0', '-translate-x-12', 'pointer-events-none');
+                signupPanel.classList.add('opacity-100', 'translate-x-0', 'pointer-events-auto');
+
+                showToast('Switched to Sign Up', 'info');
+            } else {
+                // Banner sweeps back to the LEFT
+                banner.style.transform = 'translateX(0%)';
+                banner.style.clipPath = 'url(#slantedRoundedClipLeft)';
+                banner.style.webkitClipPath = 'url(#slantedRoundedClipLeft)';
+
+                // Sign Up panel slides out to the left and fades out
+                signupPanel.classList.remove('opacity-100', 'translate-x-0', 'pointer-events-auto');
+                signupPanel.classList.add('opacity-0', '-translate-x-12', 'pointer-events-none');
+
+                // Login panel slides in from the right and fades in
+                loginPanel.classList.remove('opacity-0', 'translate-x-12', 'pointer-events-none');
+                loginPanel.classList.add('opacity-100', 'translate-x-0', 'pointer-events-auto');
+
+                showToast('Switched to Login', 'info');
+            }
+        }
+
+        // Attach direct event listeners to guarantee response on any click
+        document.addEventListener('DOMContentLoaded', () => {
+            const signupToggleBtn = document.getElementById('goToSignupBtn');
+            const loginToggleBtn = document.getElementById('goToLoginBtn');
+
+            if (signupToggleBtn) {
+                signupToggleBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    switchView('signup');
+                });
+            }
+            if (loginToggleBtn) {
+                loginToggleBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    switchView('login');
+                });
+            }
+
+            if (window.location.hash === '#signup') {
+                switchView('signup');
+            }
+        });
+
+        // Language Menu Toggles
+        function toggleLangMenu(menuId) {
+            const menu = document.getElementById(menuId);
+            document.querySelectorAll('.lang-dropdown').forEach(m => {
+                if (m.id !== menuId) m.classList.add('hidden');
+            });
+            menu.classList.toggle('hidden');
+        }
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#langMenuLogin') && !e.target.closest('#langMenuSignup') && !e.target.closest('button[onclick*="toggleLangMenu"]')) {
+                document.querySelectorAll('.lang-dropdown').forEach(m => m.classList.add('hidden'));
+            }
+        });
+
+        const flagSvgs = {
+            'EN': `<svg class="w-4 h-3 rounded-[2px] shadow-xs shrink-0" viewBox="0 0 640 480">
+                <path fill="#012169" d="M0 0h640v480H0z"/>
+                <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 240l240 178v62h-80L320 301 81 480H0v-60l239-180L0 64V0h75z"/>
+                <path fill="#C8102E" d="m424 288 216 159v33h-44L368 318v-30h56zm-208-96L0 33V0h44l228 162v30h-56zM640 0v10l-192 143h-48L640 0zM0 480v-10l192-143h48L0 480z"/>
+                <path fill="#FFF" d="M240 0v480h160V0H240zM0 160v160h640V160H0z"/>
+                <path fill="#C8102E" d="M267 0v480h106V0H267zM0 187v106h640V187H0z"/>
+            </svg>`,
+            'ID': `<svg class="w-4 h-3 rounded-[2px] shadow-xs border border-gray-200 shrink-0" viewBox="0 0 640 480">
+                <path fill="#e11d48" d="M0 0h640v240H0z"/>
+                <path fill="#ffffff" d="M0 240h640v240H0z"/>
+            </svg>`
+        };
+
+        function setLanguage(code) {
+            document.querySelectorAll('.langLabel').forEach(el => el.textContent = code);
+            document.querySelectorAll('.langFlag').forEach(el => el.innerHTML = flagSvgs[code]);
+            document.querySelectorAll('.lang-dropdown').forEach(m => m.classList.add('hidden'));
+            showToast(`Language set to ${code === 'EN' ? 'English' : 'Bahasa Indonesia'}`);
+        }
+
+        // Toggle Password Visibility (reusable)
+        function togglePasswordVisibility(inputId, iconId) {
+            const passwordInput = document.getElementById(inputId);
+            const eyeIcon = document.getElementById(iconId);
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            }
+        }
+
+        // Realtime Live Password Security / Sleek Indicator Bar (Merah, Oranye, Ijo)
+        function checkPasswordSecurity(password) {
+            const strengthBar = document.getElementById('strengthBar');
+            const strengthText = document.getElementById('strengthText');
+
+            if (!password || password.length === 0) {
+                strengthBar.className = 'w-8 sm:w-9 h-1.5 rounded-full bg-gray-200 transition-all duration-300 shrink-0';
+                strengthText.textContent = 'Minimal 8 karakter';
+                strengthText.className = 'text-[11px] font-medium text-gray-400 transition-colors duration-300';
+                return;
+            }
+
+            let score = 0;
+            if (password.length >= 6) score++;
+            if (password.length >= 8) score++;
+            if (/[A-Z]/.test(password) && /[a-z]/.test(password)) score++;
+            if (/\d/.test(password)) score++;
+            if (/[^A-Za-z0-9]/.test(password)) score++;
+
+            // 3 Clean Professional Color & Text Stages:
+            if (score <= 2) {
+                // 🔴 Merah: Lemah
+                strengthBar.className = 'w-8 sm:w-9 h-1.5 rounded-full bg-red-500 shadow-[0_0_8px_rgba(239,68,68,0.5)] transition-all duration-300 shrink-0';
+                strengthText.textContent = 'Kata sandi lemah';
+                strengthText.className = 'text-[11px] font-semibold text-red-500 transition-colors duration-300';
+            } else if (score === 3 || score === 4) {
+                // 🟠 Oranye: Sedang
+                strengthBar.className = 'w-8 sm:w-9 h-1.5 rounded-full bg-amber-500 shadow-[0_0_8px_rgba(245,158,11,0.5)] transition-all duration-300 shrink-0';
+                strengthText.textContent = 'Kata sandi sedang';
+                strengthText.className = 'text-[11px] font-semibold text-amber-500 transition-colors duration-300';
+            } else {
+                // 🟢 Ijo: Kuat
+                strengthBar.className = 'w-8 sm:w-9 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)] transition-all duration-300 shrink-0';
+                strengthText.textContent = 'Kata sandi kuat & aman';
+                strengthText.className = 'text-[11px] font-semibold text-emerald-600 transition-colors duration-300';
+            }
+        }
+
+        // Handle Login Submission & Redirect to Landing Page
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('emailInput').value;
+            const password = document.getElementById('passwordInput').value;
+
+            if (!email || !password) {
+                showToast('Harap isi semua kolom terlebih dahulu', 'info');
+                return;
+            }
+
+            localStorage.setItem('userEmail', email);
+            showToast(`Login berhasil! Mengalihkan ke landing page...`, 'success');
+
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 700);
+        }
+
+        // Handle Sign Up Submission & Redirect to Landing Page
+        function handleSignup(e) {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+
+            if (!name || !email || !password) {
+                showToast('Harap isi semua kolom pendaftaran', 'info');
+                return;
+            }
+
+            localStorage.setItem('userEmail', email);
+            showToast(`Akun berhasil dibuat! Mengalihkan ke landing page...`, 'success');
+
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 700);
+        }
+
+        function handleGoogleAuth() {
+            showToast('Connecting to Google Authentication...', 'info');
+        }
+
+        // Toast Feedback System
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            const toastIcon = document.getElementById('toastIcon');
+
+            toastMsg.textContent = message;
+
+            if (type === 'success') {
+                toastIcon.className = 'fa-solid fa-circle-check text-emerald-400 text-sm';
+            } else {
+                toastIcon.className = 'fa-solid fa-circle-info text-blue-400 text-sm';
+            }
+
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+                toast.classList.remove('translate-y-0', 'opacity-100');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

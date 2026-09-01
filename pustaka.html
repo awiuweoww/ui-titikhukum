@@ -1,0 +1,2206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pustaka Dokumen Hukum - Titik Hukum</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            brown: '#26150d',
+                            darkBrown: '#1f0f08',
+                            hoverBrown: '#381d12',
+                            lightBrown: '#f6eee7',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fafaf9;
+            color: #18181b;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top Courtroom Navbar */
+        .navbar-brown {
+            background-color: #211209;
+            background: linear-gradient(180deg, rgba(35, 19, 11, 0.98) 0%, rgba(26, 14, 8, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(85, 45, 25, 0.8);
+        }
+
+        /* Checkbox Custom Brown Accent */
+        input[type="checkbox"] {
+            accent-color: #26150d;
+            cursor: pointer;
+            width: 1.05rem;
+            height: 1.05rem;
+        }
+
+        /* Category Filter Pills */
+        .cat-pill {
+            transition: all 0.2s ease;
+        }
+        .cat-pill.active {
+            background-color: #26150d;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .cat-pill:not(.active) {
+            background-color: transparent;
+            color: #666663;
+        }
+        .cat-pill:not(.active):hover {
+            background-color: #e5e4de;
+            color: #26150d;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f0ec;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d1cfc7;
+            border-radius: 9999px;
+        }
+
+        /* Smooth dropdown animation */
+        .dropdown-menu {
+            animation: dropdownFadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform-origin: top right;
+        }
+        @keyframes dropdownFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.96) translateY(-6px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        /* Modal backdrop transition */
+        .modal-backdrop {
+            animation: modalFadeIn 0.2s ease-out forwards;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between bg-[#fafaf9] text-gray-900 selection:bg-[#2e170d] selection:text-white">
+
+    <!-- ======================================================== -->
+    <!-- 1. FIXED TOP NAVBAR (Identik Home Navbar, Bold di Pustaka) -->
+    <!-- ======================================================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 w-full py-4 navbar-brown">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                
+                <!-- Left: Titik Hukum Brand Logo -->
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <img src="assets/logo-white.png" alt="Titik Hukum Logo" class="h-8 sm:h-9 object-contain transition-transform duration-300 group-hover:scale-105" />
+                </a>
+
+                <!-- Center: Menu Navigation Links (Bold di Pustaka Dokumen) -->
+                <nav class="hidden md:flex items-center gap-8 lg:gap-10 text-[13px]">
+                    <a href="index.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Beranda
+                    </a>
+                    <!-- Active Bold Indicator on Pustaka Dokumen -->
+                    <a href="pustaka.html" class="text-white font-bold transition-all duration-300 transform hover:scale-110 hover:text-white py-1 inline-block drop-shadow-sm relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white/80">
+                        Pustaka Dokumen
+                    </a>
+                    <a href="chat.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm flex items-center gap-1.5">
+                        <span>Asisten Hukum</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-extrabold bg-white/20 text-white backdrop-blur-xs">AI</span>
+                    </a>
+                    <a href="profil.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Profil Saya
+                    </a>
+                </nav>
+
+                <!-- Right: Language, Theme & Masuk & Daftar Buttons -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    
+                    <!-- Language Switcher -->
+                    <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1 text-white/80 hover:text-white text-xs font-semibold transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1" title="Ganti Bahasa (EN / ID)">
+                        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24">
+                            <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+                        </svg>
+                        <span id="navLangLabel" class="font-bold text-xs tracking-wide">EN</span>
+                    </button>
+
+                    <!-- Theme Dark/Light Mode Icon Button -->
+                    <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-white/90 hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1 shrink-0" title="Ganti Mode Tema (Terang / Gelap)">
+                        <span id="navThemeIconContainer" class="inline-flex items-center justify-center w-5 h-5 shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                                <circle cx="12" cy="12" r="4.5"></circle>
+                                <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                                <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                                <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                                <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                                <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                                <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                                <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <!-- Masuk & Daftar Button -->
+                    <a href="login.html" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg border border-white/50 bg-transparent text-white hover:bg-white hover:text-gray-900 hover:border-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1">
+                        <span>Masuk & Daftar</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-8.5 h-8.5 flex items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white hover:bg-white hover:text-gray-900 transition ml-1">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-sm"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Overlay Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-3">
+            <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
+                <a href="index.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Beranda</a>
+                <a href="pustaka.html" onclick="toggleMobileMenu()" class="block py-2 text-white font-bold border-b border-white/10">Pustaka Dokumen</a>
+                <a href="chat.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Asisten Hukum AI</a>
+                <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Profil Saya</a>
+                
+                <div class="pt-2">
+                    <a href="login.html" class="w-full py-2.5 rounded-lg border border-white bg-white text-gray-900 text-xs font-normal flex items-center justify-center gap-2">
+                        <span>Masuk & Daftar</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ======================================================== -->
+    <!-- 2. MAIN CONTENT WRAPPER                                  -->
+    <!-- ======================================================== -->
+    <main class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-16 space-y-8 flex-1">
+
+        <!-- Page Header -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-gray-200/80 pb-6">
+            <div class="space-y-1.5">
+                <h1 class="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900">
+                    Pustaka Dokumen Hukum
+                </h1>
+                <p class="text-xs sm:text-sm text-gray-500 font-normal">
+                    Manajemen referensi dokumen PDF regulasi, sunting metadata pasal, dan jalankan ekstraksi AI terverifikasi.
+                </p>
+            </div>
+
+            <!-- Fast Stats Badges -->
+            <div class="flex items-center gap-3">
+                <div class="px-4 py-2 rounded-2xl bg-white border border-gray-200 shadow-2xs text-left">
+                    <div class="text-[11px] text-gray-400 font-semibold uppercase">Total Berkas</div>
+                    <div class="text-base font-bold text-gray-900" id="statTotalDoc">5 Dokumen</div>
+                </div>
+                <div class="px-4 py-2 rounded-2xl bg-white border border-gray-200 shadow-2xs text-left">
+                    <div class="text-[11px] text-gray-400 font-semibold uppercase">Indeks AI</div>
+                    <div class="text-base font-bold text-emerald-600">100% Aktif</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toolbar (Sector Pills, Search, Filters, Batch Delete, Add Button) -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+            
+            <!-- Left: Sector / Jenis Aturan Pills Switcher -->
+            <div class="flex items-center gap-1 bg-[#edebe6] p-1.5 rounded-full w-fit max-w-full overflow-x-auto border border-black/5">
+                <button type="button" onclick="setCategoryFilter('all')" class="cat-pill active px-4 py-2 rounded-full text-xs" id="cat-all">
+                    Semua Jenis Aturan
+                </button>
+                <button type="button" onclick="setCategoryFilter('Kelautan & Perikanan')" class="cat-pill px-4 py-2 rounded-full text-xs" id="cat-laut">
+                    Kelautan & Perikanan
+                </button>
+                <button type="button" onclick="setCategoryFilter('Pemerintahan')" class="cat-pill px-4 py-2 rounded-full text-xs" id="cat-pem">
+                    Pemerintahan
+                </button>
+                <button type="button" onclick="setCategoryFilter('Teknologi & Digital')" class="cat-pill px-4 py-2 rounded-full text-xs" id="cat-tek">
+                    Teknologi & Digital
+                </button>
+                <button type="button" onclick="setCategoryFilter('Hukum Pidana')" class="cat-pill px-4 py-2 rounded-full text-xs" id="cat-pid">
+                    Hukum Pidana
+                </button>
+            </div>
+
+            <!-- Right: Search Bar, Filter, Dynamic Batch Delete, & Full-Width Brown Add Document Pill Button -->
+            <div class="flex flex-col gap-2.5 w-full sm:w-auto sm:min-w-[360px] md:min-w-[400px]">
+                
+                <!-- Top Row: Search Input + Filters Dropdown -->
+                <div class="flex items-center gap-2.5 w-full">
+                    <!-- Search Input -->
+                    <div class="relative flex-1 min-w-[200px]">
+                        <input 
+                            type="text" 
+                            id="searchInput" 
+                            onkeyup="handleSearch(this.value)"
+                            placeholder="Cari judul, nomor, atau kata kunci..." 
+                            class="w-full pl-4 pr-10 py-2.5 rounded-full bg-[#edebe6] border-0 text-xs sm:text-[13px] text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20"
+                        />
+                        <i class="fa-solid fa-magnifying-glass absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
+                    </div>
+
+                    <!-- Filter Options Dropdown -->
+                    <div class="relative shrink-0">
+                        <button type="button" onclick="toggleDropdown('filterDropdownMenu')" class="px-4 py-2.5 rounded-full bg-[#edebe6] hover:bg-[#e2e0da] text-gray-800 text-xs font-semibold transition flex items-center gap-2">
+                            <span>Filters</span>
+                            <i class="fa-solid fa-sliders text-[11px] text-gray-600"></i>
+                        </button>
+
+                        <div id="filterDropdownMenu" class="hidden dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 p-3 z-50 text-xs space-y-3">
+                            <div class="font-bold text-gray-900 border-b border-gray-100 pb-2">Filter Status AI</div>
+                            <label class="flex items-center gap-2 cursor-pointer text-gray-700">
+                                <input type="checkbox" checked onchange="handleStatusFilter('Terindeks AI', this.checked)" class="rounded text-[#26150d] focus:ring-0">
+                                <span>Terindeks AI</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer text-gray-700">
+                                <input type="checkbox" checked onchange="handleStatusFilter('Memproses...', this.checked)" class="rounded text-[#26150d] focus:ring-0">
+                                <span>Memproses...</span>
+                            </label>
+                            <label class="flex items-center gap-2 cursor-pointer text-gray-700">
+                                <input type="checkbox" checked onchange="handleStatusFilter('Siap Analisis', this.checked)" class="rounded text-[#26150d] focus:ring-0">
+                                <span>Siap Analisis</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bottom Row: Batch Delete & Full-Width + Tambah Dokumen Baru Button (Sejajar sempurna dengan batas akhir filter) -->
+                <div class="flex items-center gap-2.5 w-full">
+                    <!-- Batch Delete Button (Muncul otomatis saat memilih beberapa checkbox) -->
+                    <button type="button" id="batchDeleteBtn" onclick="deleteSelectedDocs()" class="hidden px-4 py-2.5 rounded-full bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-[13px] font-semibold transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 shrink-0">
+                        <i class="fa-regular fa-trash-can text-xs"></i>
+                        <span>Hapus (<span id="selectedCountBadge">0</span>)</span>
+                    </button>
+
+                    <!-- + Tambah Dokumen Baru Button (Lebih panjang & sejajar penuh dengan batas akhir tombol filter) -->
+                    <button type="button" onclick="openAddModal()" class="w-full px-5 py-2.5 rounded-full bg-[#26150d] hover:bg-[#381d12] text-white text-xs sm:text-[13px] font-semibold transition-all shadow-md active:scale-95 flex items-center justify-center gap-2">
+                        <span>Tambah Dokumen Baru</span>
+                        <i class="fa-solid fa-plus text-xs"></i>
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- 3. DATA TABLE CARD (Exact Reference Look)                -->
+        <!-- ======================================================== -->
+        <div class="w-full bg-white rounded-[24px] sm:rounded-[28px] border border-gray-200 shadow-xs overflow-hidden">
+            
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-xs sm:text-[13px] border-collapse" id="docTable">
+                    
+                    <!-- Table Header -->
+                    <thead class="border-b border-gray-200 text-gray-400 font-semibold uppercase tracking-wider text-[11px] select-none bg-stone-50/70">
+                        <tr>
+                            <th scope="col" class="py-4.5 pl-6 pr-4 w-12 text-center">
+                                <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this.checked)" class="rounded border-gray-300 text-[#26150d] focus:ring-0 cursor-pointer">
+                            </th>
+                            <th scope="col" class="py-4.5 px-4 cursor-pointer group" onclick="sortTable('title')">
+                                <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
+                                    <span>Nama & Berkas Dokumen</span>
+                                    <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
+                                </div>
+                            </th>
+                            <th scope="col" class="py-4.5 px-4 cursor-pointer group" onclick="sortTable('category')">
+                                <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
+                                    <span>Jenis / Bidang Aturan</span>
+                                    <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
+                                </div>
+                            </th>
+                            <th scope="col" class="py-4.5 px-4 cursor-pointer group" onclick="sortTable('year')">
+                                <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
+                                    <span>Metadata Regulasi</span>
+                                    <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
+                                </div>
+                            </th>
+                            <th scope="col" class="py-4.5 px-4 cursor-pointer group" onclick="sortTable('status')">
+                                <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
+                                    <span>Status Pemrosesan</span>
+                                    <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
+                                </div>
+                            </th>
+                            <th scope="col" class="py-4.5 pr-6 pl-4 text-right">
+                                <span class="sr-only">Aksi</span>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table Body Rendered Dynamically -->
+                    <tbody id="tableBody" class="divide-y divide-gray-100 text-gray-900 font-normal">
+                        <!-- Populated via Javascript -->
+                    </tbody>
+
+                </table>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden py-16 text-center space-y-3">
+                <div class="w-12 h-12 rounded-full bg-[#f6eee7] text-[#26150d] flex items-center justify-center mx-auto">
+                    <i class="fa-regular fa-folder-open text-xl"></i>
+                </div>
+                <div class="text-sm font-semibold text-gray-800">Tidak ada dokumen yang sesuai</div>
+                <p class="text-xs text-gray-500 max-w-sm mx-auto">Coba ubah kata kunci pencarian atau klik Tambah Dokumen Baru untuk mengunggah berkas PDF.</p>
+            </div>
+
+            <!-- Table Footer / Pagination Controls -->
+            <div class="p-4 sm:p-5 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-gray-500 bg-white">
+                <div id="paginationInfo">
+                    Menampilkan <span class="font-bold text-gray-900" id="currentDocCount">0</span> dari <span class="font-bold text-gray-900" id="totalDocCount">0</span> dokumen
+                </div>
+
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="prevPage()" id="prevPageBtn" class="px-3.5 py-1.5 rounded-full border border-gray-200 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-gray-700 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition">
+                        Sebelumnya
+                    </button>
+                    <span id="pageIndicator" class="px-3 py-1 text-gray-800 font-bold">1</span>
+                    <button type="button" onclick="nextPage()" id="nextPageBtn" class="px-3.5 py-1.5 rounded-full border border-gray-200 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-gray-700 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition">
+                        Berikutnya
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 1: TAMBAH DOKUMEN BARU                             -->
+    <!-- ======================================================== -->
+    <div id="addDocModal" onclick="if(event.target === this) closeAddModal()" class="hidden fixed inset-0 z-50 modal-backdrop bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-[28px] w-full max-w-2xl overflow-hidden shadow-2xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200" onclick="event.stopPropagation()">
+            
+            <div class="p-6 sm:p-8 border-b border-gray-100 flex items-center justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900">Tambah Dokumen Baru</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Unggah berkas PDF naskah hukum untuk dipetakan hierarki pasalnya.</p>
+                </div>
+                <button type="button" onclick="closeAddModal()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <form id="addDocForm" onsubmit="handleAddSubmit(event)" class="p-6 sm:p-8 space-y-5 text-xs sm:text-[13px]">
+                
+                <!-- PDF Upload Zone -->
+                <div>
+                    <label class="block font-bold text-gray-800 mb-2">Unggah Berkas PDF <span class="text-rose-500">*</span></label>
+                    <div id="dropZone" class="border-2 border-dashed border-gray-300 hover:border-[#26150d] rounded-2xl p-6 text-center cursor-pointer transition bg-gray-50/60" onclick="document.getElementById('pdfFileInput').click()">
+                        <input type="file" id="pdfFileInput" accept="application/pdf" class="hidden" onchange="handleFileSelected(this)">
+                        <div class="space-y-2">
+                            <div class="w-10 h-10 rounded-full bg-[#f6eee7] text-[#26150d] flex items-center justify-center mx-auto">
+                                <i class="fa-solid fa-cloud-arrow-up text-base"></i>
+                            </div>
+                            <div id="fileNamePreview" class="font-semibold text-gray-800">
+                                Klik untuk memilih file PDF atau tarik ke sini
+                            </div>
+                            <div class="text-[11px] text-gray-400 font-normal">
+                                Format didukung: PDF Dokumen Resmi (Maks. 50 MB)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Judul Dokumen -->
+                    <div class="sm:col-span-2">
+                        <label class="block font-bold text-gray-800 mb-1.5">Judul / Naskah Regulasi <span class="text-rose-500">*</span></label>
+                        <input type="text" id="addTitle" required placeholder="Contoh: UU Nomor 1 Tahun 2024 tentang Perubahan UU ITE" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                    </div>
+
+                    <!-- Jenis / Bidang Aturan -->
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Jenis / Bidang Aturan <span class="text-rose-500">*</span></label>
+                        <select id="addCategory" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20 bg-white">
+                            <option value="Kelautan & Perikanan">Kelautan & Perikanan</option>
+                            <option value="Pemerintahan">Pemerintahan & Tata Kelola</option>
+                            <option value="Teknologi & Digital">Teknologi & Digital</option>
+                            <option value="Hukum Pidana">Hukum Pidana & Keadilan</option>
+                            <option value="Agraria & Tata Ruang">Agraria & Tata Ruang</option>
+                            <option value="Keuangan & Bisnis">Keuangan & Bisnis</option>
+                        </select>
+                    </div>
+
+                    <!-- Ruang Lingkup / Sub-Bidang -->
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Ruang Lingkup / Sub-Bidang <span class="text-rose-500">*</span></label>
+                        <input type="text" id="addSource" required placeholder="Contoh: Penangkapan Ikan Terukur / SPBE" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                    </div>
+
+                    <!-- Nomor Regulasi -->
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Nomor Regulasi <span class="text-rose-500">*</span></label>
+                        <input type="text" id="addNumber" required placeholder="Contoh: PP No. 11 / UU No. 32" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                    </div>
+
+                    <!-- Tahun Pengundangan -->
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Tahun <span class="text-rose-500">*</span></label>
+                        <input type="number" id="addYear" required min="1945" max="2030" value="2024" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                    </div>
+
+                    <!-- Keterangan Singkat -->
+                    <div class="sm:col-span-2">
+                        <label class="block font-bold text-gray-800 mb-1.5">Abstrak / Catatan Singkat</label>
+                        <textarea id="addNotes" rows="2" placeholder="Catatan mengenai ruang lingkup, perubahan pasal, atau relevansi kasus..." class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20"></textarea>
+                    </div>
+                </div>
+
+                <!-- Action Buttons (Brown Button) -->
+                <div class="pt-4 border-t border-gray-100 flex items-center justify-end gap-3">
+                    <button type="button" onclick="closeAddModal()" class="px-5 py-2.5 rounded-full border border-gray-300 hover:bg-gray-100 font-semibold text-gray-700 transition">
+                        Batal
+                    </button>
+                    <button type="submit" class="px-6 py-2.5 rounded-full bg-[#26150d] hover:bg-[#381d12] text-white font-semibold transition active:scale-95 shadow-md flex items-center gap-2">
+                        <span>Simpan & Ekstraksi AI</span>
+                        <i class="fa-solid fa-sparkles text-xs text-amber-300"></i>
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 2: EDIT METADATA DOKUMEN                           -->
+    <!-- ======================================================== -->
+    <div id="editDocModal" onclick="if(event.target === this) closeEditModal()" class="hidden fixed inset-0 z-50 modal-backdrop bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-[28px] w-full max-w-2xl overflow-hidden shadow-2xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200" onclick="event.stopPropagation()">
+            
+            <div class="p-6 sm:p-8 border-b border-gray-100 flex items-center justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900">Sunting Metadata Dokumen</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Perbarui detail referensi dan penomoran dokumen hukum.</p>
+                </div>
+                <button type="button" onclick="closeEditModal()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <form id="editDocForm" onsubmit="handleEditSubmit(event)" class="p-6 sm:p-8 space-y-4 text-xs sm:text-[13px]">
+                <input type="hidden" id="editDocId">
+
+                <div>
+                    <label class="block font-bold text-gray-800 mb-1.5">Judul Dokumen</label>
+                    <input type="text" id="editTitle" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Jenis / Bidang Aturan</label>
+                        <select id="editCategory" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20 bg-white">
+                            <option value="Kelautan & Perikanan">Kelautan & Perikanan</option>
+                            <option value="Pemerintahan">Pemerintahan & Tata Kelola</option>
+                            <option value="Teknologi & Digital">Teknologi & Digital</option>
+                            <option value="Hukum Pidana">Hukum Pidana & Keadilan</option>
+                            <option value="Agraria & Tata Ruang">Agraria & Tata Ruang</option>
+                            <option value="Keuangan & Bisnis">Keuangan & Bisnis</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Ruang Lingkup / Sub-Bidang</label>
+                        <input type="text" id="editSource" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Nomor Regulasi</label>
+                        <input type="text" id="editNumber" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Tahun Pengundangan</label>
+                        <input type="number" id="editYear" required min="1945" max="2030" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label class="block font-bold text-gray-800 mb-1.5">Status Indeks AI</label>
+                        <select id="editStatus" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20 bg-white">
+                            <option value="Terindeks AI">Terindeks AI</option>
+                            <option value="Memproses...">Memproses...</option>
+                            <option value="Siap Analisis">Siap Analisis</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="pt-4 border-t border-gray-100 flex items-center justify-end gap-3">
+                    <button type="button" onclick="closeEditModal()" class="px-5 py-2.5 rounded-full border border-gray-300 hover:bg-gray-100 font-semibold text-gray-700 transition">
+                        Batal
+                    </button>
+                    <button type="submit" class="px-6 py-2.5 rounded-full bg-[#26150d] hover:bg-[#381d12] text-white font-semibold transition active:scale-95 shadow-md">
+                        Simpan Perubahan
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 3: MODAL ANALISIS / EKSTRAKSI AI DOKUMEN LEGAL      -->
+    <!-- (Tampilan Harmonis: Courtroom Brown & Warm Neutral)       -->
+    <!-- ======================================================== -->
+    <div id="analyzeDocModal" onclick="if(event.target === this) closeAnalyzeModal()" class="hidden fixed inset-0 z-50 modal-backdrop bg-black/70 backdrop-blur-xs flex items-center justify-center p-2 sm:p-4">
+        <div class="bg-white rounded-[24px] sm:rounded-[28px] w-full max-w-7xl max-h-[95vh] flex flex-col shadow-2xl border border-gray-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200" onclick="event.stopPropagation()">
+            
+            <!-- 1. Top Search & Close Bar -->
+            <div class="p-4 sm:p-5 border-b border-gray-200/90 bg-[#fafaf9] flex flex-col gap-3 shrink-0">
+                <div class="flex items-center justify-between gap-3">
+                    <!-- Search Bar Inside Modal -->
+                    <div class="flex items-center gap-2 flex-1 bg-white px-4 py-2.5 rounded-xl border border-gray-300 shadow-2xs focus-within:ring-2 focus-within:ring-[#26150d]/20 transition">
+                        <i class="fa-solid fa-magnifying-glass text-gray-400 text-xs sm:text-sm"></i>
+                        <input 
+                            type="text" 
+                            id="analysisModalSearchInput" 
+                            onkeyup="handleAnalysisInternalSearch(this.value)" 
+                            placeholder="Cari: 'UU Nomor 4', '4 tahun 2009', atau berdasarkan judul, nomor, bentuk..." 
+                            class="w-full text-xs sm:text-sm bg-transparent border-0 focus:outline-none text-gray-800 placeholder-gray-400"
+                        />
+                        <button type="button" onclick="clearAnalysisInternalSearch()" class="text-gray-400 hover:text-gray-600 text-xs px-1.5" title="Hapus pencarian">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                        <button type="button" class="px-5 py-2 rounded-xl bg-[#26150d] hover:bg-[#381d12] text-white text-xs font-semibold shadow-xs transition active:scale-95">
+                            Cari
+                        </button>
+                    </div>
+
+                    <!-- Close Modal Button -->
+                    <button type="button" onclick="closeAnalyzeModal()" class="w-10 h-10 rounded-xl bg-white hover:bg-gray-100 border border-gray-200 text-gray-600 flex items-center justify-center transition shrink-0 shadow-2xs" title="Tutup Modal">
+                        <i class="fa-solid fa-xmark text-sm"></i>
+                    </button>
+                </div>
+
+                <!-- Banner: DATABASE DOKUMEN LEGAL & Hint Strip (Harmonious Courtroom Warm Theme) -->
+                <div class="space-y-2">
+                    <div class="bg-[#f6eee7] px-4 py-2.5 rounded-xl border border-[#cbb4a3] flex items-center justify-between shadow-2xs">
+                        <span class="font-bold text-[#26150d] text-xs sm:text-sm tracking-wide">DATABASE DOKUMEN LEGAL</span>
+                        <span id="analysisActiveCategoryBadge" class="text-[11px] font-bold text-[#26150d] bg-white px-3 py-1 rounded-lg border border-[#cbb4a3]/80 shadow-2xs">
+                            Kelautan & Perikanan
+                        </span>
+                    </div>
+
+                    <div class="bg-[#faf8f5] px-4 py-2 rounded-xl border border-[#d6c4b7]/80 text-[11px] text-[#5c3822] flex items-center gap-2 overflow-x-auto">
+                        <i class="fa-solid fa-magnifying-glass text-[#8c5835] text-xs shrink-0"></i>
+                        <span id="analysisSearchHintText">
+                            <strong>Pencarian:</strong> "UU No 45" = "UU_Nomor_45", "45 tahun 2009" akan menemukan "<span id="hintDocFilename" class="font-mono text-[#26150d] font-bold">UU_Nomor_45_Tahun_2009.pdf</span>"
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Main 4-Column Structured Extraction Grid (Scrollable) -->
+            <div class="flex-1 overflow-y-auto p-4 sm:p-6 bg-[#fbf9f7]">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 items-start">
+                    
+                    <!-- ============================================ -->
+                    <!-- COLUMN 1: DOKUMEN (Col Span 2)              -->
+                    <!-- ============================================ -->
+                    <div class="lg:col-span-2 bg-white rounded-2xl p-4 border border-gray-200 shadow-2xs space-y-3">
+                        <div class="font-bold text-gray-500 uppercase text-[11px] tracking-wider border-b border-gray-100 pb-2">
+                            DOKUMEN
+                        </div>
+
+                        <!-- Active Document File Card -->
+                        <div class="p-3 bg-[#f6eee7]/60 rounded-xl border border-[#cbb4a3]/60 space-y-2">
+                            <div class="font-bold text-[#26150d] text-xs font-mono break-all leading-tight" id="colDocFileName">
+                                UU_Nomor_45_Tahun_2009.pdf
+                            </div>
+                            <div class="text-[11px] text-gray-600" id="colDocTitle">
+                                UU No. 45 Tahun 2009 tentang Perikanan
+                            </div>
+                            <div class="text-[10px] text-gray-400 font-mono" id="colDocMetaSize">
+                                4.8 MB • 110 Pasal
+                            </div>
+                        </div>
+
+                        <!-- Quick Switch Other Docs -->
+                        <div class="space-y-1.5 pt-2">
+                            <div class="text-[10px] font-bold text-gray-400 uppercase">Pilih Berkas Lain:</div>
+                            <div id="colDocSwitcherList" class="space-y-1 max-h-48 overflow-y-auto pr-1 text-xs">
+                                <!-- Rendered dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================ -->
+                    <!-- COLUMN 2: TINDAK PIDANA (Col Span 3)        -->
+                    <!-- ============================================ -->
+                    <div class="lg:col-span-3 bg-white rounded-2xl border border-gray-200 shadow-2xs overflow-hidden flex flex-col">
+                        <!-- Column Header with Red/Rose Accent -->
+                        <div class="bg-[#fef2f2] p-3.5 border-b border-rose-100 flex items-center justify-between">
+                            <div class="flex items-center gap-2 text-rose-800 font-bold text-xs uppercase tracking-wide">
+                                <i class="fa-solid fa-gavel text-rose-700 text-xs"></i>
+                                <span>TINDAK PIDANA</span>
+                            </div>
+                            <span id="colTindakPidanaCount" class="text-[10px] font-semibold bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full border border-rose-200">
+                                8 ringkasan
+                            </span>
+                        </div>
+
+                        <!-- Tindak Pidana Items List -->
+                        <div id="colTindakPidanaList" class="p-3 space-y-2.5 max-h-[520px] overflow-y-auto text-xs">
+                            <!-- Populated dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- ============================================ -->
+                    <!-- COLUMN 3: KEWENANGAN (Col Span 3)           -->
+                    <!-- ============================================ -->
+                    <div class="lg:col-span-3 bg-white rounded-2xl border border-gray-200 shadow-2xs overflow-hidden flex flex-col space-y-3 p-3">
+                        <div class="font-bold text-gray-500 uppercase text-[11px] tracking-wider px-1">
+                            KEWENANGAN
+                        </div>
+
+                        <!-- Sub-Group 1: PROSES PENGADILAN (Soft Olive/Emerald Accent) -->
+                        <div class="bg-[#f4f7f4] rounded-xl border border-[#c8d8c8] p-3 space-y-2.5">
+                            <div class="flex items-center justify-between pb-1.5 border-b border-[#dae6da]">
+                                <div class="flex items-center gap-1.5 text-[#1c3822] font-bold text-[11px] uppercase">
+                                    <i class="fa-solid fa-scale-balanced text-xs text-[#2d5a37]"></i>
+                                    <span>PROSES PENGADILAN</span>
+                                </div>
+                                <span id="colPengadilanCount" class="text-[10px] font-semibold bg-[#e2ede2] text-[#1c3822] px-2 py-0.5 rounded-md border border-[#c8d8c8]">
+                                    2 lembaga
+                                </span>
+                            </div>
+
+                            <div id="colPengadilanList" class="space-y-2 text-xs">
+                                <!-- Populated dynamically -->
+                            </div>
+
+                            <div class="text-[10px] text-[#1c3822] bg-[#e8f1e8] p-2 rounded-lg flex items-center gap-1.5 border border-[#d2e2d2]">
+                                <i class="fa-regular fa-lightbulb text-[11px] text-[#2d5a37]"></i>
+                                <span>Klik lembaga untuk detail lengkap dengan referensi PDF</span>
+                            </div>
+                        </div>
+
+                        <!-- Sub-Group 2: MENANGKAP / PENINDAKAN (Soft Olive/Emerald Accent) -->
+                        <div class="bg-[#f4f7f4] rounded-xl border border-[#c8d8c8] p-3 space-y-2.5">
+                            <div class="flex items-center justify-between pb-1.5 border-b border-[#dae6da]">
+                                <div class="flex items-center gap-1.5 text-[#1c3822] font-bold text-[11px] uppercase">
+                                    <i class="fa-solid fa-shield text-xs text-[#2d5a37]"></i>
+                                    <span>MENANGKAP</span>
+                                </div>
+                                <span id="colMenangkapCount" class="text-[10px] font-semibold bg-[#e2ede2] text-[#1c3822] px-2 py-0.5 rounded-md border border-[#c8d8c8]">
+                                    3 lembaga
+                                </span>
+                            </div>
+
+                            <div id="colMenangkapList" class="space-y-2 text-xs">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ============================================ -->
+                    <!-- COLUMN 4: UJI REZIM LAUT (Col Span 4)       -->
+                    <!-- (Re-themed to Warm Courtroom Taupe Palette)  -->
+                    <!-- ============================================ -->
+                    <div class="lg:col-span-4 bg-white rounded-2xl border border-gray-200 shadow-2xs overflow-hidden flex flex-col space-y-3 p-3">
+                        <div class="font-bold text-gray-500 uppercase text-[11px] tracking-wider px-1">
+                            UJI REZIM LAUT
+                        </div>
+
+                        <!-- Rezim 1: LAUT KEPULAUAN (Warm Courtroom Theme) -->
+                        <div class="bg-[#faf6f2] rounded-xl border border-[#d6c4b7] p-3 space-y-2.5">
+                            <div class="flex items-center gap-1.5 text-[#26150d] font-bold text-[11px] uppercase pb-1 border-b border-[#e8ded5]">
+                                <i class="fa-solid fa-compass text-xs text-[#8c5835]"></i>
+                                <span>LAUT KEPULAUAN</span>
+                            </div>
+
+                            <div id="colLautKepulauanList" class="space-y-2 text-xs">
+                                <!-- Populated dynamically -->
+                            </div>
+
+                            <div class="text-[10px] text-[#5c3822] bg-[#f2e7de]/80 p-2 rounded-lg flex items-center gap-1.5 border border-[#e4d7cd]">
+                                <i class="fa-solid fa-map-location-dot text-[11px] text-[#8c5835]"></i>
+                                <span>Klik entitas untuk detail kewenangan dan tindak pidana di Laut Kepulauan</span>
+                            </div>
+                        </div>
+
+                        <!-- Rezim 2: LAUT TERITORIAL (Warm Courtroom Theme) -->
+                        <div class="bg-[#faf6f2] rounded-xl border border-[#d6c4b7] p-3 space-y-2.5">
+                            <div class="flex items-center gap-1.5 text-[#26150d] font-bold text-[11px] uppercase pb-1 border-b border-[#e8ded5]">
+                                <i class="fa-solid fa-water text-xs text-[#8c5835]"></i>
+                                <span>LAUT TERITORIAL</span>
+                            </div>
+
+                            <div id="colLautTeritorialList" class="space-y-2 text-xs">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                        <!-- Rezim 3: ZEE (ZONA EKONOMI EKSKLUSIF) (Warm Courtroom Theme) -->
+                        <div class="bg-[#faf6f2] rounded-xl border border-[#d6c4b7] p-3 space-y-2.5">
+                            <div class="flex items-center gap-1.5 text-[#26150d] font-bold text-[11px] uppercase pb-1 border-b border-[#e8ded5]">
+                                <i class="fa-solid fa-globe text-xs text-[#8c5835]"></i>
+                                <span>ZONA EKONOMI EKSKLUSIF (ZEE)</span>
+                            </div>
+
+                            <div id="colZeeList" class="space-y-2 text-xs">
+                                <!-- Populated dynamically -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 3. Bottom Action Bar (Kotak / Rounded-xl Buttons) -->
+            <div class="p-4 sm:p-5 border-t border-gray-200 bg-white flex flex-wrap items-center justify-between gap-3 shrink-0">
+                <div class="flex items-center gap-2 text-xs text-gray-500">
+                    <i class="fa-solid fa-shield-halved text-emerald-600"></i>
+                    <span>Ekstraksi AI berbasis visual grounding pasal dan yurisdiksi resmi.</span>
+                </div>
+                <div class="flex items-center gap-2.5">
+                    <!-- Button Kotak: Tanya Asisten AI -->
+                    <a href="chat.html" class="px-4.5 py-2.5 rounded-xl border border-gray-300 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-xs font-semibold text-gray-800 flex items-center gap-2 transition shadow-2xs active:scale-95">
+                        <i class="fa-solid fa-robot text-[#8c5835]"></i>
+                        <span>Tanya Asisten AI</span>
+                    </a>
+
+                    <!-- Button Kotak: Tutup Pratinjau -->
+                    <button type="button" onclick="closeAnalyzeModal()" class="px-6 py-2.5 rounded-xl bg-[#26150d] hover:bg-[#381d12] text-white text-xs font-semibold transition active:scale-95 shadow-md">
+                        Tutup Pratinjau
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 4: DETAIL DRILL-DOWN POPUP (KLIK KARTU EKSTRAKSI)  -->
+    <!-- (Tampil di Depan Modal Utama dengan z-[100])              -->
+    <!-- ======================================================== -->
+    <div id="analysisDetailItemModal" onclick="if(event.target === this) closeDetailItemModal()" class="hidden fixed inset-0 z-[100] modal-backdrop bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-[24px] w-full max-w-xl overflow-hidden shadow-2xl border border-gray-100 p-6 space-y-4 animate-in fade-in zoom-in-95" onclick="event.stopPropagation()">
+            <div class="flex items-start justify-between gap-3 border-b border-gray-100 pb-3">
+                <div>
+                    <span id="detailItemBadge" class="inline-block px-2.5 py-0.5 rounded-md text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200 mb-1">
+                        TINDAK PIDANA
+                    </span>
+                    <h4 id="detailItemTitle" class="text-base font-bold text-gray-900 leading-snug">
+                        Detail Pasal & Kewenangan
+                    </h4>
+                </div>
+                <button type="button" onclick="closeDetailItemModal()" class="w-8 h-8 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center shrink-0 transition">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
+            </div>
+
+            <div class="space-y-3 text-xs leading-relaxed text-gray-700">
+                <div class="p-3.5 bg-[#fbf9f7] rounded-xl border border-[#d6c4b7] space-y-1">
+                    <div class="font-bold text-[#26150d] text-[11px] uppercase">Dasar Hukum & Rujukan Pasal:</div>
+                    <div id="detailItemPasalRef" class="font-semibold text-gray-900">
+                        Pasal 84 ayat (1) UU No. 45 Tahun 2009
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <div class="font-bold text-gray-900 text-xs">Uraian & Ringkasan Yuridis:</div>
+                    <p id="detailItemDescription" class="text-gray-600 bg-gray-50 p-3 rounded-xl border border-gray-200">
+                        Setiap orang yang dengan sengaja di wilayah pengelolaan perikanan Republik Indonesia melakukan penangkapan ikan dan/atau pembudidayaan ikan dengan menggunakan bahan kimia, bahan biologis, bahan peledak, racun dan/atau bom...
+                    </p>
+                </div>
+
+                <div id="detailItemSanctionBox" class="p-3 bg-rose-50/70 border border-rose-200/80 rounded-xl space-y-1 text-rose-900">
+                    <div class="font-bold text-[11px] uppercase">Ancaman Pidana / Sanksi:</div>
+                    <div id="detailItemSanction" class="text-xs">
+                        Pidana penjara paling lama 6 (enam) tahun dan denda paling banyak Rp 1.200.000.000,00 (satu miliar dua ratus juta rupiah).
+                    </div>
+                </div>
+            </div>
+
+            <div class="pt-2 flex justify-end">
+                <button type="button" onclick="closeDetailItemModal()" class="px-5 py-2.5 rounded-xl bg-[#26150d] text-white text-xs font-semibold hover:bg-[#381d12] transition shadow-xs active:scale-95">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- TOAST NOTIFICATION CONTAINER                             -->
+    <!-- ======================================================== -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+        <div class="px-5 py-3 rounded-2xl bg-[#26150d] text-white text-xs font-semibold shadow-2xl flex items-center gap-3 border border-white/10">
+            <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400"></i>
+            <span id="toastMsg">Operasi berhasil dilakukan.</span>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- JAVASCRIPT STATE MANAGEMENT & CRUD LOGIC                 -->
+    <!-- ======================================================== -->
+    <script>
+        // Navbar Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Language Switcher
+        let currentNavLang = 'EN';
+        function toggleNavLang() {
+            currentNavLang = currentNavLang === 'EN' ? 'ID' : 'EN';
+            const label = document.getElementById('navLangLabel');
+            if (label) label.textContent = currentNavLang;
+        }
+
+        // Theme Toggle
+        let isDarkMode = true;
+        const sunSvgHtml = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                <circle cx="12" cy="12" r="4.5"></circle>
+                <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+            </svg>
+        `;
+        const moonSvgHtml = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        `;
+
+        function toggleNavTheme() {
+            isDarkMode = !isDarkMode;
+            const container = document.getElementById('navThemeIconContainer');
+            if (container) {
+                container.innerHTML = isDarkMode ? sunSvgHtml : moonSvgHtml;
+                container.style.transform = isDarkMode ? 'rotate(0deg)' : 'rotate(360deg)';
+            }
+        }
+
+        // Seed Initial Legal Documents Data with Full AI Extraction Payloads
+        const initialDocs = [
+            {
+                id: 'doc-1',
+                title: 'UU No. 45 Tahun 2009 tentang Perubahan UU Perikanan',
+                fileName: 'UU_Nomor_45_Tahun_2009.pdf',
+                fileSize: '4.8 MB',
+                category: 'Kelautan & Perikanan',
+                agency: 'Pengelolaan Sumber Daya Ikan & Penegakan Hukum',
+                number: 'UU Nomor 45',
+                year: '2009',
+                source: 'Lembaran Negara No. 154',
+                status: 'Terindeks AI',
+                dateUploaded: '28 Jan 2026',
+                notes: 'Ketentuan pidana perikanan, pembentukan pengadilan perikanan, dan yurisdiksi penangkapan kapal di perairan Indonesia.',
+                articles: '110 Pasal',
+                activeToggle: true,
+                tindakPidana: [
+                    {
+                        title: 'Tindak pidana di bidang perikanan yang terjadi di wilayah pengelolaan...',
+                        pasal: 'Pasal 84 ayat (1) & (2) UU No. 45/2009',
+                        desc: 'Tindak pidana penangkapan ikan menggunakan bahan kimia, bahan biologis, bahan peledak, racun atau bom yang merusak kelestarian sumber daya ikan.',
+                        sanction: 'Pidana penjara paling lama 6 (enam) tahun dan denda paling banyak Rp 1.200.000.000,00 (satu miliar dua ratus juta rupiah).'
+                    },
+                    {
+                        title: 'Setiap orang yang dengan sengaja memiliki, menguasai, membawa,...',
+                        pasal: 'Pasal 85 UU No. 45/2009',
+                        desc: 'Memiliki, menguasai, membawa, dan/atau menggunakan alat penangkap ikan dan/atau alat bantu penangkapan ikan yang mengganggu kelestarian sumber daya ikan di kapal perikanan.',
+                        sanction: 'Pidana penjara paling lama 5 (lima) tahun dan denda paling banyak Rp 2.000.000.000,00 (dua miliar rupiah).'
+                    },
+                    {
+                        title: 'Setiap orang yang memiliki dan/atau mengoperasikan kapal...',
+                        pasal: 'Pasal 92 UU No. 45/2009',
+                        desc: 'Melakukan penangkapan ikan di WPPNRI tanpa memiliki Surat Izin Usaha Perikanan (SIUP) atau Surat Izin Penangkapan Ikan (SIPI).',
+                        sanction: 'Pidana penjara paling lama 8 (delapan) tahun dan denda paling banyak Rp 1.500.000.000,00 (satu miliar lima ratus juta rupiah).'
+                    },
+                    {
+                        title: 'Setiap orang yang memalsukan dan/atau menggunakan Surat Izin...',
+                        pasal: 'Pasal 94A UU No. 45/2009',
+                        desc: 'Memalsukan SIUP, SIPI, SIKPI, atau dokumen perizinan berusaha penangkapan ikan lainnya dan/atau menggunakannya secara melawan hukum.',
+                        sanction: 'Pidana penjara paling lama 7 (tujuh) tahun dan denda paling banyak Rp 3.000.000.000,00 (tiga miliar rupiah).'
+                    },
+                    {
+                        title: 'Nakhoda kapal perikanan yang tidak memiliki surat persetujuan...',
+                        pasal: 'Pasal 98 UU No. 45/2009',
+                        desc: 'Nakhoda yang melayarkan kapal perikanan tanpa memiliki Surat Persetujuan Berlayar (SPB) yang dikeluarkan oleh Syahbandar di pelabuhan perikanan.',
+                        sanction: 'Pidana penjara paling lama 1 (satu) tahun dan denda paling banyak Rp 200.000.000,00 (dua ratus juta rupiah).'
+                    },
+                    {
+                        title: 'Jika tindak pidana pemalsuan SIUP/SIPI/SIKPI atau...',
+                        pasal: 'Pasal 101 UU No. 45/2009',
+                        desc: 'Tindak pidana perikanan yang dilakukan oleh korporasi, pengurus, atau pemberi perintah korporasi perikanan.',
+                        sanction: 'Pidana denda ditambah sepertiga (1/3) dari pidana pokok serta pencabutan izin usaha perikanan.'
+                    },
+                    {
+                        title: 'Setiap orang yang memperjualbelikan atau mengangkut ikan hasil tangkapan ilegal...',
+                        pasal: 'Pasal 86 UU No. 45/2009',
+                        desc: 'Menjual, membeli, atau memperdagangkan hasil tangkapan ikan yang diketahui berasal dari tindak pidana destruktif/tanpa izin.',
+                        sanction: 'Pidana penjara paling lama 5 (lima) tahun dan denda paling banyak Rp 1.000.000.000,00 (satu miliar rupiah).'
+                    },
+                    {
+                        title: 'Pelanggaran terhadap ketentuan mempekerjakan awak kapal perikanan asing...',
+                        pasal: 'Pasal 35A UU No. 45/2009',
+                        desc: 'Kapal perikanan berbendera Indonesia yang tidak memprioritaskan awak kapal berkewarganegaraan Indonesia tanpa persetujuan menteri.',
+                        sanction: 'Sanksi administratif berupa penghentian sementara kegiatan dan denda administratif.'
+                    }
+                ],
+                kewenangan: {
+                    pengadilan: [
+                        {
+                            name: 'Pengadilan Perikanan',
+                            summary: 'Pengadilan khusus perikanan berwenang memeriksa, mengadili, dan memutus tindak pidana di bidang perikanan.',
+                            pasal: 'Pasal 71 UU No. 45/2009',
+                            detail: 'Dibentuk pada Pengadilan Negeri tertentu dengan kewenangan yurisdiksi perairan perikanan nasional.'
+                        },
+                        {
+                            name: 'Hakim Ad Hoc Perikanan',
+                            summary: 'Hakim khusus dengan keahlian perikanan mendampingi hakim karier dalam sidang tindak pidana perikanan.',
+                            pasal: 'Pasal 71B UU No. 45/2009',
+                            detail: 'Diangkat oleh Presiden atas usul Ketua Mahkamah Agung untuk menjamin kompetensi putusan hukum kelautan.'
+                        }
+                    ],
+                    menangkap: [
+                        {
+                            name: 'Pengawas Perikanan (KKP)',
+                            summary: 'Pengawas Perikanan secara eksplisit diberikan kewenangan untuk menangkap kapal dan nakhoda yang melanggar ketentuan perizinan.',
+                            pasal: 'Pasal 66 & 66C UU No. 45/2009',
+                            detail: 'Berwenang menghentikan, memeriksa, membawa, menahan, dan menangkap kapal penangkap ikan yang diduga melakukan pelanggaran di WPPNRI.'
+                        },
+                        {
+                            name: 'Penyidik Pegawai Negeri Sipil (PPNS) Perikanan',
+                            summary: 'PPNS Perikanan berwenang melakukan penyidikan tindak pidana perikanan bersama aparat penegak hukum laut lainnya.',
+                            pasal: 'Pasal 73 ayat (1) UU No. 45/2009',
+                            detail: 'Berwenang menerima laporan, memanggil saksi/tersangka, menyita barang bukti muatan ikan dan alat tangkap, serta melimpahkan berkas ke Penuntut Umum.'
+                        },
+                        {
+                            name: 'Penyidik Perwira TNI AL & Kepolisian Negara RI',
+                            summary: 'Perwira TNI AL dan Penyidik Polri berwenang menyidik tindak pidana perikanan di wilayah yurisdiksi laut Indonesia.',
+                            pasal: 'Pasal 73 ayat (2) & (3) UU No. 45/2009',
+                            detail: 'Melakukan penindakan hukum di perairan teritorial dan ZEE Indonesia serta berkoordinasi dalam forum penegakan hukum perikanan terpadu.'
+                        }
+                    ]
+                },
+                rezimLaut: {
+                    lautKepulauan: [
+                        {
+                            entity: 'Pengawas Perikanan (KKP)',
+                            summary: 'Pengawas Perikanan (KKP) berwenang menangkap kapal/orang yang melakukan penangkapan ikan ilegal di perairan kepulauan.',
+                            pasal: 'Pasal 66 UU No. 45/2009',
+                            detail: 'Yurisdiksi penuh kedaulatan laut kepulauan Indonesia.'
+                        },
+                        {
+                            entity: 'Penyidik Perwira TNI AL',
+                            summary: 'Penyidik Perwira TNI AL juga berwenang menyidik tindak pidana perikanan di Laut Kepulauan.',
+                            pasal: 'Pasal 73 UU No. 45/2009',
+                            detail: 'Pengamanan kedaulatan dan penegakan hukum di perairan kepulauan.'
+                        }
+                    ],
+                    lautTeritorial: [
+                        {
+                            entity: 'Penyidik Perwira TNI AL & PPNS Perikanan',
+                            summary: 'Penyidik Perwira TNI AL dan Penyidik Pegawai Negeri Sipil Perikanan berwenang melakukan penindakan terpadu.',
+                            pasal: 'Pasal 73 ayat (1) & (2) UU No. 45/2009',
+                            detail: 'Yurisdiksi kedaulatan wilayah laut hingga 12 mil laut dari garis pangkal.'
+                        }
+                    ],
+                    zee: [
+                        {
+                            entity: 'TNI AL, Bakamla & Pengawas KKP',
+                            summary: 'Penegakan hak berdaulat atas sumber daya hayati laut di Zona Ekonomi Eksklusif (ZEE) Indonesia.',
+                            pasal: 'Pasal 73 ayat (3) UU No. 45/2009 & UNCLOS 1982',
+                            detail: 'Penindakan kapal asing tanpa SIPI dan penerapan hot pursuit di ZEE.'
+                        }
+                    ]
+                }
+            },
+            {
+                id: 'doc-2',
+                title: 'PP No. 11 Tahun 2023 tentang Penangkapan Ikan Terukur',
+                fileName: 'PP_Nomor_11_Tahun_2023.pdf',
+                fileSize: '4.8 MB',
+                category: 'Kelautan & Perikanan',
+                agency: 'Pengelolaan Kuota & Zona Tangkap Ikan',
+                number: 'PP Nomor 11',
+                year: '2023',
+                source: 'Lembaran Negara No. 37',
+                status: 'Terindeks AI',
+                dateUploaded: '28 Jan 2026',
+                notes: 'Penetapan zona penangkapan ikan terukur, kuota industri dan nelayan lokal, serta PNBP pascaproduksi.',
+                articles: '72 Pasal',
+                activeToggle: true,
+                tindakPidana: [
+                    {
+                        title: 'Penangkapan ikan melebihi kuota tangkap industri yang ditetapkan...',
+                        pasal: 'Pasal 24 & Pasal 68 PP No. 11/2023',
+                        desc: 'Pelaku usaha yang menangkap ikan melebihi batas kuota perizinan berusaha berbasis zona terukur.',
+                        sanction: 'Pencabutan kuota tangkap dan denda administratif 200% dari nilai kelebihan hasil tangkap.'
+                    },
+                    {
+                        title: 'Pelanggaran kewajiban pendaratan ikan di Pelabuhan Pangkalan...',
+                        pasal: 'Pasal 31 PP No. 11/2023',
+                        desc: 'Kapal perikanan yang tidak mendaratkan hasil tangkapan di pelabuhan pangkalan yang telah ditetapkan dalam izin.',
+                        sanction: 'Pembekuan izin berusaha subsektor penangkapan ikan dan denda administratif.'
+                    },
+                    {
+                        title: 'Penggunaan Surat Izin Penangkapan Ikan oleh pihak ketiga...',
+                        pasal: 'Pasal 42 PP No. 11/2023',
+                        desc: 'Mengalihkan kuota atau memindahtangankan SIPI kepada pihak ketiga tanpa persetujuan menteri.',
+                        sanction: 'Pencabutan perizinan berusaha dan blacklist dari sistem kuota tangkap.'
+                    }
+                ],
+                kewenangan: {
+                    pengadilan: [
+                        {
+                            name: 'Pengadilan Negeri / Pengadilan Perikanan',
+                            summary: 'Mengadili sengketa perizinan dan tindak pidana pelanggaran kuota penangkapan ikan.',
+                            pasal: 'Pasal 69 PP No. 11/2023',
+                            detail: 'Proses peradilan terhadap pelanggaran pidana perikanan di zona tangkap terukur.'
+                        }
+                    ],
+                    menangkap: [
+                        {
+                            name: 'Pengawas Perikanan KKP & Syahbandar Pelabuhan',
+                            summary: 'Pemeriksaan kepatuhan kuota tangkap saat kapal mendarat di pelabuhan pangkalan.',
+                            pasal: 'Pasal 55 PP No. 11/2023',
+                            detail: 'Kewenangan inspeksi muatan fisik dan validasi kuota logbook digital.'
+                        }
+                    ]
+                },
+                rezimLaut: {
+                    lautKepulauan: [
+                        {
+                            entity: 'Pengawas Perikanan (Zona Kuota Industri & Lokal)',
+                            summary: 'Pengawasan pembagian zona penangkapan 0-12 mil untuk nelayan lokal.',
+                            pasal: 'Pasal 8 PP No. 11/2023',
+                            detail: 'Perlindungan kuota nelayan tradisional di perairan kepulauan.'
+                        }
+                    ],
+                    lautTeritorial: [
+                        {
+                            entity: 'Pangkalan Pengawasan Sumber Daya Kelautan (PSDKP)',
+                            summary: 'Patroli kapal pengawas perikanan di perairan teritorial WPPNRI.',
+                            pasal: 'Pasal 58 PP No. 11/2023',
+                            detail: 'Pengawasan kepatuhan alat Vessel Monitoring System (VMS).'
+                        }
+                    ],
+                    zee: [
+                        {
+                            entity: 'Kapal Patroli PSDKP & TNI AL',
+                            summary: 'Pengawasan zona kuota industri penangkapan ikan di ZEE Indonesia.',
+                            pasal: 'Pasal 14 PP No. 11/2023',
+                            detail: 'Zona penangkapan ikan terukur di WPPNRI 711, 718, dan perairan samudra.'
+                        }
+                    ]
+                }
+            },
+            {
+                id: 'doc-3',
+                title: 'UU No. 32 Tahun 2014 tentang Kelautan',
+                fileName: 'UU_Nomor_32_Tahun_2014.pdf',
+                fileSize: '6.4 MB',
+                category: 'Kelautan & Perikanan',
+                agency: 'Kedaulatan Maritim & Wilayah Pesisir',
+                number: 'UU Nomor 32',
+                year: '2014',
+                source: 'Lembaran Negara No. 294',
+                status: 'Terindeks AI',
+                dateUploaded: '12 Feb 2026',
+                notes: 'Penyelenggaraan tata kelola kelautan, penegakan hukum di laut, pembentukan Bakamla, serta pertahanan maritim.',
+                articles: '79 Pasal',
+                activeToggle: true,
+                tindakPidana: [
+                    {
+                        title: 'Pencemaran dan perusakan lingkungan laut yang melampaui baku mutu...',
+                        pasal: 'Pasal 53 & Pasal 70 UU No. 32/2014',
+                        desc: 'Pembuangan limbah B3, tumpahan minyak kapal di laut lepas, dan perusakan terumbu karang.',
+                        sanction: 'Pidana penjara paling lama 10 (sepuluh) tahun dan denda paling banyak Rp 10.000.000.000,00.'
+                    },
+                    {
+                        title: 'Pelanggaran hak lintas damai kapal asing di perairan kepulauan...',
+                        pasal: 'Pasal 40 UU No. 32/2014',
+                        desc: 'Kapal asing yang melakukan kegiatan spionase, riset tanpa izin, atau manuver militer di perairan kepulauan.',
+                        sanction: 'Penghentian kapal, pengusiran, dan/atau penahanan oleh otoritas keamanan laut.'
+                    }
+                ],
+                kewenangan: {
+                    pengadilan: [
+                        {
+                            name: 'Mahkamah Pelayaran & Pengadilan Negeri',
+                            summary: 'Mengadili kecelakaan pelayaran dan kejahatan maritim di wilayah yurisdiksi laut.',
+                            pasal: 'Pasal 63 UU No. 32/2014',
+                            detail: 'Pemeriksaan lanjutan kelayakan kapal dan kelaiklautan nakhoda.'
+                        }
+                    ],
+                    menangkap: [
+                        {
+                            name: 'Badan Keamanan Laut (Bakamla)',
+                            summary: 'Melakukan patroli keamanan dan keselamatan terpadu di seluruh wilayah perairan Indonesia.',
+                            pasal: 'Pasal 61 & 62 UU No. 32/2014',
+                            detail: 'Melakukan pengejaran seketika (hot pursuit), memberhentikan, memeriksa, dan menyerahkan kapal ke instansi berwenang.'
+                        },
+                        {
+                            name: 'TNI Angkatan Laut',
+                            summary: 'Melaksanakan penegakan hukum dan menjaga keamanan di wilayah laut yurisdiksi nasional.',
+                            pasal: 'Pasal 59 UU No. 32/2014',
+                            detail: 'Penegakan kedaulatan negara dan penindakan kejahatan lintas batas di laut.'
+                        }
+                    ]
+                },
+                rezimLaut: {
+                    lautKepulauan: [
+                        {
+                            entity: 'Bakamla & TNI AL',
+                            summary: 'Pengawasan Alur Laut Kepulauan Indonesia (ALKI) I, II, dan III.',
+                            pasal: 'Pasal 42 UU No. 32/2014',
+                            detail: 'Penegakan aturan Hak Lintas Alur Laut Kepulauan.'
+                        }
+                    ],
+                    lautTeritorial: [
+                        {
+                            entity: 'KPLP (Kesatuan Penjagaan Laut dan Pantai)',
+                            summary: 'Penjagaan keselamatan dan ketertiban pelayaran perairan teritorial pelabuhan.',
+                            pasal: 'Pasal 60 UU No. 32/2014',
+                            detail: 'Penegakan kelaiklautan kapal dan alur pelayaran.'
+                        }
+                    ],
+                    zee: [
+                        {
+                            entity: 'TNI AL & Bakamla',
+                            summary: 'Patroli kedaulatan sumber daya maritim dan landas kontinen ZEE.',
+                            pasal: 'Pasal 48 UU No. 32/2014',
+                            detail: 'Pengamanan eksplorasi energi dan sumber daya non-hayati laut lepas.'
+                        }
+                    ]
+                }
+            },
+            {
+                id: 'doc-4',
+                title: 'Perpres No. 39 Tahun 2019 tentang Satu Data Indonesia',
+                fileName: 'Perpres_Nomor_39_Tahun_2019.pdf',
+                fileSize: '2.4 MB',
+                category: 'Pemerintahan',
+                agency: 'Tata Kelola Data & Interoperabilitas SPBE',
+                number: 'Perpres Nomor 39',
+                year: '2019',
+                source: 'Lembaran Negara No. 112',
+                status: 'Terindeks AI',
+                dateUploaded: '24 Feb 2026',
+                notes: 'Tata kelola data pemerintah untuk menghasilkan data yang akurat, mutakhir, terpadu, dan dapat dibagipakaikan antar-instansi.',
+                articles: '42 Pasal',
+                activeToggle: true,
+                tindakPidana: [
+                    {
+                        title: 'Pelanggaran kewajiban keterbukaan dan interoperabilitas data...',
+                        pasal: 'Pasal 12 & Pasal 35 Perpres No. 39/2019',
+                        desc: 'Penolakan instansi dalam membagikan data publik sesuai standar Satu Data Indonesia.',
+                        sanction: 'Sanksi administratif bagi Pejabat Pengelola Data dan teguran tertulis dari Dewan Pengarah.'
+                    }
+                ],
+                kewenangan: {
+                    pengadilan: [
+                        {
+                            name: 'Komisi Informasi Pusat / PTUN',
+                            summary: 'Mengadili sengketa informasi publik dan kepatuhan penyediaan data instansi.',
+                            pasal: 'UU KIP & Perpres No. 39/2019',
+                            detail: 'Penyelesaian ajudikasi non-litigasi sengketa data publik.'
+                        }
+                    ],
+                    menangkap: [
+                        {
+                            name: 'Bappenas & Badan Pusat Statistik (BPS)',
+                            summary: 'Koordinator Forum Satu Data Indonesia tingkat pusat dan Pembina Data Statistik.',
+                            pasal: 'Pasal 18 & 19 Perpres No. 39/2019',
+                            detail: 'Menetapkan standar data, metadata baku, dan kode referensi interoperabilitas.'
+                        }
+                    ]
+                },
+                rezimLaut: {
+                    lautKepulauan: [
+                        {
+                            entity: 'Satu Data Kelautan & Maritim Nasional',
+                            summary: 'Integrasi data geospasial kelautan melalui Badan Informasi Geospasial (BIG).',
+                            pasal: 'Pasal 20 Perpres No. 39/2019',
+                            detail: 'Pembina data geospasial peta batimetri dan batas laut nasional.'
+                        }
+                    ],
+                    lautTeritorial: [
+                        {
+                            entity: 'Sistem Informasi Pelabuhan dan Maritim',
+                            summary: 'Pertukaran data kapal antar Kemenhub, KKP, dan Bakamla.',
+                            pasal: 'Pasal 33 Perpres No. 39/2019',
+                            detail: 'Interoperabilitas sistem manifest muatan laut.'
+                        }
+                    ],
+                    zee: [
+                        {
+                            entity: 'Pusat Data Maritim Terpadu Bakamla',
+                            summary: 'Integrasi radar AIS dan satelit pantau di seluruh ZEE.',
+                            pasal: 'Pasal 36 Perpres No. 39/2019',
+                            detail: 'Data analitik lalu lintas kapal asing.'
+                        }
+                    ]
+                }
+            },
+            {
+                id: 'doc-5',
+                title: 'UU No. 1 Tahun 2024 tentang Perubahan Kedua UU ITE',
+                fileName: 'UU_Nomor_1_Tahun_2024.pdf',
+                fileSize: '4.2 MB',
+                category: 'Teknologi & Digital',
+                agency: 'Sistem Elektronik & Transaksi Digital',
+                number: 'UU Nomor 1',
+                year: '2024',
+                source: 'Lembaran Negara No. 12',
+                status: 'Terindeks AI',
+                dateUploaded: '10 Feb 2026',
+                notes: 'Perubahan pasal 27, 28, klausul pencemaran nama baik, serta perlindungan anak dan transaksi elektronik di ranah digital.',
+                articles: '54 Pasal',
+                activeToggle: true,
+                tindakPidana: [
+                    {
+                        title: 'Penyebaran informasi elektronik bermuatan pemerasan atau pengancaman...',
+                        pasal: 'Pasal 27B ayat (2) UU No. 1/2024',
+                        desc: 'Dengan sengaja dan tanpa hak mendistribusikan dokumen elektronik untuk mengancam atau memeras orang lain.',
+                        sanction: 'Pidana penjara paling lama 6 (enam) tahun dan/atau denda paling banyak Rp 1.000.000.000,00.'
+                    },
+                    {
+                        title: 'Penyebaran berita bohong (hoaks) yang menimbulkan kerusuhan masyarakat...',
+                        pasal: 'Pasal 28 ayat (3) UU No. 1/2024',
+                        desc: 'Menyebarkan informasi bohong yang diketahuinya memicu keonaran atau konflik horizontal di masyarakat.',
+                        sanction: 'Pidana penjara paling lama 6 (enam) tahun dan/atau denda paling banyak Rp 1.000.000.000,00.'
+                    }
+                ],
+                kewenangan: {
+                    pengadilan: [
+                        {
+                            name: 'Pengadilan Negeri Khusus Siber / Pidana Umum',
+                            summary: 'Mengadili kejahatan siber, peretasan sistem, dan penipuan transaksi digital.',
+                            pasal: 'Pasal 39 UU No. 1/2024',
+                            detail: 'Alat bukti elektronik diakui secara sah dengan sertifikasi forensik digital.'
+                        }
+                    ],
+                    menangkap: [
+                        {
+                            name: 'Penyidik Siber Polri & PPNS Kominfo',
+                            summary: 'Penyidikan kejahatan teknologi informasi dan pemutusan akses konten ilegal.',
+                            pasal: 'Pasal 43 UU No. 1/2024',
+                            detail: 'Kewenangan penyitaan server, pemblokiran domain, dan penangkapan pelaku kejahatan siber.'
+                        }
+                    ]
+                },
+                rezimLaut: {
+                    lautKepulauan: [
+                        {
+                            entity: 'Keamanan Kabel Komunikasi Bawah Laut (Subsea Cable)',
+                            summary: 'Perlindungan infrastruktur jaringan serat optik bawah laut antar-pulau.',
+                            pasal: 'Pasal 33 UU No. 1/2024 & UU Kelautan',
+                            detail: 'Penetapan koridor pipa dan kabel bawah laut nasional.'
+                        }
+                    ],
+                    lautTeritorial: [
+                        {
+                            entity: 'Pengamanan Siber Maritim Pelabuhan',
+                            summary: 'Perlindungan sistem otomatisasi terminal kontainer dari ransomware.',
+                            pasal: 'Pasal 34 UU No. 1/2024',
+                            detail: 'Sertifikasi keandalan sistem elektronik pelabuhan.'
+                        }
+                    ],
+                    zee: [
+                        {
+                            entity: 'Sistem Komunikasi Satelit Maritim & AIS',
+                            summary: 'Pelacakan frekuensi komunikasi radio kapal di ZEE.',
+                            pasal: 'Pasal 35 UU No. 1/2024',
+                            detail: 'Penetapan lisensi spektrum maritim internasional.'
+                        }
+                    ]
+                }
+            },
+            {
+                id: 'doc-6',
+                title: 'UU No. 1 Tahun 2023 tentang KUHP Nasional',
+                fileName: 'UU_Nomor_1_Tahun_2023.pdf',
+                fileSize: '18.6 MB',
+                category: 'Hukum Pidana',
+                agency: 'Kodifikasi Hukum Pidana Materiel Nasional',
+                number: 'UU Nomor 1',
+                year: '2023',
+                source: 'Lembaran Negara No. 1',
+                status: 'Siap Analisis',
+                dateUploaded: '15 Feb 2026',
+                notes: 'Kodifikasi hukum pidana materiel nasional modern menggantikan WvS kolonial dengan prinsip keadilan restoratif.',
+                articles: '624 Pasal',
+                activeToggle: false,
+                tindakPidana: [
+                    {
+                        title: 'Tindak pidana pembajakan kapal di laut dan perompakan maritim...',
+                        pasal: 'Pasal 437 KUHP Nasional',
+                        desc: 'Setiap orang yang dengan kekerasan atau ancaman kekerasan merompak atau merampas kapal di laut.',
+                        sanction: 'Pidana penjara paling lama 15 (lima belas) tahun atau pidana mati jika mengakibatkan korban jiwa.'
+                    },
+                    {
+                        title: 'Tindak pidana perusakan lingkungan hidup secara sengaja...',
+                        pasal: 'Pasal 340 KUHP Nasional',
+                        desc: 'Perbuatan yang mengakibatkan pencemaran atau kerusakan lingkungan hidup yang berbahaya bagi kehidupan manusia.',
+                        sanction: 'Pidana penjara paling lama 9 (sembilan) tahun dan denda kategori VII.'
+                    }
+                ],
+                kewenangan: {
+                    pengadilan: [
+                        {
+                            name: 'Pengadilan Negeri & Mahkamah Agung',
+                            summary: 'Peradilan umum dengan sistem pemidanaan modern dan pidana kerja sosial.',
+                            pasal: 'Buku Kesatu KUHP Nasional',
+                            detail: 'Penerapan pedoman pemidanaan dan keadilan restoratif.'
+                        }
+                    ],
+                    menangkap: [
+                        {
+                            name: 'Kepolisian Negara Republik Indonesia & Kejaksaan RI',
+                            summary: 'Penyelidikan, penyidikan, dan penuntutan perkara pidana umum dan khusus.',
+                            pasal: 'KUHAP & UU Kejaksaan',
+                            detail: 'Penegakan hukum pidana materiel di seluruh yurisdiksi NKRI.'
+                        }
+                    ]
+                },
+                rezimLaut: {
+                    lautKepulauan: [
+                        {
+                            entity: 'Yurisdiksi Pidana Wilayah Perairan Nasional',
+                            summary: 'Pemberlakuan hukum pidana Indonesia terhadap setiap tindak pidana di atas kapal berbendera Indonesia.',
+                            pasal: 'Pasal 3 & Pasal 4 KUHP',
+                            detail: 'Asas teritorial dan asas perlindungan kepentingan nasional.'
+                        }
+                    ],
+                    lautTeritorial: [
+                        {
+                            entity: 'Penegakan Hukum Pidana Maritim Teritorial',
+                            summary: 'Kewenangan yurisdiksi pidana negara pantai atas kejahatan di kapal asing yang dampaknya mengenai pantai.',
+                            pasal: 'Pasal 5 KUHP & UNCLOS 1982',
+                            detail: 'Yurisdiksi pidana laut teritorial.'
+                        }
+                    ],
+                    zee: [
+                        {
+                            entity: 'Asas Ekstrateritorial & Yurisdiksi Universal',
+                            summary: 'Penindakan perompakan laut (piracy jure gentium) di laut lepas dan ZEE.',
+                            pasal: 'Pasal 438 KUHP',
+                            detail: 'Kewenangan penindakan kejahatan universal kemanusiaan di laut.'
+                        }
+                    ]
+                }
+            }
+        ];
+
+        // State variables
+        let documents = JSON.parse(localStorage.getItem('titikhukum_docs_v4')) || initialDocs;
+        let activeCategory = 'all';
+        let searchQuery = '';
+        let statusFilters = ['Terindeks AI', 'Memproses...', 'Siap Analisis'];
+        let selectedDocIds = new Set();
+        let currentSort = { column: 'year', asc: false };
+        let currentPage = 1;
+        const itemsPerPage = 5;
+        let activeAnalysisDocId = null;
+
+        // Save to localStorage helper
+        function saveDocs() {
+            localStorage.setItem('titikhukum_docs_v4', JSON.stringify(documents));
+        }
+
+        // Render Table Rows
+        function renderTable() {
+            const tbody = document.getElementById('tableBody');
+            const emptyState = document.getElementById('emptyState');
+            tbody.innerHTML = '';
+
+            // Filter logic
+            let filtered = documents.filter(doc => {
+                const matchCategory = activeCategory === 'all' || doc.category === activeCategory;
+                const matchStatus = statusFilters.includes(doc.status);
+                const query = searchQuery.toLowerCase();
+                const matchSearch = doc.title.toLowerCase().includes(query) ||
+                                    doc.fileName.toLowerCase().includes(query) ||
+                                    doc.number.toLowerCase().includes(query) ||
+                                    doc.agency.toLowerCase().includes(query) ||
+                                    doc.year.toString().includes(query);
+
+                return matchCategory && matchStatus && matchSearch;
+            });
+
+            // Sort logic
+            filtered.sort((a, b) => {
+                let valA = a[currentSort.column] || '';
+                let valB = b[currentSort.column] || '';
+                if (typeof valA === 'string') valA = valA.toLowerCase();
+                if (typeof valB === 'string') valB = valB.toLowerCase();
+
+                if (valA < valB) return currentSort.asc ? -1 : 1;
+                if (valA > valB) return currentSort.asc ? 1 : -1;
+                return 0;
+            });
+
+            // Pagination calculation
+            const totalDocs = filtered.length;
+            const totalPages = Math.ceil(totalDocs / itemsPerPage) || 1;
+            if (currentPage > totalPages) currentPage = totalPages;
+            
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const paginatedDocs = filtered.slice(startIndex, startIndex + itemsPerPage);
+
+            // Update Counts
+            document.getElementById('currentDocCount').textContent = paginatedDocs.length;
+            document.getElementById('totalDocCount').textContent = totalDocs;
+            document.getElementById('statTotalDoc').textContent = `${documents.length} Dokumen`;
+            document.getElementById('pageIndicator').textContent = `${currentPage} / ${totalPages}`;
+            document.getElementById('prevPageBtn').disabled = currentPage <= 1;
+            document.getElementById('nextPageBtn').disabled = currentPage >= totalPages;
+
+            if (paginatedDocs.length === 0) {
+                emptyState.classList.remove('hidden');
+                document.getElementById('selectAllCheckbox').checked = false;
+                return;
+            } else {
+                emptyState.classList.add('hidden');
+            }
+
+            // Generate HTML Rows (Clean, Switch-free, Brown Accents)
+            paginatedDocs.forEach((doc) => {
+                const isSelected = selectedDocIds.has(doc.id);
+                const tr = document.createElement('tr');
+                tr.className = `group hover:bg-[#fbf9f7] transition-colors border-b border-gray-100 ${isSelected ? 'bg-[#f6eee7]/60' : ''}`;
+                
+                // Static Elegant Status Badges (Tanpa animasi bergerak)
+                let statusBadgeHtml = '';
+                if (doc.status === 'Terindeks AI') {
+                    statusBadgeHtml = `
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/70 shadow-2xs">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
+                            <span>Terindeks AI</span>
+                        </span>
+                    `;
+                } else if (doc.status === 'Memproses...') {
+                    statusBadgeHtml = `
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-900 border border-amber-200/70 shadow-2xs">
+                            <span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
+                            <span>Memproses...</span>
+                        </span>
+                    `;
+                } else {
+                    statusBadgeHtml = `
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-stone-100 text-stone-700 border border-stone-200/80 shadow-2xs">
+                            <span class="w-1.5 h-1.5 rounded-full bg-stone-500"></span>
+                            <span>Siap Analisis</span>
+                        </span>
+                    `;
+                }
+
+                tr.innerHTML = `
+                    <td class="py-4.5 pl-6 pr-4 text-center">
+                        <input type="checkbox" onchange="toggleSelectDoc('${doc.id}', this.checked)" ${isSelected ? 'checked' : ''} class="rounded border-gray-300 text-[#26150d] focus:ring-0 cursor-pointer">
+                    </td>
+                    
+                    <!-- Col 1: Name & File Details with Expand Chevron -->
+                    <td class="py-4.5 px-4">
+                        <div class="flex items-start gap-2.5">
+                            <button type="button" onclick="toggleRowDetails('${doc.id}')" class="text-gray-400 hover:text-[#26150d] transition mt-0.5" title="Lihat detail metadata">
+                                <i class="fa-solid fa-chevron-down text-[10px] transform transition-transform" id="chev-${doc.id}"></i>
+                            </button>
+                            <div class="space-y-0.5">
+                                <div class="font-bold text-gray-900 text-xs sm:text-[13px] leading-snug">
+                                    ${doc.title}
+                                </div>
+                                <div class="text-[11px] text-gray-400 font-mono">
+                                    ${doc.fileName} • ${doc.fileSize}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Expandable Details Row Drawer -->
+                        <div id="details-${doc.id}" class="hidden pt-3 text-[11px] text-gray-600 space-y-1">
+                            <div class="p-3 bg-[#f6eee7]/50 rounded-xl border border-[#cbb4a3]/60">
+                                <span class="font-bold text-[#26150d]">Catatan/Abstrak:</span> ${doc.notes || 'Tidak ada catatan khusus.'}
+                                <div class="mt-1 text-gray-600">Jumlah: <strong class="text-[#26150d]">${doc.articles}</strong> • Diunggah: <strong class="text-[#26150d]">${doc.dateUploaded}</strong></div>
+                            </div>
+                        </div>
+                    </td>
+
+                    <!-- Col 2: Category & Agency (Clean Tag & Text, Tanpa Switch) -->
+                    <td class="py-4.5 px-4 whitespace-nowrap">
+                        <div class="space-y-1">
+                            <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#f6eee7] text-[#26150d] border border-[#cbb4a3]/60">
+                                ${doc.category}
+                            </span>
+                            <div class="text-[11px] text-gray-500 font-normal">${doc.agency}</div>
+                        </div>
+                    </td>
+
+                    <!-- Col 3: Metadata (Number, Year, Source) -->
+                    <td class="py-4.5 px-4 whitespace-nowrap">
+                        <div class="space-y-0.5">
+                            <div class="font-semibold text-gray-800">${doc.number} • Th. ${doc.year}</div>
+                            <div class="text-[11px] text-gray-400">${doc.source}</div>
+                        </div>
+                    </td>
+
+                    <!-- Col 4: Status -->
+                    <td class="py-4.5 px-4 whitespace-nowrap text-xs">
+                        ${statusBadgeHtml}
+                    </td>
+
+                    <!-- Col 5: Actions (Brown Analisis Pill + 3-Dots Action Popup) -->
+                    <td class="py-4.5 pr-6 pl-4 text-right whitespace-nowrap">
+                        <div class="flex items-center justify-end gap-2">
+                            
+                            <!-- Analisis AI Brown Pill Button -->
+                            <button type="button" onclick="openAnalyzeModal('${doc.id}')" class="px-4 py-1.5 rounded-full border border-[#26150d] text-[#26150d] hover:bg-[#26150d] hover:text-white font-semibold text-xs transition-all active:scale-95 shadow-2xs">
+                                Analisis
+                            </button>
+
+                            <!-- 3-Dots Menu Trigger with popup -->
+                            <div class="relative inline-block text-left">
+                                <button type="button" onclick="toggleDropdown('actionMenu-${doc.id}')" class="w-8 h-8 rounded-full hover:bg-[#f6eee7] text-gray-500 hover:text-[#26150d] flex items-center justify-center transition">
+                                    <i class="fa-solid fa-ellipsis text-sm"></i>
+                                </button>
+
+                                <!-- Action Popup Dropdown (Tanpa Switch) -->
+                                <div id="actionMenu-${doc.id}" class="hidden dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-gray-100 p-2 z-50 text-xs space-y-1 text-left">
+                                    <button type="button" onclick="openEditModal('${doc.id}')" class="w-full px-3 py-2 rounded-xl text-gray-700 hover:bg-[#f6eee7] hover:text-[#26150d] flex items-center gap-2.5 transition">
+                                        <i class="fa-solid fa-pen text-[11px] text-[#26150d]"></i>
+                                        <span>Edit Metadata</span>
+                                    </button>
+                                    
+                                    <button type="button" onclick="openAnalyzeModal('${doc.id}')" class="w-full px-3 py-2 rounded-xl text-gray-700 hover:bg-[#f6eee7] hover:text-[#26150d] flex items-center gap-2.5 transition">
+                                        <i class="fa-solid fa-wand-magic-sparkles text-[11px] text-amber-600"></i>
+                                        <span>Uji & Analisis AI</span>
+                                    </button>
+
+                                    <div class="border-t border-gray-100 pt-1 mt-1">
+                                        <button type="button" onclick="deleteDoc('${doc.id}')" class="w-full px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 flex items-center gap-2.5 transition">
+                                            <i class="fa-regular fa-trash-can text-[11px]"></i>
+                                            <span>Hapus Dokumen</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </td>
+                `;
+
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Update Batch Delete Button UI
+        function updateBatchDeleteUI() {
+            const batchBtn = document.getElementById('batchDeleteBtn');
+            const badge = document.getElementById('selectedCountBadge');
+            if (batchBtn && badge) {
+                if (selectedDocIds.size > 0) {
+                    batchBtn.classList.remove('hidden');
+                    badge.textContent = selectedDocIds.size;
+                } else {
+                    batchBtn.classList.add('hidden');
+                }
+            }
+        }
+
+        // Batch Delete Selected Documents
+        function deleteSelectedDocs() {
+            if (selectedDocIds.size === 0) return;
+            const count = selectedDocIds.size;
+            if (confirm(`Apakah Anda yakin ingin menghapus ${count} dokumen terpilih?`)) {
+                documents = documents.filter(d => !selectedDocIds.has(d.id));
+                selectedDocIds.clear();
+                saveDocs();
+                updateBatchDeleteUI();
+                renderTable();
+                showToast(`${count} dokumen berhasil dihapus dari pustaka.`);
+            }
+        }
+
+        // Search Handler
+        function handleSearch(val) {
+            searchQuery = val;
+            currentPage = 1;
+            renderTable();
+        }
+
+        // Category / Sector Filter Switcher
+        function setCategoryFilter(category) {
+            activeCategory = category;
+            currentPage = 1;
+            
+            const pills = document.querySelectorAll('.cat-pill');
+            pills.forEach(p => p.classList.remove('active'));
+
+            if (category === 'all') document.getElementById('cat-all').classList.add('active');
+            else if (category === 'Kelautan & Perikanan') document.getElementById('cat-laut').classList.add('active');
+            else if (category === 'Pemerintahan') document.getElementById('cat-pem').classList.add('active');
+            else if (category === 'Teknologi & Digital') document.getElementById('cat-tek').classList.add('active');
+            else if (category === 'Hukum Pidana') document.getElementById('cat-pid').classList.add('active');
+
+            renderTable();
+        }
+
+        // Status Filter
+        function handleStatusFilter(status, checked) {
+            if (checked) {
+                if (!statusFilters.includes(status)) statusFilters.push(status);
+            } else {
+                statusFilters = statusFilters.filter(s => s !== status);
+            }
+            currentPage = 1;
+            renderTable();
+        }
+
+        // Sorting Helper
+        function sortTable(column) {
+            if (currentSort.column === column) {
+                currentSort.asc = !currentSort.asc;
+            } else {
+                currentSort.column = column;
+                currentSort.asc = true;
+            }
+            renderTable();
+        }
+
+        // Toggle Details Row
+        function toggleRowDetails(id) {
+            const detailEl = document.getElementById(`details-${id}`);
+            const chev = document.getElementById(`chev-${id}`);
+            if (detailEl) {
+                detailEl.classList.toggle('hidden');
+                chev.classList.toggle('rotate-180');
+            }
+        }
+
+        // Select All Checkbox
+        function toggleSelectAll(checked) {
+            if (checked) {
+                documents.forEach(d => selectedDocIds.add(d.id));
+            } else {
+                selectedDocIds.clear();
+            }
+            updateBatchDeleteUI();
+            renderTable();
+        }
+
+        function toggleSelectDoc(id, checked) {
+            if (checked) selectedDocIds.add(id);
+            else selectedDocIds.delete(id);
+            updateBatchDeleteUI();
+            renderTable();
+        }
+
+        // Pagination
+        function prevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                renderTable();
+            }
+        }
+
+        function nextPage() {
+            currentPage++;
+            renderTable();
+        }
+
+        // Dropdown Manager
+        function toggleDropdown(id) {
+            const el = document.getElementById(id);
+            const isHidden = el.classList.contains('hidden');
+            document.querySelectorAll('.dropdown-menu').forEach(menu => {
+                if (menu.id !== id) menu.classList.add('hidden');
+            });
+            if (isHidden) el.classList.remove('hidden');
+            else el.classList.add('hidden');
+        }
+
+        window.addEventListener('click', (e) => {
+            if (!e.target.closest('.relative')) {
+                document.querySelectorAll('.dropdown-menu').forEach(menu => menu.classList.add('hidden'));
+            }
+        });
+
+        // ========================================================
+        // ADD DOCUMENT MODAL & HANDLER
+        // ========================================================
+        function openAddModal() {
+            document.getElementById('addDocForm').reset();
+            document.getElementById('fileNamePreview').textContent = 'Klik untuk memilih file PDF atau tarik ke sini';
+            document.getElementById('addDocModal').classList.remove('hidden');
+        }
+
+        function closeAddModal() {
+            document.getElementById('addDocModal').classList.add('hidden');
+        }
+
+        function handleFileSelected(input) {
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                document.getElementById('fileNamePreview').innerHTML = `<span class="text-[#26150d] font-bold">${file.name}</span> (${(file.size / (1024*1024)).toFixed(2)} MB)`;
+            }
+        }
+
+        function handleAddSubmit(e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('pdfFileInput');
+            let fileName = 'naskah_hukum_baru.pdf';
+            let fileSize = '3.5 MB';
+
+            if (fileInput.files && fileInput.files[0]) {
+                fileName = fileInput.files[0].name;
+                fileSize = (fileInput.files[0].size / (1024*1024)).toFixed(1) + ' MB';
+            }
+
+            const newDoc = {
+                id: 'doc-' + Date.now(),
+                title: document.getElementById('addTitle').value,
+                fileName: fileName,
+                fileSize: fileSize,
+                category: document.getElementById('addCategory').value,
+                agency: document.getElementById('addSource').value,
+                number: document.getElementById('addNumber').value,
+                year: document.getElementById('addYear').value,
+                source: document.getElementById('addSource').value,
+                status: 'Terindeks AI',
+                dateUploaded: 'Hari ini',
+                notes: document.getElementById('addNotes').value || 'Dokumen berhasil diunggah dan dianalisis AI.',
+                articles: 'Memproses...',
+                activeToggle: true
+            };
+
+            documents.unshift(newDoc);
+            saveDocs();
+            closeAddModal();
+            renderTable();
+            showToast('Dokumen baru berhasil ditambahkan dan diindeks AI!');
+        }
+
+        // ========================================================
+        // EDIT METADATA MODAL & HANDLER
+        // ========================================================
+        function openEditModal(id) {
+            const doc = documents.find(d => d.id === id);
+            if (!doc) return;
+
+            document.getElementById('editDocId').value = doc.id;
+            document.getElementById('editTitle').value = doc.title;
+            document.getElementById('editCategory').value = doc.category;
+            document.getElementById('editSource').value = doc.source;
+            document.getElementById('editNumber').value = doc.number;
+            document.getElementById('editYear').value = doc.year;
+            document.getElementById('editStatus').value = doc.status;
+
+            document.getElementById('editDocModal').classList.remove('hidden');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editDocModal').classList.add('hidden');
+        }
+
+        function handleEditSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('editDocId').value;
+            const doc = documents.find(d => d.id === id);
+            if (doc) {
+                doc.title = document.getElementById('editTitle').value;
+                doc.category = document.getElementById('editCategory').value;
+                doc.source = document.getElementById('editSource').value;
+                doc.agency = document.getElementById('editSource').value;
+                doc.number = document.getElementById('editNumber').value;
+                doc.year = document.getElementById('editYear').value;
+                doc.status = document.getElementById('editStatus').value;
+
+                saveDocs();
+                closeEditModal();
+                renderTable();
+                showToast('Metadata dokumen berhasil diperbarui!');
+            }
+        }
+
+        // ========================================================
+        // DELETE DOCUMENT HANDLER
+        // ========================================================
+        function deleteDoc(id) {
+            const doc = documents.find(d => d.id === id);
+            if (!doc) return;
+
+            if (confirm(`Apakah Anda yakin ingin menghapus "${doc.title}"?`)) {
+                documents = documents.filter(d => d.id !== id);
+                selectedDocIds.delete(id);
+                saveDocs();
+                updateBatchDeleteUI();
+                renderTable();
+                showToast('Dokumen telah berhasil dihapus dari pustaka.');
+            }
+        }
+
+        // ========================================================
+        // 4-COLUMN LEGAL DATABASE AI EXTRACTION MODAL HANDLER
+        // ========================================================
+        function openAnalyzeModal(id) {
+            const doc = documents.find(d => d.id === id) || documents[0];
+            if (!doc) return;
+
+            activeAnalysisDocId = doc.id;
+            const searchInput = document.getElementById('analysisModalSearchInput');
+            if (searchInput) searchInput.value = '';
+
+            renderAnalysisView(doc, '');
+            document.getElementById('analyzeDocModal').classList.remove('hidden');
+        }
+
+        function closeAnalyzeModal() {
+            document.getElementById('analyzeDocModal').classList.add('hidden');
+        }
+
+        function switchAnalysisDoc(id) {
+            const doc = documents.find(d => d.id === id);
+            if (doc) {
+                activeAnalysisDocId = doc.id;
+                renderAnalysisView(doc, '');
+            }
+        }
+
+        function handleAnalysisInternalSearch(query) {
+            const doc = documents.find(d => d.id === activeAnalysisDocId) || documents[0];
+            if (doc) {
+                renderAnalysisView(doc, query.toLowerCase().trim());
+            }
+        }
+
+        function clearAnalysisInternalSearch() {
+            const searchInput = document.getElementById('analysisModalSearchInput');
+            if (searchInput) searchInput.value = '';
+            const doc = documents.find(d => d.id === activeAnalysisDocId) || documents[0];
+            if (doc) renderAnalysisView(doc, '');
+        }
+
+        function renderAnalysisView(doc, filterQuery) {
+            // 1. Column 1: Document Metadata
+            document.getElementById('colDocFileName').textContent = doc.fileName;
+            document.getElementById('colDocTitle').textContent = doc.title;
+            document.getElementById('colDocMetaSize').textContent = `${doc.fileSize} • ${doc.articles} • ${doc.year}`;
+            document.getElementById('hintDocFilename').textContent = doc.fileName;
+            document.getElementById('analysisActiveCategoryBadge').textContent = doc.category;
+
+            // Switcher List in Column 1
+            const switcherContainer = document.getElementById('colDocSwitcherList');
+            switcherContainer.innerHTML = '';
+            documents.forEach(d => {
+                const isActive = d.id === doc.id;
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.onclick = () => switchAnalysisDoc(d.id);
+                btn.className = `w-full text-left px-2.5 py-1.5 rounded-lg transition text-[11px] truncate flex items-center justify-between gap-1.5 ${
+                    isActive 
+                        ? 'bg-[#26150d] text-white font-semibold shadow-2xs' 
+                        : 'text-gray-700 hover:bg-[#f6eee7] hover:text-[#26150d]'
+                }`;
+                btn.innerHTML = `
+                    <span class="truncate">${d.fileName}</span>
+                    ${isActive ? '<i class="fa-solid fa-check text-[10px]"></i>' : ''}
+                `;
+                switcherContainer.appendChild(btn);
+            });
+
+            // Fallback Extraction Data if doc is newly added
+            const tindakPidanaData = doc.tindakPidana || [
+                {
+                    title: `Pelanggaran terhadap ketentuan perizinan dan tata kelola ${doc.title}...`,
+                    pasal: `Pasal rujukan ${doc.number} Tahun ${doc.year}`,
+                    desc: doc.notes || 'Pelanggaran terhadap ketentuan substantif yang diatur dalam regulasi ini.',
+                    sanction: 'Sanksi administratif berupa teguran tertulis, denda administratif, dan/atau pencabutan izin berusaha.'
+                }
+            ];
+
+            const kewenanganData = doc.kewenangan || {
+                pengadilan: [
+                    {
+                        name: 'Pengadilan Negeri / Pengadilan Khusus',
+                        summary: 'Mengadili perkara dan sengketa regulasi sesuai kompetensi absolut.',
+                        pasal: 'Hukum Acara Berlaku',
+                        detail: 'Penyelesaian sengketa hukum dan penegakan sanksi.'
+                    }
+                ],
+                menangkap: [
+                    {
+                        name: doc.agency || 'Kementerian / Lembaga Terkait',
+                        summary: `Pengawasan dan penindakan pelaksanaan ${doc.number}.`,
+                        pasal: 'Ketentuan Pengawasan',
+                        detail: 'Otoritas penegakan regulasi dan kepatuhan hukum.'
+                    }
+                ]
+            };
+
+            const rezimData = doc.rezimLaut || {
+                lautKepulauan: [
+                    {
+                        entity: 'Otoritas Pengawasan Nasional',
+                        summary: 'Penegakan yurisdiksi di wilayah perairan kepulauan.',
+                        pasal: 'Ketentuan Yurisdiksi',
+                        detail: 'Pengawasan terpadu kedaulatan kepulauan.'
+                    }
+                ],
+                lautTeritorial: [
+                    {
+                        entity: 'Aparat Penegak Hukum Laut Teritorial',
+                        summary: 'Patroli penegakan hukum di perairan 0-12 mil laut.',
+                        pasal: 'Ketentuan Teritorial',
+                        detail: 'Yurisdiksi laut teritorial nasional.'
+                    }
+                ],
+                zee: [
+                    {
+                        entity: 'Penegakan Hak Berdaulat ZEE',
+                        summary: 'Pengawasan zona ekonomi eksklusif 200 mil laut.',
+                        pasal: 'Ketentuan ZEE',
+                        detail: 'Pengawasan pemanfaatan sumber daya laut lepas.'
+                    }
+                ]
+            };
+
+            // 2. Column 2: TINDAK PIDANA
+            const tindakPidanaContainer = document.getElementById('colTindakPidanaList');
+            tindakPidanaContainer.innerHTML = '';
+            
+            const filteredTindakPidana = tindakPidanaData.filter(item => {
+                if (!filterQuery) return true;
+                return item.title.toLowerCase().includes(filterQuery) || 
+                       item.pasal.toLowerCase().includes(filterQuery) || 
+                       item.desc.toLowerCase().includes(filterQuery);
+            });
+
+            document.getElementById('colTindakPidanaCount').textContent = `${filteredTindakPidana.length} ringkasan`;
+
+            if (filteredTindakPidana.length === 0) {
+                tindakPidanaContainer.innerHTML = `<div class="text-gray-400 text-center py-6 text-xs">Tidak ditemukan tindak pidana yang sesuai kata kunci.</div>`;
+            } else {
+                filteredTindakPidana.forEach(item => {
+                    const card = document.createElement('div');
+                    card.className = 'group p-3 bg-white hover:bg-rose-50/50 rounded-xl border border-gray-200 hover:border-rose-300 transition-all cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                    card.onclick = () => openDetailItemModal('TINDAK PIDANA', item.title, item.pasal, item.desc, item.sanction);
+                    card.innerHTML = `
+                        <div class="space-y-1 pr-1">
+                            <div class="font-bold text-gray-900 group-hover:text-rose-700 text-xs leading-snug">
+                                ${item.title}
+                            </div>
+                            <div class="text-[11px] text-gray-500 font-medium">
+                                ${item.pasal}
+                            </div>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-rose-400 group-hover:text-rose-600 text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+                    `;
+                    tindakPidanaContainer.appendChild(card);
+                });
+            }
+
+            // 3. Column 3: KEWENANGAN
+            // Sub-group: Proses Pengadilan
+            const pengadilanContainer = document.getElementById('colPengadilanList');
+            pengadilanContainer.innerHTML = '';
+            const filteredPengadilan = (kewenanganData.pengadilan || []).filter(item => {
+                if (!filterQuery) return true;
+                return item.name.toLowerCase().includes(filterQuery) || item.summary.toLowerCase().includes(filterQuery);
+            });
+            document.getElementById('colPengadilanCount').textContent = `${filteredPengadilan.length} lembaga`;
+            
+            filteredPengadilan.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'group p-2.5 bg-white hover:bg-[#f4f7f4] rounded-xl border border-[#dae6da] hover:border-[#b8d2b8] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.onclick = () => openDetailItemModal('PROSES PENGADILAN', item.name, item.pasal || doc.number, item.summary, item.detail);
+                card.innerHTML = `
+                    <div class="space-y-0.5">
+                        <div class="flex items-center gap-1.5 font-bold text-gray-900 group-hover:text-[#1c3822] text-xs">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#2d5a37] shrink-0"></span>
+                            <span>${item.name}</span>
+                        </div>
+                        <div class="text-[11px] text-gray-600 pl-3">
+                            ${item.summary}
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[#2d5a37]/60 group-hover:text-[#2d5a37] text-[11px] mt-1 shrink-0"></i>
+                `;
+                pengadilanContainer.appendChild(card);
+            });
+
+            // Sub-group: Menangkap
+            const menangkapContainer = document.getElementById('colMenangkapList');
+            menangkapContainer.innerHTML = '';
+            const filteredMenangkap = (kewenanganData.menangkap || []).filter(item => {
+                if (!filterQuery) return true;
+                return item.name.toLowerCase().includes(filterQuery) || item.summary.toLowerCase().includes(filterQuery);
+            });
+            document.getElementById('colMenangkapCount').textContent = `${filteredMenangkap.length} lembaga`;
+
+            filteredMenangkap.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'group p-2.5 bg-white hover:bg-[#f4f7f4] rounded-xl border border-[#dae6da] hover:border-[#b8d2b8] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.onclick = () => openDetailItemModal('KEWENANGAN PENINDAKAN', item.name, item.pasal || doc.number, item.summary, item.detail);
+                card.innerHTML = `
+                    <div class="space-y-0.5">
+                        <div class="flex items-center gap-1.5 font-bold text-gray-900 group-hover:text-[#1c3822] text-xs">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#2d5a37] shrink-0"></span>
+                            <span>${item.name}</span>
+                        </div>
+                        <div class="text-[11px] text-gray-600 pl-3">
+                            ${item.summary}
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-chevron-right text-[#2d5a37]/60 group-hover:text-[#2d5a37] text-[11px] mt-1 shrink-0"></i>
+                `;
+                menangkapContainer.appendChild(card);
+            });
+
+            // 4. Column 4: UJI REZIM LAUT (Harmonious Warm Courtroom Styling)
+            // Laut Kepulauan
+            const lautKepulauanContainer = document.getElementById('colLautKepulauanList');
+            lautKepulauanContainer.innerHTML = '';
+            (rezimData.lautKepulauan || []).forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'group p-2.5 bg-white hover:bg-[#f6eee7] rounded-xl border border-[#e4d7cd] hover:border-[#cbb4a3] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.onclick = () => openDetailItemModal('LAUT KEPULAUAN', item.entity, item.pasal || 'Yurisdiksi Laut Kepulauan', item.summary, item.detail);
+                card.innerHTML = `
+                    <div class="space-y-0.5">
+                        <div class="font-bold text-[#26150d] group-hover:text-[#381d12] text-xs">
+                            ${item.entity}
+                        </div>
+                        <div class="text-[11px] text-stone-600">
+                            ${item.summary}
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-right text-[#8c5835] group-hover:text-[#26150d] text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+                `;
+                lautKepulauanContainer.appendChild(card);
+            });
+
+            // Laut Teritorial
+            const lautTeritorialContainer = document.getElementById('colLautTeritorialList');
+            lautTeritorialContainer.innerHTML = '';
+            (rezimData.lautTeritorial || []).forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'group p-2.5 bg-white hover:bg-[#f6eee7] rounded-xl border border-[#e4d7cd] hover:border-[#cbb4a3] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.onclick = () => openDetailItemModal('LAUT TERITORIAL', item.entity, item.pasal || 'Yurisdiksi Laut Teritorial', item.summary, item.detail);
+                card.innerHTML = `
+                    <div class="space-y-0.5">
+                        <div class="font-bold text-[#26150d] group-hover:text-[#381d12] text-xs">
+                            ${item.entity}
+                        </div>
+                        <div class="text-[11px] text-stone-600">
+                            ${item.summary}
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-right text-[#8c5835] group-hover:text-[#26150d] text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+                `;
+                lautTeritorialContainer.appendChild(card);
+            });
+
+            // ZEE
+            const zeeContainer = document.getElementById('colZeeList');
+            zeeContainer.innerHTML = '';
+            (rezimData.zee || []).forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'group p-2.5 bg-white hover:bg-[#f6eee7] rounded-xl border border-[#e4d7cd] hover:border-[#cbb4a3] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.onclick = () => openDetailItemModal('ZONA EKONOMI EKSKLUSIF (ZEE)', item.entity, item.pasal || 'Yurisdiksi ZEE Indonesia', item.summary, item.detail);
+                card.innerHTML = `
+                    <div class="space-y-0.5">
+                        <div class="font-bold text-[#26150d] group-hover:text-[#381d12] text-xs">
+                            ${item.entity}
+                        </div>
+                        <div class="text-[11px] text-stone-600">
+                            ${item.summary}
+                        </div>
+                    </div>
+                    <i class="fa-solid fa-arrow-right text-[#8c5835] group-hover:text-[#26150d] text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+                `;
+                zeeContainer.appendChild(card);
+            });
+        }
+
+        // Drill-Down Card Detail Modal
+        function openDetailItemModal(badge, title, pasalRef, description, sanction) {
+            document.getElementById('detailItemBadge').textContent = badge;
+            document.getElementById('detailItemTitle').textContent = title;
+            document.getElementById('detailItemPasalRef').textContent = pasalRef || 'Ketentuan Regulasi Terkait';
+            document.getElementById('detailItemDescription').textContent = description || 'Tidak ada uraian tambahan.';
+            
+            const sanctionBox = document.getElementById('detailItemSanctionBox');
+            const sanctionEl = document.getElementById('detailItemSanction');
+            if (sanction) {
+                sanctionBox.classList.remove('hidden');
+                sanctionEl.textContent = sanction;
+            } else {
+                sanctionBox.classList.add('hidden');
+            }
+
+            document.getElementById('analysisDetailItemModal').classList.remove('hidden');
+        }
+
+        function closeDetailItemModal() {
+            document.getElementById('analysisDetailItemModal').classList.add('hidden');
+        }
+
+        // Toast Helper
+        function showToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            const toastMsg = document.getElementById('toastMsg');
+            toastMsg.textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Initial Render on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTable();
+        });
+    </script>
+</body>
+</html>

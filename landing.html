@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titik Hukum - Platform Analisis & Riset Hukum</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Playfair Display / Cormorant Garamond -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@0;1&family=Cinzel:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+                        heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#ea3829',
+                            darkRed: '#991b1b',
+                            ruby: '#7f1d1d',
+                            crimson: '#dc2626',
+                            accent: '#b91c1c',
+                            dark: '#0f172a',
+                        }
+                    },
+                    boxShadow: {
+                        'hero': '0 20px 50px -10px rgba(185, 28, 28, 0.3)',
+                        'card-hover': '0 20px 35px -10px rgba(0,0,0,0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #18181b;
+            scroll-behavior: smooth;
+        }
+
+        /* Red Hero Banner Placeholder */
+        .hero-red-bg {
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 35%, #b91c1c 70%, #dc2626 100%);
+            position: relative;
+        }
+
+        .hero-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .editorial-line {
+            height: 1px;
+            background: rgba(0, 0, 0, 0.12);
+        }
+
+        .editorial-line-light {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.25);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#fafaf9] text-gray-900 antialiased selection:bg-red-500 selection:text-white">
+
+    <!-- ======================================================== -->
+    <!-- NAVIGATION BAR                                           -->
+    <!-- ======================================================== -->
+    <header class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-100 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Left Branding Logo -->
+            <a href="landing.html" class="flex items-center gap-3 group">
+                <img src="assets/logo.png" alt="Titik Hukum Logo" class="h-7 sm:h-8 object-contain transition-transform group-hover:scale-[1.02]" />
+            </a>
+
+            <!-- Center Navigation Links -->
+            <nav class="hidden md:flex items-center gap-8 text-[13px] font-semibold text-gray-600">
+                <a href="#beranda" class="text-gray-900 font-bold hover:text-brand-red transition-colors relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-brand-red">
+                    Beranda
+                </a>
+                <a href="#pustaka" class="hover:text-brand-red transition-colors py-1">
+                    Pustaka Dokumen
+                </a>
+                <a href="#asisten" class="hover:text-brand-red transition-colors py-1 flex items-center gap-1.5">
+                    <span>Asisten Hukum</span>
+                    <span class="px-1.5 py-0.2 rounded-full text-[9px] font-extrabold bg-red-100 text-brand-red">AI</span>
+                </a>
+                <a href="profil.html" class="hover:text-brand-red transition-colors py-1">
+                    Profil Saya
+                </a>
+            </nav>
+
+            <!-- Right: Login & Signup Button (Paling Kanan) -->
+            <div class="flex items-center gap-3">
+                <a href="index.html" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gray-900 hover:bg-brand-red text-white text-xs font-bold tracking-wide transition-all duration-300 shadow-sm hover:shadow-lg active:scale-95">
+                    <span>Login & Sign Up</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-10 h-10 flex items-center justify-center rounded-xl bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
+                    <i id="mobileMenuIcon" class="fa-solid fa-bars text-base"></i>
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-gray-100 px-6 py-4 space-y-3 text-sm font-semibold text-gray-700 shadow-xl">
+            <a href="#beranda" onclick="toggleMobileMenu()" class="block py-2 text-brand-red font-bold">Beranda</a>
+            <a href="#pustaka" onclick="toggleMobileMenu()" class="block py-2 hover:text-brand-red">Pustaka Dokumen</a>
+            <a href="#asisten" onclick="toggleMobileMenu()" class="block py-2 hover:text-brand-red">Asisten Hukum AI</a>
+            <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 hover:text-brand-red">Profil Saya</a>
+            <div class="pt-2">
+                <a href="index.html" class="w-full py-2.5 rounded-xl bg-gray-900 hover:bg-brand-red text-white text-xs font-bold flex items-center justify-center gap-2">
+                    <span>Login & Sign Up</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ======================================================== -->
+    <!-- HERO SECTION (Warna Merah Placeholder Sesuai Referensi)   -->
+    <!-- ======================================================== -->
+    <section id="beranda" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-16">
+        <div class="hero-red-bg hero-pattern rounded-[32px] sm:rounded-[40px] text-white p-8 sm:p-12 md:p-16 min-h-[560px] md:min-h-[640px] flex flex-col justify-between overflow-hidden shadow-hero relative">
+            
+            <!-- Subtle Radial Gradient Glows -->
+            <div class="absolute -top-32 -left-32 w-96 h-96 bg-red-400/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-32 -right-32 w-96 h-96 bg-black/30 rounded-full blur-3xl pointer-events-none"></div>
+
+            <!-- Top Header Stats / Editorial Description in Hero -->
+            <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                
+                <!-- Left Stats Counters -->
+                <div class="md:col-span-6 flex items-start gap-8 sm:gap-12">
+                    <div>
+                        <div class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-sans">
+                            95%
+                        </div>
+                        <div class="text-xs sm:text-sm text-red-100/80 font-medium mt-1">
+                            Akurasi Analisis Regulasi
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-sans">
+                            1,200+
+                        </div>
+                        <div class="text-xs sm:text-sm text-red-100/80 font-medium mt-1">
+                            Dokumen Hukum Terindeks
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Editorial Text -->
+                <div class="md:col-span-6 md:text-right flex flex-col md:items-end justify-start">
+                    <p class="text-xs sm:text-sm md:text-base text-red-100/90 max-w-md font-light leading-relaxed">
+                        Mentransformasikan kompleksitas regulasi menjadi wawasan hukum strategis melalui riset dan komputasi cerdas BRIN.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Center/Bottom Hero Title & Primary Action -->
+            <div class="relative z-10 my-auto py-12 md:py-16 max-w-4xl">
+                <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-[1.1]">
+                    Precision Legal Intelligence for Modern Challenges.
+                </h1>
+                <p class="text-sm sm:text-base md:text-lg text-red-100/90 font-normal mt-4 max-w-2xl">
+                    Platform riset perundang-undangan terintegrasi untuk eksplorasi pasal, komparasi putusan, dan analisis kepatuhan hukum secara instan.
+                </p>
+            </div>
+
+            <!-- Bottom Line & Action Bar -->
+            <div class="relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 pt-6 border-t border-white/20">
+                <div class="flex items-center gap-3 text-xs text-red-200/90 font-medium">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span>Sistem Aktif & Terintegrasi Data BRIN</span>
+                    <span class="opacity-40">•</span>
+                    <span>Sejak 2026</span>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <a href="#asisten" class="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-white hover:bg-gray-100 text-gray-900 text-xs sm:text-sm font-bold shadow-lg transition-all transform hover:-translate-y-0.5 active:scale-95">
+                        <span>Mulai Asisten AI</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 2: ABOUT / LATAR BELAKANG (Sesuai Referensi)     -->
+    <!-- ======================================================== -->
+    <section id="pustaka" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200/60">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-start">
+            
+            <!-- Left Tag & Small Feature -->
+            <div class="md:col-span-3 space-y-4">
+                <div class="text-xs font-extrabold uppercase tracking-widest text-brand-red flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-red"></span>
+                    <span>Tentang Titik Hukum</span>
+                </div>
+
+                <div class="p-5 rounded-2xl bg-gray-50 border border-gray-100 text-xs text-gray-600 space-y-2">
+                    <div class="font-bold text-gray-900 text-sm">Akses Lintas Sektor</div>
+                    <p class="leading-relaxed">Mendukung riset regulasi nasional, riset inovasi, dan telaah kepatuhan tata kelola hukum.</p>
+                </div>
+            </div>
+
+            <!-- Center Main Statement -->
+            <div class="md:col-span-6 space-y-6">
+                <p class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 leading-snug tracking-tight">
+                    Menggabungkan ketelitian analisis hukum dengan teknologi kecerdasan buatan untuk memberikan kepastian dan efisiensi riset regulasi.
+                </p>
+
+                <div class="editorial-line"></div>
+
+                <div class="flex items-center gap-4">
+                    <a href="#asisten" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-300 hover:border-gray-900 hover:bg-gray-900 hover:text-white text-xs font-bold text-gray-800 transition-all">
+                        <span>Pelajari Lebih Lanjut</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Mini Metric/Card -->
+            <div class="md:col-span-3 space-y-4">
+                <div class="text-xs text-gray-500 font-semibold uppercase tracking-wider">
+                    Koleksi Dokumen
+                </div>
+                <div class="p-6 rounded-3xl bg-red-50/60 border border-red-100 space-y-2">
+                    <div class="text-3xl font-extrabold text-brand-red">50,000+</div>
+                    <p class="text-xs text-gray-600 leading-relaxed font-medium">Peraturan Perundang-undangan & Putusan Pengadilan telah terdigitalisasi.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 3: SERVICES / FITUR UTAMA (Sesuai Referensi)     -->
+    <!-- ======================================================== -->
+    <section id="asisten" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200/60">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+            <div>
+                <div class="text-xs font-extrabold uppercase tracking-widest text-brand-red flex items-center gap-2 mb-2">
+                    <span class="w-2 h-2 rounded-full bg-brand-red"></span>
+                    <span>Layanan Unggulan</span>
+                </div>
+                <h2 class="text-2xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+                    Solusi Komprehensif Sesuai Kebutuhan Anda
+                </h2>
+            </div>
+
+            <a href="index.html" class="inline-flex items-center gap-2 text-xs font-bold text-gray-800 hover:text-brand-red group">
+                <span>Eksplorasi Semua Fitur</span>
+                <i class="fa-solid fa-arrow-up-right-from-square text-[11px] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"></i>
+            </a>
+        </div>
+
+        <!-- Service List (01, 02, 03) -->
+        <div class="space-y-4">
+            
+            <!-- Service Item 01 -->
+            <div class="group p-6 sm:p-8 rounded-3xl bg-white hover:bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-card-hover flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-start gap-6 md:w-1/3">
+                    <span class="text-xl sm:text-2xl font-extrabold text-gray-400 group-hover:text-brand-red transition-colors font-mono">01.</span>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-brand-red transition-colors">
+                            Konsultasi & Analisis AI
+                        </h3>
+                        <p class="text-xs text-gray-500 font-medium mt-1">Interpreting Regulations & Articles</p>
+                    </div>
+                </div>
+
+                <p class="text-xs sm:text-sm text-gray-600 md:max-w-md leading-relaxed font-normal">
+                    Tanya jawab langsung terhadap pasal dan regulasi dengan referensi hukum yang valid dan terverifikasi secara akurat.
+                </p>
+
+                <div>
+                    <a href="index.html" class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-gray-900 group-hover:bg-brand-red text-white text-xs font-bold transition-colors">
+                        Mulai Analisis
+                    </a>
+                </div>
+            </div>
+
+            <!-- Service Item 02 -->
+            <div class="group p-6 sm:p-8 rounded-3xl bg-white hover:bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-card-hover flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-start gap-6 md:w-1/3">
+                    <span class="text-xl sm:text-2xl font-extrabold text-gray-400 group-hover:text-brand-red transition-colors font-mono">02.</span>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-brand-red transition-colors">
+                            Pustaka Regulasi Terpadu
+                        </h3>
+                        <p class="text-xs text-gray-500 font-medium mt-1">Legal Document Search Engine</p>
+                    </div>
+                </div>
+
+                <p class="text-xs sm:text-sm text-gray-600 md:max-w-md leading-relaxed font-normal">
+                    Pencarian cepat undang-undang, PP, Perpres, hingga peraturan menteri dengan filter hierarki hukum dan status pencabutan.
+                </p>
+
+                <div>
+                    <a href="index.html" class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-gray-900 group-hover:bg-brand-red text-white text-xs font-bold transition-colors">
+                        Buka Pustaka
+                    </a>
+                </div>
+            </div>
+
+            <!-- Service Item 03 -->
+            <div class="group p-6 sm:p-8 rounded-3xl bg-white hover:bg-gray-50 border border-gray-200/80 transition-all duration-300 hover:shadow-card-hover flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="flex items-start gap-6 md:w-1/3">
+                    <span class="text-xl sm:text-2xl font-extrabold text-gray-400 group-hover:text-brand-red transition-colors font-mono">03.</span>
+                    <div>
+                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 group-hover:text-brand-red transition-colors">
+                            Kompilasi & Riset Putusan
+                        </h3>
+                        <p class="text-xs text-gray-500 font-medium mt-1">Jurisprudence & Case Studies</p>
+                    </div>
+                </div>
+
+                <p class="text-xs sm:text-sm text-gray-600 md:max-w-md leading-relaxed font-normal">
+                    Analisis perbandingan putusan pengadilan dan yurisprudensi untuk memperkuat argumentasi hukum dan legal drafting.
+                </p>
+
+                <div>
+                    <a href="index.html" class="inline-flex items-center justify-center px-4 py-2 rounded-xl bg-gray-900 group-hover:bg-brand-red text-white text-xs font-bold transition-colors">
+                        Pelajari Putusan
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 4: PROFIL SAYA PREVIEW                            -->
+    <!-- ======================================================== -->
+    <section id="profil" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-gray-200/60">
+        <div class="p-8 sm:p-12 rounded-[32px] bg-gradient-to-r from-gray-900 via-gray-800 to-gray-950 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl">
+            <div class="space-y-3 text-center md:text-left">
+                <span class="px-3 py-1 rounded-full text-[10px] font-bold bg-white/10 text-white uppercase tracking-wider">
+                    Akun & Akses Pengguna
+                </span>
+                <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">
+                    Kelola Profil & Riwayat Riset Hukum Anda
+                </h2>
+                <p class="text-xs sm:text-sm text-gray-300 max-w-xl font-normal">
+                    Simpan dokumen favorit, bookmark pasal krusial, dan tinjau riwayat percakapan asisten hukum dalam satu dasbor terpusat.
+                </p>
+            </div>
+
+            <div class="flex items-center gap-4 shrink-0">
+                <a href="index.html" class="px-6 py-3 rounded-full bg-brand-red hover:bg-red-600 text-white text-xs sm:text-sm font-bold transition-all shadow-lg active:scale-95 flex items-center gap-2">
+                    <span>Masuk ke Profil</span>
+                    <i class="fa-solid fa-user text-xs"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- FOOTER                                                   -->
+    <!-- ======================================================== -->
+    <footer class="bg-white border-t border-gray-200 py-12 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            
+            <div class="flex items-center gap-3">
+                <img src="assets/logo.png" alt="Titik Hukum Logo" class="h-6 object-contain" />
+                <span class="text-xs text-gray-500 font-medium">
+                    • Badan Riset dan Inovasi Nasional, 2026 (BRIN)
+                </span>
+            </div>
+
+            <div class="flex items-center gap-6 text-xs text-gray-500 font-medium">
+                <a href="#beranda" class="hover:text-gray-900 transition">Beranda</a>
+                <a href="#pustaka" class="hover:text-gray-900 transition">Pustaka Dokumen</a>
+                <a href="#asisten" class="hover:text-gray-900 transition">Asisten Hukum</a>
+                <a href="profil.html" class="hover:text-gray-900 transition">Profil Saya</a>
+                <a href="index.html" class="font-bold text-brand-red hover:underline">Login & Sign Up</a>
+            </div>
+
+            <div class="text-xs text-gray-400">
+                &copy; 2026 Titik Hukum. All rights reserved.
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+    </script>
+</body>
+</html>

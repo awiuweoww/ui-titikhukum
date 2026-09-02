@@ -662,10 +662,13 @@
             } else {
                 localStorage.setItem('titikhukum_auth', JSON.stringify({ role: 'user', user: usernameOrEmail, username: usernameOrEmail }));
                 localStorage.setItem('userEmail', usernameOrEmail);
-                showToast(`Login berhasil! Mengalihkan ke pustaka dokumen...`, 'success');
+                showToast(`Login berhasil! Mengalihkan...`, 'success');
+
+                const redirectUrl = sessionStorage.getItem('redirect_after_login') || 'pustaka.html';
+                sessionStorage.removeItem('redirect_after_login');
 
                 setTimeout(() => {
-                    window.location.href = 'pustaka.html';
+                    window.location.href = redirectUrl;
                 }, 600);
             }
         }

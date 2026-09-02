@@ -3,7 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Saya - Titik Hukum</title>
+    <script>
+        // Auth Guard: Direct to login if user is not authenticated
+        (function() {
+            try {
+                const auth = localStorage.getItem('titikhukum_auth') || localStorage.getItem('userEmail');
+                if (!auth) {
+                    sessionStorage.setItem('redirect_after_login', 'profil.html');
+                    window.location.replace('login.html');
+                }
+            } catch(e) {}
+        })();
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -118,6 +129,23 @@
                 </div>
             </div>
         </div>
+
+        <!-- Mobile Navigation Overlay Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-3">
+            <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
+                <a href="index.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Beranda</a>
+                <a href="pustaka.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Pustaka Dokumen</a>
+                <a href="chat.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Asisten Hukum AI</a>
+                <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 text-white font-bold border-b border-white/10">Profil Saya</a>
+                
+                <div class="pt-2">
+                    <a href="login.html" class="w-full py-2.5 rounded-lg border border-white bg-white text-gray-900 text-xs font-normal flex items-center justify-center gap-2">
+                        <span>Masuk & Daftar</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
     </header>
 
     <!-- CONTENT WRAPPER -->
@@ -210,5 +238,90 @@
         </div>
     </main>
 
+    <script>
+        // Load logged in user data if available
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const authData = JSON.parse(localStorage.getItem('titikhukum_auth') || '{}');
+                const userEmail = localStorage.getItem('userEmail') || '';
+                const username = authData.user || authData.username || userEmail.split('@')[0] || 'Pengguna';
+                
+                const userTitleEl = document.querySelector('h2.uppercase');
+                if (userTitleEl && username) {
+                    userTitleEl.textContent = username;
+                }
+                const handleEl = document.querySelector('p.text-gray-500.mb-1');
+                if (handleEl && username) {
+                    handleEl.textContent = `@${username.toLowerCase().replace(/\s+/g, '')}`;
+                }
+                const emailInput = document.getElementById('email');
+                if (emailInput && userEmail) {
+                    emailInput.value = userEmail;
+                }
+                const usernameInput = document.getElementById('username');
+                if (usernameInput && username) {
+                    usernameInput.value = username;
+                }
+            } catch(e) {}
+        });
+
+        function handleLogout() {
+            localStorage.removeItem('titikhukum_auth');
+            localStorage.removeItem('userEmail');
+            sessionStorage.removeItem('redirect_after_login');
+            window.location.href = 'index.html';
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            if (!menu) return;
+            menu.classList.toggle('hidden');
+            if (icon) {
+                if (menu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                }
+            }
+        }
+
+        let currentLang = 'EN';
+        function toggleNavLang() {
+            currentLang = currentLang === 'EN' ? 'ID' : 'EN';
+            const label = document.getElementById('navLangLabel');
+            if (label) label.textContent = currentLang;
+        }
+
+        let isDarkMode = false;
+        function toggleNavTheme() {
+            isDarkMode = !isDarkMode;
+            const container = document.getElementById('navThemeIconContainer');
+            if (!container) return;
+            if (isDarkMode) {
+                container.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                `;
+            } else {
+                container.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                        <circle cx="12" cy="12" r="4.5"></circle>
+                        <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                        <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                        <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                        <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                        <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                        <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                        <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+                    </svg>
+                `;
+            }
+        }
+    </script>
 </body>
 </html>

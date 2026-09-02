@@ -1,11 +1,214 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Profil</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - Titik Hukum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            brown: '#26150d',
+                            darkBrown: '#1f0f08',
+                            hoverBrown: '#381d12',
+                            lightBrown: '#f6eee7',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <style>
+        .navbar-brown {
+            background-color: #211209;
+            background: linear-gradient(180deg, rgba(35, 19, 11, 0.98) 0%, rgba(26, 14, 8, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(85, 45, 25, 0.8);
+        }
+        input[type="checkbox"] {
+            accent-color: #26150d;
+            cursor: pointer;
+            width: 1.05rem;
+            height: 1.05rem;
+        }
+        .cat-pill { transition: all 0.2s ease; }
+        .cat-pill.active {
+            background-color: #26150d;
+            color: #ffffff;
+            font-weight: 600;
+        }
+        .cat-pill:not(.active) {
+            background-color: transparent;
+            color: #666663;
+        }
+        .cat-pill:not(.active):hover {
+            background-color: #e5e4de;
+            color: #26150d;
+        }
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f0ec; }
+        ::-webkit-scrollbar-thumb { background: #d1cfc7; border-radius: 9999px; }
+        .dropdown-menu {
+            animation: dropdownFadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transform-origin: top right;
+        }
+        @keyframes dropdownFadeIn {
+            from { opacity: 0; transform: scale(0.96) translateY(-6px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+    </style>
 </head>
-<body style="margin: 0; padding: 20px; font-family: sans-serif; background: #ffffff; color: #000000;">
-    belum selesai ini buat pabian hehe
+<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
+
+    <!-- HEADER TITIK HUKUM -->
+    <header class="fixed top-0 left-0 right-0 z-50 w-full py-4 navbar-brown">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <img src="assets/logo-white.png" alt="Titik Hukum Logo" class="h-8 sm:h-9 object-contain transition-transform duration-300 group-hover:scale-105" />
+                </a>
+
+                <nav class="hidden md:flex items-center gap-8 lg:gap-10 text-[13px]">
+                    <a href="index.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">Beranda</a>
+                    <a href="pustaka.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">Pustaka Dokumen</a>
+                    <a href="chat.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm flex items-center gap-1.5">
+                        <span>Asisten Hukum</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-extrabold bg-white/20 text-white backdrop-blur-xs">AI</span>
+                    </a>
+                    <a href="profil.html" class="text-white font-bold transition-all duration-300 transform hover:scale-110 hover:text-white py-1 inline-block drop-shadow-sm relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white/80">Profil Saya</a>
+                </nav>
+
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1 text-white/80 hover:text-white text-xs font-semibold transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1" title="Ganti Bahasa (EN / ID)">
+                        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
+                        <span id="navLangLabel" class="font-bold text-xs tracking-wide">EN</span>
+                    </button>
+
+                    <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-white/90 hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1 shrink-0" title="Ganti Mode Tema (Terang / Gelap)">
+                        <span id="navThemeIconContainer" class="inline-flex items-center justify-center w-5 h-5 shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><circle cx="12" cy="12" r="4.5"></circle><line x1="12" y1="1.5" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22.5"></line><line x1="4.22" y1="4.22" x2="6" y2="6"></line><line x1="18" y1="18" x2="19.78" y2="19.78"></line><line x1="1.5" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22.5" y2="12"></line><line x1="4.22" y1="19.78" x2="6" y2="18"></line><line x1="18" y1="6" x2="19.78" y2="4.22"></line></svg>
+                        </span>
+                    </button>
+
+                    <a href="login.html" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg border border-white/50 bg-transparent text-white hover:bg-white hover:text-gray-900 hover:border-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1">
+                        <span>Masuk & Daftar</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-8.5 h-8.5 flex items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white hover:bg-white hover:text-gray-900 transition ml-1">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- CONTENT WRAPPER -->
+    <main class="flex-1 flex justify-center items-start pt-28 pb-8 px-8 md:pt-32 md:pb-12 md:px-5">
+        <div class="w-full max-w-[1000px] bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row overflow-hidden min-h-[620px]">
+            
+            <!-- SIDEBAR-->
+            <aside class="w-full md:w-[260px] p-8 md:border-r border-b md:border-b-0 border-gray-200 shrink-0 bg-white flex flex-col">
+                <div class="w-[90px] h-[90px] rounded-full overflow-hidden mb-4 border border-gray-200 bg-gray-100">
+                    <img src="assets/pp.jpg" alt="Profile Picture" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/90'">
+                </div>
+                <p class="text-[0.8rem] text-gray-500 mb-1 tracking-wide">@masbimo123</p>
+                <h2 class="text-[0.95rem] font-bold text-gray-900 uppercase tracking-wide mb-8">Bimo Amba</h2>
+
+                <ul class="flex flex-col gap-1.5 flex-1">
+                    <li class="px-3.5 py-2.5 text-[0.88rem] font-semibold text-brand-brown bg-brand-lightBrown rounded-md relative cursor-pointer before:content-[''] before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[3px] before:bg-brand-brown before:rounded-r-sm">Profil</li>
+                    <li class="px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">Edit Profil</li>
+                    <li class="px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">Kata Sandi</li>
+                    <li class="px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">Riwayat</li>
+                    
+                    <!-- Tombol Keluar -->
+                    <li class="px-3.5 py-2.5 text-[0.88rem] font-semibold text-red-600 rounded-md cursor-pointer transition-all duration-200 hover:bg-red-50 hover:text-red-700 hover:translate-x-1">Keluar</li>
+                    
+                    <!-- Tombol Laporan -->
+                     <li class="mt-auto px-3.5 py-2.5 text-[0.88rem] text-gray-500 rounded-md cursor-pointer transition-all duration-200 hover:bg-gray-100 hover:text-brand-brown flex items-center justify-center gap-2 group">
+                        <span>Laporan</span>
+                        <i class="fa-solid fa-circle-exclamation text-gray-400 group-hover:text-brand-brown transition-colors"></i>
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- MAIN PANEL -->
+            <section class="flex-1 p-8 md:p-10 flex flex-col justify-between">
+                <div>
+                    <!-- Header Profil & Lingkaran Persentase -->
+                    <div class="flex justify-between items-start mb-10">
+                        <h1 class="text-[1.8rem] font-bold text-gray-900">Profil</h1>
+                        
+                        <div class="flex flex-col items-center">
+                            <div class="w-[52px] h-[52px] rounded-full flex items-center justify-center relative" style="background: conic-gradient(#26150d 0% 75%, #E5E5E5 75% 100%);">
+                                <div class="absolute w-[42px] h-[42px] bg-white rounded-full"></div>
+                                <span class="relative z-10 text-[0.8rem] font-bold text-brand-brown">75%</span>
+                            </div>
+                            <span class="text-[0.6rem] font-bold text-gray-400 mt-1.5 tracking-wider uppercase">Lengkap</span>
+                        </div>
+                    </div>
+
+                    <!-- FORM -->
+                    <form class="flex flex-col gap-5 max-w-[580px]" onsubmit="event.preventDefault();">
+                        <div class="flex flex-col gap-1.5">
+                            <div class="flex justify-between items-baseline">
+                                <label for="name" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Nama Lengkap</label>
+                                <span class="text-[0.72rem] text-gray-500">Kami sangat mengutamakan penggunaan nama asli di sini.</span>
+                            </div>
+                            <input type="text" id="name" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" value="Bimo Amba">
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <div class="flex justify-between items-baseline">
+                                <label for="username" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Nama Pengguna</label>
+                            </div>
+                            <input type="text" id="username" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" value="masbimo123">
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <label for="email" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Alamat Surel</label>
+                            <input type="email" id="email" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" placeholder="example:titikhukum@hotmail.com">
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <label for="location" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Domisili</label>
+                            <input type="text" id="location" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" value="Ngawi">
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <label for="website" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Situs Web</label>
+                            <input type="url" id="website" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" placeholder="example.com">
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <div class="flex justify-between items-baseline">
+                                <label for="bio" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Bio</label>
+                                <span class="text-[0.72rem] text-gray-500">Maksimal 200 karakter</span>
+                            </div>
+                            <textarea id="bio" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm h-24 resize-y" placeholder="Maksimal 200 karakter"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
 </body>
 </html>

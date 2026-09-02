@@ -218,9 +218,9 @@
                 <form class="space-y-3 sm:space-y-3.5 max-w-[340px] mx-auto" onsubmit="handleLogin(event)">
                     <div class="relative">
                         <input 
-                            type="email" 
+                            type="text" 
                             id="emailInput" 
-                            placeholder="Email" 
+                            placeholder="Username / Email" 
                             required 
                             class="auth-input w-full px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-800 placeholder-gray-400 shadow-input-subtle"
                         />
@@ -639,23 +639,35 @@
             }
         }
 
-        // Handle Login Submission & Redirect to Landing Page
+        // Handle Login Submission & Route to Admin Portal or User Pustaka
         function handleLogin(e) {
             e.preventDefault();
-            const email = document.getElementById('emailInput').value;
-            const password = document.getElementById('passwordInput').value;
+            const usernameOrEmail = document.getElementById('emailInput').value.trim();
+            const password = document.getElementById('passwordInput').value.trim();
 
-            if (!email || !password) {
+            if (!usernameOrEmail || !password) {
                 showToast('Harap isi semua kolom terlebih dahulu', 'info');
                 return;
             }
 
-            localStorage.setItem('userEmail', email);
-            showToast(`Login berhasil! Mengalihkan ke landing page...`, 'success');
+            // Role Authentication Check
+            if ((usernameOrEmail.toLowerCase() === 'admin' || usernameOrEmail.toLowerCase() === 'admin@titikhukum.id') && password === 'admin1234') {
+                localStorage.setItem('titikhukum_auth', JSON.stringify({ role: 'admin', user: 'Administrator', username: 'admin' }));
+                localStorage.setItem('userEmail', usernameOrEmail);
+                showToast(`Selamat datang, Administrator! Mengalihkan ke beranda admin...`, 'success');
 
-            setTimeout(() => {
-                window.location.href = 'index.html';
-            }, 700);
+                setTimeout(() => {
+                    window.location.href = 'admin/index.html';
+                }, 600);
+            } else {
+                localStorage.setItem('titikhukum_auth', JSON.stringify({ role: 'user', user: usernameOrEmail, username: usernameOrEmail }));
+                localStorage.setItem('userEmail', usernameOrEmail);
+                showToast(`Login berhasil! Mengalihkan ke pustaka dokumen...`, 'success');
+
+                setTimeout(() => {
+                    window.location.href = 'pustaka.html';
+                }, 600);
+            }
         }
 
         // Handle Sign Up Submission & Redirect to Landing Page

@@ -126,9 +126,10 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between">
                 
-                <!-- Left: Titik Hukum Brand Logo -->
-                <a href="index.html" class="flex items-center gap-3 group">
-                    <img src="assets/logo-white.png" alt="Titik Hukum Logo" class="h-8 sm:h-9 object-contain transition-transform duration-300 group-hover:scale-105" />
+                <!-- Left: Titik Hukum Brand Logo with Admin Badge -->
+                <a href="index.html" class="flex items-center gap-2.5 group">
+                    <img src="../assets/logo-white.png" alt="Titik Hukum Logo" class="h-8 sm:h-9 object-contain transition-transform duration-300 group-hover:scale-105" />
+                    <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-wider uppercase bg-amber-400/20 text-amber-300 border border-amber-400/40">ADMIN</span>
                 </a>
 
                 <!-- Center: Menu Navigation Links (Bold di Pustaka Dokumen) -->
@@ -173,10 +174,10 @@
                         </span>
                     </button>
 
-                    <!-- Masuk & Daftar Button -->
-                    <a href="login.html" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg border border-white/50 bg-transparent text-white hover:bg-white hover:text-gray-900 hover:border-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1">
-                        <span>Masuk & Daftar</span>
-                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    <!-- Logout / User Badge Button -->
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-white/40 bg-white/10 text-white hover:bg-rose-600 hover:border-rose-600 hover:text-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1" title="Keluar dari mode admin">
+                        <i class="fa-solid fa-user-shield text-amber-300 text-xs"></i>
+                        <span>Admin (Keluar)</span>
                     </a>
 
                     <!-- Mobile Menu Button -->
@@ -196,9 +197,9 @@
                 <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Profil Saya</a>
                 
                 <div class="pt-2">
-                    <a href="login.html" class="w-full py-2.5 rounded-lg border border-white bg-white text-gray-900 text-xs font-normal flex items-center justify-center gap-2">
-                        <span>Masuk & Daftar</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="w-full py-2.5 rounded-lg border border-rose-500 bg-rose-600 text-white text-xs font-semibold flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
+                        <span>Admin (Keluar)</span>
                     </a>
                 </div>
             </div>
@@ -230,12 +231,13 @@
             </div>
         </div>
 
-        <!-- Toolbar (Search Input at Top, Category Filter Pills & Dynamic Tanya AI Button Below) -->
+        <!-- Toolbar (Search & Add Button at Top Row, Category Filter & Tanya AI at Bottom Row) -->
         <div class="space-y-3.5">
             
-            <!-- Row 1: Search Input Component -->
-            <div class="w-full flex items-center justify-between gap-3">
-                <div class="relative w-full max-w-xl flex items-center">
+            <!-- Row 1: Search Input (Kiri) & + Tambah Dokumen Baru (Kanan) -->
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
+                <!-- Search Input Component -->
+                <div class="relative w-full sm:max-w-md md:max-w-lg flex items-center">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs sm:text-sm pointer-events-none"></i>
                     <input 
                         type="text" 
@@ -245,9 +247,15 @@
                         class="w-full pl-10 sm:pl-11 pr-5 py-2.5 sm:py-3 rounded-full bg-[#edebe6] border border-black/5 text-xs sm:text-[13px] text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20 transition shadow-2xs"
                     />
                 </div>
+
+                <!-- + Tambah Dokumen Baru Button (Coklat Courtroom) -->
+                <button type="button" onclick="openAddModal()" class="w-full sm:w-[240px] py-3 px-5 rounded-full bg-[#26150d] hover:bg-[#381d12] text-white text-xs sm:text-[13px] font-semibold transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 shrink-0">
+                    <span>Tambah Dokumen Baru</span>
+                    <i class="fa-solid fa-plus text-xs"></i>
+                </button>
             </div>
 
-            <!-- Row 2: Category Filter Pills (Kiri) & Button Tanya AI (Kanan saat checkbox dipilih) -->
+            <!-- Row 2: Category Filter Pills (Kiri) & Button Tanya AI (Kanan - Tepat di bawah Tambah Dokumen Baru) -->
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <!-- Sector / Jenis Aturan Pills Switcher -->
                 <div class="flex items-center gap-1 bg-[#edebe6] p-1.5 rounded-full w-fit max-w-full overflow-x-auto border border-black/5">
@@ -268,8 +276,8 @@
                     </button>
                 </div>
 
-                <!-- Button Hapus Dokumen Terpilih (Merah, Muncul saat checkbox dipilih) -->
-                <button type="button" id="deleteBatchBtn" onclick="openDeleteConfirmModal()" class="hidden py-2.5 px-6 rounded-full bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-[13px] font-bold tracking-wide transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 shrink-0 border border-rose-700">
+                <!-- Button Hapus Dokumen Terpilih (Merah, Tepat Di Bawah Tambah Dokumen Baru, Lebar Sama) -->
+                <button type="button" id="deleteBatchBtn" onclick="openDeleteConfirmModal()" class="hidden w-full sm:w-[240px] py-3.5 px-5 rounded-full bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-[13px] font-bold tracking-wide transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 shrink-0 border border-rose-700">
                     <i class="fa-solid fa-trash-can text-sm text-white"></i>
                     <span>Hapus Dokumen (<span id="selectedCountBadge" class="font-black text-white">0</span>)</span>
                 </button>
@@ -624,9 +632,6 @@
         </div>
     </div>
 
-    <!-- ======================================================== -->
-    <!-- MODAL 2: EDIT METADATA DOKUMEN                           -->
-    <!-- ======================================================== -->
     <!-- ======================================================== -->
     <!-- MODAL 2: EDIT METADATA DOKUMEN (Exact Legal Form)        -->
     <!-- ======================================================== -->
@@ -2732,6 +2737,7 @@
             const catatan = document.getElementById('addCatatan').value || '';
             const jenisTindakPidana = document.getElementById('addJenisTindakPidana').value || '';
 
+            // Auto parse year from field or number
             let year = parseInt(yearVal);
             if (!year || isNaN(year)) {
                 const yearMatch = number.match(/\b(19\d\d|20\d\d)\b/);

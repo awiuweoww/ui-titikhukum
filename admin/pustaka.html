@@ -393,6 +393,7 @@
                 <div class="space-y-1.5 pb-2 border-b border-gray-100">
                     <label class="block font-medium text-gray-700 text-xs">Unggah Berkas Naskah PDF <span class="text-rose-500">*</span></label>
                     <div id="dropZone" class="border-2 border-dashed border-gray-200 hover:border-[#26150d] rounded-2xl p-5 text-center cursor-pointer transition-all bg-gray-50/50 hover:bg-[#faf8f5] group" onclick="document.getElementById('pdfFileInput').click()">
+                        <input type="file" id="pdfFileInput" accept="application/pdf" class="hidden" onchange="handleFileSelected(this)">
                         <div class="space-y-1.5">
                             <div class="w-10 h-10 rounded-full bg-gray-200/80 group-hover:bg-[#f6eee7] text-gray-500 group-hover:text-[#26150d] flex items-center justify-center mx-auto transition">
                                 <i class="fa-solid fa-cloud-arrow-up text-base"></i>
@@ -2272,7 +2273,10 @@
         function handleFileSelected(input) {
             if (input.files && input.files[0]) {
                 const file = input.files[0];
-                document.getElementById('fileNamePreview').innerHTML = `<span class="text-[#26150d] font-bold">${file.name}</span> (${(file.size / (1024*1024)).toFixed(2)} MB)`;
+                const previewEl = document.getElementById('fileNamePreview') || document.getElementById('dropZoneText');
+                if (previewEl) {
+                    previewEl.innerHTML = `<span class="text-[#26150d] font-bold">${file.name}</span> (${(file.size / (1024*1024)).toFixed(2)} MB)`;
+                }
             }
         }
 
@@ -2282,32 +2286,50 @@
             let fileName = 'naskah_hukum_baru.pdf';
             let fileSize = '3.5 MB';
 
-            if (fileInput.files && fileInput.files[0]) {
+            if (fileInput && fileInput.files && fileInput.files[0]) {
                 fileName = fileInput.files[0].name;
                 fileSize = (fileInput.files[0].size / (1024*1024)).toFixed(1) + ' MB';
             }
 
+            function getFormVal(id, fallback = '') {
+                const el = document.getElementById(id);
+                return el ? el.value : fallback;
+            }
+
             const newDoc = {
                 id: 'doc-' + Date.now(),
-                title: document.getElementById('addTitle').value,
+                title: getFormVal('addTitle', 'Dokumen Regulasi Baru'),
                 fileName: fileName,
                 fileSize: fileSize,
-                category: document.getElementById('addCategory').value,
-                agency: document.getElementById('addSource').value,
-                number: document.getElementById('addNumber').value,
-                year: document.getElementById('addYear').value,
-                source: document.getElementById('addSource').value,
+                category: getFormVal('addBidangHukum') || getFormVal('addBentukPeraturan') || 'Kelautan & Perikanan',
+                agency: getFormVal('addTEU') || getFormVal('addSource') || 'Kementerian Kelautan dan Perikanan',
+                number: getFormVal('addNumber', 'Nomor Terbit'),
+                year: getFormVal('addYear', new Date().getFullYear().toString()),
+                source: getFormVal('addSource', 'Lembaran Negara'),
                 dateUploaded: 'Hari ini',
-                notes: document.getElementById('addNotes').value || 'Dokumen berhasil diunggah dan dianalisis AI.',
-                articles: 'Memproses...',
-                activeToggle: true
+                notes: getFormVal('addCatatan') || 'Dokumen berhasil diunggah dan diverifikasi dalam sistem.',
+                articles: 'Pasal Terstruktur',
+                activeToggle: true,
+                bentukPeraturan: getFormVal('addBentukPeraturan'),
+                bentukSingkat: getFormVal('addBentukSingkat'),
+                subjek: getFormVal('addSubjek'),
+                lokasi: getFormVal('addLokasi'),
+                tglPenetapan: getFormVal('addTglPenetapan'),
+                tglPengundangan: getFormVal('addTglPengundangan'),
+                tglBerlaku: getFormVal('addTglBerlaku'),
+                tempatPenetapan: getFormVal('addTempatPenetapan'),
+                teu: getFormVal('addTEU'),
+                status: getFormVal('addStatus', 'Berlaku'),
+                bahasa: getFormVal('addBahasa', 'Indonesia'),
+                bidangHukum: getFormVal('addBidangHukum'),
+                jenisTindakPidana: getFormVal('addJenisTindakPidana')
             };
 
             documents.unshift(newDoc);
             saveDocs();
             closeAddModal();
             renderTable();
-            showToast('Dokumen baru berhasil ditambahkan!');
+            showToast('Dokumen baru berhasil ditambahkan ke pustaka!');
         }
 
         // ========================================================

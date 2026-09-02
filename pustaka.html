@@ -226,98 +226,58 @@
                 </p>
             </div>
 
-            <!-- Fast Stats Badges -->
+            <!-- Fast Stats Badge (Hanya Total Berkas) -->
             <div class="flex items-center gap-3">
                 <div class="px-4 py-2 rounded-2xl bg-white border border-gray-200 shadow-2xs text-left">
                     <div class="text-[11px] text-gray-400 font-semibold uppercase">Total Berkas</div>
-                    <div class="text-base font-bold text-gray-900" id="statTotalDoc">5 Dokumen</div>
-                </div>
-                <div class="px-4 py-2 rounded-2xl bg-white border border-gray-200 shadow-2xs text-left">
-                    <div class="text-[11px] text-gray-400 font-semibold uppercase">Indeks AI</div>
-                    <div class="text-base font-bold text-emerald-600">100% Aktif</div>
+                    <div class="text-base font-bold text-gray-900" id="statTotalDoc">14 Dokumen</div>
                 </div>
             </div>
         </div>
 
-        <!-- Toolbar (Sector Pills, Search, Filters, Batch Delete, Add Button) -->
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+        <!-- Toolbar (Search Input at Top, Category Filter Pills & Dynamic Tanya AI Button Below) -->
+        <div class="space-y-3.5">
             
-            <!-- Left: Sector / Jenis Aturan Pills Switcher -->
-            <div class="flex items-center gap-1 bg-[#edebe6] p-1.5 rounded-full w-fit max-w-full overflow-x-auto border border-black/5">
-                <button type="button" onclick="setCategoryFilter('all')" class="cat-pill active px-4 py-2 rounded-full text-xs" id="cat-all">
-                    Semua Jenis Aturan
-                </button>
-                <button type="button" onclick="setCategoryFilter('Kelautan & Perikanan')" class="cat-pill px-4 py-2 rounded-full text-xs" id="cat-laut">
-                    Kelautan & Perikanan
-                </button>
-                <button type="button" onclick="setCategoryFilter('Pemerintahan')" class="cat-pill px-4 py-2 rounded-full text-xs" id="cat-pem">
-                    Pemerintahan
-                </button>
-                <button type="button" onclick="setCategoryFilter('Teknologi & Digital')" class="cat-pill px-4 py-2 rounded-full text-xs" id="cat-tek">
-                    Teknologi & Digital
-                </button>
-                <button type="button" onclick="setCategoryFilter('Hukum Pidana')" class="cat-pill px-4 py-2 rounded-full text-xs" id="cat-pid">
-                    Hukum Pidana
-                </button>
+            <!-- Row 1: Search Input Component -->
+            <div class="w-full flex items-center justify-between gap-3">
+                <div class="relative w-full max-w-xl flex items-center">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs sm:text-sm pointer-events-none"></i>
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        onkeyup="handleSearch(this.value)"
+                        placeholder="Cari judul, nomor, atau kata kunci dokumen..." 
+                        class="w-full pl-10 sm:pl-11 pr-5 py-2.5 sm:py-3 rounded-full bg-[#edebe6] border border-black/5 text-xs sm:text-[13px] text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20 transition shadow-2xs"
+                    />
+                </div>
             </div>
 
-            <!-- Right: Search Bar, Filter, Dynamic Batch Delete, & Full-Width Brown Add Document Pill Button -->
-            <div class="flex flex-col gap-2.5 w-full sm:w-auto sm:min-w-[360px] md:min-w-[400px]">
-                
-                <!-- Top Row: Search Input + Filters Dropdown -->
-                <div class="flex items-center gap-2.5 w-full">
-                    <!-- Search Input -->
-                    <div class="relative flex-1 min-w-[200px]">
-                        <input 
-                            type="text" 
-                            id="searchInput" 
-                            onkeyup="handleSearch(this.value)"
-                            placeholder="Cari judul, nomor, atau kata kunci..." 
-                            class="w-full pl-4 pr-10 py-2.5 rounded-full bg-[#edebe6] border-0 text-xs sm:text-[13px] text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20"
-                        />
-                        <i class="fa-solid fa-magnifying-glass absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-xs"></i>
-                    </div>
-
-                    <!-- Filter Options Dropdown -->
-                    <div class="relative shrink-0">
-                        <button type="button" onclick="toggleDropdown('filterDropdownMenu')" class="px-4 py-2.5 rounded-full bg-[#edebe6] hover:bg-[#e2e0da] text-gray-800 text-xs font-semibold transition flex items-center gap-2">
-                            <span>Filters</span>
-                            <i class="fa-solid fa-sliders text-[11px] text-gray-600"></i>
-                        </button>
-
-                        <div id="filterDropdownMenu" class="hidden dropdown-menu absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-xl border border-gray-100 p-3 z-50 text-xs space-y-3">
-                            <div class="font-bold text-gray-900 border-b border-gray-100 pb-2">Filter Status AI</div>
-                            <label class="flex items-center gap-2 cursor-pointer text-gray-700">
-                                <input type="checkbox" checked onchange="handleStatusFilter('Terindeks AI', this.checked)" class="rounded text-[#26150d] focus:ring-0">
-                                <span>Terindeks AI</span>
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer text-gray-700">
-                                <input type="checkbox" checked onchange="handleStatusFilter('Memproses...', this.checked)" class="rounded text-[#26150d] focus:ring-0">
-                                <span>Memproses...</span>
-                            </label>
-                            <label class="flex items-center gap-2 cursor-pointer text-gray-700">
-                                <input type="checkbox" checked onchange="handleStatusFilter('Siap Analisis', this.checked)" class="rounded text-[#26150d] focus:ring-0">
-                                <span>Siap Analisis</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Bottom Row: Batch Delete & Full-Width + Tambah Dokumen Baru Button (Sejajar sempurna dengan batas akhir filter) -->
-                <div class="flex items-center gap-2.5 w-full">
-                    <!-- Batch Delete Button (Muncul otomatis saat memilih beberapa checkbox) -->
-                    <button type="button" id="batchDeleteBtn" onclick="deleteSelectedDocs()" class="hidden px-4 py-2.5 rounded-full bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-[13px] font-semibold transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 shrink-0">
-                        <i class="fa-regular fa-trash-can text-xs"></i>
-                        <span>Hapus (<span id="selectedCountBadge">0</span>)</span>
+            <!-- Row 2: Category Filter Pills (Kiri) & Button Tanya AI (Kanan saat checkbox dipilih) -->
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <!-- Sector / Jenis Aturan Pills Switcher -->
+                <div class="flex items-center gap-1 bg-[#edebe6] p-1.5 rounded-full w-fit max-w-full overflow-x-auto border border-black/5">
+                    <button type="button" onclick="setCategoryFilter('all')" class="cat-pill active px-4 py-2 rounded-full text-xs" id="cat-all">
+                        Semua Jenis Aturan
                     </button>
-
-                    <!-- + Tambah Dokumen Baru Button (Lebih panjang & sejajar penuh dengan batas akhir tombol filter) -->
-                    <button type="button" onclick="openAddModal()" class="w-full px-5 py-2.5 rounded-full bg-[#26150d] hover:bg-[#381d12] text-white text-xs sm:text-[13px] font-semibold transition-all shadow-md active:scale-95 flex items-center justify-center gap-2">
-                        <span>Tambah Dokumen Baru</span>
-                        <i class="fa-solid fa-plus text-xs"></i>
+                    <button type="button" onclick="setCategoryFilter('Kelautan & Perikanan')" class="cat-pill px-4 py-2 rounded-full text-xs" id="cat-laut">
+                        Kelautan & Perikanan
+                    </button>
+                    <button type="button" onclick="setCategoryFilter('Pemerintahan')" class="cat-pill px-4 py-2 rounded-full text-xs" id="cat-pem">
+                        Pemerintahan
+                    </button>
+                    <button type="button" onclick="setCategoryFilter('Teknologi & Digital')" class="cat-pill px-4 py-2 rounded-full text-xs" id="cat-tek">
+                        Teknologi & Digital
+                    </button>
+                    <button type="button" onclick="setCategoryFilter('Hukum Pidana')" class="cat-pill px-4 py-2 rounded-full text-xs" id="cat-pid">
+                        Hukum Pidana
                     </button>
                 </div>
 
+                <!-- Button Tanya AI (Kuning Teks Coklat, Muncul saat checkbox dipilih) -->
+                <button type="button" id="tanyaAiBatchBtn" onclick="tanyaAiSelectedDocs()" class="hidden py-2.5 px-6 rounded-full bg-[#f4be37] hover:bg-[#e6b12a] text-[#26150d] text-xs sm:text-[13px] font-bold tracking-wide transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 shrink-0 border border-[#d49e1a]">
+                    <i class="fa-solid fa-robot text-sm text-[#26150d]"></i>
+                    <span class="text-[#26150d]">Tanya AI (<span id="selectedCountBadge" class="font-black text-[#26150d]">0</span>)</span>
+                </button>
             </div>
 
         </div>
@@ -327,41 +287,35 @@
         <!-- ======================================================== -->
         <div class="w-full bg-white rounded-[24px] sm:rounded-[28px] border border-gray-200 shadow-xs overflow-hidden">
             
-            <div class="overflow-x-auto">
-                <table class="w-full text-left text-xs sm:text-[13px] border-collapse" id="docTable">
+            <div class="overflow-x-auto max-h-[640px] overflow-y-auto">
+                <table class="w-full text-left text-xs sm:text-[13px] border-collapse table-auto" id="docTable">
                     
-                    <!-- Table Header -->
-                    <thead class="border-b border-gray-200 text-gray-400 font-semibold uppercase tracking-wider text-[11px] select-none bg-stone-50/70">
+                    <!-- Table Header with Balanced Column Proportions & Sticky Top -->
+                    <thead class="sticky top-0 z-10 border-b border-gray-200 text-gray-400 font-semibold uppercase tracking-wider text-[11px] select-none bg-stone-50 shadow-2xs">
                         <tr>
-                            <th scope="col" class="py-4.5 pl-6 pr-4 w-12 text-center">
+                            <th scope="col" class="py-4 pl-6 pr-3 w-12 text-center bg-stone-50">
                                 <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this.checked)" class="rounded border-gray-300 text-[#26150d] focus:ring-0 cursor-pointer">
                             </th>
-                            <th scope="col" class="py-4.5 px-4 cursor-pointer group" onclick="sortTable('title')">
+                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[340px] w-[46%] bg-stone-50" onclick="sortTable('title')">
                                 <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
                                     <span>Nama & Berkas Dokumen</span>
                                     <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
                                 </div>
                             </th>
-                            <th scope="col" class="py-4.5 px-4 cursor-pointer group" onclick="sortTable('category')">
+                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[200px] w-[26%] bg-stone-50" onclick="sortTable('category')">
                                 <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
                                     <span>Jenis / Bidang Aturan</span>
                                     <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
                                 </div>
                             </th>
-                            <th scope="col" class="py-4.5 px-4 cursor-pointer group" onclick="sortTable('year')">
+                            <th scope="col" class="py-4 px-3 cursor-pointer group min-w-[150px] w-[16%] bg-stone-50" onclick="sortTable('year')">
                                 <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
                                     <span>Metadata Regulasi</span>
                                     <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
                                 </div>
                             </th>
-                            <th scope="col" class="py-4.5 px-4 cursor-pointer group" onclick="sortTable('status')">
-                                <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
-                                    <span>Status Pemrosesan</span>
-                                    <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
-                                </div>
-                            </th>
-                            <th scope="col" class="py-4.5 pr-6 pl-4 text-right">
-                                <span class="sr-only">Aksi</span>
+                            <th scope="col" class="py-4 pr-6 pl-2 text-right min-w-[130px] w-[12%] bg-stone-50">
+                                <span class="text-gray-400 font-semibold uppercase tracking-wider text-[11px]">Aksi</span>
                             </th>
                         </tr>
                     </thead>
@@ -383,17 +337,25 @@
                 <p class="text-xs text-gray-500 max-w-sm mx-auto">Coba ubah kata kunci pencarian atau klik Tambah Dokumen Baru untuk mengunggah berkas PDF.</p>
             </div>
 
-            <!-- Table Footer / Pagination Controls -->
+            <!-- Table Footer / Page Size Shortcut (Kiri) & Pagination Controls (Kanan) -->
             <div class="p-4 sm:p-5 border-t border-gray-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-xs text-gray-500 bg-white">
-                <div id="paginationInfo">
-                    Menampilkan <span class="font-bold text-gray-900" id="currentDocCount">0</span> dari <span class="font-bold text-gray-900" id="totalDocCount">0</span> dokumen
+                <!-- Kiri: Page Size Shortcut 5, 10, 20 File -->
+                <div class="flex items-center gap-2">
+                    <span class="text-gray-500 font-medium text-[11px] uppercase tracking-wide">Tampilkan:</span>
+                    <div class="inline-flex items-center rounded-full bg-[#edebe6] p-0.5 border border-black/5" id="pageSizeShortcutGroup">
+                        <button type="button" onclick="setPageSize(5)" id="pageSizeBtn-5" class="px-2.5 py-1 rounded-full text-xs font-semibold bg-[#26150d] text-white shadow-2xs transition">5</button>
+                        <button type="button" onclick="setPageSize(10)" id="pageSizeBtn-10" class="px-2.5 py-1 rounded-full text-xs font-semibold text-gray-600 hover:text-gray-900 transition">10</button>
+                        <button type="button" onclick="setPageSize(20)" id="pageSizeBtn-20" class="px-2.5 py-1 rounded-full text-xs font-semibold text-gray-600 hover:text-gray-900 transition">20</button>
+                    </div>
+                    <span class="text-gray-400 text-xs">file</span>
                 </div>
 
+                <!-- Kanan: Pagination Controls -->
                 <div class="flex items-center gap-2">
                     <button type="button" onclick="prevPage()" id="prevPageBtn" class="px-3.5 py-1.5 rounded-full border border-gray-200 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-gray-700 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition">
                         Sebelumnya
                     </button>
-                    <span id="pageIndicator" class="px-3 py-1 text-gray-800 font-bold">1</span>
+                    <span id="pageIndicator" class="px-3 py-1 text-gray-800 font-bold">1 / 1</span>
                     <button type="button" onclick="nextPage()" id="nextPageBtn" class="px-3.5 py-1.5 rounded-full border border-gray-200 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-gray-700 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition">
                         Berikutnya
                     </button>
@@ -555,12 +517,8 @@
                     </div>
 
                     <div class="sm:col-span-2">
-                        <label class="block font-bold text-gray-800 mb-1.5">Status Indeks AI</label>
-                        <select id="editStatus" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20 bg-white">
-                            <option value="Terindeks AI">Terindeks AI</option>
-                            <option value="Memproses...">Memproses...</option>
-                            <option value="Siap Analisis">Siap Analisis</option>
-                        </select>
+                        <label class="block font-bold text-gray-800 mb-1.5">Abstrak / Catatan Dokumen</label>
+                        <textarea id="editNotes" rows="2" placeholder="Catatan mengenai ruang lingkup, perubahan pasal, atau relevansi kasus..." class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20"></textarea>
                     </div>
                 </div>
 
@@ -586,48 +544,29 @@
         <div class="bg-white rounded-[24px] sm:rounded-[28px] w-full max-w-7xl max-h-[95vh] flex flex-col shadow-2xl border border-gray-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200" onclick="event.stopPropagation()">
             
             <!-- 1. Top Search & Close Bar -->
-            <div class="p-4 sm:p-5 border-b border-gray-200/90 bg-[#fafaf9] flex flex-col gap-3 shrink-0">
-                <div class="flex items-center justify-between gap-3">
-                    <!-- Search Bar Inside Modal -->
-                    <div class="flex items-center gap-2 flex-1 bg-white px-4 py-2.5 rounded-xl border border-gray-300 shadow-2xs focus-within:ring-2 focus-within:ring-[#26150d]/20 transition">
-                        <i class="fa-solid fa-magnifying-glass text-gray-400 text-xs sm:text-sm"></i>
-                        <input 
-                            type="text" 
-                            id="analysisModalSearchInput" 
-                            onkeyup="handleAnalysisInternalSearch(this.value)" 
-                            placeholder="Cari: 'UU Nomor 4', '4 tahun 2009', atau berdasarkan judul, nomor, bentuk..." 
-                            class="w-full text-xs sm:text-sm bg-transparent border-0 focus:outline-none text-gray-800 placeholder-gray-400"
-                        />
-                        <button type="button" onclick="clearAnalysisInternalSearch()" class="text-gray-400 hover:text-gray-600 text-xs px-1.5" title="Hapus pencarian">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                        <button type="button" class="px-5 py-2 rounded-xl bg-[#26150d] hover:bg-[#381d12] text-white text-xs font-semibold shadow-xs transition active:scale-95">
-                            Cari
-                        </button>
-                    </div>
-
-                    <!-- Close Modal Button -->
-                    <button type="button" onclick="closeAnalyzeModal()" class="w-10 h-10 rounded-xl bg-white hover:bg-gray-100 border border-gray-200 text-gray-600 flex items-center justify-center transition shrink-0 shadow-2xs" title="Tutup Modal">
-                        <i class="fa-solid fa-xmark text-sm"></i>
+            <div class="p-4 sm:p-5 border-b border-gray-200/90 bg-[#fafaf9] flex items-center justify-between gap-3 shrink-0">
+                <!-- Search Bar Inside Modal -->
+                <div class="flex items-center gap-2 flex-1 bg-white px-4 py-2.5 rounded-xl border border-gray-300 shadow-2xs focus-within:ring-2 focus-within:ring-[#26150d]/20 transition">
+                    <i class="fa-solid fa-magnifying-glass text-gray-400 text-xs sm:text-sm"></i>
+                    <input 
+                        type="text" 
+                        id="analysisModalSearchInput" 
+                        onkeyup="handleAnalysisInternalSearch(this.value)" 
+                        placeholder="Cari: 'UU Nomor 4', '4 tahun 2009', atau berdasarkan judul, nomor, bentuk..." 
+                        class="w-full text-xs sm:text-sm bg-transparent border-0 focus:outline-none text-gray-800 placeholder-gray-400"
+                    />
+                    <button type="button" onclick="clearAnalysisInternalSearch()" class="text-gray-400 hover:text-gray-600 text-xs px-1.5" title="Hapus pencarian">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                    <button type="button" class="px-5 py-2 rounded-xl bg-[#26150d] hover:bg-[#381d12] text-white text-xs font-semibold shadow-xs transition active:scale-95">
+                        Cari
                     </button>
                 </div>
 
-                <!-- Banner: DATABASE DOKUMEN LEGAL & Hint Strip (Harmonious Courtroom Warm Theme) -->
-                <div class="space-y-2">
-                    <div class="bg-[#f6eee7] px-4 py-2.5 rounded-xl border border-[#cbb4a3] flex items-center justify-between shadow-2xs">
-                        <span class="font-bold text-[#26150d] text-xs sm:text-sm tracking-wide">DATABASE DOKUMEN LEGAL</span>
-                        <span id="analysisActiveCategoryBadge" class="text-[11px] font-bold text-[#26150d] bg-white px-3 py-1 rounded-lg border border-[#cbb4a3]/80 shadow-2xs">
-                            Kelautan & Perikanan
-                        </span>
-                    </div>
-
-                    <div class="bg-[#faf8f5] px-4 py-2 rounded-xl border border-[#d6c4b7]/80 text-[11px] text-[#5c3822] flex items-center gap-2 overflow-x-auto">
-                        <i class="fa-solid fa-magnifying-glass text-[#8c5835] text-xs shrink-0"></i>
-                        <span id="analysisSearchHintText">
-                            <strong>Pencarian:</strong> "UU No 45" = "UU_Nomor_45", "45 tahun 2009" akan menemukan "<span id="hintDocFilename" class="font-mono text-[#26150d] font-bold">UU_Nomor_45_Tahun_2009.pdf</span>"
-                        </span>
-                    </div>
-                </div>
+                <!-- Close Modal Button -->
+                <button type="button" onclick="closeAnalyzeModal()" class="w-10 h-10 rounded-xl bg-white hover:bg-gray-100 border border-gray-200 text-gray-600 flex items-center justify-center transition shrink-0 shadow-2xs" title="Tutup Modal">
+                    <i class="fa-solid fa-xmark text-sm"></i>
+                </button>
             </div>
 
             <!-- 2. Main 4-Column Structured Extraction Grid (Scrollable) -->
@@ -794,16 +733,16 @@
                     <i class="fa-solid fa-shield-halved text-emerald-600"></i>
                     <span>Ekstraksi AI berbasis visual grounding pasal dan yurisdiksi resmi.</span>
                 </div>
-                <div class="flex items-center gap-2.5">
-                    <!-- Button Kotak: Tanya Asisten AI -->
-                    <a href="chat.html" class="px-4.5 py-2.5 rounded-xl border border-gray-300 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-xs font-semibold text-gray-800 flex items-center gap-2 transition shadow-2xs active:scale-95">
-                        <i class="fa-solid fa-robot text-[#8c5835]"></i>
-                        <span>Tanya Asisten AI</span>
+                <div class="flex items-center gap-3">
+                    <!-- Button: Tanya Asisten AI (Kuning Emas, Ikon & Teks Coklat) -->
+                    <a href="chat.html" class="px-5 py-2.5 sm:py-3 rounded-full bg-[#f4be37] hover:bg-[#e6b12a] text-[#26150d] text-xs sm:text-[13px] font-bold tracking-wide flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 border border-[#d49e1a] shrink-0">
+                        <i class="fa-solid fa-robot text-sm text-[#26150d]"></i>
+                        <span class="text-[#26150d] whitespace-nowrap">Tanya Asisten AI</span>
                     </a>
 
-                    <!-- Button Kotak: Tutup Pratinjau -->
-                    <button type="button" onclick="closeAnalyzeModal()" class="px-6 py-2.5 rounded-xl bg-[#26150d] hover:bg-[#381d12] text-white text-xs font-semibold transition active:scale-95 shadow-md">
-                        Tutup Pratinjau
+                    <!-- Button: Tutup Pratinjau (Coklat Courtroom) -->
+                    <button type="button" onclick="closeAnalyzeModal()" class="px-6 py-2.5 sm:py-3 rounded-full bg-[#26150d] hover:bg-[#381d12] text-white text-xs sm:text-[13px] font-semibold flex items-center justify-center transition-all shadow-md active:scale-95 shrink-0">
+                        <span class="whitespace-nowrap">Tutup Pratinjau</span>
                     </button>
                 </div>
             </div>
@@ -1431,23 +1370,142 @@
                         }
                     ]
                 }
+            },
+            {
+                id: 'doc-7',
+                title: 'UU No. 6 Tahun 2023 tentang Penetapan Perppu Cipta Kerja',
+                fileName: 'UU_Nomor_6_Tahun_2023.pdf',
+                fileSize: '22.4 MB',
+                category: 'Kelautan & Perikanan',
+                agency: 'Kemudahan Berusaha Sektor Kelautan',
+                number: 'UU Nomor 6',
+                year: '2023',
+                source: 'Lembaran Negara No. 41',
+                dateUploaded: '18 Feb 2026',
+                notes: 'Penyederhanaan perizinan berusaha berbasis risiko di wilayah pesisir dan pulau-pulau kecil.',
+                articles: '185 Pasal',
+                activeToggle: true
+            },
+            {
+                id: 'doc-8',
+                title: 'PP No. 27 Tahun 2021 tentang Penyelenggaraan Bidang Kelautan dan Perikanan',
+                fileName: 'PP_Nomor_27_Tahun_2021.pdf',
+                fileSize: '8.1 MB',
+                category: 'Kelautan & Perikanan',
+                agency: 'Standar Pemanfaatan Ruang Laut & Zonasi',
+                number: 'PP Nomor 27',
+                year: '2021',
+                source: 'Lembaran Negara No. 37',
+                dateUploaded: '20 Feb 2026',
+                notes: 'Persetujuan Kesesuaian Kegiatan Pemanfaatan Ruang Laut (PKKPRL) dan pengawasan terpadu sumber daya ikan.',
+                articles: '194 Pasal',
+                activeToggle: true
+            },
+            {
+                id: 'doc-9',
+                title: 'UU No. 27 Tahun 2007 jo UU No. 1 Tahun 2014 tentang Pengelolaan Wilayah Pesisir',
+                fileName: 'UU_Nomor_1_Tahun_2014.pdf',
+                fileSize: '5.2 MB',
+                category: 'Kelautan & Perikanan',
+                agency: 'Konservasi Wilayah Pesisir & Pulau Kecil',
+                number: 'UU Nomor 1',
+                year: '2014',
+                source: 'Lembaran Negara No. 17',
+                dateUploaded: '22 Feb 2026',
+                notes: 'Hak masyarakat adat pesisir, larangan penambangan pasir laut merusak, dan izin pemanfaatan pulau kecil.',
+                articles: '78 Pasal',
+                activeToggle: true
+            },
+            {
+                id: 'doc-10',
+                title: 'UU No. 17 Tahun 2008 tentang Pelayaran',
+                fileName: 'UU_Nomor_17_Tahun_2008.pdf',
+                fileSize: '12.3 MB',
+                category: 'Kelautan & Perikanan',
+                agency: 'Keselamatan & Kelaiklautan Kapal Nasional',
+                number: 'UU Nomor 17',
+                year: '2008',
+                source: 'Lembaran Negara No. 64',
+                dateUploaded: '24 Feb 2026',
+                notes: 'Asas cabotage, keselamatan pelayaran, sertifikasi kapal penangkap ikan, dan wewenang syahbandar.',
+                articles: '355 Pasal',
+                activeToggle: true
+            },
+            {
+                id: 'doc-11',
+                title: 'Perpres No. 95 Tahun 2018 tentang Sistem Pemerintahan Berbasis Elektronik',
+                fileName: 'Perpres_Nomor_95_Tahun_2018.pdf',
+                fileSize: '3.9 MB',
+                category: 'Pemerintahan',
+                agency: 'Arsitektur & Infrastruktur SPBE Nasional',
+                number: 'Perpres Nomor 95',
+                year: '2018',
+                source: 'Lembaran Negara No. 182',
+                dateUploaded: '25 Feb 2026',
+                notes: 'Penyelenggaraan tata kelola pemerintahan digital terpadu antar kementerian dan lembaga negara.',
+                articles: '82 Pasal',
+                activeToggle: true
+            },
+            {
+                id: 'doc-12',
+                title: 'UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi',
+                fileName: 'UU_Nomor_27_Tahun_2022.pdf',
+                fileSize: '4.7 MB',
+                category: 'Teknologi & Digital',
+                agency: 'Otoritas & Tata Kelola Privasi Digital',
+                number: 'UU Nomor 27',
+                year: '2022',
+                source: 'Lembaran Negara No. 196',
+                dateUploaded: '26 Feb 2026',
+                notes: 'Prinsip pemrosesan data pribadi, hak subjek data, kewajiban pengendali data, dan sanksi pidana denda.',
+                articles: '76 Pasal',
+                activeToggle: true
+            },
+            {
+                id: 'doc-13',
+                title: 'UU No. 8 Tahun 1981 tentang Hukum Acara Pidana (KUHAP)',
+                fileName: 'UU_Nomor_8_Tahun_1981_KUHAP.pdf',
+                fileSize: '9.4 MB',
+                category: 'Hukum Pidana',
+                agency: 'Hukum Acara Pidana Formil Nasional',
+                number: 'UU Nomor 8',
+                year: '1981',
+                source: 'Lembaran Negara No. 76',
+                dateUploaded: '27 Feb 2026',
+                notes: 'Pedoman penyidikan, penuntutan, peradilan, dan penahanan perkara pidana oleh aparat penegak hukum.',
+                articles: '286 Pasal',
+                activeToggle: true
+            },
+            {
+                id: 'doc-14',
+                title: 'Permen KP No. 10 Tahun 2021 tentang Standar Usaha Perikanan',
+                fileName: 'Permen_KP_Nomor_10_Tahun_2021.pdf',
+                fileSize: '3.1 MB',
+                category: 'Kelautan & Perikanan',
+                agency: 'Standar Teknis Penangkapan Ikan & Kelaikan',
+                number: 'Permen KP No. 10',
+                year: '2021',
+                source: 'Berita Negara No. 235',
+                dateUploaded: '28 Feb 2026',
+                notes: 'Spesifikasi teknis alat penangkapan ikan ramah lingkungan dan batas ukuran kapal tangkap terukur.',
+                articles: '45 Pasal',
+                activeToggle: true
             }
         ];
 
         // State variables
-        let documents = JSON.parse(localStorage.getItem('titikhukum_docs_v4')) || initialDocs;
+        let documents = JSON.parse(localStorage.getItem('titikhukum_docs_v5')) || initialDocs;
         let activeCategory = 'all';
         let searchQuery = '';
-        let statusFilters = ['Terindeks AI', 'Memproses...', 'Siap Analisis'];
         let selectedDocIds = new Set();
         let currentSort = { column: 'year', asc: false };
         let currentPage = 1;
-        const itemsPerPage = 5;
+        let itemsPerPage = 5;
         let activeAnalysisDocId = null;
 
         // Save to localStorage helper
         function saveDocs() {
-            localStorage.setItem('titikhukum_docs_v4', JSON.stringify(documents));
+            localStorage.setItem('titikhukum_docs_v5', JSON.stringify(documents));
         }
 
         // Render Table Rows
@@ -1459,7 +1517,6 @@
             // Filter logic
             let filtered = documents.filter(doc => {
                 const matchCategory = activeCategory === 'all' || doc.category === activeCategory;
-                const matchStatus = statusFilters.includes(doc.status);
                 const query = searchQuery.toLowerCase();
                 const matchSearch = doc.title.toLowerCase().includes(query) ||
                                     doc.fileName.toLowerCase().includes(query) ||
@@ -1467,7 +1524,7 @@
                                     doc.agency.toLowerCase().includes(query) ||
                                     doc.year.toString().includes(query);
 
-                return matchCategory && matchStatus && matchSearch;
+                return matchCategory && matchSearch;
             });
 
             // Sort logic
@@ -1490,13 +1547,16 @@
             const startIndex = (currentPage - 1) * itemsPerPage;
             const paginatedDocs = filtered.slice(startIndex, startIndex + itemsPerPage);
 
-            // Update Counts
-            document.getElementById('currentDocCount').textContent = paginatedDocs.length;
-            document.getElementById('totalDocCount').textContent = totalDocs;
-            document.getElementById('statTotalDoc').textContent = `${documents.length} Dokumen`;
-            document.getElementById('pageIndicator').textContent = `${currentPage} / ${totalPages}`;
-            document.getElementById('prevPageBtn').disabled = currentPage <= 1;
-            document.getElementById('nextPageBtn').disabled = currentPage >= totalPages;
+            // Update Counts & Pagination
+            const statTotalDocEl = document.getElementById('statTotalDoc');
+            if (statTotalDocEl) statTotalDocEl.textContent = `${documents.length} Dokumen`;
+
+            const pageIndicatorEl = document.getElementById('pageIndicator');
+            if (pageIndicatorEl) pageIndicatorEl.textContent = `${currentPage} / ${totalPages}`;
+            const prevPageBtn = document.getElementById('prevPageBtn');
+            if (prevPageBtn) prevPageBtn.disabled = currentPage <= 1;
+            const nextPageBtn = document.getElementById('nextPageBtn');
+            if (nextPageBtn) nextPageBtn.disabled = currentPage >= totalPages;
 
             if (paginatedDocs.length === 0) {
                 emptyState.classList.remove('hidden');
@@ -1506,54 +1566,34 @@
                 emptyState.classList.add('hidden');
             }
 
-            // Generate HTML Rows (Clean, Switch-free, Brown Accents)
+            // Generate HTML Rows (Clean, Proportional, Brown Accents)
             paginatedDocs.forEach((doc) => {
                 const isSelected = selectedDocIds.has(doc.id);
                 const tr = document.createElement('tr');
                 tr.className = `group hover:bg-[#fbf9f7] transition-colors border-b border-gray-100 ${isSelected ? 'bg-[#f6eee7]/60' : ''}`;
                 
-                // Static Elegant Status Badges (Tanpa animasi bergerak)
-                let statusBadgeHtml = '';
-                if (doc.status === 'Terindeks AI') {
-                    statusBadgeHtml = `
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200/70 shadow-2xs">
-                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>
-                            <span>Terindeks AI</span>
-                        </span>
-                    `;
-                } else if (doc.status === 'Memproses...') {
-                    statusBadgeHtml = `
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-900 border border-amber-200/70 shadow-2xs">
-                            <span class="w-1.5 h-1.5 rounded-full bg-amber-600"></span>
-                            <span>Memproses...</span>
-                        </span>
-                    `;
-                } else {
-                    statusBadgeHtml = `
-                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold bg-stone-100 text-stone-700 border border-stone-200/80 shadow-2xs">
-                            <span class="w-1.5 h-1.5 rounded-full bg-stone-500"></span>
-                            <span>Siap Analisis</span>
-                        </span>
-                    `;
-                }
-
                 tr.innerHTML = `
-                    <td class="py-4.5 pl-6 pr-4 text-center">
+                    <td class="py-4 pl-6 pr-3 text-center align-middle">
                         <input type="checkbox" onchange="toggleSelectDoc('${doc.id}', this.checked)" ${isSelected ? 'checked' : ''} class="rounded border-gray-300 text-[#26150d] focus:ring-0 cursor-pointer">
                     </td>
                     
                     <!-- Col 1: Name & File Details with Expand Chevron -->
-                    <td class="py-4.5 px-4">
+                    <td class="py-4 px-4 align-top">
                         <div class="flex items-start gap-2.5">
                             <button type="button" onclick="toggleRowDetails('${doc.id}')" class="text-gray-400 hover:text-[#26150d] transition mt-0.5" title="Lihat detail metadata">
                                 <i class="fa-solid fa-chevron-down text-[10px] transform transition-transform" id="chev-${doc.id}"></i>
                             </button>
-                            <div class="space-y-0.5">
+                            <div class="space-y-1 pr-2">
                                 <div class="font-bold text-gray-900 text-xs sm:text-[13px] leading-snug">
                                     ${doc.title}
                                 </div>
-                                <div class="text-[11px] text-gray-400 font-mono">
-                                    ${doc.fileName} • ${doc.fileSize}
+                                <div class="text-[11px] text-gray-400 font-mono flex items-center gap-2">
+                                    <span class="inline-flex items-center gap-1 text-gray-500 font-medium">
+                                        <i class="fa-regular fa-file-pdf text-rose-500 text-[11px]"></i> 
+                                        ${doc.fileName}
+                                    </span>
+                                    <span>•</span>
+                                    <span>${doc.fileSize}</span>
                                 </div>
                             </div>
                         </div>
@@ -1567,99 +1607,88 @@
                         </div>
                     </td>
 
-                    <!-- Col 2: Category & Agency (Clean Tag & Text, Tanpa Switch) -->
-                    <td class="py-4.5 px-4 whitespace-nowrap">
-                        <div class="space-y-1">
+                    <!-- Col 2: Category & Agency -->
+                    <td class="py-4 px-4 align-top whitespace-normal">
+                        <div class="space-y-1.5">
                             <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#f6eee7] text-[#26150d] border border-[#cbb4a3]/60">
                                 ${doc.category}
                             </span>
-                            <div class="text-[11px] text-gray-500 font-normal">${doc.agency}</div>
+                            <div class="text-[11px] text-gray-500 font-normal leading-relaxed">${doc.agency}</div>
                         </div>
                     </td>
 
                     <!-- Col 3: Metadata (Number, Year, Source) -->
-                    <td class="py-4.5 px-4 whitespace-nowrap">
-                        <div class="space-y-0.5">
+                    <td class="py-4 px-3 align-top whitespace-normal">
+                        <div class="space-y-1">
                             <div class="font-semibold text-gray-800">${doc.number} • Th. ${doc.year}</div>
-                            <div class="text-[11px] text-gray-400">${doc.source}</div>
+                            <div class="text-[11px] text-gray-400 leading-tight">${doc.source}</div>
                         </div>
                     </td>
 
-                    <!-- Col 4: Status -->
-                    <td class="py-4.5 px-4 whitespace-nowrap text-xs">
-                        ${statusBadgeHtml}
-                    </td>
-
-                    <!-- Col 5: Actions (Brown Analisis Pill + 3-Dots Action Popup) -->
-                    <td class="py-4.5 pr-6 pl-4 text-right whitespace-nowrap">
-                        <div class="flex items-center justify-end gap-2">
-                            
-                            <!-- Analisis AI Brown Pill Button -->
-                            <button type="button" onclick="openAnalyzeModal('${doc.id}')" class="px-4 py-1.5 rounded-full border border-[#26150d] text-[#26150d] hover:bg-[#26150d] hover:text-white font-semibold text-xs transition-all active:scale-95 shadow-2xs">
-                                Analisis
+                    <!-- Col 4: Actions (Analisis Pill Button with Yellow Magnifying Glass) -->
+                    <td class="py-4 pr-6 pl-2 text-right align-top whitespace-nowrap">
+                        <div class="flex items-center justify-end">
+                            <!-- Analisis Brown Pill Button -->
+                            <button type="button" onclick="openAnalyzeModal('${doc.id}')" class="px-3.5 py-1.5 rounded-full border border-[#26150d] text-[#26150d] hover:bg-[#26150d] hover:text-white font-semibold text-xs transition-all active:scale-95 shadow-2xs flex items-center gap-1.5">
+                                <i class="fa-solid fa-magnifying-glass text-[11px] text-amber-500 group-hover:text-amber-300"></i>
+                                <span>Analisis</span>
                             </button>
-
-                            <!-- 3-Dots Menu Trigger with popup -->
-                            <div class="relative inline-block text-left">
-                                <button type="button" onclick="toggleDropdown('actionMenu-${doc.id}')" class="w-8 h-8 rounded-full hover:bg-[#f6eee7] text-gray-500 hover:text-[#26150d] flex items-center justify-center transition">
-                                    <i class="fa-solid fa-ellipsis text-sm"></i>
-                                </button>
-
-                                <!-- Action Popup Dropdown (Tanpa Switch) -->
-                                <div id="actionMenu-${doc.id}" class="hidden dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-gray-100 p-2 z-50 text-xs space-y-1 text-left">
-                                    <button type="button" onclick="openEditModal('${doc.id}')" class="w-full px-3 py-2 rounded-xl text-gray-700 hover:bg-[#f6eee7] hover:text-[#26150d] flex items-center gap-2.5 transition">
-                                        <i class="fa-solid fa-pen text-[11px] text-[#26150d]"></i>
-                                        <span>Edit Metadata</span>
-                                    </button>
-                                    
-                                    <button type="button" onclick="openAnalyzeModal('${doc.id}')" class="w-full px-3 py-2 rounded-xl text-gray-700 hover:bg-[#f6eee7] hover:text-[#26150d] flex items-center gap-2.5 transition">
-                                        <i class="fa-solid fa-wand-magic-sparkles text-[11px] text-amber-600"></i>
-                                        <span>Uji & Analisis AI</span>
-                                    </button>
-
-                                    <div class="border-t border-gray-100 pt-1 mt-1">
-                                        <button type="button" onclick="deleteDoc('${doc.id}')" class="w-full px-3 py-2 rounded-xl text-rose-600 hover:bg-rose-50 flex items-center gap-2.5 transition">
-                                            <i class="fa-regular fa-trash-can text-[11px]"></i>
-                                            <span>Hapus Dokumen</span>
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </td>
                 `;
 
                 tbody.appendChild(tr);
             });
+
+            updateBatchActionUI();
         }
 
-        // Update Batch Delete Button UI
-        function updateBatchDeleteUI() {
-            const batchBtn = document.getElementById('batchDeleteBtn');
+        // Set Page Size Shortcut (5, 10, 20)
+        function setPageSize(size) {
+            itemsPerPage = size;
+            currentPage = 1;
+            [5, 10, 20].forEach(s => {
+                const btn = document.getElementById(`pageSizeBtn-${s}`);
+                if (btn) {
+                    if (s === size) {
+                        btn.className = 'px-2.5 py-1 rounded-full text-xs font-semibold bg-[#26150d] text-white shadow-2xs transition';
+                    } else {
+                        btn.className = 'px-2.5 py-1 rounded-full text-xs font-semibold text-gray-600 hover:text-gray-900 transition';
+                    }
+                }
+            });
+            renderTable();
+        }
+
+        // Update Tanya AI Button UI (Muncul di bawah tombol Tambah Dokumen Baru saat checkbox dipilih)
+        function updateBatchActionUI() {
+            const batchBtn = document.getElementById('tanyaAiBatchBtn');
             const badge = document.getElementById('selectedCountBadge');
-            if (batchBtn && badge) {
+            
+            if (batchBtn) {
                 if (selectedDocIds.size > 0) {
                     batchBtn.classList.remove('hidden');
-                    badge.textContent = selectedDocIds.size;
+                    if (badge) badge.textContent = selectedDocIds.size;
                 } else {
                     batchBtn.classList.add('hidden');
                 }
             }
+
+            const selectAll = document.getElementById('selectAllCheckbox');
+            if (selectAll) {
+                selectAll.checked = documents.length > 0 && selectedDocIds.size === documents.length;
+            }
         }
 
-        // Batch Delete Selected Documents
-        function deleteSelectedDocs() {
+        // Tanya AI Selected Documents (Klik tombol Tanya AI di header samping metadata)
+        function tanyaAiSelectedDocs() {
             if (selectedDocIds.size === 0) return;
-            const count = selectedDocIds.size;
-            if (confirm(`Apakah Anda yakin ingin menghapus ${count} dokumen terpilih?`)) {
-                documents = documents.filter(d => !selectedDocIds.has(d.id));
-                selectedDocIds.clear();
-                saveDocs();
-                updateBatchDeleteUI();
-                renderTable();
-                showToast(`${count} dokumen berhasil dihapus dari pustaka.`);
-            }
+            const selectedDocsList = documents.filter(d => selectedDocIds.has(d.id));
+            const docTitles = selectedDocsList.map(d => d.title).join(', ');
+            showToast(`Membuka Asisten AI untuk ${selectedDocIds.size} dokumen terpilih...`);
+            setTimeout(() => {
+                window.location.href = `chat.html?docs=${encodeURIComponent(docTitles)}`;
+            }, 300);
         }
 
         // Search Handler
@@ -1683,17 +1712,6 @@
             else if (category === 'Teknologi & Digital') document.getElementById('cat-tek').classList.add('active');
             else if (category === 'Hukum Pidana') document.getElementById('cat-pid').classList.add('active');
 
-            renderTable();
-        }
-
-        // Status Filter
-        function handleStatusFilter(status, checked) {
-            if (checked) {
-                if (!statusFilters.includes(status)) statusFilters.push(status);
-            } else {
-                statusFilters = statusFilters.filter(s => s !== status);
-            }
-            currentPage = 1;
             renderTable();
         }
 
@@ -1725,15 +1743,24 @@
             } else {
                 selectedDocIds.clear();
             }
-            updateBatchDeleteUI();
+            updateBatchActionUI();
             renderTable();
         }
 
         function toggleSelectDoc(id, checked) {
             if (checked) selectedDocIds.add(id);
             else selectedDocIds.delete(id);
-            updateBatchDeleteUI();
-            renderTable();
+            updateBatchActionUI();
+            
+            // Highlight baris secara reaktif tanpa re-render penuh
+            const rowCheckbox = document.querySelector(`input[onchange*="${id}"]`);
+            if (rowCheckbox) {
+                const tr = rowCheckbox.closest('tr');
+                if (tr) {
+                    if (checked) tr.classList.add('bg-[#f6eee7]/60');
+                    else tr.classList.remove('bg-[#f6eee7]/60');
+                }
+            }
         }
 
         // Pagination
@@ -1807,7 +1834,6 @@
                 number: document.getElementById('addNumber').value,
                 year: document.getElementById('addYear').value,
                 source: document.getElementById('addSource').value,
-                status: 'Terindeks AI',
                 dateUploaded: 'Hari ini',
                 notes: document.getElementById('addNotes').value || 'Dokumen berhasil diunggah dan dianalisis AI.',
                 articles: 'Memproses...',
@@ -1818,7 +1844,7 @@
             saveDocs();
             closeAddModal();
             renderTable();
-            showToast('Dokumen baru berhasil ditambahkan dan diindeks AI!');
+            showToast('Dokumen baru berhasil ditambahkan!');
         }
 
         // ========================================================
@@ -1834,7 +1860,7 @@
             document.getElementById('editSource').value = doc.source;
             document.getElementById('editNumber').value = doc.number;
             document.getElementById('editYear').value = doc.year;
-            document.getElementById('editStatus').value = doc.status;
+            document.getElementById('editNotes').value = doc.notes || '';
 
             document.getElementById('editDocModal').classList.remove('hidden');
         }
@@ -1854,7 +1880,7 @@
                 doc.agency = document.getElementById('editSource').value;
                 doc.number = document.getElementById('editNumber').value;
                 doc.year = document.getElementById('editYear').value;
-                doc.status = document.getElementById('editStatus').value;
+                doc.notes = document.getElementById('editNotes').value;
 
                 saveDocs();
                 closeEditModal();
@@ -1874,7 +1900,7 @@
                 documents = documents.filter(d => d.id !== id);
                 selectedDocIds.delete(id);
                 saveDocs();
-                updateBatchDeleteUI();
+                updateBatchActionUI();
                 renderTable();
                 showToast('Dokumen telah berhasil dihapus dari pustaka.');
             }
@@ -1923,11 +1949,12 @@
 
         function renderAnalysisView(doc, filterQuery) {
             // 1. Column 1: Document Metadata
-            document.getElementById('colDocFileName').textContent = doc.fileName;
-            document.getElementById('colDocTitle').textContent = doc.title;
-            document.getElementById('colDocMetaSize').textContent = `${doc.fileSize} • ${doc.articles} • ${doc.year}`;
-            document.getElementById('hintDocFilename').textContent = doc.fileName;
-            document.getElementById('analysisActiveCategoryBadge').textContent = doc.category;
+            const docFileNameEl = document.getElementById('colDocFileName');
+            if (docFileNameEl) docFileNameEl.textContent = doc.fileName;
+            const docTitleEl = document.getElementById('colDocTitle');
+            if (docTitleEl) docTitleEl.textContent = doc.title;
+            const docMetaSizeEl = document.getElementById('colDocMetaSize');
+            if (docMetaSizeEl) docMetaSizeEl.textContent = `${doc.fileSize} • ${doc.articles} • ${doc.year}`;
 
             // Switcher List in Column 1
             const switcherContainer = document.getElementById('colDocSwitcherList');

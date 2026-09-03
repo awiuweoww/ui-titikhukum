@@ -1,4 +1,4 @@
-# README / Product Requirements Document (PRD)
+# README / Product Requirements Document (PRD) BRIN
 
 **Nama Produk:** TitikHukum  
 **Deskripsi:** Platform Asisten Riset Hukum Terpadu Berbasis RAG & LLM  

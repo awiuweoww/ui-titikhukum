@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Saya - Titik Hukum</title>
     <script>
         // Auth Guard: Direct to login if user is not authenticated
         (function() {
@@ -31,10 +32,11 @@
                     },
                     colors: {
                         brand: {
-                            brown: '#26150d',
-                            darkBrown: '#1f0f08',
-                            hoverBrown: '#381d12',
-                            lightBrown: '#f6eee7',
+                            brown: '#2d1a11', 
+                            darkBrown: '#1a0f0a',
+                            hoverBrown: '#42281a',
+                            lightBrown: '#fdfbf9',
+                            borderBrown: '#e8ded8'
                         }
                     }
                 }
@@ -42,7 +44,6 @@
         }
     </script>
 
-    <!-- Custom CSS -->
     <style>
         .navbar-brown {
             background-color: #211209;
@@ -52,42 +53,22 @@
             box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
             border-bottom: 1px solid rgba(85, 45, 25, 0.8);
         }
-        input[type="checkbox"] {
-            accent-color: #26150d;
-            cursor: pointer;
-            width: 1.05rem;
-            height: 1.05rem;
+        
+        .page-transition {
+            animation: fadeIn 0.4s ease-out forwards;
         }
-        .cat-pill { transition: all 0.2s ease; }
-        .cat-pill.active {
-            background-color: #26150d;
-            color: #ffffff;
-            font-weight: 600;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .cat-pill:not(.active) {
-            background-color: transparent;
-            color: #666663;
-        }
-        .cat-pill:not(.active):hover {
-            background-color: #e5e4de;
-            color: #26150d;
-        }
+
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f0ec; }
+        ::-webkit-scrollbar-track { background: #fdfbf9; }
         ::-webkit-scrollbar-thumb { background: #d1cfc7; border-radius: 9999px; }
-        .dropdown-menu {
-            animation: dropdownFadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            transform-origin: top right;
-        }
-        @keyframes dropdownFadeIn {
-            from { opacity: 0; transform: scale(0.96) translateY(-6px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
+<body class="bg-[#f7f5f2] text-gray-800 font-sans min-h-screen flex flex-col page-transition">
 
-    <!-- HEADER TITIK HUKUM -->
     <header class="fixed top-0 left-0 right-0 z-50 w-full py-4 navbar-brown">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between">
@@ -130,7 +111,6 @@
             </div>
         </div>
 
-        <!-- Mobile Navigation Overlay Dropdown -->
         <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-3">
             <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
                 <a href="index.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Beranda</a>
@@ -148,133 +128,300 @@
         </div>
     </header>
 
-    <!-- CONTENT WRAPPER -->
-    <main class="flex-1 flex justify-center items-start pt-28 pb-8 px-8 md:pt-32 md:pb-12 md:px-5">
-        <div class="w-full max-w-[1000px] bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row overflow-hidden min-h-[620px]">
+    <main class="flex-1 flex justify-center items-start pt-28 pb-8 px-4 sm:px-8 md:pt-32 md:pb-12">
+        <div class="w-full max-w-[1100px] bg-white rounded-[24px] border border-brand-borderBrown shadow-[0_4px_24px_-8px_rgba(0,0,0,0.05)] flex flex-col md:flex-row overflow-hidden min-h-[620px] relative">
             
-            <!-- SIDEBAR -->
-            <aside class="w-full md:w-[260px] p-8 md:border-r border-b md:border-b-0 border-gray-200 shrink-0 bg-white flex flex-col">
-                <!-- Tambahan mx-auto di sini agar foto ke tengah -->
-                <div class="w-[90px] h-[90px] mx-auto rounded-full overflow-hidden mb-4 border border-gray-200 bg-gray-100 shrink-0">
-                    <img src="assets/pp.jpg" alt="Profile Picture" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/90'">
-                </div>
-                
-                <!-- [MODIFIKASI] Ditambahkan 'break-all' agar teks panjang otomatis turun ke bawah dan tidak keluar border -->
-                <p id="sidebar-handle" class="text-[0.8rem] text-center text-gray-500 mb-1 tracking-wide break-all px-2">@username</p>
-                <h2 id="sidebar-name" class="text-[0.95rem] text-center font-bold text-gray-900 tracking-wide mb-8 break-words px-2">Nama Lengkap</h2>
-
-                <ul class="flex flex-col gap-1.5 flex-1">
-                    <li class="px-3.5 py-2.5 text-[0.88rem] font-semibold text-brand-brown bg-brand-lightBrown rounded-md relative cursor-pointer before:content-[''] before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[3px] before:bg-brand-brown before:rounded-r-sm">Profil</li>
-                    <a href="edit-profile.html" class="block px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">Edit Profil</a>
-                    <li class="px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">Kata Sandi</li>
-                    <li class="px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">Riwayat</li>
-                    <li onclick="handleLogout()" class="px-3.5 py-2.5 text-[0.88rem] font-semibold text-red-600 rounded-md cursor-pointer transition-all duration-200 hover:bg-red-50 hover:text-red-700 hover:translate-x-1">Keluar</li>
+            <aside class="w-full md:w-[280px] pt-16 p-8 md:border-r border-b md:border-b-0 border-brand-borderBrown shrink-0 bg-brand-lightBrown flex flex-col items-center relative z-10">
+                <ul class="flex flex-col gap-2 w-full flex-1">
+                    <li class="px-4 py-2.5 text-[0.9rem] font-semibold text-brand-brown bg-white shadow-sm border border-brand-borderBrown rounded-lg relative cursor-default">Profil</li>
                     
-                    <li class="mt-auto px-3.5 py-2.5 text-[0.88rem] text-gray-500 rounded-md cursor-pointer transition-all duration-200 hover:bg-gray-100 hover:text-brand-brown flex items-center justify-center gap-2 group">
+                    <a href="javascript:void(0)" onclick="navigateTo('edit-profile.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Edit Profil</a>
+                    
+                    <!-- Menu Riwayat yang sudah diubah namanya -->
+                    <a href="#" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Riwayat Laporan</a>
+                    
+                    <!-- Menu Pengaturan baru yang ditambahkan di bawahnya -->
+                    <a href="#" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Pengaturan</a>
+                    
+                    <li onclick="showLogoutPopup()" class="px-4 py-2.5 text-[0.9rem] font-semibold text-red-500 rounded-lg cursor-pointer transition-all duration-300 hover:bg-red-50 border border-transparent">Keluar</li>
+                    
+                    <li onclick="showReportPopup()" class="mt-auto px-4 py-2.5 text-[0.88rem] text-gray-400 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown flex items-center justify-center gap-2 group border border-transparent">
                         <span>Laporan</span>
-                        <i class="fa-solid fa-circle-exclamation text-gray-400 group-hover:text-brand-brown transition-colors"></i>
+                        <i class="fa-solid fa-circle-exclamation group-hover:text-brand-brown transition-colors"></i>
                     </li>
                 </ul>
             </aside>
-            
-            <!-- MAIN PANEL -->
-            <section class="flex-1 p-8 md:p-10 flex flex-col justify-between">
-                <div>
-                    <div class="relative flex justify-center items-center mb-10">
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 text-center">Profil</h1>
+
+            <section class="flex-1 flex flex-col relative bg-white">
+                
+                <div class="h-[160px] md:h-[200px] w-full bg-brand-darkBrown relative overflow-hidden shrink-0">
+                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop" alt="Library Cover Image" class="w-full h-full object-cover opacity-60 mix-blend-screen">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-brown/90 via-brand-brown/40 to-transparent"></div>
+                    
+                    <button onclick="navigateTo('edit-profile.html')" class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md text-brand-brown hover:bg-brand-brown hover:text-white transition-all transform hover:scale-105 z-20" title="Edit Profil">
+                        <i class="fa-solid fa-pen text-[0.85rem]"></i>
+                    </button>
+                </div>
+
+                <div class="px-8 md:px-12 pb-12 relative flex-1 flex flex-col">
+                    
+                    <div class="flex items-start gap-5 -mt-14 mb-8 relative z-20">
+                        
+                        <div class="flex flex-col items-center w-[110px] shrink-0">
+                            <div class="w-[110px] h-[110px] rounded-full overflow-hidden border-[4px] border-white shadow-lg bg-gray-100 shrink-0 relative z-20">
+                                <img id="main-pic" src="assets/pp.jpg" alt="Profile Picture" class="w-full h-full object-cover">
+                            </div>
+                            
+                            <div class="mt-1.5 flex justify-center w-[160px]">
+                                <p id="main-handle" class="text-gray-500 font-medium tracking-wide truncate text-[0.85rem] text-center">@username</p>
+                            </div>
+                        </div>
+
+                        <!-- [MODIFIKASI] Box dilebarkan (max-w-[220px] md:max-w-[320px]) dan break-all dibuang diganti break-words agar potongannya rapi per spasi kata -->
+                        <div class="pt-4 max-w-[220px] md:max-w-[320px] shrink-0">
+                            <h1 id="main-name" class="text-2xl md:text-[1.65rem] font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-gray-400 tracking-tight leading-tight break-words line-clamp-3" style="filter: drop-shadow(0px 3px 6px rgba(0,0,0,0.85));">Nama Lengkap</h1>
+                        </div>
                     </div>
 
-                    <form class="flex flex-col gap-5 max-w-[580px] mx-auto w-full" onsubmit="event.preventDefault();">
-                        <div class="flex flex-col gap-1.5">
-                            <div class="flex justify-between items-baseline">
-                                <label for="name" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Nama Lengkap</label>
+                    <div class="bg-brand-lightBrown border border-brand-borderBrown rounded-2xl p-6 md:p-8 flex flex-col gap-6 flex-1 shadow-sm">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white border border-brand-borderBrown flex items-center justify-center shrink-0 shadow-sm text-brand-brown">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </div>
+                                <p id="main-email" class="text-[0.95rem] font-semibold text-gray-800 break-all">email@example.com</p>
                             </div>
-                            <input type="text" id="name" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-500 bg-gray-50 cursor-not-allowed focus:outline-none shadow-sm" readonly>
-                        </div>
 
-                        <div class="flex flex-col gap-1.5">
-                            <div class="flex justify-between items-baseline">
-                                <label for="username" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Nama Pengguna</label>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white border border-brand-borderBrown flex items-center justify-center shrink-0 shadow-sm text-brand-brown">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <p id="main-location" class="text-[0.95rem] font-semibold text-gray-800">Domisili Anda</p>
                             </div>
-                            <input type="text" id="username" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-500 bg-gray-50 cursor-not-allowed focus:outline-none shadow-sm" readonly>
-                        </div>
 
-                        <div class="flex flex-col gap-1.5">
-                            <label for="email" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Alamat Surel</label>
-                            <input type="email" id="email" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-500 bg-gray-50 cursor-not-allowed focus:outline-none shadow-sm" readonly>
-                        </div>
-
-                        <div class="flex flex-col gap-1.5">
-                            <label for="location" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Domisili</label>
-                            <input type="text" id="location" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-500 bg-gray-50 cursor-not-allowed focus:outline-none shadow-sm" value="Ngawi" readonly>
-                        </div>
-
-                        <div class="flex flex-col gap-1.5">
-                            <label for="website" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Situs Web</label>
-                            <input type="url" id="website" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-500 bg-gray-50 cursor-not-allowed focus:outline-none shadow-sm" value="example.com" readonly>
-                        </div>
-
-                        <div class="flex flex-col gap-1.5">
-                            <div class="flex justify-between items-baseline">
-                                <label for="bio" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Bio</label>
+                            <div class="flex items-center gap-4 md:col-span-2">
+                                <div class="w-10 h-10 rounded-full bg-white border border-brand-borderBrown flex items-center justify-center shrink-0 shadow-sm text-brand-brown">
+                                    <i class="fa-solid fa-link"></i>
+                                </div>
+                                <a id="main-website" href="#" target="_blank" class="text-[0.95rem] font-semibold text-blue-600 hover:underline break-all w-full truncate">Belum ditambahkan</a>
                             </div>
-                            <textarea id="bio" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-500 bg-gray-50 cursor-not-allowed focus:outline-none shadow-sm h-24 resize-y" readonly>Maksimal 200 karakter</textarea>
                         </div>
-                    </form>
+
+                        <hr class="border-brand-borderBrown border-dashed my-2">
+
+                        <div class="flex flex-col">
+                            <p class="text-[0.7rem] font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-quote-left text-brand-brown/50"></i> Tentang Saya
+                            </p>
+                            <p id="main-bio" class="text-[0.95rem] text-gray-600 leading-relaxed bg-white p-5 rounded-xl border border-brand-borderBrown shadow-sm min-h-[100px]">
+                                Belum ada informasi bio yang ditambahkan.
+                            </p>
+                        </div>
+
+                    </div>
                 </div>
             </section>
         </div>
+
+        <!-- Pop-up Konfirmasi Keluar -->
+    <div id="logoutPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-red-50 text-red-500 flex items-center justify-center mx-auto mb-1">
+                <i class="fa-solid fa-arrow-right-from-bracket text-xl"></i>
+            </div>
+            <h3 class="font-bold text-gray-900 text-lg">Konfirmasi Keluar</h3>
+            <p class="text-[0.8rem] text-gray-500">Apakah Anda yakin ingin keluar dari sesi ini?</p>
+            <div class="flex gap-3 mt-3">
+                <button onclick="closeLogoutPopup()" class="flex-1 py-2.5 text-gray-600 font-bold rounded-lg border border-gray-200 hover:bg-gray-50 transition">Batal</button>
+                <button onclick="handleLogout()" class="flex-1 py-2.5 text-white font-bold rounded-lg bg-red-500 hover:bg-red-600 transition shadow-sm">Ya, Keluar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop-up Laporan / Keluhan -->
+    <div id="reportPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-2xl p-6 w-[400px] shadow-2xl flex flex-col gap-4">
+            <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+                <div class="w-10 h-10 rounded-full bg-brand-lightBrown text-brand-brown flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900 text-[1.05rem]">Kirim Laporan</h3>
+                    <p class="text-[0.75rem] text-gray-500">Sampaikan kendala atau keluhan Anda.</p>
+                </div>
+            </div>
+            
+            <form onsubmit="submitReport(event)" class="flex flex-col gap-4">
+                <div class="flex flex-col gap-1.5">
+                    <label for="reportDetail" class="text-[0.75rem] font-bold text-gray-700">Detail Keluhan <span class="text-red-500">*</span></label>
+                    <textarea id="reportDetail" required placeholder="Jelaskan masalah yang Anda hadapi secara detail..." class="w-full px-3 py-2 border border-gray-200 rounded-lg text-[0.85rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 h-28 resize-none"></textarea>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[0.75rem] font-bold text-gray-700">Lampirkan Screenshot (Opsional)</label>
+                    
+                    <div class="flex items-center gap-3">
+                        <!-- Input file disembunyikan pakai class "hidden" -->
+                        <input type="file" id="reportScreenshot" accept=".jpg, .jpeg, .png" class="hidden" onchange="handleFileSelect(event)">
+                        
+                        <!-- Tombol buatan sendiri yang memicu klik ke input yang disembunyikan -->
+                        <button type="button" onclick="document.getElementById('reportScreenshot').click()" class="py-2 px-4 rounded-lg font-semibold bg-brand-lightBrown text-brand-brown hover:bg-brand-borderBrown transition text-[0.8rem] shrink-0">
+                            Choose File
+                        </button>
+                        
+                        <!-- Tempat teks nama file muncul -->
+                        <span id="fileNameDisplay" class="text-[0.8rem] text-gray-500 truncate max-w-[160px]">No file chosen</span>
+                        
+                        <!-- Tombol silang merah (awalnya disembunyikan) -->
+                        <button type="button" id="removeFileBtn" onclick="removeSelectedFile()" class="hidden text-red-500 hover:text-red-700 transition shrink-0" title="Hapus Lampiran">
+                            <i class="fa-solid fa-xmark text-lg"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="flex gap-3 mt-2">
+                    <button type="button" onclick="closeReportPopup()" class="flex-1 py-2.5 text-gray-600 font-bold text-[0.85rem] rounded-lg border border-gray-200 hover:bg-gray-50 transition">Batal</button>
+                    <button type="submit" class="flex-1 py-2.5 text-white font-bold text-[0.85rem] rounded-lg bg-brand-brown hover:bg-brand-hoverBrown transition shadow-sm">Kirim Laporan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Pop-up Laporan Berhasil Dikirim -->
+    <div id="successReportPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-green-50 text-green-500 flex items-center justify-center mx-auto mb-1">
+                <i class="fa-solid fa-circle-check text-2xl"></i>
+            </div>
+            <h3 class="font-bold text-gray-900 text-lg">Laporan Terkirim</h3>
+            <p class="text-[0.8rem] text-gray-500 leading-relaxed">Terima kasih! Laporan Anda telah berhasil dikirim dan akan segera kami proses.</p>
+            <button onclick="closeSuccessReportPopup()" class="mt-3 w-full py-2.5 text-white font-bold rounded-lg bg-brand-brown hover:bg-brand-hoverBrown transition shadow-sm">Tutup</button>
+        </div>
+    </div>
+    
     </main>
 
-<<<<<<< Updated upstream
-=======
     <script>
-        // Load logged in user data automatically and format properly
+        function navigateTo(url) {
+            document.body.style.opacity = '0';
+            document.body.style.transform = 'translateY(-10px)';
+            document.body.style.transition = 'all 0.3s ease-in';
+            setTimeout(() => {
+                window.location.href = url;
+            }, 300);
+        }
+
+        const DEFAULT_AVATAR = 'assets/pp.jpg';
+        
         document.addEventListener('DOMContentLoaded', () => {
+            loadProfileData();
+        });
+
+        function loadProfileData() {
             try {
                 const userEmail = localStorage.getItem('userEmail') || 'user@titikhukum.id';
-                
-                // Ambil string sebelum simbol '@' dari email login
                 const baseName = userEmail.includes('@') ? userEmail.split('@')[0] : userEmail;
                 
-                // 1. Nama Pengguna (Username): Huruf kecil semua & bersih dari simbol aneh
-                const cleanUsername = baseName.toLowerCase().replace(/[^a-z0-9_.]/g, '');
-                
-                // 2. Nama Lengkap: Otomatis dibentuk dari baseName, dipisah titik/angka, huruf kapital di awal kata
-                const formattedFullName = baseName
-                    .replace(/[0-9]/g, '') // Hilangkan angka jika ada
+                const defaultUsername = baseName.toLowerCase().replace(/[^a-z0-9_.]/g, '');
+                const defaultName = baseName
+                    .replace(/[0-9]/g, '')
                     .split(/[._-]/)
                     .filter(Boolean)
                     .map(word => word.charAt(0).toUpperCase() + word.slice(1))
                     .join(' ') || "Pengguna Titik Hukum";
 
-                // Masukkan ke Sidebar
-                const sidebarNameEl = document.getElementById('sidebar-name');
-                if (sidebarNameEl) sidebarNameEl.textContent = formattedFullName;
+                let savedProfile = JSON.parse(localStorage.getItem('titikhukum_user_profile') || '{}');
 
-                const sidebarHandleEl = document.getElementById('sidebar-handle');
-                if (sidebarHandleEl) sidebarHandleEl.textContent = `@${cleanUsername}`;
+                if (savedProfile.email && savedProfile.email !== userEmail) {
+                    savedProfile = {}; 
+                }
 
-                // Masukkan ke Form Input Form Profil
-                const nameInput = document.getElementById('name');
-                if (nameInput) nameInput.value = formattedFullName;
+                const finalName = savedProfile.name || defaultName;
+                const finalUsername = savedProfile.username || defaultUsername;
+                const finalEmail = userEmail; 
+                const finalLocation = savedProfile.location || 'Indonesia';
+                const finalWebsite = savedProfile.website || '';
+                const finalBio = savedProfile.bio || '';
+                
+                let currentProfilePic = DEFAULT_AVATAR;
+                if (savedProfile.profilePic !== undefined) {
+                    currentProfilePic = savedProfile.profilePic;
+                }
 
-                const usernameInput = document.getElementById('username');
-                if (usernameInput) usernameInput.value = cleanUsername;
+                if(document.getElementById('main-pic')) document.getElementById('main-pic').src = currentProfilePic;
+                
+                if(document.getElementById('main-name')) document.getElementById('main-name').textContent = finalName;
+                if(document.getElementById('main-handle')) document.getElementById('main-handle').textContent = `@${finalUsername}`;
+                if(document.getElementById('main-email')) document.getElementById('main-email').textContent = finalEmail;
+                if(document.getElementById('main-location')) document.getElementById('main-location').textContent = finalLocation;
+                
+                const webEl = document.getElementById('main-website');
+                if(webEl) {
+                    if(finalWebsite.trim() === '') {
+                        webEl.textContent = 'Belum ditambahkan';
+                        webEl.removeAttribute('href');
+                        webEl.classList.replace('text-blue-600', 'text-gray-400');
+                        webEl.classList.remove('hover:underline');
+                    } else {
+                        webEl.textContent = finalWebsite;
+                        webEl.href = finalWebsite.startsWith('http') ? finalWebsite : `https://${finalWebsite}`;
+                        webEl.classList.replace('text-gray-400', 'text-blue-600');
+                        webEl.classList.add('hover:underline');
+                    }
+                }
 
-                const emailInput = document.getElementById('email');
-                if (emailInput) emailInput.value = userEmail;
+                const bioEl = document.getElementById('main-bio');
+                if(bioEl) {
+                    if(finalBio.trim() === '' || finalBio === 'Maksimal 200 karakter') {
+                        bioEl.textContent = 'Belum ada informasi bio yang ditambahkan.';
+                        bioEl.classList.add('italic', 'text-gray-400');
+                    } else {
+                        bioEl.textContent = finalBio;
+                        bioEl.classList.remove('italic', 'text-gray-400');
+                    }
+                }
 
             } catch(e) {
-                console.error("Gagal memuat data profil:", e);
+                console.error("Gagal sinkronisasi data:", e);
             }
-        });
+        }
 
         function handleLogout() {
             localStorage.removeItem('titikhukum_auth');
             localStorage.removeItem('userEmail');
             sessionStorage.removeItem('redirect_after_login');
             window.location.href = 'index.html';
+        }
+
+        function showLogoutPopup() {
+            document.getElementById('logoutPopup').classList.remove('hidden');
+        }
+
+        function closeLogoutPopup() {
+            document.getElementById('logoutPopup').classList.add('hidden');
+        }
+
+        function showReportPopup() {
+            document.getElementById('reportPopup').classList.remove('hidden');
+        }
+
+        function closeReportPopup() {
+            document.getElementById('reportPopup').classList.add('hidden');
+            document.getElementById('reportDetail').value = ''; 
+            
+            // Panggil fungsi hapus file agar lampirannya ikut keriset
+            removeSelectedFile(); 
+        }
+
+        function submitReport(event) {
+            event.preventDefault(); 
+            
+            // 1. Tutup pop-up form laporan terlebih dahulu
+            closeReportPopup(); 
+            
+            // 2. Tampilkan pop-up notifikasi sukses
+            document.getElementById('successReportPopup').classList.remove('hidden');
         }
 
         function toggleMobileMenu() {
@@ -327,7 +474,45 @@
                 `;
             }
         }
+
+        // Fungsi untuk menangani saat file dipilih
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            const display = document.getElementById('fileNameDisplay');
+            const removeBtn = document.getElementById('removeFileBtn');
+
+            if (file) {
+                // Tampilkan nama file
+                display.textContent = file.name;
+                display.classList.remove('text-gray-500');
+                display.classList.add('text-gray-900', 'font-medium');
+                
+                // Munculkan tombol silang merah
+                removeBtn.classList.remove('hidden');
+            }
+        }
+
+        // Fungsi untuk menghapus file yang sudah dipilih
+        function removeSelectedFile() {
+            const input = document.getElementById('reportScreenshot');
+            const display = document.getElementById('fileNameDisplay');
+            const removeBtn = document.getElementById('removeFileBtn');
+
+            // Kosongkan memori input file
+            input.value = ''; 
+            
+            // Kembalikan teks ke posisi awal
+            display.textContent = 'No file chosen';
+            display.classList.add('text-gray-500');
+            display.classList.remove('text-gray-900', 'font-medium');
+            
+            // Sembunyikan lagi tombol silang merah
+            removeBtn.classList.add('hidden');
+        }
+
+        function closeSuccessReportPopup() {
+            document.getElementById('successReportPopup').classList.add('hidden');
+        }
     </script>
->>>>>>> Stashed changes
 </body>
 </html>

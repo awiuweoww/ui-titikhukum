@@ -146,13 +146,13 @@
     <header class="h-14 bg-white border-b border-[#e8dfd8] px-4 sm:px-6 flex items-center justify-between z-30 shrink-0 shadow-2xs relative">
         <div class="flex items-center gap-2.5 sm:gap-3">
             <!-- Back Button (<) -->
-            <a href="index.html" class="w-8 h-8 rounded-lg border border-stone-200 bg-stone-50 hover:bg-[#26150d] hover:text-white text-stone-700 transition flex items-center justify-center text-xs active:scale-95 shadow-2xs group/back" title="Kembali ke Beranda">
+            <a href="index.html" class="w-8 h-8 rounded-lg border border-stone-200 bg-stone-50 hover:bg-[#26150d] hover:text-white text-stone-700 transition flex items-center justify-center text-xs active:scale-95 shadow-2xs group/back" title="Kembali ke Beranda Admin">
                 <i class="fa-solid fa-chevron-left text-xs transition-transform group-hover/back:-translate-x-0.5"></i>
             </a>
 
             <!-- Brand Logo -->
             <a href="index.html" class="flex items-center gap-2 group">
-                <img src="assets/logo.png" alt="Titik Hukum Logo" class="h-7 sm:h-8 object-contain transition-transform duration-300 group-hover:scale-105" />
+                <img src="../assets/logo.png" alt="Titik Hukum Logo" class="h-7 sm:h-8 object-contain transition-transform duration-300 group-hover:scale-105" />
             </a>
         </div>
 
@@ -433,7 +433,7 @@
                 <div id="welcomeState" class="flex-1 flex flex-col items-center justify-center p-6 text-center max-w-2xl mx-auto overflow-y-auto">
                     
                     <!-- Center Brand Emblem (Direct Rounded Image) -->
-                    <img src="assets/iconchat.png" alt="TitikHukum AI Assistant" class="w-16 h-16 rounded-2xl object-cover mb-5 animate-in zoom-in-90 duration-300 shadow-md" />
+                    <img src="../assets/iconchat.png" alt="TitikHukum AI Assistant" class="w-16 h-16 rounded-2xl object-cover mb-5 animate-in zoom-in-90 duration-300 shadow-md" />
 
                     <h2 class="font-serif text-2xl sm:text-3xl text-[#26150d] font-normal tracking-tight">
                         Apa yang ingin Anda teliti hari ini?
@@ -960,7 +960,7 @@
                     // =========================================================
                     const targetDoc = docName || 'UU_Nomor_45_Tahun_2009.pdf';
                     aiDiv.innerHTML = `
-                        <img src="assets/iconchat.png" alt="TitikHukum AI" class="w-8 h-8 rounded-xl object-cover shrink-0 mt-1 shadow-2xs" />
+                        <img src="../assets/iconchat.png" alt="TitikHukum AI" class="w-8 h-8 rounded-xl object-cover shrink-0 mt-1 shadow-2xs" />
                         <div class="flex-1 space-y-3 text-xs sm:text-[13px]">
                             
                             <!-- Document Context Badge -->
@@ -1082,7 +1082,7 @@
                     }
 
                     aiDiv.innerHTML = `
-                        <img src="assets/iconchat.png" alt="TitikHukum AI" class="w-8 h-8 rounded-xl object-cover shrink-0 mt-1 shadow-2xs" />
+                        <img src="../assets/iconchat.png" alt="TitikHukum AI" class="w-8 h-8 rounded-xl object-cover shrink-0 mt-1 shadow-2xs" />
                         <div class="flex-1 space-y-3 text-xs sm:text-[13px]">
                             <div class="p-4 rounded-2xl bg-white border border-[#e8dfd8] shadow-2xs space-y-3 leading-relaxed text-gray-800">
                                 ${responseHtml}
@@ -1451,31 +1451,9 @@ Dikutip dari TitikHukum AI (Naskah Resmi Lembaran Negara RI).`;
             }
         }
 
-        // Initialize resizer and handle URL query parameters (?docs=...&prompt=...)
+        // Initialize resizer on load
         window.addEventListener('DOMContentLoaded', () => {
             initSplitResizer();
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const docsParam = urlParams.get('docs');
-            const promptParam = urlParams.get('prompt');
-
-            if (docsParam) {
-                const docBadge = document.getElementById('topActiveDocBadge');
-                const docName = document.getElementById('topActiveDocName');
-                if (docBadge && docName) {
-                    docName.textContent = decodeURIComponent(docsParam);
-                    docBadge.classList.remove('hidden');
-                    docBadge.classList.add('flex');
-                }
-            }
-
-            if (promptParam) {
-                const chatInput = document.getElementById('chatInput');
-                if (chatInput) {
-                    chatInput.value = decodeURIComponent(promptParam);
-                    chatInput.focus();
-                }
-            }
         });
     </script>
 

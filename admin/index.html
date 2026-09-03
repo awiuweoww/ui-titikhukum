@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titik Hukum - Portal Administrator</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#26150d',
+                            darkRed: '#1f0f08',
+                            ruby: '#381d12',
+                            crimson: '#4a2717',
+                            accent: '#2b170d',
+                            dark: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fafaf9;
+            color: #18181b;
+        }
+
+        /* Scrolled Dark Courtroom Brown Sticky Navbar */
+        .navbar-scrolled {
+            background-color: #211209 !important;
+            background: linear-gradient(180deg, rgba(35, 19, 11, 0.98) 0%, rgba(26, 14, 8, 0.98) 100%) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6) !important;
+            border-bottom: 1px solid rgba(85, 45, 25, 0.8) !important;
+            padding-top: 1.1rem !important;
+            padding-bottom: 1.1rem !important;
+        }
+
+        .navbar-scrolled #navbarInner {
+            border-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#fafaf9] text-gray-900 antialiased selection:bg-[#2e170d] selection:text-white">
+
+    <!-- ======================================================== -->
+    <!-- 1. FIXED TOP NAVBAR                                      -->
+    <!-- ======================================================== -->
+    <header id="mainNavbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full pt-6 sm:pt-9 md:pt-11 pb-0 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="navbarInner" class="flex items-center justify-between pb-3.5 sm:pb-4 border-b-2 border-white/30 transition-all duration-300">
+                
+                <!-- Left: Titik Hukum Brand Logo with Admin Badge -->
+                <a href="index.html" class="flex items-center gap-2.5 group cursor-pointer" title="Titik Hukum">
+                    <img src="../assets/logo-white.png" alt="Titik Hukum Logo" class="h-8 sm:h-9 object-contain transition-transform duration-300 group-hover:scale-105" />
+                    <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-wider uppercase bg-amber-400/20 text-amber-300 border border-amber-400/40">ADMIN</span>
+                </a>
+
+                <!-- Center: Menu Navigation Links (Hover Scale + Bold Transition) -->
+                <nav class="hidden md:flex items-center gap-8 lg:gap-10 text-[13px]">
+                    <a href="index.html" class="text-white font-semibold transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm cursor-pointer">
+                        Beranda
+                    </a>
+                    <a href="pustaka.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Pustaka Dokumen
+                    </a>
+                    <a href="profil.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Profil Saya
+                    </a>
+                </nav>
+
+                <!-- Right: Language, Theme & Logout Buttons -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    
+                    <!-- Language Switcher -->
+                    <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1 text-white/80 hover:text-white text-xs font-semibold transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1" title="Ganti Bahasa (EN / ID)">
+                        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24">
+                            <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+                        </svg>
+                        <span id="navLangLabel" class="font-bold text-xs tracking-wide">EN</span>
+                    </button>
+
+                    <!-- Theme Dark/Light Mode Icon Button -->
+                    <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-white/90 hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1 shrink-0" title="Ganti Mode Tema (Terang / Gelap)">
+                        <span id="navThemeIconContainer" class="inline-flex items-center justify-center w-5 h-5 shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                                <circle cx="12" cy="12" r="4.5"></circle>
+                                <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                                <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                                <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                                <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                                <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                                <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                                <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <!-- Logout / User Badge Button -->
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-white/40 bg-white/10 text-white hover:bg-rose-600 hover:border-rose-600 hover:text-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1" title="Keluar dari mode admin">
+                        <i class="fa-solid fa-user-shield text-amber-300 text-xs"></i>
+                        <span>Admin (Keluar)</span>
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-8.5 h-8.5 flex items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white hover:bg-white hover:text-gray-900 transition ml-1">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-sm"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Overlay Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-2">
+            <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
+                <a href="index.html" class="block py-2 text-white font-bold border-b border-white/10">Beranda</a>
+                <a href="pustaka.html" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Pustaka Dokumen</a>
+                <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Profil Saya</a>
+                
+                <div class="pt-2">
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="w-full py-2.5 rounded-lg border border-rose-500 bg-rose-600 text-white text-xs font-semibold flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
+                        <span>Admin (Keluar)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ======================================================== -->
+    <!-- 2. HERO DASHBOARD SECTION (Tampilan Eksklusif Admin)      -->
+    <!-- ======================================================== -->
+    <main class="w-full min-h-screen p-2 sm:p-3 md:p-4 flex flex-col justify-between">
+        <div class="w-full flex-1 min-h-[calc(100vh-2rem)] rounded-[24px] sm:rounded-[32px] md:rounded-[36px] overflow-hidden relative border border-gray-300/70 shadow-2xl flex flex-col justify-between p-6 sm:p-10 md:p-14 pt-28 sm:pt-36 md:pt-40 text-white">
+            
+            <!-- Hero Courtroom Background Image & Cinematic Lighting Overlay -->
+            <div class="absolute inset-0 z-0">
+                <img src="../assets/hero.png?v=2" alt="Titik Hukum Courtroom Background" class="w-full h-full object-cover object-center scale-[1.01]" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/35"></div>
+                <div class="absolute inset-0 bg-black/20 backdrop-blur-[0.5px]"></div>
+            </div>
+
+            <!-- Top / Center Hero Main Section (Diposisikan Lebih Atas & Menonjol) -->
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start pt-2 sm:pt-6 md:pt-8">
+                
+                <!-- Left: Big Headline & Sub-headline (Admin Customization) -->
+                <div class="lg:col-span-8 space-y-4 max-w-3xl">
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30 text-xs font-bold tracking-wide backdrop-blur-xs">
+                        <i class="fa-solid fa-user-shield"></i>
+                        <span>PORTAL ADMINISTRATOR</span>
+                    </div>
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[68px] font-bold tracking-tight text-white leading-[1.08] drop-shadow-lg">
+                        Selamat Datang, Admin
+                    </h1>
+                    <p class="text-xs sm:text-sm md:text-base text-gray-200/90 font-normal max-w-2xl leading-relaxed drop-shadow-md">
+                        Kelola repositori berkas regulasi nasional, monitor pemrosesan ekstraksi AI MinerU, dan lakukan kurasi metadata hukum secara terintegrasi.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- Bottom Section: Action Button & Micro Status (Kanan Bawah) -->
+            <div class="relative z-10 flex flex-col items-stretch sm:items-end w-full lg:max-w-xs ml-auto space-y-3 pb-2">
+                
+                <!-- White Action Button -->
+                <a href="pustaka.html" class="w-full sm:w-auto inline-flex items-center justify-between sm:justify-center gap-4 px-6 py-3.5 rounded-sm bg-white hover:bg-gray-100 text-gray-900 text-xs sm:text-sm font-bold shadow-2xl transition-all transform hover:-translate-y-0.5 active:scale-95">
+                    <span>Kelola Pustaka Dokumen</span>
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+
+                <!-- Thin Divider Line -->
+                <div class="w-full border-t border-white/35"></div>
+
+                <!-- Micro Indicator & Serving Line -->
+                <div class="w-full flex items-center justify-between text-[11px] text-gray-300 font-medium">
+                    <span class="inline-flex items-center text-white/75">
+                        <i class="fa-solid fa-globe text-xs"></i>
+                    </span>
+                    <span class="tracking-wide">Badan Riset dan Inovasi Nasional, 2026</span>
+                </div>
+
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- JAVASCRIPT CONTROLLERS                                   -->
+    <!-- ======================================================== -->
+    <script>
+        // Language Toggle Controller
+        let currentLang = 'EN';
+        function toggleNavLang() {
+            currentLang = currentLang === 'EN' ? 'ID' : 'EN';
+            const label = document.getElementById('navLangLabel');
+            const labelMobile = document.getElementById('navLangLabelMobile');
+            if (label) label.textContent = currentLang;
+            if (labelMobile) labelMobile.textContent = currentLang;
+        }
+
+        // Mobile Menu Dropdown Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            if (!menu || !icon) return;
+
+            menu.classList.toggle('hidden');
+            if (menu.classList.contains('hidden')) {
+                icon.className = 'fa-solid fa-bars text-sm';
+            } else {
+                icon.className = 'fa-solid fa-xmark text-sm';
+            }
+        }
+
+        // Theme Toggle Controller (Light / Dark)
+        let isDarkMode = false;
+        const sunSvgHtml = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                <circle cx="12" cy="12" r="4.5"></circle>
+                <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+            </svg>
+        `;
+
+        const moonSvgHtml = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        `;
+
+        function toggleNavTheme() {
+            isDarkMode = !isDarkMode;
+            const container = document.getElementById('navThemeIconContainer');
+            const containerMobile = document.getElementById('navThemeIconContainerMobile');
+            
+            if (container) {
+                container.innerHTML = isDarkMode ? sunSvgHtml : moonSvgHtml;
+                container.style.transform = isDarkMode ? 'rotate(0deg)' : 'rotate(360deg)';
+            }
+            if (containerMobile) {
+                containerMobile.innerHTML = isDarkMode ? sunSvgHtml : moonSvgHtml;
+            }
+        }
+            
+        // Sticky Navbar Background Scroll Handler
+        const navbar = document.getElementById('mainNavbar');
+        function handleNavbarScroll() {
+            if (window.scrollY > 25) {
+                navbar.classList.add('navbar-scrolled');
+                navbar.classList.remove('pt-6', 'sm:pt-9', 'md:pt-11', 'bg-transparent');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+                navbar.classList.add('pt-6', 'sm:pt-9', 'md:pt-11', 'bg-transparent');
+            }
+        }
+
+        window.addEventListener('scroll', handleNavbarScroll);
+        window.addEventListener('DOMContentLoaded', handleNavbarScroll);
+    </script>
+</body>
+</html>

@@ -82,6 +82,9 @@
                     <a href="pustaka.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
                         Pustaka Dokumen
                     </a>
+                    <a href="pengguna.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Kelola Ahli Hukum
+                    </a>
                     <a href="profil.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
                         Profil Saya
                     </a>
@@ -135,6 +138,7 @@
             <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
                 <a href="index.html" class="block py-2 text-white font-bold border-b border-white/10">Beranda</a>
                 <a href="pustaka.html" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Pustaka Dokumen</a>
+                <a href="pengguna.html" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Kelola Ahli Hukum</a>
                 <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Profil Saya</a>
                 
                 <div class="pt-2">
@@ -180,13 +184,21 @@
             </div>
 
             <!-- Bottom Section: Action Button & Micro Status (Kanan Bawah) -->
-            <div class="relative z-10 flex flex-col items-stretch sm:items-end w-full lg:max-w-xs ml-auto space-y-3 pb-2">
+            <div class="relative z-10 flex flex-col items-stretch sm:items-end w-full lg:max-w-md ml-auto space-y-3 pb-2">
                 
-                <!-- White Action Button -->
-                <a href="pustaka.html" class="w-full sm:w-auto inline-flex items-center justify-between sm:justify-center gap-4 px-6 py-3.5 rounded-sm bg-white hover:bg-gray-100 text-gray-900 text-xs sm:text-sm font-bold shadow-2xl transition-all transform hover:-translate-y-0.5 active:scale-95">
-                    <span>Kelola Pustaka Dokumen</span>
-                    <i class="fa-solid fa-arrow-right text-xs"></i>
-                </a>
+                <!-- Action Buttons Group -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 w-full justify-end">
+                    <!-- Kelola Ahli Hukum Button -->
+                    <a href="pengguna.html" class="inline-flex items-center justify-between sm:justify-center gap-3 px-5 py-3.5 rounded-sm bg-amber-400 hover:bg-amber-300 text-gray-900 text-xs sm:text-sm font-bold shadow-2xl transition-all transform hover:-translate-y-0.5 active:scale-95">
+                        <i class="fa-solid fa-users text-xs"></i>
+                        <span>Kelola Ahli Hukum</span>
+                    </a>
+                    <!-- White Action Button -->
+                    <a href="pustaka.html" class="inline-flex items-center justify-between sm:justify-center gap-3 px-5 py-3.5 rounded-sm bg-white hover:bg-gray-100 text-gray-900 text-xs sm:text-sm font-bold shadow-2xl transition-all transform hover:-translate-y-0.5 active:scale-95">
+                        <span>Kelola Pustaka Dokumen</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
 
                 <!-- Thin Divider Line -->
                 <div class="w-full border-t border-white/35"></div>

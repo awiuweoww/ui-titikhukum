@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Ahli Hukum - Portal Administrator Titik Hukum</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Flaticon Uicons CDN (Official Modern Icons from Flaticon) -->
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <!-- Font Awesome (Secondary Fallback) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#26150d',
+                            darkRed: '#1f0f08',
+                            ruby: '#381d12',
+                            crimson: '#4a2717',
+                            accent: '#2b170d',
+                            dark: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fafaf9;
+            color: #18181b;
+        }
+
+        /* Scrolled Dark Courtroom Brown Sticky Navbar */
+        .navbar-brown {
+            background-color: #211209;
+            background: linear-gradient(180deg, rgba(35, 19, 11, 0.98) 0%, rgba(26, 14, 8, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(85, 45, 25, 0.8);
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f0ec;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #d1cfc7;
+            border-radius: 9999px;
+        }
+
+        /* Modal backdrop transition */
+        .modal-backdrop {
+            animation: modalFadeIn 0.2s ease-out forwards;
+        }
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: scale(0.98); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Tab button active state */
+        .sub-tab-btn.active {
+            color: #18181b;
+            border-bottom-color: #18181b;
+            font-weight: 700;
+        }
+        .sub-tab-btn:not(.active) {
+            color: #71717a;
+            border-bottom-color: transparent;
+        }
+
+        /* Card hover animation */
+        .expert-card {
+            transition: all 0.2s ease-in-out;
+        }
+        .expert-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+        }
+
+        /* Flaticon alignment fix */
+        .fi {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+        }
+
+        /* ======================================================== */
+        /* PURE CSS MODERN MICRO-TOOLTIP SYSTEM                     */
+        /* ======================================================== */
+        [data-tooltip] {
+            position: relative;
+        }
+        [data-tooltip]::before,
+        [data-tooltip]::after {
+            position: absolute;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+            pointer-events: none;
+            z-index: 100;
+        }
+        /* Tooltip Bubble */
+        [data-tooltip]::after {
+            content: attr(data-tooltip);
+            bottom: calc(100% + 7px);
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            background-color: #18181b;
+            color: #f4f4f5;
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.25;
+            padding: 5px 9px;
+            border-radius: 7px;
+            white-space: nowrap;
+            box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            letter-spacing: 0.01em;
+        }
+        /* Tooltip Small Arrow */
+        [data-tooltip]::before {
+            content: '';
+            bottom: calc(100% + 3px);
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            border-width: 4px 4px 0 4px;
+            border-style: solid;
+            border-color: #18181b transparent transparent transparent;
+        }
+        /* Show on hover */
+        [data-tooltip]:hover::before,
+        [data-tooltip]:hover::after {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Tooltip Position: Bottom */
+        [data-tooltip-pos="bottom"]::after {
+            bottom: auto;
+            top: calc(100% + 7px);
+            transform: translateX(-50%) translateY(-4px);
+        }
+        [data-tooltip-pos="bottom"]::before {
+            bottom: auto;
+            top: calc(100% + 3px);
+            transform: translateX(-50%) translateY(-4px);
+            border-width: 0 4px 4px 4px;
+            border-color: transparent transparent #18181b transparent;
+        }
+        [data-tooltip-pos="bottom"]:hover::before,
+        [data-tooltip-pos="bottom"]:hover::after {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* Tooltip Position: Left */
+        [data-tooltip-pos="left"]::after {
+            bottom: auto;
+            top: 50%;
+            right: calc(100% + 7px);
+            left: auto;
+            transform: translateY(-50%) translateX(4px);
+        }
+        [data-tooltip-pos="left"]::before {
+            bottom: auto;
+            top: 50%;
+            right: calc(100% + 3px);
+            left: auto;
+            transform: translateY(-50%) translateX(4px);
+            border-width: 4px 0 4px 4px;
+            border-color: transparent transparent transparent #18181b;
+        }
+        [data-tooltip-pos="left"]:hover::before,
+        [data-tooltip-pos="left"]:hover::after {
+            transform: translateY(-50%) translateX(0);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#fafaf9] text-gray-900 antialiased selection:bg-[#2e170d] selection:text-white">
+
+    <!-- ======================================================== -->
+    <!-- 1. FIXED TOP NAVBAR                                      -->
+    <!-- ======================================================== -->
+    <header id="mainNavbar" class="fixed top-0 left-0 right-0 z-50 w-full py-4 navbar-brown">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="navbarInner" class="flex items-center justify-between">
+                
+                <!-- Left: Titik Hukum Brand Logo with Admin Badge -->
+                <a href="index.html" class="flex items-center gap-2.5 group cursor-pointer" title="Titik Hukum">
+                    <img src="../assets/logo-white.png" alt="Titik Hukum Logo" class="h-8 sm:h-9 object-contain transition-transform duration-300 group-hover:scale-105" />
+                    <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-wider uppercase bg-amber-400/20 text-amber-300 border border-amber-400/40">ADMIN</span>
+                </a>
+
+                <!-- Center: Menu Navigation Links (Active on Kelola Ahli Hukum) -->
+                <nav class="hidden md:flex items-center gap-8 lg:gap-10 text-[13px]">
+                    <a href="index.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm cursor-pointer">
+                        Beranda
+                    </a>
+                    <a href="pustaka.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Pustaka Dokumen
+                    </a>
+                    <!-- Active Bold Indicator on Kelola Ahli Hukum -->
+                    <a href="pengguna.html" class="text-white font-bold transition-all duration-300 transform hover:scale-110 hover:text-white py-1 inline-block drop-shadow-sm relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white/80">
+                        Kelola Ahli Hukum
+                    </a>
+                    <a href="profil.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Profil Saya
+                    </a>
+                </nav>
+
+                <!-- Right: Language, Theme & Logout Buttons -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    
+                    <!-- Language Switcher -->
+                    <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1 text-white/80 hover:text-white text-xs font-semibold transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1" data-tooltip="Ganti Bahasa (EN / ID)" data-tooltip-pos="bottom" title="Ganti Bahasa (EN / ID)">
+                        <i class="fi fi-rr-globe text-sm"></i>
+                        <span id="navLangLabel" class="font-bold text-xs tracking-wide">EN</span>
+                    </button>
+
+                    <!-- Theme Dark/Light Mode Icon Button -->
+                    <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-white/90 hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1 shrink-0" data-tooltip="Ganti Mode Tema" data-tooltip-pos="bottom" title="Ganti Mode Tema (Terang / Gelap)">
+                        <i class="fi fi-rr-brightness text-base"></i>
+                    </button>
+
+                    <!-- Logout / User Badge Button -->
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-white/40 bg-white/10 text-white hover:bg-rose-600 hover:border-rose-600 hover:text-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1" data-tooltip="Keluar dari Portal Admin" data-tooltip-pos="bottom" title="Keluar dari mode admin">
+                        <i class="fi fi-sr-shield-check text-amber-300 text-xs"></i>
+                        <span>Admin (Keluar)</span>
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-8.5 h-8.5 flex items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white hover:bg-white hover:text-gray-900 transition ml-1" data-tooltip="Menu Navigasi" data-tooltip-pos="bottom">
+                        <i id="mobileMenuIcon" class="fi fi-rr-menu-burger text-sm"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Overlay Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-3">
+            <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
+                <a href="index.html" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Beranda</a>
+                <a href="pustaka.html" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Pustaka Dokumen</a>
+                <a href="pengguna.html" class="block py-2 text-white font-bold border-b border-white/10">Kelola Ahli Hukum</a>
+                <a href="profil.html" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Profil Saya</a>
+                
+                <div class="pt-2">
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="w-full py-2.5 rounded-lg border border-rose-500 bg-rose-600 text-white text-xs font-semibold flex items-center justify-center gap-2">
+                        <i class="fi fi-rr-sign-out-alt text-xs"></i>
+                        <span>Admin (Keluar)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ======================================================== -->
+    <!-- 2. MAIN CONTENT AREA                                     -->
+    <!-- ======================================================== -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-16">
+        
+        <!-- Header Title & Action Buttons -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+            <div>
+                <span class="text-[11px] font-semibold text-zinc-400 tracking-wider uppercase">Manajemen Pengguna</span>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight mt-0.5">
+                    Kelola Ahli Hukum & Periset
+                </h1>
+                <p class="text-xs sm:text-sm text-zinc-500 mt-1">
+                    Atur hak akses login, akun periset BRIN, pakar hukum eksternal, dan reviewer kepakaran chatbot hukum.
+                </p>
+            </div>
+            <div class="flex items-center gap-2.5 shrink-0">
+                <button type="button" onclick="exportLaporanEvaluasiCSV()" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl border border-zinc-300 bg-white text-zinc-700 hover:bg-zinc-50 hover:text-zinc-900 text-xs font-semibold transition active:scale-95" data-tooltip="Unduh rekap tabel lengkap semua laporan audit evaluasi ahli" title="Ekspor Rekap Laporan Evaluasi">
+                    <i class="fi fi-rr-file-spreadsheet text-xs text-emerald-700"></i>
+                    <span>Ekspor Rekap Laporan</span>
+                </button>
+                <button type="button" onclick="openAddModal()" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-semibold shadow-sm transition active:scale-95" data-tooltip="Buka formulir akun baru" title="Tambah Ahli Hukum">
+                    <i class="fi fi-rr-user-add text-xs text-amber-300"></i>
+                    <span>+ Tambah Ahli Hukum</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- 3. 4 METRIC STATS CARDS (Angka Berwarna Serasi & Elegan)  -->
+        <!-- ======================================================== -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mb-8">
+            
+            <!-- Card 1: Total Ahli Terdaftar (Warna Amber/Bronze Hukum) -->
+            <div class="bg-white rounded-2xl p-5 border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)] cursor-help" data-tooltip="Total seluruh periset & tenaga ahli terdaftar">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-zinc-500">Total Ahli Terdaftar</span>
+                    <i class="fi fi-rr-users text-amber-800/60 text-sm"></i>
+                </div>
+                <div class="mt-3">
+                    <div id="statTotalAhli" class="text-3xl font-extrabold text-amber-900 tracking-tight">0</div>
+                    <p class="text-[11px] text-zinc-400 mt-1">Tenaga ahli & reviewer terdaftar</p>
+                </div>
+            </div>
+
+            <!-- Card 2: Akun Aktif (Warna Hijau Emerald) -->
+            <div class="bg-white rounded-2xl p-5 border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)] cursor-help" data-tooltip="Akun dengan izin akses login & evaluasi AI">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-zinc-500">Akun Aktif</span>
+                    <i class="fi fi-rr-shield-check text-emerald-600/60 text-sm"></i>
+                </div>
+                <div class="mt-3">
+                    <div id="statAkunAktif" class="text-3xl font-extrabold text-emerald-600 tracking-tight">0</div>
+                    <div class="flex items-center gap-1.5 text-[11px] text-emerald-700 mt-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        <span>Dapat mengakses evaluasi chatbot</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3: Akun Nonaktif (Warna Rose/Coral Lembut) -->
+            <div class="bg-white rounded-2xl p-5 border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)] cursor-help" data-tooltip="Akun dengan izin akses dibekukan">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-zinc-500">Akun Nonaktif</span>
+                    <i class="fi fi-rr-user-slash text-rose-600/60 text-sm"></i>
+                </div>
+                <div class="mt-3">
+                    <div id="statAkunNonaktif" class="text-3xl font-extrabold text-rose-600 tracking-tight">0</div>
+                    <div class="flex items-center gap-1.5 text-[11px] text-rose-700/80 mt-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                        <span>Akses dibekukan sementara</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 4: Laporan Evaluasi AI (Warna Biru Berwibawa) -->
+            <div class="bg-white rounded-2xl p-5 border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)] cursor-help" data-tooltip="Total laporan pengujian akurasi & audit chatbot oleh tenaga ahli">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-zinc-500">Laporan Evaluasi AI</span>
+                    <i class="fi fi-rr-document-signed text-blue-600/60 text-sm"></i>
+                </div>
+                <div class="mt-3">
+                    <div id="statTotalEvaluasi" class="text-3xl font-extrabold text-blue-600 tracking-tight">0</div>
+                    <p class="text-[11px] text-zinc-400 mt-1 truncate">Kasus uji & audit akurasi chatbot</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- 4. SUB-TABS & SEARCH / FILTER / VIEW SWITCHER             -->
+        <!-- ======================================================== -->
+        
+        <!-- Sub-Tabs Navigation -->
+        <div class="flex items-center gap-6 border-b border-zinc-200 mb-6 overflow-x-auto text-xs sm:text-sm font-semibold">
+            <button type="button" onclick="switchSubTab('members')" id="tabMembers" class="sub-tab-btn active pb-3 px-1 border-b-2 flex items-center gap-2 whitespace-nowrap" data-tooltip="Lihat semua data periset & tenaga ahli">
+                <i class="fi fi-rr-users text-xs"></i>
+                <span>Daftar Ahli Hukum (<span id="tabCountMembers">0</span>)</span>
+            </button>
+            <button type="button" onclick="switchSubTab('institusi')" id="tabInstitusi" class="sub-tab-btn pb-3 px-1 border-b-2 flex items-center gap-2 whitespace-nowrap" data-tooltip="Sebaran tenaga ahli berdasarkan instansi">
+                <i class="fi fi-rr-landmark text-xs"></i>
+                <span>Lembaga Afiliasi</span>
+            </button>
+            <button type="button" onclick="switchSubTab('tugas')" id="tabTugas" class="sub-tab-btn pb-3 px-1 border-b-2 flex items-center gap-2 whitespace-nowrap" data-tooltip="Tabel evaluasi dan ulasan chatbot AI oleh ahli hukum">
+                <i class="fi fi-rr-document-signed text-xs"></i>
+                <span>Tabel Evaluasi AI (<span id="tabCountEvaluasi">5</span>)</span>
+            </button>
+        </div>
+
+        <!-- Content Section 1: Members (Default Tab) -->
+        <div id="sectionMembers" class="space-y-6">
+            
+            <!-- Filter & Search Toolbar -->
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-zinc-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
+                
+                <!-- Search Input Bar with Shortcut -->
+                <div class="relative flex-1">
+                    <i class="fi fi-rr-search absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs"></i>
+                    <input type="text" id="searchInput" oninput="handleSearchFilter()" placeholder="Cari nama ahli, NIP, email, atau bidang kepakaran..." class="w-full pl-9 pr-14 py-2 bg-zinc-50 border border-zinc-200 rounded-xl text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition">
+                    <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono font-semibold bg-zinc-200/70 text-zinc-600 px-1.5 py-0.5 rounded border border-zinc-300 cursor-help" data-tooltip="Tekan Ctrl+F untuk cari cepat">⌘F</span>
+                </div>
+
+                <!-- Filters & View Switchers -->
+                <div class="flex items-center gap-2 overflow-x-auto">
+                    
+                    <!-- Filter Status (HANYA SEMUA, AKTIF, NONAKTIF) -->
+                    <select id="filterStatus" onchange="handleSearchFilter()" class="py-2 px-3 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 cursor-pointer" data-tooltip="Filter menurut status akun">
+                        <option value="all">Semua Status</option>
+                        <option value="Aktif">Status: Aktif</option>
+                        <option value="Nonaktif">Status: Nonaktif</option>
+                    </select>
+
+                    <!-- Filter Lembaga -->
+                    <select id="filterInstitusi" onchange="handleSearchFilter()" class="py-2 px-3 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 cursor-pointer" data-tooltip="Filter menurut lembaga mitra">
+                        <option value="all">Semua Lembaga</option>
+                        <option value="BRIN">BRIN</option>
+                        <option value="Mahkamah Agung">Mahkamah Agung</option>
+                        <option value="Universitas Indonesia">FH UI</option>
+                        <option value="Universitas Gadjah Mada">FH UGM</option>
+                        <option value="Kejaksaan RI">Kejaksaan RI</option>
+                    </select>
+
+                    <!-- View Switcher (Grid vs Table) -->
+                    <div class="flex items-center bg-zinc-100 p-1 rounded-xl border border-zinc-200 shrink-0">
+                        <button type="button" onclick="setViewMode('grid')" id="viewBtnGrid" class="p-1.5 rounded-lg text-zinc-900 bg-white shadow-xs text-xs font-bold transition" data-tooltip="Tampilan Kartu Grid" title="Tampilan Kartu Grid">
+                            <i class="fi fi-rr-apps text-xs"></i>
+                        </button>
+                        <button type="button" onclick="setViewMode('table')" id="viewBtnTable" class="p-1.5 rounded-lg text-zinc-400 hover:text-zinc-900 text-xs font-bold transition" data-tooltip="Tampilan Tabel Data" title="Tampilan Tabel Data">
+                            <i class="fi fi-rr-list text-xs"></i>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- 5. GRID CARDS VIEW (Foto Profil Gambar & Nonaktif Gelap)   -->
+            <!-- ======================================================== -->
+            <div id="gridContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-5">
+                <!-- Cards will be dynamically injected here by Javascript -->
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- 6. TABLE DATA VIEW (Alternatif Tampilan Tabel)             -->
+            <!-- ======================================================== -->
+            <div id="tableContainer" class="hidden bg-white rounded-2xl border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs">
+                        <thead class="bg-zinc-50 text-zinc-500 uppercase font-bold border-b border-zinc-200 text-[10px] tracking-wider">
+                            <tr>
+                                <th scope="col" class="px-5 py-3.5">Nama & Profil Ahli</th>
+                                <th scope="col" class="px-4 py-3.5">NIP / ID Periset</th>
+                                <th scope="col" class="px-4 py-3.5">Institusi Afiliasi</th>
+                                <th scope="col" class="px-4 py-3.5">Bidang Kepakaran</th>
+                                <th scope="col" class="px-4 py-3.5">Status Akses</th>
+                                <th scope="col" class="px-5 py-3.5 text-right">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody" class="divide-y divide-zinc-100 text-zinc-700">
+                            <!-- Rows will be dynamically injected here by Javascript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden bg-white rounded-2xl border border-zinc-200 p-12 text-center">
+                <div class="w-12 h-12 rounded-full bg-zinc-100 text-zinc-500 flex items-center justify-center mx-auto text-xl mb-3 border border-zinc-200">
+                    <i class="fi fi-rr-user-slash"></i>
+                </div>
+                <h3 class="text-sm font-bold text-zinc-900">Tidak ada data ahli hukum ditemukan</h3>
+                <p class="text-xs text-zinc-500 mt-1 max-w-sm mx-auto">
+                    Coba sesuaikan kata kunci pencarian atau ubah filter status dan lembaga yang Anda pilih.
+                </p>
+                <button type="button" onclick="resetFilters()" class="mt-4 px-4 py-2 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-semibold rounded-xl transition">
+                    Reset Filter Pencarian
+                </button>
+            </div>
+
+        </div>
+
+        <!-- Content Section 2: Lembaga Afiliasi (Sub-Tab 2) -->
+        <div id="sectionInstitusi" class="hidden space-y-4">
+            <div class="bg-white p-6 rounded-2xl border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+                <h3 class="text-base font-bold text-zinc-900 mb-1">Daftar Lembaga & Institusi Mitra Riset</h3>
+                <p class="text-xs text-zinc-500 mb-6">Distribusi periset dan tenaga ahli reviewer Titik Hukum berdasarkan instansi resmi.</p>
+                
+                <div id="institusiListGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Dynamic Institution Cards -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Section 3: Tabel Evaluasi Chatbot AI oleh Ahli Hukum (Sub-Tab 3) -->
+        <div id="sectionTugas" class="hidden space-y-5">
+            
+            <!-- Header Ringkasan & Filter Evaluasi -->
+            <div class="bg-white p-5 sm:p-6 rounded-2xl border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)] space-y-4">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h3 class="text-base font-bold text-zinc-900">Tabel Evaluasi & Catatan Review Chatbot AI</h3>
+                            <span class="px-2.5 py-0.5 rounded-full bg-zinc-100 text-zinc-700 text-[11px] font-bold border border-zinc-200">
+                                5 Kasus Uji Selesai
+                            </span>
+                        </div>
+                        <p class="text-xs text-zinc-500 mt-1">
+                            Daftar hasil pengujian akurasi rujukan pasal, validasi substansi regulasi, dan catatan koreksi jawaban AI dari para tenaga ahli & periset.
+                        </p>
+                    </div>
+
+                    <!-- 3 Ringkasan Metrik Singkat -->
+                    <div class="flex items-center gap-2.5 flex-wrap">
+                        <div class="px-3 py-1.5 rounded-xl bg-zinc-50 border border-zinc-200 text-center">
+                            <span class="text-[10px] text-zinc-400 uppercase font-semibold block">Rata-rata Skor</span>
+                            <span class="text-xs font-extrabold text-emerald-700">⭐ 4.3 / 5.0 (86%)</span>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-xl bg-zinc-50 border border-zinc-200 text-center">
+                            <span class="text-[10px] text-zinc-400 uppercase font-semibold block">Rujukan Valid</span>
+                            <span class="text-xs font-extrabold text-emerald-700">3 Akurat</span>
+                        </div>
+                        <div class="px-3 py-1.5 rounded-xl bg-zinc-50 border border-zinc-200 text-center">
+                            <span class="text-[10px] text-zinc-400 uppercase font-semibold block">Perlu Revisi</span>
+                            <span class="text-xs font-extrabold text-amber-700">2 Catatan</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter Bar Evaluasi -->
+                <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-3 border-t border-zinc-100">
+                    <div class="relative flex-1">
+                        <i class="fi fi-rr-search absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs"></i>
+                        <input type="text" id="evalSearchInput" oninput="handleEvalFilter()" placeholder="Cari kueri pertanyaan, nama reviewer, pasal, atau kata kunci catatan..." class="w-full pl-9 pr-4 py-2 bg-zinc-50 border border-zinc-200 rounded-xl text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition">
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <select id="evalFilterStatus" onchange="handleEvalFilter()" class="py-2 px-3 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-900/20">
+                            <option value="all">Semua Status Validasi</option>
+                            <option value="Akurat / Valid">Status: Akurat / Valid</option>
+                            <option value="Koreksi Interpretasi">Status: Koreksi Interpretasi</option>
+                            <option value="Perlu Koreksi Rujukan">Status: Perlu Koreksi Rujukan</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabel Data Evaluasi Ahli Hukum (Kompak & Pas Layar Tanpa Scroll Horizontal) -->
+            <div class="bg-white rounded-2xl border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)] overflow-hidden">
+                <table class="w-full text-left text-xs">
+                    <thead class="bg-zinc-50 text-zinc-500 uppercase font-bold border-b border-zinc-200 text-[10px] tracking-wider">
+                        <tr>
+                            <th scope="col" class="px-5 py-3.5 w-1/2">Kasus Uji / Kueri Pertanyaan Hukum</th>
+                            <th scope="col" class="px-4 py-3.5 w-1/4">Reviewer Ahli</th>
+                            <th scope="col" class="px-4 py-3.5 whitespace-nowrap">Status & Skor</th>
+                            <th scope="col" class="px-5 py-3.5 text-right whitespace-nowrap">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="evalTableBody" class="divide-y divide-zinc-100 text-zinc-700">
+                        <!-- Injected dynamically by Javascript -->
+                    </tbody>
+                </table>
+
+                <!-- Empty State Evaluasi -->
+                <div id="evalEmptyState" class="hidden p-10 text-center">
+                    <p class="text-xs text-zinc-500 font-medium">Tidak ada hasil evaluasi yang sesuai dengan filter pencarian.</p>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- 7. MODAL TAMBAH & EDIT AKUN AHLI HUKUM                   -->
+    <!-- ======================================================== -->
+    <div id="accountModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6">
+        <div class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden modal-backdrop relative">
+            
+            <!-- Modal Header -->
+            <div class="bg-[#211209] text-white p-5 sm:px-7 sm:py-5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-amber-300">
+                        <i id="modalHeaderIcon" class="fi fi-rr-user-add text-base"></i>
+                    </div>
+                    <div>
+                        <h3 id="modalTitle" class="text-base font-bold text-white">Tambah Akun Ahli Hukum</h3>
+                        <p class="text-[11px] text-white/70">Lengkapi formulir untuk memberikan hak akses portal Titik Hukum.</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeAccountModal()" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" data-tooltip="Tutup formulir">
+                    <i class="fi fi-rr-cross text-xs"></i>
+                </button>
+            </div>
+
+            <!-- Modal Form (Lebih Luas & Tanpa Kolom Password) -->
+            <form id="accountForm" onsubmit="saveAccountForm(event)" class="p-6 sm:p-7 space-y-5">
+                <input type="hidden" id="formAccountId" value="">
+
+                <!-- Grid: Nama & Gelar + NIP -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-700 mb-1.5">Nama Lengkap & Gelar <span class="text-rose-500">*</span></label>
+                        <input type="text" id="formNama" required placeholder="Contoh: Dr. Esther Howard, S.H., M.H." class="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-xs text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-700 mb-1.5">NIP / ID Periset <span class="text-rose-500">*</span></label>
+                        <input type="text" id="formNip" required placeholder="Contoh: 198504122010122001" class="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-xs text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition">
+                    </div>
+                </div>
+
+                <!-- Grid: Email + Nomor Kontak -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-700 mb-1.5">Email Resmi Dinas <span class="text-rose-500">*</span></label>
+                        <input type="email" id="formEmail" required placeholder="nama@brin.go.id" class="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-xs text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-700 mb-1.5">Nomor Telepon / WhatsApp</label>
+                        <input type="text" id="formPhone" placeholder="Contoh: (021) 7890-1234" class="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-xs text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition">
+                    </div>
+                </div>
+
+                <!-- URL Foto Profil (Opsi Kustom) -->
+                <div>
+                    <label class="block text-xs font-semibold text-zinc-700 mb-1.5">URL Foto Profil (Opsional)</label>
+                    <input type="url" id="formAvatarUrl" placeholder="https://images.unsplash.com/photo-..." class="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-xs text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition">
+                    <p class="text-[10px] text-zinc-400 mt-1">Biarkan kosong untuk menggunakan foto profil profesional otomatis sesuai profil ahli.</p>
+                </div>
+
+                <!-- Grid: Lembaga Afiliasi + Bidang Kepakaran -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5">
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-700 mb-1.5">Institusi / Lembaga Afiliasi <span class="text-rose-500">*</span></label>
+                        <select id="formInstitusi" required class="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-xs font-medium text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition">
+                            <option value="BRIN (Badan Riset & Inovasi Nasional)">BRIN (Badan Riset & Inovasi Nasional)</option>
+                            <option value="Mahkamah Agung RI">Mahkamah Agung RI</option>
+                            <option value="Universitas Indonesia (FH UI)">Universitas Indonesia (FH UI)</option>
+                            <option value="Universitas Gadjah Mada (FH UGM)">Universitas Gadjah Mada (FH UGM)</option>
+                            <option value="Kejaksaan Agung RI">Kejaksaan Agung RI</option>
+                            <option value="Kementerian Hukum dan HAM">Kementerian Hukum dan HAM</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-700 mb-1.5">Bidang Kepakaran Hukum <span class="text-rose-500">*</span></label>
+                        <input type="text" id="formKepakaran" required placeholder="Contoh: Hukum Siber, ITE & AI" class="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-xs text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition">
+                    </div>
+                </div>
+
+                <!-- Status Akun (HANYA AKTIF / NONAKTIF) -->
+                <div class="pt-2 border-t border-zinc-100">
+                    <label class="block text-xs font-semibold text-zinc-700 mb-2">Status Akun</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label class="relative flex items-center p-3.5 rounded-xl border border-zinc-300 bg-white cursor-pointer hover:bg-zinc-50 transition">
+                            <input type="radio" name="formStatus" value="Aktif" checked class="text-zinc-900 focus:ring-zinc-900">
+                            <div class="ml-3 text-xs">
+                                <span class="font-bold text-zinc-900 block">Aktif (Active)</span>
+                                <span class="text-[11px] text-zinc-500">Dapat login & mengevaluasi chatbot hukum AI</span>
+                            </div>
+                        </label>
+                        <label class="relative flex items-center p-3.5 rounded-xl border border-zinc-200 bg-zinc-100 cursor-pointer hover:bg-zinc-200 transition">
+                            <input type="radio" name="formStatus" value="Nonaktif" class="text-zinc-900 focus:ring-zinc-900">
+                            <div class="ml-3 text-xs">
+                                <span class="font-bold text-zinc-700 block">Nonaktif</span>
+                                <span class="text-[11px] text-zinc-500">Akses login dan evaluasi dibekukan sementara</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Modal Actions -->
+                <div class="pt-4 flex items-center justify-end gap-3 border-t border-zinc-100">
+                    <button type="button" onclick="closeAccountModal()" class="px-5 py-2.5 rounded-xl border border-zinc-300 bg-white hover:bg-zinc-50 text-zinc-700 text-xs font-semibold transition">
+                        Batal
+                    </button>
+                    <button type="submit" class="px-6 py-2.5 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-semibold shadow-sm transition active:scale-95 flex items-center gap-2">
+                        <i class="fi fi-rr-disk text-xs"></i>
+                        <span>Simpan Data Akun</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 8. MODAL KONFIRMASI HAPUS AKUN AHLI HUKUM                -->
+    <!-- ======================================================== -->
+    <div id="deleteModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-zinc-200 p-6 modal-backdrop relative">
+            
+            <!-- Icon Peringatan -->
+            <div class="w-12 h-12 rounded-2xl bg-rose-50 text-rose-600 border border-rose-200 flex items-center justify-center text-xl mx-auto mb-4 shadow-2xs">
+                <i class="fi fi-rr-trash"></i>
+            </div>
+
+            <h3 class="text-base font-bold text-zinc-900 text-center">Konfirmasi Hapus Akun</h3>
+            <p class="text-xs text-zinc-500 text-center mt-1 leading-relaxed">
+                Apakah Anda yakin ingin menghapus akun tenaga ahli berikut dari sistem Titik Hukum?
+            </p>
+
+            <!-- Preview Data Ahli yang Dihapus -->
+            <div class="mt-4 p-3.5 rounded-xl bg-zinc-50 border border-zinc-200 flex items-center gap-3">
+                <img id="deleteTargetAvatar" src="../assets/pp.jpg" alt="" class="w-10 h-10 rounded-full object-cover border border-zinc-300 shrink-0">
+                <div class="min-w-0 flex-1">
+                    <span id="deleteTargetName" class="font-bold text-zinc-900 text-xs block truncate">Nama Ahli</span>
+                    <span id="deleteTargetMeta" class="text-[11px] text-zinc-500 block truncate">NIP / Institusi</span>
+                </div>
+            </div>
+
+            <!-- Peringatan Dampak -->
+            <div class="mt-3 p-3 rounded-xl bg-rose-50/60 border border-rose-200 text-rose-950 text-[11px] leading-relaxed flex items-start gap-2">
+                <i class="fi fi-rr-triangle-warning text-rose-600 shrink-0 mt-0.5"></i>
+                <span>Tindakan ini permanen. Seluruh hak akses login dan riwayat penugasan review akun ini akan dicabut.</span>
+            </div>
+
+            <input type="hidden" id="deleteTargetId" value="">
+
+            <!-- Tombol Aksi Modal -->
+            <div class="mt-5 flex items-center justify-center gap-3">
+                <button type="button" onclick="closeDeleteModal()" class="px-4 py-2.5 rounded-xl border border-zinc-300 bg-white hover:bg-zinc-50 text-zinc-700 text-xs font-semibold transition flex-1">
+                    Batal
+                </button>
+                <button type="button" onclick="confirmDeleteAccount()" class="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold transition flex-1 shadow-sm active:scale-95 flex items-center justify-center gap-2">
+                    <i class="fi fi-rr-trash text-xs"></i>
+                    <span>Hapus Sekarang</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 9. MODAL DETAIL RINCIAN EVALUASI AHLI HUKUM              -->
+    <!-- ======================================================== -->
+    <div id="evalDetailModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6">
+        <div class="bg-white w-full max-w-3xl rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden modal-backdrop relative max-h-[90vh] flex flex-col">
+            
+            <!-- Modal Header -->
+            <div class="bg-[#211209] text-white p-5 sm:px-7 sm:py-5 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-amber-300">
+                        <i class="fi fi-rr-document-signed text-base"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white">Lembar Evaluasi & Validasi Chatbot AI</h3>
+                        <p class="text-[11px] text-white/70">Hasil uji akurasi rujukan pasal dan audit jawaban AI oleh tenaga ahli.</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeEvalDetailModal()" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition" data-tooltip="Tutup">
+                    <i class="fi fi-rr-cross text-xs"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content (Scrollable) -->
+            <div class="p-6 sm:p-7 overflow-y-auto space-y-6 flex-1 text-xs">
+                
+                <!-- Reviewer & Score Summary Banner -->
+                <div class="bg-zinc-50 p-4 rounded-xl border border-zinc-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <img id="evalModalReviewerImg" src="" alt="" class="w-11 h-11 rounded-full object-cover border border-zinc-300">
+                        <div>
+                            <span class="text-[10px] text-zinc-400 uppercase font-semibold block">Tenaga Ahli Reviewer</span>
+                            <span id="evalModalReviewerName" class="font-bold text-zinc-900 text-sm block"></span>
+                            <span id="evalModalReviewerInst" class="text-[11px] text-zinc-500"></span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span id="evalModalStatusBadge" class="px-3 py-1 rounded-full text-xs font-bold border"></span>
+                        <div class="px-3 py-1 bg-white border border-zinc-200 rounded-full font-bold text-zinc-800" id="evalModalScore"></div>
+                    </div>
+                </div>
+
+                <!-- Kueri Kasus Uji -->
+                <div class="space-y-1.5">
+                    <span class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">Kueri / Kasus Uji yang Diajukan</span>
+                    <div class="p-3.5 bg-zinc-100/80 rounded-xl border border-zinc-200/90 font-medium text-zinc-800 text-xs leading-relaxed" id="evalModalQuery"></div>
+                </div>
+
+                <!-- Jawaban yang Dihasilkan Chatbot AI -->
+                <div class="space-y-1.5">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">Output Jawaban Chatbot Titik Hukum AI</span>
+                        <span class="text-[10px] text-zinc-400 font-mono" id="evalModalTimestamp"></span>
+                    </div>
+                    <div class="p-3.5 bg-zinc-50 rounded-xl border border-zinc-200 text-zinc-700 leading-relaxed font-sans" id="evalModalAiResponse"></div>
+                </div>
+
+                <!-- Parameter Penilaian -->
+                <div class="space-y-2">
+                    <span class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">Parameter Audit Akurasi Hukum</span>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div class="p-3 bg-white rounded-xl border border-zinc-200 text-center">
+                            <span class="text-[10px] text-zinc-400 block font-medium">Akurasi Pasal</span>
+                            <span class="font-extrabold text-sm text-zinc-800 mt-0.5 block" id="evalModalParam1">95%</span>
+                        </div>
+                        <div class="p-3 bg-white rounded-xl border border-zinc-200 text-center">
+                            <span class="text-[10px] text-zinc-400 block font-medium">Hierarki Regulasi</span>
+                            <span class="font-extrabold text-sm text-zinc-800 mt-0.5 block" id="evalModalParam2">100%</span>
+                        </div>
+                        <div class="p-3 bg-white rounded-xl border border-zinc-200 text-center">
+                            <span class="text-[10px] text-zinc-400 block font-medium">Bahasa Hukum</span>
+                            <span class="font-extrabold text-sm text-zinc-800 mt-0.5 block" id="evalModalParam3">90%</span>
+                        </div>
+                        <div class="p-3 bg-white rounded-xl border border-zinc-200 text-center">
+                            <span class="text-[10px] text-zinc-400 block font-medium">Risiko Halusinasi</span>
+                            <span class="font-extrabold text-sm text-emerald-600 mt-0.5 block" id="evalModalParam4">Rendah</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Catatan & Temuan Ahli -->
+                <div class="space-y-1.5">
+                    <span class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">Catatan Evaluasi & Temuan Ahli Hukum</span>
+                    <div class="p-3.5 bg-amber-50/60 rounded-xl border border-amber-200 text-amber-950 font-medium leading-relaxed" id="evalModalNotes"></div>
+                </div>
+
+                <!-- Rekomendasi Tindak Lanjut -->
+                <div class="space-y-1.5">
+                    <span class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">Rekomendasi Pembaruan Prompt & Basis Regulasi RAG</span>
+                    <div class="p-3.5 bg-blue-50/60 rounded-xl border border-blue-200 text-blue-950 leading-relaxed" id="evalModalRec"></div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 sm:px-7 bg-zinc-50 border-t border-zinc-200 flex items-center justify-between shrink-0">
+                <span class="text-[11px] text-zinc-400">Verifikasi Resmi Sistem Audit AI Titik Hukum BRIN</span>
+                <button type="button" onclick="closeEvalDetailModal()" class="px-5 py-2 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-semibold transition">
+                    Tutup Lembar Review
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 10. TOAST NOTIFIKASI                                     -->
+    <!-- ======================================================== -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-zinc-900 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs border border-white/10 pointer-events-none">
+        <div id="toastIcon" class="w-5 h-5 rounded-full bg-white/10 text-emerald-400 flex items-center justify-center text-xs">
+            <i class="fi fi-rr-check"></i>
+        </div>
+        <span id="toastMessage" class="font-medium">Data berhasil diperbarui</span>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- JAVASCRIPT CONTROLLERS                                   -->
+    <!-- ======================================================== -->
+    <script>
+        // Data Default Tenaga Ahli Hukum dengan Foto Profil Gambar Asli
+        const DEFAULT_EXPERTS = [
+            {
+                id: 'exp-01',
+                nama: 'Dr. Esther Howard, S.H., M.H.',
+                nip: '198504122010122001',
+                email: 'esther.howard@brin.go.id',
+                phone: '(021) 7890-1234',
+                institusi: 'BRIN (Badan Riset & Inovasi Nasional)',
+                kepakaran: 'Hukum Siber, ITE & Kecerdasan Artifisial',
+                status: 'Aktif',
+                bergabung: '14 Jan 2024',
+                avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'exp-02',
+                nama: 'Prof. Dr. Jacob Jones, S.H., LL.M.',
+                nip: '197409201999031002',
+                email: 'jacob.jones@mahkamahagung.go.id',
+                phone: '(021) 384-3348',
+                institusi: 'Mahkamah Agung RI',
+                kepakaran: 'Hukum Pidana Khusus & Tindak Pidana Korupsi',
+                status: 'Aktif',
+                bergabung: '02 Feb 2024',
+                avatarUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'exp-03',
+                nama: 'Bessie Cooper, S.H., M.Kn.',
+                nip: '198906152014022004',
+                email: 'bessie.cooper@ui.ac.id',
+                phone: '(021) 727-0005',
+                institusi: 'Universitas Indonesia (FH UI)',
+                kepakaran: 'Hukum Perdata Bisnis & Kontrak Elektronik',
+                status: 'Aktif',
+                bergabung: '20 Mei 2024',
+                avatarUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'exp-04',
+                nama: 'Annette Black, S.H., M.H.',
+                nip: '198203112008122003',
+                email: 'annette.black@kejaksaan.go.id',
+                phone: '(021) 720-3061',
+                institusi: 'Kejaksaan Agung RI',
+                kepakaran: 'Hukum Acara Pidana & Penuntutan Maritim',
+                status: 'Nonaktif',
+                bergabung: '31 Okt 2024',
+                avatarUrl: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=200&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'exp-05',
+                nama: 'Dr. Brooklyn Simmons, S.H., M.Si.',
+                nip: '198811042012011005',
+                email: 'brooklyn.s@ugm.ac.id',
+                phone: '(0274) 512-881',
+                institusi: 'Universitas Gadjah Mada (FH UGM)',
+                kepakaran: 'Hukum Tata Negara & Uji Materiil Perppu',
+                status: 'Aktif',
+                bergabung: '13 Mar 2024',
+                avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'exp-06',
+                nama: 'Jerome Bell, S.H., LL.M.',
+                nip: '198402282009021003',
+                email: 'jerome.bell@brin.go.id',
+                phone: '(021) 7890-5678',
+                institusi: 'BRIN (Badan Riset & Inovasi Nasional)',
+                kepakaran: 'Hukum Lingkungan Hidup & Konservasi SDA',
+                status: 'Aktif',
+                bergabung: '30 Okt 2024',
+                avatarUrl: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'exp-07',
+                nama: 'Dr. Marvin McKinney, S.H., M.H.',
+                nip: '197905182003121001',
+                email: 'marvin.mckinney@kemenkumham.go.id',
+                phone: '(021) 525-3004',
+                institusi: 'Kementerian Hukum dan HAM',
+                kepakaran: 'Harmonisasi Peraturan Perundang-undangan',
+                status: 'Aktif',
+                bergabung: '29 Des 2024',
+                avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&auto=format&fit=crop&q=80'
+            },
+            {
+                id: 'exp-08',
+                nama: 'Dianne Russell, S.H., M.Kn.',
+                nip: '199107222016032002',
+                email: 'dianne.russell@brin.go.id',
+                phone: '(021) 7890-9912',
+                institusi: 'BRIN (Badan Riset & Inovasi Nasional)',
+                kepakaran: 'Hukum Kekayaan Intelektual & Paten Riset',
+                status: 'Aktif',
+                bergabung: '06 Mar 2025',
+                avatarUrl: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&auto=format&fit=crop&q=80'
+            }
+        ];
+
+        // State Store
+        let expertsData = [];
+        let currentViewMode = 'grid'; // 'grid' or 'table'
+
+        // Load data from LocalStorage
+        function initData() {
+            const saved = localStorage.getItem('titikhukum_ahli_data_v2');
+            if (saved) {
+                try {
+                    expertsData = JSON.parse(saved);
+                } catch (e) {
+                    expertsData = [...DEFAULT_EXPERTS];
+                }
+            } else {
+                expertsData = [...DEFAULT_EXPERTS];
+                localStorage.setItem('titikhukum_ahli_data_v2', JSON.stringify(expertsData));
+            }
+            renderAll();
+        }
+
+        // Save data to LocalStorage
+        function persistData() {
+            localStorage.setItem('titikhukum_ahli_data_v2', JSON.stringify(expertsData));
+            renderAll();
+        }
+
+        // Render Metric Stats
+        function renderMetrics() {
+            const total = expertsData.length;
+            const aktif = expertsData.filter(e => e.status === 'Aktif').length;
+            const nonaktif = expertsData.filter(e => e.status === 'Nonaktif').length;
+            
+            // Total Laporan Evaluasi AI
+            const totalEvaluasi = typeof EVALUATION_RECORDS !== 'undefined' ? EVALUATION_RECORDS.length : 5;
+
+            document.getElementById('statTotalAhli').textContent = total;
+            document.getElementById('statAkunAktif').textContent = aktif;
+            document.getElementById('statAkunNonaktif').textContent = nonaktif;
+            
+            const statEval = document.getElementById('statTotalEvaluasi');
+            if (statEval) statEval.textContent = totalEvaluasi;
+            
+            const tabCount = document.getElementById('tabCountMembers');
+            if (tabCount) tabCount.textContent = total;
+        }
+
+        // Render Cards & Tables
+        function renderAll() {
+            renderMetrics();
+            handleSearchFilter();
+            renderInstitusiTab();
+            renderEvaluasiTab();
+        }
+
+        // Search & Filter Controller
+        function handleSearchFilter() {
+            const query = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+            const statusFilter = document.getElementById('filterStatus').value;
+            const instFilter = document.getElementById('filterInstitusi').value;
+
+            const filtered = expertsData.filter(item => {
+                const matchQuery = !query || 
+                    item.nama.toLowerCase().includes(query) ||
+                    item.nip.toLowerCase().includes(query) ||
+                    item.email.toLowerCase().includes(query) ||
+                    item.kepakaran.toLowerCase().includes(query) ||
+                    item.institusi.toLowerCase().includes(query);
+
+                const matchStatus = statusFilter === 'all' || item.status === statusFilter;
+                
+                const matchInst = instFilter === 'all' || item.institusi.toLowerCase().includes(instFilter.toLowerCase());
+
+                return matchQuery && matchStatus && matchInst;
+            });
+
+            renderCards(filtered);
+            renderTable(filtered);
+
+            const emptyState = document.getElementById('emptyState');
+            const gridContainer = document.getElementById('gridContainer');
+            const tableContainer = document.getElementById('tableContainer');
+
+            if (filtered.length === 0) {
+                emptyState.classList.remove('hidden');
+                gridContainer.classList.add('hidden');
+                tableContainer.classList.add('hidden');
+            } else {
+                emptyState.classList.add('hidden');
+                if (currentViewMode === 'grid') {
+                    gridContainer.classList.remove('hidden');
+                    tableContainer.classList.add('hidden');
+                } else {
+                    gridContainer.classList.add('hidden');
+                    tableContainer.classList.remove('hidden');
+                }
+            }
+        }
+
+        // Render Cards View (Foto Profil Asli & Desain Bersih)
+        function renderCards(list) {
+            const container = document.getElementById('gridContainer');
+            if (!container) return;
+
+            container.innerHTML = list.map(exp => {
+                const isActive = exp.status === 'Aktif';
+                
+                // Status Pill styling (Clean border pill dengan dot)
+                const statusPill = isActive 
+                    ? `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Active</span>`
+                    : `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[11px] font-medium bg-zinc-200/80 text-zinc-700 border border-zinc-300"><span class="w-1.5 h-1.5 rounded-full bg-zinc-500"></span>Nonaktif</span>`;
+
+                // Tampilan Card: Nonaktif dibuat gelap teduh & foto grayscale
+                const cardBgClass = isActive 
+                    ? 'bg-white border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)] hover:border-zinc-300' 
+                    : 'bg-[#ecebe6] border-zinc-300/90 text-zinc-600';
+
+                const avatarStyle = isActive 
+                    ? 'border-zinc-200' 
+                    : 'border-zinc-300 grayscale opacity-75';
+
+                const nameClass = isActive ? 'text-zinc-900' : 'text-zinc-700 font-semibold';
+                const subTextClass = isActive ? 'text-zinc-500' : 'text-zinc-500';
+                const metaBorderClass = isActive ? 'border-zinc-100' : 'border-zinc-300/70';
+                const metaTextClass = isActive ? 'text-zinc-700' : 'text-zinc-600';
+
+                const avatarImg = exp.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
+
+                return `
+                    <div class="expert-card ${cardBgClass} rounded-2xl p-5 border flex flex-col justify-between relative group">
+                        
+                        <!-- Top Row: Foto Profil & Status Pill -->
+                        <div>
+                            <div class="flex items-start justify-between gap-3 mb-3.5">
+                                <img src="${avatarImg}" alt="${exp.nama}" onerror="this.src='../assets/pp.jpg'" class="w-12 h-12 rounded-full object-cover border ${avatarStyle} shadow-xs shrink-0">
+                                ${statusPill}
+                            </div>
+
+                            <!-- Name & Specialization -->
+                            <h3 class="font-bold text-sm ${nameClass} leading-snug line-clamp-1" title="${exp.nama}">
+                                ${exp.nama}
+                            </h3>
+                            <p class="text-xs ${subTextClass} font-normal line-clamp-1 mt-0.5" title="${exp.kepakaran}">
+                                ${exp.kepakaran}
+                            </p>
+
+                            <!-- 2-Column Metadata Grid -->
+                            <div class="grid grid-cols-2 gap-2 mt-4 pt-3 border-t ${metaBorderClass} text-[11px]">
+                                <div>
+                                    <span class="text-zinc-400 block text-[10px] uppercase font-semibold">Institusi</span>
+                                    <span class="font-medium ${metaTextClass} line-clamp-1 mt-0.5" title="${exp.institusi}">${exp.institusi.split('(')[0].trim()}</span>
+                                </div>
+                                <div>
+                                    <span class="text-zinc-400 block text-[10px] uppercase font-semibold">Bergabung</span>
+                                    <span class="font-medium ${metaTextClass} block mt-0.5">${exp.bergabung || '2024'}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Contact & Quick Actions -->
+                        <div class="mt-4 pt-3 border-t ${metaBorderClass} flex items-center justify-between gap-2 text-xs">
+                            <div class="min-w-0 flex-1">
+                                <div class="text-[11px] ${metaTextClass} truncate flex items-center gap-1.5" data-tooltip="Alamat Email Dinas" title="${exp.email}">
+                                    <i class="fi fi-rr-envelope text-[11px] text-zinc-400 shrink-0"></i>
+                                    <span class="truncate">${exp.email}</span>
+                                </div>
+                                <div class="text-[10px] text-zinc-400 truncate mt-0.5 flex items-center gap-1" data-tooltip="Nomor Induk Pegawai" title="NIP: ${exp.nip}">
+                                    <i class="fi fi-rr-id-badge text-[10px] text-zinc-400 shrink-0"></i>
+                                    <span>${exp.nip}</span>
+                                </div>
+                            </div>
+
+                            <!-- Action Icons (Flaticon Uicons dengan Tooltip Interaktif) -->
+                            <div class="flex items-center gap-1 shrink-0">
+                                <button type="button" onclick="toggleExpertStatus('${exp.id}')" class="w-7 h-7 rounded-lg ${isActive ? 'text-zinc-600 hover:text-emerald-700 hover:bg-zinc-100 border border-zinc-200' : 'text-zinc-500 bg-zinc-300/70 hover:bg-zinc-300 border border-zinc-400/50'} flex items-center justify-center transition active:scale-95" data-tooltip="${isActive ? 'Klik untuk Nonaktifkan Akun' : 'Klik untuk Aktifkan Akun'}" title="${isActive ? 'Klik untuk Nonaktifkan Akun' : 'Klik untuk Aktifkan Akun'}">
+                                    <i class="fi fi-rr-power text-xs"></i>
+                                </button>
+                                <button type="button" onclick="openEditModal('${exp.id}')" class="w-7 h-7 rounded-lg text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 border border-transparent hover:border-zinc-200 flex items-center justify-center transition" data-tooltip="Edit Profil & Kepakaran" title="Edit Akun">
+                                    <i class="fi fi-rr-pencil text-xs"></i>
+                                </button>
+                                <button type="button" onclick="openDeleteModal('${exp.id}')" class="w-7 h-7 rounded-lg text-zinc-400 hover:text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-200 flex items-center justify-center transition" data-tooltip="Hapus Akun Ahli" title="Hapus Akun">
+                                    <i class="fi fi-rr-trash text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Render Table View (Foto Profil & Tombol Ikon dengan Tooltips)
+        function renderTable(list) {
+            const tbody = document.getElementById('tableBody');
+            if (!tbody) return;
+
+            tbody.innerHTML = list.map(exp => {
+                const isActive = exp.status === 'Aktif';
+                const statusPill = isActive 
+                    ? `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-emerald-50 text-emerald-800 border border-emerald-200" data-tooltip="Akun Aktif"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Aktif</span>`
+                    : `<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-medium bg-zinc-200 text-zinc-700 border border-zinc-300" data-tooltip="Akun Nonaktif"><span class="w-1.5 h-1.5 rounded-full bg-zinc-500"></span>Nonaktif</span>`;
+
+                const rowBgClass = isActive 
+                    ? 'hover:bg-zinc-50/80 bg-white text-zinc-700' 
+                    : 'bg-[#eeede8] hover:bg-[#e6e5df] text-zinc-600 border-zinc-200';
+                
+                const avatarStyle = isActive 
+                    ? 'border-zinc-200' 
+                    : 'border-zinc-300 grayscale opacity-75';
+
+                const nameClass = isActive ? 'text-zinc-900' : 'text-zinc-700';
+                const badgeBgClass = isActive ? 'bg-zinc-100 text-zinc-700 border-zinc-200/80' : 'bg-zinc-200 text-zinc-700 border-zinc-300';
+                const avatarImg = exp.avatarUrl || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80';
+
+                return `
+                    <tr class="${rowBgClass} transition border-b border-zinc-100">
+                        <td class="px-5 py-3.5">
+                            <div class="flex items-center gap-3">
+                                <img src="${avatarImg}" alt="${exp.nama}" onerror="this.src='../assets/pp.jpg'" class="w-8 h-8 rounded-full object-cover border ${avatarStyle} shadow-2xs shrink-0" data-tooltip="${exp.nama}">
+                                <div>
+                                    <span class="font-bold ${nameClass} block">${exp.nama}</span>
+                                    <span class="text-[11px] ${isActive ? 'text-zinc-400' : 'text-zinc-500'}">${exp.email}</span>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-4 py-3.5 font-mono text-[11px] ${isActive ? 'text-zinc-600' : 'text-zinc-600 font-medium'}">${exp.nip}</td>
+                        <td class="px-4 py-3.5 font-medium ${nameClass}">${exp.institusi}</td>
+                        <td class="px-4 py-3.5">
+                            <span class="inline-block px-2 py-0.5 rounded-md ${badgeBgClass} text-[11px] font-medium border">
+                                ${exp.kepakaran}
+                            </span>
+                        </td>
+                        <td class="px-4 py-3.5">${statusPill}</td>
+                        <td class="px-5 py-3.5 text-right whitespace-nowrap">
+                            <div class="inline-flex items-center gap-1.5">
+                                <!-- Tombol Power Icon untuk Toggle Active / Nonaktif -->
+                                <button type="button" onclick="toggleExpertStatus('${exp.id}')" class="w-7 h-7 rounded-lg ${isActive ? 'text-zinc-600 hover:text-emerald-700 hover:bg-zinc-100 border border-zinc-200' : 'text-zinc-500 bg-zinc-300/70 hover:bg-zinc-300 border border-zinc-400/50'} flex items-center justify-center transition active:scale-95" data-tooltip="${isActive ? 'Klik untuk Nonaktifkan Akun' : 'Klik untuk Aktifkan Akun'}" title="${isActive ? 'Klik untuk Nonaktifkan Akun' : 'Klik untuk Aktifkan Akun'}">
+                                    <i class="fi fi-rr-power text-xs"></i>
+                                </button>
+                                <button type="button" onclick="openEditModal('${exp.id}')" class="w-7 h-7 rounded-lg ${isActive ? 'text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100' : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-300/60'} flex items-center justify-center transition" data-tooltip="Edit Data Akun" title="Edit Data Akun">
+                                    <i class="fi fi-rr-pencil text-xs"></i>
+                                </button>
+                                <button type="button" onclick="openDeleteModal('${exp.id}')" class="w-7 h-7 rounded-lg text-zinc-400 hover:text-rose-600 hover:bg-rose-50 flex items-center justify-center transition" data-tooltip="Hapus Akun" title="Hapus Akun">
+                                    <i class="fi fi-rr-trash text-xs"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        // Render Institusi Tab
+        function renderInstitusiTab() {
+            const container = document.getElementById('institusiListGrid');
+            if (!container) return;
+
+            const instMap = {};
+            expertsData.forEach(e => {
+                const name = e.institusi;
+                if (!instMap[name]) {
+                    instMap[name] = { total: 0, aktif: 0 };
+                }
+                instMap[name].total += 1;
+                if (e.status === 'Aktif') instMap[name].aktif += 1;
+            });
+
+            container.innerHTML = Object.keys(instMap).map(inst => {
+                const item = instMap[inst];
+                return `
+                    <div class="p-4 rounded-xl border border-zinc-200 bg-white hover:border-zinc-300 transition">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-bold text-xs text-zinc-900">${inst}</span>
+                            <i class="fi fi-rr-building text-zinc-400 text-xs"></i>
+                        </div>
+                        <div class="flex items-center gap-4 text-xs text-zinc-500 mt-2">
+                            <div>Total Ahli: <span class="font-bold text-zinc-800">${item.total}</span></div>
+                            <div>Akun Aktif: <span class="font-bold text-emerald-700">${item.aktif}</span></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Data Hasil Evaluasi Chatbot AI oleh Tenaga Ahli Hukum
+        const EVALUATION_RECORDS = [
+            {
+                id: 'eval-01',
+                reviewer: 'Dr. Esther Howard, S.H., M.H.',
+                institusi: 'BRIN (Badan Riset & Inovasi Nasional)',
+                avatarUrl: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80',
+                kueri: 'Apakah unsur tanpa hak pada Pasal 27A UU No. 1/2024 tentang ITE mensyaratkan delik aduan absolut?',
+                regulasi: 'UU No. 1 Tahun 2024 (UU ITE Kedua)',
+                skor: '4.8 / 5.0 (96%)',
+                status: 'Akurat / Valid',
+                statusClass: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+                dotClass: 'bg-emerald-500',
+                catatan: 'AI secara tepat menjelaskan bahwa Pasal 27A jo. Pasal 45 ayat (4) merupakan delik aduan absolut. Penjelasan syarat korban langsung diuraikan secara runtut.',
+                waktu: '02 Sep 2026, 14:30 WIB',
+                jawabanAi: 'Berdasarkan Pasal 27A jo. Pasal 45 ayat (4) UU No. 1 Tahun 2024 tentang Perubahan Kedua UU ITE, tindak pidana menyerang kehormatan atau nama baik merupakan delik aduan absolut. Artinya, proses penuntutan hanya dapat dilakukan atas pengaduan dari korban langsung yang bersangkutan, dan tidak dapat diwakilkan tanpa surat kuasa khusus penanganan perkara pidana.',
+                rekomendasi: 'Perkaya referensi dengan Surat Edaran Mahkamah Agung (SEMA) terkait penanganan perkara delik kehormatan di ruang siber.',
+                param1: '98%',
+                param2: '100%',
+                param3: '94%',
+                param4: 'Sangat Rendah'
+            },
+            {
+                id: 'eval-02',
+                reviewer: 'Prof. Dr. Jacob Jones, S.H., LL.M.',
+                institusi: 'Mahkamah Agung RI',
+                avatarUrl: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&auto=format&fit=crop&q=80',
+                kueri: 'Pemberlakuan asas pertanggungjawaban pidana korporasi dalam KUHP Baru 2026 vs UU Tipikor',
+                regulasi: 'UU No. 1 Tahun 2023 (KUHP Nasional)',
+                skor: '4.0 / 5.0 (80%)',
+                status: 'Koreksi Interpretasi',
+                statusClass: 'bg-blue-50 text-blue-800 border-blue-200',
+                dotClass: 'bg-blue-500',
+                catatan: 'Subjek pidana korporasi sudah benar, tetapi AI belum membedakan secara tegas antara pengurus fungsional dan beneficial owner sesuai Perma No. 13/2016.',
+                waktu: '01 Sep 2026, 11:15 WIB',
+                jawabanAi: 'KUHP Baru (UU No. 1/2023) Pasal 45-50 menegaskan korporasi sebagai subjek hukum yang dapat dipidana jika tindak pidana dilakukan dalam lingkup usaha atau oleh personil pengendali untuk keuntungan korporasi.',
+                rekomendasi: 'Tambahkan referensi Peraturan Mahkamah Agung No. 13 Tahun 2016 ke dalam indeks pustaka RAG Titik Hukum untuk memperkuat doktrin korporasi.',
+                param1: '88%',
+                param2: '92%',
+                param3: '82%',
+                param4: 'Rendah'
+            },
+            {
+                id: 'eval-03',
+                reviewer: 'Bessie Cooper, S.H., M.Kn.',
+                institusi: 'Universitas Indonesia (FH UI)',
+                avatarUrl: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&auto=format&fit=crop&q=80',
+                kueri: 'Keabsahan klausul eksonerasi dalam syarat & ketentuan (Terms of Service) platform digital',
+                regulasi: 'UU No. 8/1999 (Perlindungan Konsumen)',
+                skor: '3.2 / 5.0 (64%)',
+                status: 'Perlu Koreksi Rujukan',
+                statusClass: 'bg-amber-50 text-amber-800 border-amber-200',
+                dotClass: 'bg-amber-500',
+                catatan: 'AI keliru mengutip Pasal 18 UU Perlindungan Konsumen sebagai pasal dalam UU ITE. Klausul baku pengalihan tanggung jawab secara sepihak batal demi hukum.',
+                waktu: '30 Agu 2026, 16:45 WIB',
+                jawabanAi: 'Klausul pengalihan tanggung jawab diperbolehkan berdasarkan asas kebebasan berkontrak Pasal 1338 KUHPerdata, kecuali dilarang secara khusus oleh regulasi sektoral.',
+                rekomendasi: 'Perbaiki sistem prompt RAG agar memprioritaskan UU Perlindungan Konsumen saat memproses sengketa klausul baku konsumen digital.',
+                param1: '60%',
+                param2: '75%',
+                param3: '70%',
+                param4: 'Sedang'
+            },
+            {
+                id: 'eval-04',
+                reviewer: 'Dr. Brooklyn Simmons, S.H., M.Si.',
+                institusi: 'Universitas Gadjah Mada (FH UGM)',
+                avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80',
+                kueri: 'Kedudukan hukum (legal standing) pemohon perorangan dalam uji formil Perppu',
+                regulasi: 'Putusan Mahkamah Konstitusi No. 91/PUU-XVIII/2020',
+                skor: '5.0 / 5.0 (100%)',
+                status: 'Akurat / Valid',
+                statusClass: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+                dotClass: 'bg-emerald-500',
+                catatan: 'Analisis AI sangat luar biasa akurat dan komprehensif. Menguraikan 5 syarat kerugian konstitusional spesifik, aktual, dan kausalitas (causal verband).',
+                waktu: '28 Agu 2026, 10:20 WIB',
+                jawabanAi: 'Legal standing uji formil Perppu mengacu pada Pasal 51 ayat (1) UU Mahkamah Konstitusi jo. PMK No. 2/2021. Pemohon wajib membuktikan adanya hak konstitusional yang dijamin UUD 1945 yang dirugikan secara spesifik dan aktual oleh terbitnya Perppu.',
+                rekomendasi: 'Jadikan respon evaluasi ini sebagai baseline gold standard model AI Titik Hukum.',
+                param1: '100%',
+                param2: '100%',
+                param3: '100%',
+                param4: 'Nol (0%)'
+            },
+            {
+                id: 'eval-05',
+                reviewer: 'Jerome Bell, S.H., LL.M.',
+                institusi: 'BRIN (Badan Riset & Inovasi Nasional)',
+                avatarUrl: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&auto=format&fit=crop&q=80',
+                kueri: 'Batas pertanggungjawaban mutlak (strict liability) atas pencemaran lingkungan lintas wilayah',
+                regulasi: 'UU No. 32 Tahun 2009 tentang PPLH (Pasal 88)',
+                skor: '4.5 / 5.0 (90%)',
+                status: 'Akurat / Valid',
+                statusClass: 'bg-emerald-50 text-emerald-800 border-emerald-200',
+                dotClass: 'bg-emerald-500',
+                catatan: 'Penerapan asas strict liability Pasal 88 UU 32/2009 diuraikan dengan tepat tanpa memerlukan pembuktian unsur kesalahan (schuld).',
+                waktu: '25 Agu 2026, 13:10 WIB',
+                jawabanAi: 'Pasal 88 UU No. 32 Tahun 2009 menegaskan bahwa setiap orang yang tindakannya menggunakan B3 atau menimbulkan ancaman serius terhadap lingkungan hidup bertanggung jawab mutlak (strict liability) atas kerugian yang timbul tanpa perlu pembuktian unsur kesalahan.',
+                rekomendasi: 'Akurasi rujukan pasal dan doktrin hukum lingkungan sudah sangat baik.',
+                param1: '95%',
+                param2: '90%',
+                param3: '90%',
+                param4: 'Sangat Rendah'
+            }
+        ];
+
+        // Render Tabel Evaluasi Chatbot AI
+        function renderEvaluasiTab(filteredList = null) {
+            const list = filteredList || EVALUATION_RECORDS;
+            const tbody = document.getElementById('evalTableBody');
+            const emptyState = document.getElementById('evalEmptyState');
+            const tabCount = document.getElementById('tabCountEvaluasi');
+            
+            if (tabCount) tabCount.textContent = list.length;
+            if (!tbody) return;
+
+            if (list.length === 0) {
+                tbody.innerHTML = '';
+                if (emptyState) emptyState.classList.remove('hidden');
+                return;
+            }
+
+            if (emptyState) emptyState.classList.add('hidden');
+
+            tbody.innerHTML = list.map(item => `
+                <tr class="hover:bg-zinc-50/80 transition cursor-pointer" onclick="openEvalDetailModal('${item.id}')">
+                    <td class="px-5 py-3.5">
+                        <div class="space-y-1">
+                            <span class="font-bold text-zinc-900 line-clamp-1 block text-xs" title="${item.kueri}">
+                                ${item.kueri}
+                            </span>
+                            <div class="flex items-center gap-2 text-[11px] text-zinc-400">
+                                <span class="inline-block px-2 py-0.5 rounded bg-zinc-100 text-zinc-700 font-medium border border-zinc-200/80 text-[10px]">
+                                    ${item.regulasi}
+                                </span>
+                                <span>•</span>
+                                <span class="text-zinc-400 text-[10px]">${item.waktu}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3.5">
+                        <div class="flex items-center gap-2.5">
+                            <img src="${item.avatarUrl}" alt="${item.reviewer}" onerror="this.src='../assets/pp.jpg'" class="w-7 h-7 rounded-full object-cover border border-zinc-200 shrink-0">
+                            <div class="min-w-0">
+                                <span class="font-semibold text-zinc-900 block truncate text-xs">${item.reviewer}</span>
+                                <span class="text-[10px] text-zinc-400 block truncate">${item.institusi}</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-4 py-3.5 whitespace-nowrap">
+                        <div class="space-y-0.5">
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold border ${item.statusClass}">
+                                <span class="w-1.5 h-1.5 rounded-full ${item.dotClass}"></span>
+                                ${item.status}
+                            </span>
+                            <span class="text-[10px] text-zinc-500 font-semibold block">${item.skor}</span>
+                        </div>
+                    </td>
+                    <td class="px-5 py-3.5 text-right whitespace-nowrap">
+                        <button type="button" onclick="event.stopPropagation(); openEvalDetailModal('${item.id}')" class="px-3 py-1.5 rounded-xl text-zinc-700 bg-zinc-100 hover:bg-zinc-900 hover:text-white text-xs font-semibold inline-flex items-center gap-1.5 transition" data-tooltip="Lihat rincian lembar audit lengkap" title="Buka Rincian">
+                            <span>Rincian</span>
+                            <i class="fi fi-rr-angle-small-right text-xs"></i>
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        // Filter Controller untuk Evaluasi
+        function handleEvalFilter() {
+            const query = (document.getElementById('evalSearchInput').value || '').toLowerCase().trim();
+            const statusFilter = document.getElementById('evalFilterStatus').value;
+
+            const filtered = EVALUATION_RECORDS.filter(item => {
+                const matchQuery = !query || 
+                    item.reviewer.toLowerCase().includes(query) ||
+                    item.kueri.toLowerCase().includes(query) ||
+                    item.regulasi.toLowerCase().includes(query) ||
+                    item.catatan.toLowerCase().includes(query);
+
+                const matchStatus = statusFilter === 'all' || item.status === statusFilter;
+
+                return matchQuery && matchStatus;
+            });
+
+            renderEvaluasiTab(filtered);
+        }
+
+        // Open Detail Modal
+        function openEvalDetailModal(id) {
+            const item = EVALUATION_RECORDS.find(e => e.id === id);
+            if (!item) return;
+
+            document.getElementById('evalModalReviewerImg').src = item.avatarUrl;
+            document.getElementById('evalModalReviewerName').textContent = item.reviewer;
+            document.getElementById('evalModalReviewerInst').textContent = item.institusi;
+            
+            const badge = document.getElementById('evalModalStatusBadge');
+            badge.className = `px-3 py-1 rounded-full text-xs font-bold border ${item.statusClass}`;
+            badge.textContent = item.status;
+
+            document.getElementById('evalModalScore').textContent = item.skor;
+            document.getElementById('evalModalQuery').textContent = `"${item.kueri}"`;
+            document.getElementById('evalModalAiResponse').textContent = item.jawabanAi;
+            document.getElementById('evalModalTimestamp').textContent = item.waktu;
+
+            document.getElementById('evalModalParam1').textContent = item.param1;
+            document.getElementById('evalModalParam2').textContent = item.param2;
+            document.getElementById('evalModalParam3').textContent = item.param3;
+            document.getElementById('evalModalParam4').textContent = item.param4;
+
+            document.getElementById('evalModalNotes').textContent = item.catatan;
+            document.getElementById('evalModalRec').textContent = item.rekomendasi;
+
+            document.getElementById('evalDetailModal').classList.remove('hidden');
+        }
+
+        function closeEvalDetailModal() {
+            document.getElementById('evalDetailModal').classList.add('hidden');
+        }
+
+        // Switch Sub-Tabs
+        function switchSubTab(tab) {
+            ['members', 'institusi', 'tugas'].forEach(t => {
+                const btn = document.getElementById(`tab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                const sec = document.getElementById(`section${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                if (t === tab) {
+                    btn.classList.add('active');
+                    sec.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('active');
+                    sec.classList.add('hidden');
+                }
+            });
+        }
+
+        // View Mode Switcher
+        function setViewMode(mode) {
+            currentViewMode = mode;
+            const btnGrid = document.getElementById('viewBtnGrid');
+            const btnTable = document.getElementById('viewBtnTable');
+            const grid = document.getElementById('gridContainer');
+            const table = document.getElementById('tableContainer');
+
+            if (mode === 'grid') {
+                btnGrid.classList.add('text-zinc-900', 'bg-white', 'shadow-xs');
+                btnGrid.classList.remove('text-zinc-400');
+                btnTable.classList.remove('text-zinc-900', 'bg-white', 'shadow-xs');
+                btnTable.classList.add('text-zinc-400');
+                grid.classList.remove('hidden');
+                table.classList.add('hidden');
+            } else {
+                btnTable.classList.add('text-zinc-900', 'bg-white', 'shadow-xs');
+                btnTable.classList.remove('text-zinc-400');
+                btnGrid.classList.remove('text-zinc-900', 'bg-white', 'shadow-xs');
+                btnGrid.classList.add('text-zinc-400');
+                grid.classList.add('hidden');
+                table.classList.remove('hidden');
+            }
+        }
+
+        // Reset Filters
+        function resetFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('filterStatus').value = 'all';
+            document.getElementById('filterInstitusi').value = 'all';
+            handleSearchFilter();
+        }
+
+        // Toggle Status Aktif / Nonaktif
+        function toggleExpertStatus(id) {
+            const expert = expertsData.find(e => e.id === id);
+            if (!expert) return;
+            
+            expert.status = expert.status === 'Aktif' ? 'Nonaktif' : 'Aktif';
+            persistData();
+            showToast(`Status akun ${expert.nama} diubah menjadi ${expert.status}`);
+        }
+
+        // Modal Add & Edit Handlers
+        function openAddModal() {
+            document.getElementById('formAccountId').value = '';
+            document.getElementById('modalTitle').textContent = 'Tambah Akun Ahli Hukum';
+            document.getElementById('modalHeaderIcon').className = 'fi fi-rr-user-add text-base';
+            document.getElementById('accountForm').reset();
+            document.getElementById('formAvatarUrl').value = '';
+            document.querySelector('input[name="formStatus"][value="Aktif"]').checked = true;
+            document.getElementById('accountModal').classList.remove('hidden');
+        }
+
+        function openEditModal(id) {
+            const expert = expertsData.find(e => e.id === id);
+            if (!expert) return;
+
+            document.getElementById('formAccountId').value = expert.id;
+            document.getElementById('modalTitle').textContent = 'Edit Data Ahli Hukum';
+            document.getElementById('modalHeaderIcon').className = 'fi fi-rr-pencil text-base';
+            
+            document.getElementById('formNama').value = expert.nama;
+            document.getElementById('formNip').value = expert.nip;
+            document.getElementById('formEmail').value = expert.email;
+            document.getElementById('formPhone').value = expert.phone || '';
+            document.getElementById('formAvatarUrl').value = expert.avatarUrl || '';
+            document.getElementById('formInstitusi').value = expert.institusi;
+            document.getElementById('formKepakaran').value = expert.kepakaran;
+            
+            const radio = document.querySelector(`input[name="formStatus"][value="${expert.status}"]`);
+            if (radio) radio.checked = true;
+
+            document.getElementById('accountModal').classList.remove('hidden');
+        }
+
+        function closeAccountModal() {
+            document.getElementById('accountModal').classList.add('hidden');
+        }
+
+        function saveAccountForm(event) {
+            event.preventDefault();
+            const id = document.getElementById('formAccountId').value;
+            const nama = document.getElementById('formNama').value.trim();
+            const nip = document.getElementById('formNip').value.trim();
+            const email = document.getElementById('formEmail').value.trim();
+            const phone = document.getElementById('formPhone').value.trim() || '-';
+            const avatarUrl = document.getElementById('formAvatarUrl').value.trim();
+            const institusi = document.getElementById('formInstitusi').value;
+            const kepakaran = document.getElementById('formKepakaran').value.trim();
+            const status = document.querySelector('input[name="formStatus"]:checked').value;
+
+            // Foto avatar acak jika tidak diisi
+            const fallbackAvatars = [
+                'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&auto=format&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=200&auto=format&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=200&auto=format&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'
+            ];
+
+            if (id) {
+                // Edit existing
+                const index = expertsData.findIndex(e => e.id === id);
+                if (index !== -1) {
+                    expertsData[index] = {
+                        ...expertsData[index],
+                        nama, nip, email, phone, institusi, kepakaran, status,
+                        avatarUrl: avatarUrl || expertsData[index].avatarUrl || fallbackAvatars[0]
+                    };
+                    showToast(`Akun ${nama} berhasil diperbarui!`);
+                }
+            } else {
+                // Add new
+                const newExp = {
+                    id: 'exp-' + Date.now(),
+                    nama, nip, email, phone, institusi, kepakaran, status,
+                    bergabung: 'Hari ini',
+                    avatarUrl: avatarUrl || fallbackAvatars[Math.floor(Math.random() * fallbackAvatars.length)]
+                };
+                expertsData.unshift(newExp);
+                showToast(`Akun ahli hukum ${nama} berhasil ditambahkan!`);
+            }
+
+            persistData();
+            closeAccountModal();
+        }
+
+        // Delete Account Handlers
+        function openDeleteModal(id) {
+            const expert = expertsData.find(e => e.id === id);
+            if (!expert) return;
+
+            document.getElementById('deleteTargetId').value = expert.id;
+            document.getElementById('deleteTargetName').textContent = expert.nama;
+            document.getElementById('deleteTargetMeta').textContent = `NIP: ${expert.nip} • ${expert.institusi}`;
+            
+            const avatarImg = document.getElementById('deleteTargetAvatar');
+            if (avatarImg) {
+                avatarImg.src = expert.avatarUrl || '../assets/pp.jpg';
+                avatarImg.alt = expert.nama;
+            }
+
+            document.getElementById('deleteModal').classList.remove('hidden');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+        }
+
+        function confirmDeleteAccount() {
+            const id = document.getElementById('deleteTargetId').value;
+            const expert = expertsData.find(e => e.id === id);
+            const nama = expert ? expert.nama : 'Akun';
+
+            expertsData = expertsData.filter(e => e.id !== id);
+            persistData();
+            closeDeleteModal();
+            showToast(`Akun ${nama} telah dihapus dari sistem.`);
+        }
+
+        // Export Rekap Tabel Lengkap Semua Laporan Evaluasi AI ke CSV (Excel Compatible)
+        function exportLaporanEvaluasiCSV() {
+            const list = typeof EVALUATION_RECORDS !== 'undefined' ? EVALUATION_RECORDS : [];
+            if (list.length === 0) {
+                showToast('Belum ada data laporan evaluasi untuk diekspor.');
+                return;
+            }
+
+            const headers = [
+                'No',
+                'ID Evaluasi',
+                'Reviewer Ahli',
+                'Institusi',
+                'Kueri Kasus Uji Hukum',
+                'Rujukan Regulasi',
+                'Status Validasi',
+                'Skor Akurasi',
+                'Akurasi Pasal',
+                'Hierarki Regulasi',
+                'Bahasa Hukum',
+                'Risiko Halusinasi',
+                'Catatan & Temuan Koreksi Ahli',
+                'Rekomendasi Pembaruan RAG / Prompt',
+                'Output Jawaban Chatbot AI',
+                'Waktu Evaluasi'
+            ];
+
+            const rows = list.map((item, idx) => [
+                idx + 1,
+                item.id,
+                `"${(item.reviewer || '').replace(/"/g, '""')}"`,
+                `"${(item.institusi || '').replace(/"/g, '""')}"`,
+                `"${(item.kueri || '').replace(/"/g, '""')}"`,
+                `"${(item.regulasi || '').replace(/"/g, '""')}"`,
+                `"${(item.status || '').replace(/"/g, '""')}"`,
+                `"${(item.skor || '').replace(/"/g, '""')}"`,
+                `"${(item.param1 || '').replace(/"/g, '""')}"`,
+                `"${(item.param2 || '').replace(/"/g, '""')}"`,
+                `"${(item.param3 || '').replace(/"/g, '""')}"`,
+                `"${(item.param4 || '').replace(/"/g, '""')}"`,
+                `"${(item.catatan || '').replace(/"/g, '""')}"`,
+                `"${(item.rekomendasi || '').replace(/"/g, '""')}"`,
+                `"${(item.jawabanAi || '').replace(/"/g, '""')}"`,
+                `"${(item.waktu || '').replace(/"/g, '""')}"`
+            ]);
+
+            const csvContent = '\uFEFF' + [
+                headers.join(','),
+                ...rows.map(r => r.join(','))
+            ].join('\r\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute('href', url);
+            downloadAnchor.setAttribute('download', `Rekap_Laporan_Evaluasi_TitikHukum_BRIN_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            URL.revokeObjectURL(url);
+            showToast('Rekap tabel lengkap semua laporan evaluasi berhasil diunduh!');
+        }
+
+        // Toast Notification Trigger
+        function showToast(msg) {
+            const toast = document.getElementById('toastNotification');
+            const toastMsg = document.getElementById('toastMessage');
+            if (!toast || !toastMsg) return;
+
+            toastMsg.textContent = msg;
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Navbar Language & Theme Controllers
+        let currentLang = 'EN';
+        function toggleNavLang() {
+            currentLang = currentLang === 'EN' ? 'ID' : 'EN';
+            const label = document.getElementById('navLangLabel');
+            if (label) label.textContent = currentLang;
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            if (!menu || !icon) return;
+
+            menu.classList.toggle('hidden');
+        }
+
+        let isDarkMode = false;
+        function toggleNavTheme() {
+            isDarkMode = !isDarkMode;
+            showToast(isDarkMode ? 'Mode Gelap diaktifkan' : 'Mode Terang diaktifkan');
+        }
+
+        // Keyboard Shortcut Ctrl/Cmd + F for Search
+        window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'f') {
+                e.preventDefault();
+                const search = document.getElementById('searchInput');
+                if (search) {
+                    search.focus();
+                    search.select();
+                }
+            }
+        });
+
+        // Initialize on DOM load
+        document.addEventListener('DOMContentLoaded', initData);
+    </script>
+</body>
+</html>

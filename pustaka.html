@@ -2317,6 +2317,13 @@
             document.getElementById('analyzeDocModal').classList.add('hidden');
         }
 
+        function openChatFromModal(e) {
+            if (e) e.preventDefault();
+            const doc = documents.find(d => d.id === activeAnalysisDocId) || documents[0];
+            const docTitle = doc ? doc.title : '';
+            window.location.href = `chat.html?docs=${encodeURIComponent(docTitle)}`;
+        }
+
         // ========================================================
         // AUTHENTIC PROFESSIONAL LEGAL PDF VIEWER STATE & LOGIC
         // ========================================================

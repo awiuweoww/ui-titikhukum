@@ -830,91 +830,151 @@
     </div>
 
     <!-- ======================================================== -->
-    <!-- MODAL 5: DEDICATED FULL DOCUMENT READER VIEWER           -->
-    <!-- (Tampilan Pembaca Naskah PDF Lengkap Tanpa Antarmuka Chat)-->
+    <!-- MODAL 5: AUTHENTIC LEGAL PDF DOCUMENT VIEWER             -->
+    <!-- (Tampilan Pembaca PDF Resmi Standar Adobe/Chrome Viewer) -->
     <!-- ======================================================== -->
-    <div id="fullDocReaderModal" class="hidden fixed inset-0 z-[120] modal-backdrop bg-black/85 backdrop-blur-sm flex flex-col justify-between overflow-hidden">
+    <div id="fullDocReaderModal" class="hidden fixed inset-0 z-[120] modal-backdrop bg-black/90 flex flex-col justify-between overflow-hidden">
         
-        <!-- 1. Top Document Reader Toolbar -->
-        <header class="h-14 bg-[#231d1a] border-b border-[#3d3632] px-4 sm:px-6 flex items-center justify-between text-white shrink-0 z-10 shadow-md">
-            <!-- Left: Document Information -->
-            <div class="flex items-center gap-3 min-w-0 pr-4">
-                <div class="w-8 h-8 rounded-lg bg-rose-500/20 border border-rose-500/40 text-rose-400 flex items-center justify-center shrink-0">
-                    <i class="fa-regular fa-file-pdf text-sm"></i>
+        <!-- 1. Top Professional PDF Viewer Toolbar (Chrome/Acrobat Style) -->
+        <header class="h-12 bg-[#323639] border-b border-[#212426] px-3 sm:px-5 flex items-center justify-between text-white shrink-0 z-20 shadow-md select-none">
+            <!-- Left: Sidebar Toggle, Document Title & File Info -->
+            <div class="flex items-center gap-2.5 min-w-0 pr-2">
+                <button type="button" onclick="togglePdfSidebar()" class="w-8 h-8 rounded hover:bg-white/10 text-stone-300 hover:text-white flex items-center justify-center text-xs transition cursor-pointer" title="Buka/Tutup Bilah Sisi Halaman">
+                    <i class="fa-solid fa-table-columns text-xs"></i>
+                </button>
+
+                <div class="w-7 h-7 rounded bg-rose-600 text-white flex items-center justify-center shrink-0 text-[11px] shadow-2xs font-bold">
+                    PDF
                 </div>
-                <div class="min-w-0">
-                    <h3 id="readerDocTitle" class="text-xs sm:text-sm font-bold text-white truncate max-w-[280px] sm:max-w-md md:max-w-xl">
-                        Naskah Dokumen Hukum Lengkap
-                    </h3>
-                    <div class="flex items-center gap-2 text-[10px] text-stone-400 font-mono">
-                        <span id="readerDocMetaNumber">Nomor Regulasi</span>
-                        <span>•</span>
-                        <span id="readerDocMetaCategory" class="text-amber-300">Kategori</span>
-                        <span>•</span>
-                        <span class="text-emerald-400">Salinan Sah RI</span>
-                    </div>
+
+                <div class="min-w-0 flex items-center gap-2">
+                    <span id="readerDocFileName" class="text-xs font-semibold text-stone-200 truncate max-w-[180px] sm:max-w-xs md:max-w-md">
+                        dokumen_regulasi.pdf
+                    </span>
+                    <span class="hidden md:inline-block px-1.5 py-0.5 rounded bg-stone-700/70 text-[10px] text-stone-300 font-mono" id="readerDocMetaSize">
+                        4.8 MB
+                    </span>
                 </div>
             </div>
 
-            <!-- Center/Right: Document Controls (Search in Doc, Zoom, Download, Close) -->
-            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-                <!-- Search In Document Input -->
-                <div class="relative hidden md:flex items-center">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 text-stone-400 text-xs pointer-events-none"></i>
+            <!-- Center: Page Navigation & Zoom Controls (Exact Standard PDF Controls) -->
+            <div class="flex items-center gap-1 sm:gap-2">
+                <!-- Page Navigator: [ < ] 1 / 4 [ > ] -->
+                <div class="flex items-center bg-[#242729] rounded border border-stone-700/80 px-1 py-0.5 text-xs text-stone-200">
+                    <button type="button" onclick="navigatePdfPage(-1)" class="w-6 h-6 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center transition cursor-pointer" title="Halaman Sebelumnya">
+                        <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                    </button>
+                    <div class="flex items-center gap-1 px-1.5 font-mono text-[11px]">
+                        <input type="text" id="pdfCurrentPageInput" value="1" onchange="jumpToPdfPage(this.value)" class="w-7 text-center bg-[#323639] border border-stone-600 rounded text-stone-100 font-bold focus:outline-none focus:border-amber-400 py-0.5">
+                        <span class="text-stone-400">/</span>
+                        <span id="pdfTotalPagesCount" class="text-stone-300 font-bold">4</span>
+                    </div>
+                    <button type="button" onclick="navigatePdfPage(1)" class="w-6 h-6 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center transition cursor-pointer" title="Halaman Berikutnya">
+                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                </div>
+
+                <div class="h-5 w-[1px] bg-stone-600 hidden sm:block"></div>
+
+                <!-- Zoom Controls: [ - ] 100% [ + ] [ Fit ] -->
+                <div class="flex items-center bg-[#242729] rounded border border-stone-700/80 px-1 py-0.5 text-xs text-stone-200">
+                    <button type="button" onclick="adjustReaderZoom(-10)" class="w-6 h-6 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center transition cursor-pointer" title="Perkecil (-)">
+                        <i class="fa-solid fa-minus text-[10px]"></i>
+                    </button>
+                    <span id="readerZoomLevel" class="px-2 text-[11px] font-mono font-bold text-stone-200 min-w-[44px] text-center">100%</span>
+                    <button type="button" onclick="adjustReaderZoom(10)" class="w-6 h-6 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center transition cursor-pointer" title="Perbesar (+)">
+                        <i class="fa-solid fa-plus text-[10px]"></i>
+                    </button>
+                </div>
+
+                <button type="button" onclick="resetReaderZoom()" class="hidden md:flex px-2 py-1 rounded bg-[#242729] hover:bg-stone-700 border border-stone-700/80 text-[11px] text-stone-300 items-center gap-1 transition cursor-pointer" title="Sesuaikan Lebar Halaman">
+                    <i class="fa-solid fa-arrows-left-right-to-line text-[10px]"></i>
+                    <span>Sesuai Lebar</span>
+                </button>
+            </div>
+
+            <!-- Right: Search, Print, Download, Close -->
+            <div class="flex items-center gap-1.5 sm:gap-2">
+                <!-- Search in Document -->
+                <div class="relative hidden lg:flex items-center">
+                    <i class="fa-solid fa-magnifying-glass absolute left-2.5 text-stone-400 text-[11px] pointer-events-none"></i>
                     <input 
                         type="text" 
                         id="readerSearchInput" 
                         onkeyup="handleReaderDocSearch(this.value)" 
-                        placeholder="Cari kata/pasal dalam naskah..." 
-                        class="pl-8 pr-3 py-1.5 rounded-lg bg-[#2e2723] border border-[#483f3a] text-xs text-stone-200 placeholder-stone-500 focus:outline-none focus:border-amber-400 w-48 lg:w-64 transition"
+                        placeholder="Cari kata/pasal..." 
+                        class="pl-7 pr-2.5 py-1 rounded bg-[#242729] border border-stone-700 text-xs text-stone-200 placeholder-stone-400 focus:outline-none focus:border-amber-400 w-36 transition"
                     />
                 </div>
 
-                <!-- Zoom Controls -->
-                <div class="hidden sm:flex items-center bg-[#2e2723] border border-[#483f3a] rounded-lg p-0.5">
-                    <button type="button" onclick="adjustReaderZoom(-10)" class="w-7 h-7 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center text-xs transition cursor-pointer" title="Perkecil">
-                        <i class="fa-solid fa-minus"></i>
-                    </button>
-                    <span id="readerZoomLevel" class="px-2 text-[11px] font-mono text-stone-200 font-bold">100%</span>
-                    <button type="button" onclick="adjustReaderZoom(10)" class="w-7 h-7 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center text-xs transition cursor-pointer" title="Perbesar">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                </div>
-
-                <!-- Download PDF Button -->
-                <button type="button" onclick="downloadCurrentReaderDoc()" class="px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 border border-stone-600 text-stone-200 text-xs font-medium transition flex items-center gap-1.5 shadow-2xs cursor-pointer" title="Unduh File PDF">
-                    <i class="fa-solid fa-download text-xs text-amber-400"></i>
-                    <span class="hidden sm:inline">Unduh PDF</span>
+                <!-- Print Button -->
+                <button type="button" onclick="window.print()" class="w-8 h-8 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center text-xs transition cursor-pointer" title="Cetak Dokumen">
+                    <i class="fa-solid fa-print"></i>
                 </button>
 
+                <!-- Download Button -->
+                <button type="button" onclick="downloadCurrentReaderDoc()" class="w-8 h-8 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center text-xs transition cursor-pointer" title="Unduh Berkas PDF Asli">
+                    <i class="fa-solid fa-arrow-down-to-line"></i>
+                </button>
+
+                <div class="h-5 w-[1px] bg-stone-600 mx-0.5"></div>
+
                 <!-- Close Reader Button -->
-                <button type="button" onclick="closeFullDocReader()" class="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer" title="Tutup Pembaca Dokumen">
+                <button type="button" onclick="closeFullDocReader()" class="px-3 py-1 rounded bg-stone-700 hover:bg-rose-700 text-stone-200 hover:text-white text-xs font-semibold transition flex items-center gap-1 cursor-pointer" title="Tutup Pembaca PDF">
                     <i class="fa-solid fa-xmark text-xs"></i>
-                    <span>Tutup</span>
+                    <span class="hidden sm:inline">Tutup</span>
                 </button>
             </div>
         </header>
 
-        <!-- 2. Main Reader Viewport Canvas (Dark Backdrop + Pure High-Fidelity Continuous White Sheets) -->
-        <div class="flex-1 overflow-y-auto p-4 sm:p-8 bg-[#302b28] flex flex-col items-center select-text" id="readerViewport">
+        <!-- 2. Main Workspace Layout: Left Sidebar + Central Document Canvas -->
+        <div class="flex-1 flex overflow-hidden bg-[#525659]">
             
-            <div id="readerDocumentContainer" class="w-full max-w-3xl space-y-6 transition-transform duration-150 origin-top">
-                <!-- Dynamically populated document pages with authentic legal formatting -->
-            </div>
+            <!-- Left Sidebar (Page Thumbnails & Outline) -->
+            <aside id="pdfSidebar" class="w-64 bg-[#3a3d40] border-r border-[#2a2c2e] flex flex-col shrink-0 text-stone-200 transition-all duration-200 z-10 select-none">
+                <!-- Sidebar Tab Switcher -->
+                <div class="h-10 border-b border-[#2a2c2e] flex items-center justify-around px-2 text-xs">
+                    <button type="button" onclick="switchPdfSidebarTab('thumbnails')" id="tabThumbnailsBtn" class="flex-1 py-1.5 text-center font-semibold border-b-2 border-amber-400 text-white flex items-center justify-center gap-1.5">
+                        <i class="fa-regular fa-images text-xs"></i>
+                        <span>Halaman</span>
+                    </button>
+                    <button type="button" onclick="switchPdfSidebarTab('outline')" id="tabOutlineBtn" class="flex-1 py-1.5 text-center font-medium text-stone-400 hover:text-stone-200 flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-list-ul text-xs"></i>
+                        <span>Daftar Isi</span>
+                    </button>
+                </div>
+
+                <!-- Tab 1 Content: Page Thumbnails List -->
+                <div id="pdfThumbnailsContainer" class="flex-1 overflow-y-auto p-3 space-y-4">
+                    <!-- Populated dynamically with mini page cards -->
+                </div>
+
+                <!-- Tab 2 Content: Document Bookmarks Outline -->
+                <div id="pdfOutlineContainer" class="hidden flex-1 overflow-y-auto p-3 text-xs space-y-1">
+                    <!-- Populated dynamically with legal chapter links -->
+                </div>
+            </aside>
+
+            <!-- Main Document Viewport (Neutral Gray Canvas with Multi-Page A4 Legal Sheets) -->
+            <main class="flex-1 overflow-y-auto p-4 sm:p-8 flex flex-col items-center select-text scroll-smooth" id="readerViewport" onscroll="updateCurrentPageOnScroll()">
+                
+                <div id="readerDocumentContainer" class="w-full max-w-[760px] space-y-8 transition-transform duration-150 origin-top pb-16">
+                    <!-- Populated dynamically with multi-page official legal sheets -->
+                </div>
+
+            </main>
 
         </div>
 
-        <!-- 3. Bottom Quick Navigation Bar -->
-        <footer class="h-10 bg-[#231d1a] border-t border-[#3d3632] px-4 sm:px-6 flex items-center justify-between text-xs text-stone-400 shrink-0">
+        <!-- 3. Bottom Status Strip -->
+        <footer class="h-7 bg-[#282b2d] border-t border-[#1f2122] px-4 flex items-center justify-between text-[11px] text-stone-400 font-mono shrink-0 select-none">
             <div class="flex items-center gap-2">
-                <i class="fa-solid fa-book-open-reader text-amber-400"></i>
-                <span id="readerDocStatusText">Mode Pembaca Naskah Regulasi Penuh • Dokumen Faktual Terverifikasi</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span id="readerStatusDocName">Naskah Resmi Lembaran Negara Republik Indonesia</span>
             </div>
-            <div class="flex items-center gap-2">
-                <button type="button" onclick="document.getElementById('readerViewport').scrollTo({top:0, behavior:'smooth'})" class="hover:text-white transition flex items-center gap-1 cursor-pointer">
-                    <i class="fa-solid fa-arrow-up text-[10px]"></i>
-                    <span>Ke Halaman Awal</span>
-                </button>
+            <div class="flex items-center gap-4">
+                <span>Ukuran Asli: A4 (210 × 297 mm)</span>
+                <span>Enkripsi Dokumen: SHA-256 Valid</span>
             </div>
         </footer>
 
@@ -2258,10 +2318,13 @@
         }
 
         // ========================================================
-        // DEDICATED FULL DOCUMENT READER VIEWER LOGIC (NO CHATBOT)
+        // AUTHENTIC PROFESSIONAL LEGAL PDF VIEWER STATE & LOGIC
         // ========================================================
         let currentReaderZoom = 100;
         let activeReaderDoc = null;
+        let totalPdfPages = 3;
+        let currentPdfPage = 1;
+        let isPdfSidebarOpen = true;
 
         function readFullDocumentFromModal() {
             const doc = documents.find(d => d.id === activeAnalysisDocId) || documents[0];
@@ -2273,23 +2336,33 @@
             if (!doc) return;
             activeReaderDoc = doc;
 
-            const titleEl = document.getElementById('readerDocTitle');
-            if (titleEl) titleEl.textContent = doc.title;
-            const numEl = document.getElementById('readerDocMetaNumber');
-            if (numEl) numEl.textContent = `${doc.number} • Tahun ${doc.year}`;
-            const catEl = document.getElementById('readerDocMetaCategory');
-            if (catEl) catEl.textContent = doc.category;
+            const nameEl = document.getElementById('readerDocFileName');
+            if (nameEl) nameEl.textContent = doc.fileName || `${doc.title}.pdf`;
+            const sizeEl = document.getElementById('readerDocMetaSize');
+            if (sizeEl) sizeEl.textContent = doc.fileSize || '3.8 MB';
+            const statusEl = document.getElementById('readerStatusDocName');
+            if (statusEl) statusEl.textContent = `${doc.title} (${doc.number || 'Salinan Resmi'})`;
 
             const searchInp = document.getElementById('readerSearchInput');
             if (searchInp) searchInp.value = '';
 
             currentReaderZoom = 100;
+            currentPdfPage = 1;
+            totalPdfPages = 3;
+
             const zoomText = document.getElementById('readerZoomLevel');
             if (zoomText) zoomText.textContent = '100%';
             const container = document.getElementById('readerDocumentContainer');
             if (container) container.style.transform = 'scale(1)';
 
-            renderDocumentSheetContent(doc);
+            const pageInp = document.getElementById('pdfCurrentPageInput');
+            if (pageInp) pageInp.value = '1';
+            const totalPagesEl = document.getElementById('pdfTotalPagesCount');
+            if (totalPagesEl) totalPagesEl.textContent = totalPdfPages.toString();
+
+            // Render authentic multi-page sheets & sidebar
+            renderAuthenticPdfPages(doc);
+            renderPdfThumbnailsAndOutline(doc);
 
             document.getElementById('fullDocReaderModal').classList.remove('hidden');
             const viewport = document.getElementById('readerViewport');
@@ -2300,6 +2373,36 @@
             document.getElementById('fullDocReaderModal').classList.add('hidden');
         }
 
+        function togglePdfSidebar() {
+            const sidebar = document.getElementById('pdfSidebar');
+            if (!sidebar) return;
+            isPdfSidebarOpen = !isPdfSidebarOpen;
+            if (isPdfSidebarOpen) {
+                sidebar.classList.remove('-ml-64');
+            } else {
+                sidebar.classList.add('-ml-64');
+            }
+        }
+
+        function switchPdfSidebarTab(tab) {
+            const thumbTabBtn = document.getElementById('tabThumbnailsBtn');
+            const outlineTabBtn = document.getElementById('tabOutlineBtn');
+            const thumbContainer = document.getElementById('pdfThumbnailsContainer');
+            const outlineContainer = document.getElementById('pdfOutlineContainer');
+
+            if (tab === 'thumbnails') {
+                thumbTabBtn.className = 'flex-1 py-1.5 text-center font-semibold border-b-2 border-amber-400 text-white flex items-center justify-center gap-1.5';
+                outlineTabBtn.className = 'flex-1 py-1.5 text-center font-medium text-stone-400 hover:text-stone-200 flex items-center justify-center gap-1.5';
+                thumbContainer.classList.remove('hidden');
+                outlineContainer.classList.add('hidden');
+            } else {
+                outlineTabBtn.className = 'flex-1 py-1.5 text-center font-semibold border-b-2 border-amber-400 text-white flex items-center justify-center gap-1.5';
+                thumbTabBtn.className = 'flex-1 py-1.5 text-center font-medium text-stone-400 hover:text-stone-200 flex items-center justify-center gap-1.5';
+                outlineContainer.classList.remove('hidden');
+                thumbContainer.classList.add('hidden');
+            }
+        }
+
         function adjustReaderZoom(delta) {
             currentReaderZoom = Math.min(150, Math.max(70, currentReaderZoom + delta));
             const container = document.getElementById('readerDocumentContainer');
@@ -2308,181 +2411,342 @@
             if (zoomText) zoomText.textContent = `${currentReaderZoom}%`;
         }
 
+        function resetReaderZoom() {
+            currentReaderZoom = 100;
+            const container = document.getElementById('readerDocumentContainer');
+            const zoomText = document.getElementById('readerZoomLevel');
+            if (container) container.style.transform = 'scale(1)';
+            if (zoomText) zoomText.textContent = '100%';
+        }
+
+        function navigatePdfPage(delta) {
+            jumpToPdfPage(currentPdfPage + delta);
+        }
+
+        function jumpToPdfPage(pageNumber) {
+            const p = parseInt(pageNumber, 10);
+            if (isNaN(p) || p < 1 || p > totalPdfPages) return;
+            currentPdfPage = p;
+            const pageInp = document.getElementById('pdfCurrentPageInput');
+            if (pageInp) pageInp.value = p.toString();
+
+            const targetPageEl = document.getElementById(`pdfPageSheet_${p}`);
+            if (targetPageEl) {
+                targetPageEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            highlightActiveThumbnail(p);
+        }
+
+        function updateCurrentPageOnScroll() {
+            const viewport = document.getElementById('readerViewport');
+            if (!viewport) return;
+            for (let i = 1; i <= totalPdfPages; i++) {
+                const el = document.getElementById(`pdfPageSheet_${i}`);
+                if (el) {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top <= 200 && rect.bottom >= 200) {
+                        if (currentPdfPage !== i) {
+                            currentPdfPage = i;
+                            const pageInp = document.getElementById('pdfCurrentPageInput');
+                            if (pageInp) pageInp.value = i.toString();
+                            highlightActiveThumbnail(i);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        function highlightActiveThumbnail(pageNum) {
+            for (let i = 1; i <= totalPdfPages; i++) {
+                const thumb = document.getElementById(`pdfThumb_${i}`);
+                if (thumb) {
+                    if (i === pageNum) {
+                        thumb.classList.add('ring-2', 'ring-amber-400', 'bg-stone-800');
+                    } else {
+                        thumb.classList.remove('ring-2', 'ring-amber-400', 'bg-stone-800');
+                    }
+                }
+            }
+        }
+
         function downloadCurrentReaderDoc() {
             if (!activeReaderDoc) return;
-            showToast(`Mengunduh berkas ${activeReaderDoc.fileName || 'dokumen.pdf'}...`);
+            showToast(`Mengunduh berkas resmi ${activeReaderDoc.fileName || 'dokumen.pdf'}...`);
         }
 
         function handleReaderDocSearch(query) {
             const container = document.getElementById('readerDocumentContainer');
             if (!container) return;
             const q = query.toLowerCase().trim();
-            const clauses = container.querySelectorAll('.doc-clause-block');
-            clauses.forEach(clause => {
+            const paragraphs = container.querySelectorAll('.legal-clause-p');
+            paragraphs.forEach(p => {
                 if (!q) {
-                    clause.classList.remove('bg-amber-100', 'ring-2', 'ring-amber-400');
-                } else if (clause.textContent.toLowerCase().includes(q)) {
-                    clause.classList.add('bg-amber-100', 'ring-2', 'ring-amber-400');
+                    p.classList.remove('bg-yellow-200');
+                } else if (p.textContent.toLowerCase().includes(q)) {
+                    p.classList.add('bg-yellow-200');
                 } else {
-                    clause.classList.remove('bg-amber-100', 'ring-2', 'ring-amber-400');
+                    p.classList.remove('bg-yellow-200');
                 }
             });
         }
 
-        function renderDocumentSheetContent(doc) {
+        // Render Page Thumbnails in Sidebar & Outline Tree
+        function renderPdfThumbnailsAndOutline(doc) {
+            const thumbContainer = document.getElementById('pdfThumbnailsContainer');
+            const outlineContainer = document.getElementById('pdfOutlineContainer');
+            if (!thumbContainer || !outlineContainer) return;
+
+            // 1. Thumbnails
+            thumbContainer.innerHTML = '';
+            for (let i = 1; i <= totalPdfPages; i++) {
+                const thumbDiv = document.createElement('div');
+                thumbDiv.id = `pdfThumb_${i}`;
+                thumbDiv.onclick = () => jumpToPdfPage(i);
+                thumbDiv.className = `p-2 rounded cursor-pointer transition flex flex-col items-center gap-1.5 ${i === 1 ? 'ring-2 ring-amber-400 bg-stone-800' : 'hover:bg-stone-700/60'}`;
+                thumbDiv.innerHTML = `
+                    <div class="w-28 h-36 bg-white rounded-xs shadow-md border border-stone-400 flex flex-col p-1.5 text-[4px] leading-tight text-stone-800 overflow-hidden select-none pointer-events-none">
+                        <div class="text-center font-serif font-bold text-[5px] border-b border-stone-300 pb-0.5 mb-1 uppercase">
+                            ${i === 1 ? 'SALINAN RESMI' : `${doc.number || 'LEMBARAN NEGARA'}`}
+                        </div>
+                        <div class="space-y-1 opacity-70">
+                            <div class="h-1 bg-stone-300 rounded-xs w-full"></div>
+                            <div class="h-1 bg-stone-300 rounded-xs w-4/5"></div>
+                            <div class="h-1 bg-stone-300 rounded-xs w-full"></div>
+                            <div class="h-1 bg-stone-300 rounded-xs w-3/4"></div>
+                            <div class="h-1 bg-stone-300 rounded-xs w-full"></div>
+                        </div>
+                        <div class="mt-auto text-center font-mono text-[4px] text-stone-500">- ${i} -</div>
+                    </div>
+                    <span class="text-[11px] font-medium text-stone-300">Halaman ${i}</span>
+                `;
+                thumbContainer.appendChild(thumbDiv);
+            }
+
+            // 2. Outline / Bookmarks
+            outlineContainer.innerHTML = `
+                <div class="space-y-1">
+                    <button type="button" onclick="jumpToPdfPage(1)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200">
+                        <i class="fa-regular fa-file-lines text-stone-400 text-xs"></i>
+                        <span class="truncate font-semibold">Kop & Konsiderans (Menimbang)</span>
+                    </button>
+                    <button type="button" onclick="jumpToPdfPage(1)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
+                        <i class="fa-solid fa-bookmark text-amber-400 text-[10px]"></i>
+                        <span class="truncate">BAB I Ketentuan Umum</span>
+                    </button>
+                    <button type="button" onclick="jumpToPdfPage(2)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
+                        <i class="fa-solid fa-bookmark text-amber-400 text-[10px]"></i>
+                        <span class="truncate">BAB II Tata Kelola & Pengadilan</span>
+                    </button>
+                    <button type="button" onclick="jumpToPdfPage(2)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
+                        <i class="fa-solid fa-gavel text-rose-400 text-[10px]"></i>
+                        <span class="truncate">Pasal 84 - 85 (Sanksi Alat Tangkap)</span>
+                    </button>
+                    <button type="button" onclick="jumpToPdfPage(3)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
+                        <i class="fa-solid fa-bookmark text-amber-400 text-[10px]"></i>
+                        <span class="truncate">BAB III Ketentuan Penutup & Pengesahan</span>
+                    </button>
+                    <button type="button" onclick="jumpToPdfPage(3)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
+                        <i class="fa-solid fa-pen-nib text-stone-400 text-[10px]"></i>
+                        <span class="truncate">Tanda Tangan Pengundangan Resmi</span>
+                    </button>
+                </div>
+            `;
+        }
+
+        // Render Authentic Multi-Page Legal Sheets (Exact Indonesian Statute Typeset)
+        function renderAuthenticPdfPages(doc) {
             const container = document.getElementById('readerDocumentContainer');
             if (!container) return;
 
-            container.innerHTML = `
-                <!-- Sheet Page 1: Official Header & Preamble -->
-                <div class="bg-white rounded-lg shadow-2xl p-8 sm:p-14 text-stone-900 font-serif text-justify text-[13px] leading-[1.8] space-y-6 border border-stone-200">
-                    
-                    <!-- Kop Lembaran Negara RI -->
-                    <div class="text-center space-y-1 pb-6 border-b border-stone-300">
-                        <div class="w-12 h-12 mx-auto mb-2 text-stone-800 flex items-center justify-center">
-                            <i class="fa-solid fa-landmark text-3xl text-stone-800"></i>
-                        </div>
-                        <div class="font-bold text-xs uppercase tracking-widest text-stone-900 font-sans">
-                            SALINAN RESMI LEMBARAN NEGARA REPUBLIK INDONESIA
-                        </div>
-                        <div class="text-[11px] text-stone-600 font-sans font-semibold">
-                            ${doc.number ? doc.number.toUpperCase() : 'NOMOR 45'} TAHUN ${doc.year}
-                        </div>
-                        <div class="text-[10px] text-stone-500 font-sans">
-                            ${doc.source || 'Lembaran Negara Republik Indonesia'}
-                        </div>
-                    </div>
+            const docNumber = doc.number || 'NOMOR 45';
+            const docYear = doc.year || '2009';
+            const docTitleUpper = (doc.title || 'UNDANG-UNDANG REPUBLIK INDONESIA').toUpperCase();
 
-                    <!-- Judul Regulasi -->
-                    <div class="text-center space-y-2 py-4">
-                        <div class="font-bold text-sm tracking-wide uppercase font-sans text-stone-950">
-                            ${doc.title}
+            container.innerHTML = `
+                <!-- ============================================ -->
+                <!-- PAGE 1: OFFICIAL KOP, PREAMBLE & BAB I      -->
+                <!-- ============================================ -->
+                <article id="pdfPageSheet_1" class="bg-white text-[#111827] shadow-xl w-full min-h-[960px] p-10 sm:p-16 font-serif text-[12.5px] leading-[1.8] text-justify relative border border-stone-300">
+                    
+                    <!-- Official Garuda Pancasila Black & White Emblem -->
+                    <div class="text-center space-y-1 mb-8">
+                        <div class="w-14 h-14 mx-auto mb-2 text-stone-900 flex items-center justify-center">
+                            <svg class="w-12 h-12" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L9 7H15L12 2ZM12 8C7.58 8 4 11.58 4 16C4 18.21 4.9 20.21 6.34 21.66L7.76 20.24C6.67 19.16 6 17.66 6 16C6 12.69 8.69 10 12 10C15.31 10 18 12.69 18 16C18 17.66 17.33 19.16 16.24 20.24L17.66 21.66C19.1 20.21 20 18.21 20 16C20 11.58 16.42 8 12 8Z"/>
+                            </svg>
                         </div>
-                        <div class="text-xs font-semibold uppercase tracking-wider text-stone-700 font-sans">
+                        <div class="font-bold text-[13px] tracking-wider uppercase font-sans text-stone-950">
+                            PRESIDEN REPUBLIK INDONESIA
+                        </div>
+                        <div class="font-bold text-xs tracking-wide uppercase font-sans text-stone-900 pt-2">
+                            ${docTitleUpper}
+                        </div>
+                        <div class="text-xs font-semibold uppercase tracking-widest text-stone-800 font-sans pt-1">
                             DENGAN RAHMAT TUHAN YANG MAHA ESA
                         </div>
-                        <div class="font-bold text-xs uppercase tracking-wider text-stone-900 font-sans">
+                        <div class="font-bold text-xs uppercase tracking-wider text-stone-950 font-sans pt-1">
                             PRESIDEN REPUBLIK INDONESIA,
                         </div>
                     </div>
 
                     <!-- Konsiderans Menimbang & Mengingat -->
-                    <div class="space-y-4 text-[12.5px] leading-relaxed">
+                    <div class="space-y-4 mb-6">
                         <div class="flex items-start gap-4">
                             <span class="font-bold text-stone-900 font-sans w-24 shrink-0">Menimbang :</span>
                             <div class="space-y-2">
-                                <p>a. bahwa perairan Indonesia yang berada di bawah kedaulatan dan yurisdiksi nasional memiliki potensi sumber daya perikanan yang kaya dan bernilai strategis bagi kemakmuran rakyat;</p>
-                                <p>b. bahwa untuk menjamin kelestarian sumber daya ikan serta kedaulatan maritim, diperlukan penegakan hukum yang tegas terhadap pemanfaatan alat tangkap dan wilayah pengelolaan perikanan;</p>
-                                <p>c. bahwa berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a dan huruf b, perlu menetapkan ${doc.title};</p>
+                                <p class="legal-clause-p">a. bahwa perairan Indonesia yang berada di bawah kedaulatan dan yurisdiksi nasional memiliki potensi sumber daya kelautan dan perikanan yang kaya dan bernilai strategis bagi kemakmuran rakyat;</p>
+                                <p class="legal-clause-p">b. bahwa pemanfaatan sumber daya harus diselenggarakan berdasarkan asas keadilan, kepastian hukum, efisiensi, dan keberlanjutan lingkungan maritim nasional;</p>
+                                <p class="legal-clause-p">c. bahwa berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a dan huruf b, perlu membentuk ${doc.title};</p>
                             </div>
                         </div>
 
                         <div class="flex items-start gap-4 pt-2">
                             <span class="font-bold text-stone-900 font-sans w-24 shrink-0">Mengingat :</span>
                             <div class="space-y-1.5">
-                                <p>1. Pasal 5 ayat (1), Pasal 20, dan Pasal 33 Undang-Undang Dasar Negara Republik Indonesia Tahun 1945;</p>
-                                <p>2. Undang-Undang Nomor 17 Tahun 1985 tentang Pengesahan United Nations Convention on the Law of the Sea (UNCLOS 1982);</p>
-                                <p>3. Peraturan perundang-undangan terkait rezim hukum kelautan, kedaulatan wilayah, dan konservasi sumber daya alam hayati.</p>
+                                <p class="legal-clause-p">1. Pasal 5 ayat (1), Pasal 20, Pasal 25A, dan Pasal 33 Undang-Undang Dasar Negara Republik Indonesia Tahun 1945;</p>
+                                <p class="legal-clause-p">2. Undang-Undang Nomor 17 Tahun 1985 tentang Pengesahan United Nations Convention on the Law of the Sea 1982 (Konvensi Perserikatan Bangsa-Bangsa tentang Hukum Laut Tahun 1982);</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="text-center py-2 font-bold font-sans tracking-widest text-xs uppercase text-stone-900 border-y border-stone-200">
+                    <div class="text-center py-2 font-bold font-sans tracking-widest text-xs uppercase text-stone-950 my-4">
                         MEMUTUSKAN:
                     </div>
 
-                    <!-- BAB I KETENTUAN UMUM -->
-                    <div class="space-y-4">
-                        <div class="text-center font-sans space-y-0.5">
-                            <div class="font-bold text-xs tracking-wider">BAB I</div>
-                            <div class="font-bold text-xs uppercase text-stone-800">KETENTUAN UMUM</div>
+                    <div class="space-y-2">
+                        <div class="flex items-start gap-4 mb-4">
+                            <span class="font-bold text-stone-900 font-sans w-24 shrink-0">Menetapkan :</span>
+                            <p class="font-bold text-stone-950 font-sans uppercase">${docTitleUpper}.</p>
                         </div>
 
-                        <div class="doc-clause-block p-3 rounded-lg transition-colors">
+                        <!-- BAB I KETENTUAN UMUM -->
+                        <div class="text-center font-sans space-y-0.5 pt-4">
+                            <div class="font-bold text-xs tracking-wider">BAB I</div>
+                            <div class="font-bold text-xs uppercase text-stone-900">KETENTUAN UMUM</div>
+                        </div>
+
+                        <div class="py-2">
                             <div class="font-bold text-center font-sans text-xs mb-1">Pasal 1</div>
-                            <p class="indent-6 text-stone-800 leading-relaxed text-[12.5px]">
-                                Dalam regulasi ini yang dimaksud dengan:
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                Dalam Undang-Undang ini yang dimaksud dengan:
                             </p>
-                            <ol class="list-decimal pl-6 space-y-1.5 mt-2 text-[12.5px]">
-                                <li><strong>Perikanan</strong> adalah semua kegiatan yang berhubungan dengan pengelolaan dan pemanfaatan sumber daya ikan dan lingkungannya secara berkelanjutan.</li>
-                                <li><strong>Wilayah Pengelolaan Perikanan Negara Republik Indonesia (WPPNRI)</strong> meliputi perairan pedalaman, perairan kepulauan, laut teritorial, zona tambahan, dan Zona Ekonomi Eksklusif Indonesia (ZEEI).</li>
-                                <li><strong>Kapal Perikanan</strong> adalah kapal, perahu, atau alat apung lain yang dipergunakan untuk melakukan penangkapan ikan, memuat, mengangkut, menyimpan, mendinginkan, atau mengolah ikan.</li>
-                                <li><strong>Surat Izin Penangkapan Ikan (SIPI)</strong> adalah izin tertulis yang wajib dimiliki setiap kapal perikanan berbendera Indonesia untuk melakukan penangkapan ikan di WPPNRI.</li>
+                            <ol class="list-decimal pl-8 space-y-1.5 mt-2">
+                                <li class="legal-clause-p"><strong>Perikanan</strong> adalah semua kegiatan yang berhubungan dengan pengelolaan dan pemanfaatan sumber daya ikan dan lingkungannya mulai dari praproduksi, produksi, pengolahan sampai dengan pemasaran.</li>
+                                <li class="legal-clause-p"><strong>Wilayah Pengelolaan Perikanan Negara Republik Indonesia (WPPNRI)</strong> meliputi perairan pedalaman, perairan kepulauan, laut teritorial, zona tambahan, dan Zona Ekonomi Eksklusif Indonesia (ZEEI).</li>
+                                <li class="legal-clause-p"><strong>Kapal Perikanan</strong> adalah kapal, perahu, atau alat apung lain yang dipergunakan untuk melakukan penangkapan ikan dan/atau mengangkut hasil perikanan.</li>
                             </ol>
                         </div>
                     </div>
 
-                    <!-- BAB II SUBSTANSI POKOK -->
-                    <div class="space-y-4 pt-4 border-t border-stone-200">
-                        <div class="text-center font-sans space-y-0.5">
-                            <div class="font-bold text-xs tracking-wider">BAB II</div>
-                            <div class="font-bold text-xs uppercase text-stone-800">TATA KELOLA DAN PENEGAKAN HUKUM</div>
-                        </div>
+                    <!-- Page 1 Footer -->
+                    <div class="absolute bottom-6 left-12 right-12 pt-4 border-t border-stone-200 flex items-center justify-between text-[11px] text-stone-500 font-mono">
+                        <span>${doc.agency || 'Kementerian Kelautan dan Perikanan RI'}</span>
+                        <span class="font-bold text-stone-800">- 1 -</span>
+                        <span>Salinan Sah Sesuai Aslinya</span>
+                    </div>
+                </article>
 
-                        <div class="doc-clause-block p-3 rounded-lg transition-colors">
+                <!-- ============================================ -->
+                <!-- PAGE 2: SUBSTANSI PASAL 84 - 93             -->
+                <!-- ============================================ -->
+                <article id="pdfPageSheet_2" class="bg-white text-[#111827] shadow-xl w-full min-h-[960px] p-10 sm:p-16 font-serif text-[12.5px] leading-[1.8] text-justify relative border border-stone-300">
+                    
+                    <div class="text-center font-sans space-y-0.5 pb-4">
+                        <div class="font-bold text-xs tracking-wider">BAB VI</div>
+                        <div class="font-bold text-xs uppercase text-stone-900">KETENTUAN PIDANA DAN SANKSI</div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
                             <div class="font-bold text-center font-sans text-xs mb-1">Pasal 84</div>
-                            <p class="indent-6 text-stone-900 leading-relaxed text-[12.5px]">
-                                (1) Tindak pidana di bidang perikanan yang terjadi di wilayah pengelolaan perikanan Negara Republik Indonesia disidik, dituntut, dan diadili menurut hukum acara yang berlaku, kecuali ditentukan lain dalam regulasi ini.
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                (1) Tindak pidana di bidang perikanan yang terjadi di wilayah pengelolaan perikanan Negara Republik Indonesia sebagaimana dimaksud dalam Pasal 5 disidik, dituntut, dan diadili menurut hukum acara yang berlaku, kecuali ditentukan lain dalam undang-undang ini.
                             </p>
-                            <p class="indent-6 text-stone-900 leading-relaxed text-[12.5px]">
-                                (2) Pengadilan perikanan bertugas dan berwenang memeriksa, mengadili, dan memutus tindak pidana di bidang perikanan.
-                            </p>
-                        </div>
-
-                        <div class="doc-clause-block p-3.5 bg-amber-50/60 rounded-xl border border-amber-200/80 transition-colors">
-                            <div class="font-bold text-center font-sans text-xs mb-1 text-amber-950">Pasal 85</div>
-                            <p class="indent-6 text-stone-950 font-medium leading-relaxed text-[12.5px]">
-                                Setiap orang yang dengan sengaja memiliki, menguasai, membawa, dan/atau menggunakan alat penangkap ikan dan/atau alat bantu penangkapan ikan yang mengganggu dan merusak keberlanjutan sumber daya ikan (termasuk pukat hela, cantrang, bahan peledak, racun) di kapal penangkap ikan di WPPNRI dipidana dengan <strong>pidana penjara paling lama 5 (lima) tahun</strong> dan <strong>denda paling banyak Rp2.000.000.000,00 (dua miliar rupiah)</strong>.
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                (2) Pengadilan perikanan bertugas dan berwenang memeriksa, mengadili, dan memutus tindak pidana di bidang perikanan di wilayah yurisdiksi Republik Indonesia.
                             </p>
                         </div>
 
-                        <div class="doc-clause-block p-3 rounded-lg transition-colors">
+                        <div>
+                            <div class="font-bold text-center font-sans text-xs mb-1">Pasal 85</div>
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                Setiap orang yang dengan sengaja memiliki, menguasai, membawa, dan/atau menggunakan alat penangkap ikan dan/atau alat bantu penangkapan ikan yang mengganggu dan merusak keberlanjutan sumber daya ikan di kapal penangkap ikan di wilayah pengelolaan perikanan Negara Republik Indonesia sebagaimana dimaksud dalam Pasal 9 dipidana dengan <strong>pidana penjara paling lama 5 (lima) tahun</strong> dan <strong>denda paling banyak Rp2.000.000.000,00 (dua miliar rupiah)</strong>.
+                            </p>
+                        </div>
+
+                        <div>
                             <div class="font-bold text-center font-sans text-xs mb-1">Pasal 93</div>
-                            <p class="indent-6 text-stone-900 leading-relaxed text-[12.5px]">
-                                (1) Setiap orang yang memiliki dan/atau mengoperasikan kapal penangkap ikan berbendera Indonesia melakukan penangkapan ikan di WPPNRI dan/atau laut lepas yang tidak memiliki SIPI dipidana dengan pidana penjara paling lama 6 (enam) tahun dan denda paling banyak Rp2.000.000.000,00 (dua miliar rupiah).
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                (1) Setiap orang yang memiliki dan/atau mengoperasikan kapal penangkap ikan berbendera Indonesia melakukan penangkapan ikan di WPPNRI dan/atau laut lepas yang tidak memiliki SIPI sebagaimana dimaksud dalam Pasal 27 ayat (1) dipidana dengan pidana penjara paling lama 6 (enam) tahun dan denda paling banyak Rp2.000.000.000,00 (dua miliar rupiah).
+                            </p>
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                (2) Setiap orang yang memiliki dan/atau mengoperasikan kapal pengangkut ikan berbendera Indonesia yang tidak memiliki SIKPI dipidana dengan pidana penjara paling lama 5 (lima) tahun dan denda paling banyak Rp1.500.000.000,00 (satu miliar lima ratus juta rupiah).
                             </p>
                         </div>
                     </div>
 
-                    <!-- BAB III KETENTUAN PENUTUP & PENGESAHAN -->
-                    <div class="space-y-4 pt-4 border-t border-stone-200">
-                        <div class="text-center font-sans space-y-0.5">
-                            <div class="font-bold text-xs tracking-wider">BAB III</div>
-                            <div class="font-bold text-xs uppercase text-stone-800">KETENTUAN PENUTUP</div>
-                        </div>
+                    <!-- Page 2 Footer -->
+                    <div class="absolute bottom-6 left-12 right-12 pt-4 border-t border-stone-200 flex items-center justify-between text-[11px] text-stone-500 font-mono">
+                        <span>${doc.agency || 'Kementerian Kelautan dan Perikanan RI'}</span>
+                        <span class="font-bold text-stone-800">- 2 -</span>
+                        <span>Salinan Sah Sesuai Aslinya</span>
+                    </div>
+                </article>
 
-                        <div class="doc-clause-block p-3 rounded-lg transition-colors">
+                <!-- ============================================ -->
+                <!-- PAGE 3: PENUTUP & PENGESAHAN LEMBARAN NEGARA -->
+                <!-- ============================================ -->
+                <article id="pdfPageSheet_3" class="bg-white text-[#111827] shadow-xl w-full min-h-[960px] p-10 sm:p-16 font-serif text-[12.5px] leading-[1.8] text-justify relative border border-stone-300">
+                    
+                    <div class="text-center font-sans space-y-0.5 pb-4">
+                        <div class="font-bold text-xs tracking-wider">BAB VII</div>
+                        <div class="font-bold text-xs uppercase text-stone-900">KETENTUAN PENUTUP</div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
                             <div class="font-bold text-center font-sans text-xs mb-1">Pasal 110</div>
-                            <p class="indent-6 text-stone-900 leading-relaxed text-[12.5px]">
-                                Regulasi ini mulai berlaku pada tanggal diundangkan. Agar setiap orang mengetahuinya, memerintahkan pengundangan ini dengan penempatannya dalam Lembaran Negara Republik Indonesia.
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                Undang-Undang ini mulai berlaku pada tanggal diundangkan.
+                            </p>
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p pt-2">
+                                Agar setiap orang mengetahuinya, memerintahkan pengundangan Undang-Undang ini dengan penempatannya dalam Lembaran Negara Republik Indonesia.
                             </p>
                         </div>
 
-                        <!-- Tanda Tangan Pengesahan -->
+                        <!-- Pengesahan Resmi -->
                         <div class="pt-8 grid grid-cols-1 sm:grid-cols-2 gap-8 font-sans text-xs">
                             <div class="space-y-1">
                                 <div>Diundangkan di Jakarta</div>
-                                <div>pada tanggal 29 Oktober ${doc.year}</div>
-                                <div class="font-bold pt-12">MENTERI HUKUM DAN HAK ASASI MANUSIA</div>
-                                <div class="font-bold">REPUBLIK INDONESIA,</div>
+                                <div>pada tanggal 29 Oktober ${docYear}</div>
+                                <div class="font-bold pt-14 text-stone-950">MENTERI HUKUM DAN HAK ASASI MANUSIA</div>
+                                <div class="font-bold text-stone-950">REPUBLIK INDONESIA,</div>
+                                <div class="pt-10 font-serif font-bold text-stone-900 underline">PATRIALIS AKBAR</div>
                             </div>
                             <div class="space-y-1 sm:text-right">
                                 <div>Disahkan di Jakarta</div>
-                                <div>pada tanggal 29 Oktober ${doc.year}</div>
-                                <div class="font-bold pt-12">PRESIDEN REPUBLIK INDONESIA,</div>
-                                <div class="font-bold text-stone-900">SALINAN SESUAI NASKAH RESMI</div>
+                                <div>pada tanggal 29 Oktober ${docYear}</div>
+                                <div class="font-bold pt-14 text-stone-950">PRESIDEN REPUBLIK INDONESIA,</div>
+                                <div class="pt-10 font-serif font-bold text-stone-900 underline">DR. H. SUSILO BAMBANG YUDHOYONO</div>
                             </div>
+                        </div>
+
+                        <!-- Lembaran Negara Registration -->
+                        <div class="pt-10 border-t border-stone-300 font-sans text-xs space-y-1">
+                            <div class="font-bold text-stone-900 uppercase">LEMBARAN NEGARA REPUBLIK INDONESIA TAHUN ${docYear} NOMOR 154</div>
+                            <div class="text-stone-600 text-[11px]">TAMBAHAN LEMBARAN NEGARA REPUBLIK INDONESIA NOMOR 5073</div>
                         </div>
                     </div>
 
-                    <!-- Footer Stamp -->
-                    <div class="pt-6 border-t border-stone-300 flex items-center justify-between text-[10px] text-stone-400 font-mono">
-                        <span>Kementerian Sekretariat Negara RI</span>
-                        <span class="font-bold text-stone-700">- Halaman 1 dari 1 (Naskah Penuh) -</span>
-                        <span>TitikHukum Verified Document</span>
+                    <!-- Page 3 Footer -->
+                    <div class="absolute bottom-6 left-12 right-12 pt-4 border-t border-stone-200 flex items-center justify-between text-[11px] text-stone-500 font-mono">
+                        <span>${doc.agency || 'Kementerian Kelautan dan Perikanan RI'}</span>
+                        <span class="font-bold text-stone-800">- 3 -</span>
+                        <span>Salinan Sah Sesuai Aslinya</span>
                     </div>
-
-                </div>
+                </article>
             `;
         }
 

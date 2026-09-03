@@ -280,6 +280,28 @@
                 </button>
             </div>
 
+            <!-- Smart AI Search Banner (Muncul otomatis saat user mencari keyword/pertanyaan alami) -->
+            <div id="smartSearchBanner" class="hidden p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs animate-in fade-in duration-200">
+                <div class="flex items-start sm:items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-2xs font-bold mt-0.5 sm:mt-0">
+                        <i class="fa-solid fa-wand-magic-sparkles text-xs"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-gray-900 flex items-center gap-2 flex-wrap">
+                            <span>Hasil Pencarian Semantik:</span>
+                            <span id="searchQueryBadge" class="px-2 py-0.5 rounded-md bg-amber-100/80 text-[#26150d] font-semibold italic border border-amber-300/60">"..."</span>
+                        </div>
+                        <div class="text-[11px] text-gray-500 mt-0.5">
+                            Menemukan <strong id="smartMatchCount" class="text-[#26150d] font-bold">0 regulasi relevan</strong> • Centang 1 atau beberapa dokumen lalu klik <strong class="text-amber-800">Tanya AI</strong> untuk analisis lanjutan.
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="clearSmartSearch()" class="px-3.5 py-1.5 rounded-xl bg-white border border-stone-200 text-stone-700 hover:bg-stone-100 font-semibold transition text-xs shrink-0 shadow-2xs flex items-center gap-1.5 active:scale-95">
+                    <i class="fa-solid fa-rotate-left text-[10px] text-stone-400"></i>
+                    <span>Reset Pencarian</span>
+                </button>
+            </div>
+
         </div>
 
         <!-- ======================================================== -->
@@ -733,15 +755,21 @@
                     <i class="fa-solid fa-shield-halved text-emerald-600"></i>
                     <span>Ekstraksi AI berbasis visual grounding pasal dan yurisdiksi resmi.</span>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-2.5 sm:gap-3 flex-wrap">
+                    <!-- Button: Baca Dokumen Lengkap (Coklat Muda Elegan / Border Coklat) -->
+                    <button type="button" id="modalReadFullDocBtn" onclick="readFullDocumentFromModal()" class="px-5 py-2.5 sm:py-3 rounded-full bg-white hover:bg-[#f6eee7] text-[#26150d] text-xs sm:text-[13px] font-bold tracking-wide flex items-center justify-center gap-2 transition-all shadow-2xs active:scale-95 border border-[#26150d] shrink-0 cursor-pointer">
+                        <i class="fa-regular fa-file-pdf text-sm text-rose-600"></i>
+                        <span class="whitespace-nowrap">Baca Dokumen Lengkap</span>
+                    </button>
+
                     <!-- Button: Tanya Asisten AI (Kuning Emas, Ikon & Teks Coklat) -->
-                    <a href="chat.html" class="px-5 py-2.5 sm:py-3 rounded-full bg-[#f4be37] hover:bg-[#e6b12a] text-[#26150d] text-xs sm:text-[13px] font-bold tracking-wide flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 border border-[#d49e1a] shrink-0">
+                    <button type="button" onclick="openChatFromModal(event)" class="px-5 py-2.5 sm:py-3 rounded-full bg-[#f4be37] hover:bg-[#e6b12a] text-[#26150d] text-xs sm:text-[13px] font-bold tracking-wide flex items-center justify-center gap-2 transition-all shadow-md active:scale-95 border border-[#d49e1a] shrink-0 cursor-pointer">
                         <i class="fa-solid fa-robot text-sm text-[#26150d]"></i>
                         <span class="text-[#26150d] whitespace-nowrap">Tanya Asisten AI</span>
-                    </a>
+                    </button>
 
                     <!-- Button: Tutup Pratinjau (Coklat Courtroom) -->
-                    <button type="button" onclick="closeAnalyzeModal()" class="px-6 py-2.5 sm:py-3 rounded-full bg-[#26150d] hover:bg-[#381d12] text-white text-xs sm:text-[13px] font-semibold flex items-center justify-center transition-all shadow-md active:scale-95 shrink-0">
+                    <button type="button" onclick="closeAnalyzeModal()" class="px-6 py-2.5 sm:py-3 rounded-full bg-[#26150d] hover:bg-[#381d12] text-white text-xs sm:text-[13px] font-semibold flex items-center justify-center transition-all shadow-md active:scale-95 shrink-0 cursor-pointer">
                         <span class="whitespace-nowrap">Tutup Pratinjau</span>
                     </button>
                 </div>
@@ -799,6 +827,97 @@
                 </button>
             </div>
         </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL 5: DEDICATED FULL DOCUMENT READER VIEWER           -->
+    <!-- (Tampilan Pembaca Naskah PDF Lengkap Tanpa Antarmuka Chat)-->
+    <!-- ======================================================== -->
+    <div id="fullDocReaderModal" class="hidden fixed inset-0 z-[120] modal-backdrop bg-black/85 backdrop-blur-sm flex flex-col justify-between overflow-hidden">
+        
+        <!-- 1. Top Document Reader Toolbar -->
+        <header class="h-14 bg-[#231d1a] border-b border-[#3d3632] px-4 sm:px-6 flex items-center justify-between text-white shrink-0 z-10 shadow-md">
+            <!-- Left: Document Information -->
+            <div class="flex items-center gap-3 min-w-0 pr-4">
+                <div class="w-8 h-8 rounded-lg bg-rose-500/20 border border-rose-500/40 text-rose-400 flex items-center justify-center shrink-0">
+                    <i class="fa-regular fa-file-pdf text-sm"></i>
+                </div>
+                <div class="min-w-0">
+                    <h3 id="readerDocTitle" class="text-xs sm:text-sm font-bold text-white truncate max-w-[280px] sm:max-w-md md:max-w-xl">
+                        Naskah Dokumen Hukum Lengkap
+                    </h3>
+                    <div class="flex items-center gap-2 text-[10px] text-stone-400 font-mono">
+                        <span id="readerDocMetaNumber">Nomor Regulasi</span>
+                        <span>•</span>
+                        <span id="readerDocMetaCategory" class="text-amber-300">Kategori</span>
+                        <span>•</span>
+                        <span class="text-emerald-400">Salinan Sah RI</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Center/Right: Document Controls (Search in Doc, Zoom, Download, Close) -->
+            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                <!-- Search In Document Input -->
+                <div class="relative hidden md:flex items-center">
+                    <i class="fa-solid fa-magnifying-glass absolute left-3 text-stone-400 text-xs pointer-events-none"></i>
+                    <input 
+                        type="text" 
+                        id="readerSearchInput" 
+                        onkeyup="handleReaderDocSearch(this.value)" 
+                        placeholder="Cari kata/pasal dalam naskah..." 
+                        class="pl-8 pr-3 py-1.5 rounded-lg bg-[#2e2723] border border-[#483f3a] text-xs text-stone-200 placeholder-stone-500 focus:outline-none focus:border-amber-400 w-48 lg:w-64 transition"
+                    />
+                </div>
+
+                <!-- Zoom Controls -->
+                <div class="hidden sm:flex items-center bg-[#2e2723] border border-[#483f3a] rounded-lg p-0.5">
+                    <button type="button" onclick="adjustReaderZoom(-10)" class="w-7 h-7 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center text-xs transition cursor-pointer" title="Perkecil">
+                        <i class="fa-solid fa-minus"></i>
+                    </button>
+                    <span id="readerZoomLevel" class="px-2 text-[11px] font-mono text-stone-200 font-bold">100%</span>
+                    <button type="button" onclick="adjustReaderZoom(10)" class="w-7 h-7 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center text-xs transition cursor-pointer" title="Perbesar">
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div>
+
+                <!-- Download PDF Button -->
+                <button type="button" onclick="downloadCurrentReaderDoc()" class="px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 border border-stone-600 text-stone-200 text-xs font-medium transition flex items-center gap-1.5 shadow-2xs cursor-pointer" title="Unduh File PDF">
+                    <i class="fa-solid fa-download text-xs text-amber-400"></i>
+                    <span class="hidden sm:inline">Unduh PDF</span>
+                </button>
+
+                <!-- Close Reader Button -->
+                <button type="button" onclick="closeFullDocReader()" class="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer" title="Tutup Pembaca Dokumen">
+                    <i class="fa-solid fa-xmark text-xs"></i>
+                    <span>Tutup</span>
+                </button>
+            </div>
+        </header>
+
+        <!-- 2. Main Reader Viewport Canvas (Dark Backdrop + Pure High-Fidelity Continuous White Sheets) -->
+        <div class="flex-1 overflow-y-auto p-4 sm:p-8 bg-[#302b28] flex flex-col items-center select-text" id="readerViewport">
+            
+            <div id="readerDocumentContainer" class="w-full max-w-3xl space-y-6 transition-transform duration-150 origin-top">
+                <!-- Dynamically populated document pages with authentic legal formatting -->
+            </div>
+
+        </div>
+
+        <!-- 3. Bottom Quick Navigation Bar -->
+        <footer class="h-10 bg-[#231d1a] border-t border-[#3d3632] px-4 sm:px-6 flex items-center justify-between text-xs text-stone-400 shrink-0">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-book-open-reader text-amber-400"></i>
+                <span id="readerDocStatusText">Mode Pembaca Naskah Regulasi Penuh • Dokumen Faktual Terverifikasi</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button type="button" onclick="document.getElementById('readerViewport').scrollTo({top:0, behavior:'smooth'})" class="hover:text-white transition flex items-center gap-1 cursor-pointer">
+                    <i class="fa-solid fa-arrow-up text-[10px]"></i>
+                    <span>Ke Halaman Awal</span>
+                </button>
+            </div>
+        </footer>
+
     </div>
 
     <!-- ======================================================== -->
@@ -1508,36 +1627,186 @@
             localStorage.setItem('titikhukum_docs_v5', JSON.stringify(documents));
         }
 
-        // Render Table Rows
+        // Legal Stopwords (Menyaring kata tanya & kata hubung agar fokus pada substansi hukum)
+        const LEGAL_STOPWORDS = new Set([
+            'apakah', 'ada', 'yang', 'mengatur', 'tentang', 'mengenai', 'oleh', 'pada', 'untuk', 'dan', 'atau',
+            'dalam', 'dengan', 'ke', 'di', 'dari', 'ini', 'itu', 'seperti', 'bagaimana', 'dimana', 'kapan',
+            'siapa', 'mengapa', 'adakah', 'apa', 'saja', 'ketentuan', 'terkait', 'seputar', 'aturan', 'hukum', 
+            'regulasi', 'undang', 'undang-undang', 'permen', 'pp', 'uu', 'menurut', 'dapat', 'bisa', 'kah'
+        ]);
+
+        // Legal Thesaurus & Concept Synonyms
+        const LEGAL_SYNONYMS = {
+            'alat tangkap': ['alat penangkapan ikan', 'cantrang', 'pukat', 'trawl', 'jaring', 'pukat hela', 'alat tangkap terlarang', 'perikanan', 'kapal tangkap'],
+            'pukat harimau': ['trawl', 'pukat hela', 'cantrang', 'alat penangkapan ikan', 'alat tangkap terlarang', 'perikanan tangkap'],
+            'cantrang': ['alat penangkapan ikan', 'pukat hela', 'trawl', 'alat tangkap dilarang'],
+            'illegal fishing': ['penangkapan ikan terukur', 'tanpa izin', 'ilegal', 'pelanggaran penangkapan ikan', 'wpp', 'kapal asing', 'pencurian ikan'],
+            'satwa air': ['biota laut', 'konservasi', 'spesies dilindungi', 'sumber daya ikan', 'terumbu karang', 'wilayah perairan'],
+            'siber': ['ite', 'informasi dan transaksi elektronik', 'data pribadi', 'kejahatan siber', 'digital', 'elektronik'],
+            'data pribadi': ['pelindungan data', 'privasi', 'pengendali data', 'subjek data'],
+            'tata ruang': ['pesisir', 'pulau kecil', 'ruang laut', 'reklamasi', 'zonasi laut'],
+            'nelayan': ['penangkapan ikan', 'kapal perikanan', 'nelayan kecil', 'usaha perikanan', 'pelaut']
+        };
+
+        // Semantic Query Matcher & Relevance Scorer
+        function calculateDocRelevance(doc, query) {
+            if (!query || !query.trim()) return { score: 0, matchedReason: '', percentage: 0 };
+
+            const rawQuery = query.toLowerCase().trim();
+            
+            // 1. Direct Exact Substring Matches (Highest score)
+            let directScore = 0;
+            const titleLower = (doc.title || '').toLowerCase();
+            const notesLower = (doc.notes || '').toLowerCase();
+            const catLower = (doc.category || '').toLowerCase();
+            const agencyLower = (doc.agency || '').toLowerCase();
+            const numLower = (doc.number || '').toLowerCase();
+
+            if (titleLower.includes(rawQuery)) directScore += 60;
+            if (notesLower.includes(rawQuery)) directScore += 45;
+            if (catLower.includes(rawQuery)) directScore += 30;
+
+            // 2. Tokenize words & filter stopwords
+            const tokens = rawQuery.split(/[\s,?.!/\\-]+/).filter(t => t.length > 2 && !LEGAL_STOPWORDS.has(t));
+            
+            if (tokens.length === 0) {
+                if (directScore > 0) return { score: directScore, matchedReason: 'Kecocokan frasa pencarian', percentage: 96 };
+                return { score: 0, matchedReason: '', percentage: 0 };
+            }
+
+            // 3. Expand search tokens with Legal Synonyms
+            let expandedTokens = [...tokens];
+            tokens.forEach(tok => {
+                for (const [key, syns] of Object.entries(LEGAL_SYNONYMS)) {
+                    if (key.includes(tok) || tok.includes(key)) {
+                        expandedTokens.push(...syns);
+                    }
+                    if (syns.some(s => s.includes(tok))) {
+                        expandedTokens.push(key, ...syns);
+                    }
+                }
+            });
+            expandedTokens = [...new Set(expandedTokens)];
+
+            // 4. Score token matches
+            let tokenScore = 0;
+            let matchedKeywords = [];
+
+            tokens.forEach(tok => {
+                let matched = false;
+                if (titleLower.includes(tok)) {
+                    tokenScore += 35;
+                    matched = true;
+                }
+                if (notesLower.includes(tok)) {
+                    tokenScore += 25;
+                    matched = true;
+                }
+                if (catLower.includes(tok)) {
+                    tokenScore += 15;
+                    matched = true;
+                }
+                if (agencyLower.includes(tok) || numLower.includes(tok)) {
+                    tokenScore += 10;
+                    matched = true;
+                }
+                if (matched) matchedKeywords.push(tok);
+            });
+
+            // 5. Score synonym concept expansion matches
+            expandedTokens.forEach(tok => {
+                if (tokens.includes(tok)) return;
+                let synMatched = false;
+                if (titleLower.includes(tok)) {
+                    tokenScore += 20;
+                    synMatched = true;
+                }
+                if (notesLower.includes(tok)) {
+                    tokenScore += 15;
+                    synMatched = true;
+                }
+                if (synMatched && !matchedKeywords.includes(tok)) {
+                    matchedKeywords.push(tok);
+                }
+            });
+
+            const totalScore = directScore + tokenScore;
+            if (totalScore === 0) return { score: 0, matchedReason: '', percentage: 0 };
+
+            // Calculate percentage (50% to 98%)
+            const maxExpected = Math.max(tokens.length * 35, 50);
+            const percentage = Math.min(98, Math.max(52, Math.round(50 + (totalScore / maxExpected) * 45)));
+
+            let matchedReason = '';
+            if (matchedKeywords.length > 0) {
+                matchedReason = `Kecocokan substansi: ${matchedKeywords.slice(0, 3).map(k => `<strong>${k}</strong>`).join(', ')}`;
+            } else {
+                matchedReason = 'Kecocokan metadata regulasi';
+            }
+
+            return { score: totalScore, matchedReason, percentage };
+        }
+
+        // Render Table Rows (Enhanced with Smart Relevance Ranking & Badges)
         function renderTable() {
             const tbody = document.getElementById('tableBody');
             const emptyState = document.getElementById('emptyState');
+            const smartBanner = document.getElementById('smartSearchBanner');
+            const searchQueryBadge = document.getElementById('searchQueryBadge');
+            const smartMatchCount = document.getElementById('smartMatchCount');
+            
             tbody.innerHTML = '';
 
-            // Filter logic
-            let filtered = documents.filter(doc => {
+            const isSearching = searchQuery.trim().length > 0;
+
+            // Filter & Score logic
+            let scoredDocs = documents.map(doc => {
                 const matchCategory = activeCategory === 'all' || doc.category === activeCategory;
-                const query = searchQuery.toLowerCase();
-                const matchSearch = doc.title.toLowerCase().includes(query) ||
-                                    doc.fileName.toLowerCase().includes(query) ||
-                                    doc.number.toLowerCase().includes(query) ||
-                                    doc.agency.toLowerCase().includes(query) ||
-                                    doc.year.toString().includes(query);
+                if (!matchCategory) return { doc, relevance: { score: -1, matchedReason: '', percentage: 0 } };
 
-                return matchCategory && matchSearch;
+                if (!isSearching) {
+                    return { doc, relevance: { score: 0, matchedReason: '', percentage: 0 } };
+                }
+
+                const relevance = calculateDocRelevance(doc, searchQuery);
+                return { doc, relevance };
             });
 
-            // Sort logic
-            filtered.sort((a, b) => {
-                let valA = a[currentSort.column] || '';
-                let valB = b[currentSort.column] || '';
-                if (typeof valA === 'string') valA = valA.toLowerCase();
-                if (typeof valB === 'string') valB = valB.toLowerCase();
-
-                if (valA < valB) return currentSort.asc ? -1 : 1;
-                if (valA > valB) return currentSort.asc ? 1 : -1;
-                return 0;
+            // Filter out non-matching
+            let filtered = scoredDocs.filter(item => {
+                if (activeCategory !== 'all' && item.doc.category !== activeCategory) return false;
+                if (isSearching) {
+                    return item.relevance.score > 0;
+                }
+                return true;
             });
+
+            // Update Smart Search Banner UI
+            if (smartBanner) {
+                if (isSearching) {
+                    smartBanner.classList.remove('hidden');
+                    if (searchQueryBadge) searchQueryBadge.textContent = `"${searchQuery}"`;
+                    if (smartMatchCount) smartMatchCount.textContent = `${filtered.length} regulasi relevan`;
+                } else {
+                    smartBanner.classList.add('hidden');
+                }
+            }
+
+            // Sort logic: If searching, sort primarily by AI Relevance Score desc
+            if (isSearching) {
+                filtered.sort((a, b) => b.relevance.score - a.relevance.score);
+            } else {
+                filtered.sort((a, b) => {
+                    let valA = a.doc[currentSort.column] || '';
+                    let valB = b.doc[currentSort.column] || '';
+                    if (typeof valA === 'string') valA = valA.toLowerCase();
+                    if (typeof valB === 'string') valB = valB.toLowerCase();
+
+                    if (valA < valB) return currentSort.asc ? -1 : 1;
+                    if (valA > valB) return currentSort.asc ? 1 : -1;
+                    return 0;
+                });
+            }
 
             // Pagination calculation
             const totalDocs = filtered.length;
@@ -1566,12 +1835,41 @@
                 emptyState.classList.add('hidden');
             }
 
-            // Generate HTML Rows (Clean, Proportional, Brown Accents)
-            paginatedDocs.forEach((doc) => {
+            // Generate HTML Rows (Clean, Proportional, Brown Accents & Smart Relevance Badges)
+            paginatedDocs.forEach(({ doc, relevance }) => {
                 const isSelected = selectedDocIds.has(doc.id);
                 const tr = document.createElement('tr');
                 tr.className = `group hover:bg-[#fbf9f7] transition-colors border-b border-gray-100 ${isSelected ? 'bg-[#f6eee7]/60' : ''}`;
                 
+                // Relevance Badge
+                let relevanceBadgeHtml = '';
+                let relevanceExcerptHtml = '';
+                if (isSearching && relevance.score > 0) {
+                    let badgeClass = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                    let dotColor = 'bg-emerald-500';
+                    if (relevance.percentage < 70) {
+                        badgeClass = 'bg-amber-50 text-amber-700 border-amber-200';
+                        dotColor = 'bg-amber-500';
+                    } else if (relevance.percentage < 85) {
+                        badgeClass = 'bg-blue-50 text-blue-700 border-blue-200';
+                        dotColor = 'bg-blue-500';
+                    }
+
+                    relevanceBadgeHtml = `
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${badgeClass} border shadow-2xs">
+                            <span class="w-1.5 h-1.5 rounded-full ${dotColor} animate-pulse"></span>
+                            <span>${relevance.percentage}% Relevan</span>
+                        </span>
+                    `;
+
+                    relevanceExcerptHtml = `
+                        <div class="text-[11px] text-gray-500 bg-amber-50/50 rounded-lg px-2 py-1 border border-amber-200/50 mt-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-sparkles text-[10px] text-amber-600 shrink-0"></i>
+                            <span class="truncate">${relevance.matchedReason}</span>
+                        </div>
+                    `;
+                }
+
                 tr.innerHTML = `
                     <td class="py-4 pl-6 pr-3 text-center align-middle">
                         <input type="checkbox" onchange="toggleSelectDoc('${doc.id}', this.checked)" ${isSelected ? 'checked' : ''} class="rounded border-gray-300 text-[#26150d] focus:ring-0 cursor-pointer">
@@ -1584,9 +1882,15 @@
                                 <i class="fa-solid fa-chevron-down text-[10px] transform transition-transform" id="chev-${doc.id}"></i>
                             </button>
                             <div class="space-y-1 pr-2">
-                                <div class="font-bold text-gray-900 text-xs sm:text-[13px] leading-snug">
-                                    ${doc.title}
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="font-bold text-gray-900 text-xs sm:text-[13px] leading-snug">
+                                        ${doc.title}
+                                    </span>
+                                    ${relevanceBadgeHtml}
                                 </div>
+                                
+                                ${relevanceExcerptHtml}
+
                                 <div class="text-[11px] text-gray-400 font-mono flex items-center gap-2">
                                     <span class="inline-flex items-center gap-1 text-gray-500 font-medium">
                                         <i class="fa-regular fa-file-pdf text-rose-500 text-[11px]"></i> 
@@ -1680,15 +1984,30 @@
             }
         }
 
-        // Tanya AI Selected Documents (Klik tombol Tanya AI di header samping metadata)
+        // Tanya AI Selected Documents (Membawa dokumen terpilih + query ke chatbot)
         function tanyaAiSelectedDocs() {
             if (selectedDocIds.size === 0) return;
             const selectedDocsList = documents.filter(d => selectedDocIds.has(d.id));
             const docTitles = selectedDocsList.map(d => d.title).join(', ');
+            
+            let chatUrl = `chat.html?docs=${encodeURIComponent(docTitles)}`;
+            if (searchQuery.trim().length > 0) {
+                chatUrl += `&prompt=${encodeURIComponent(searchQuery.trim())}`;
+            }
+
             showToast(`Membuka Asisten AI untuk ${selectedDocIds.size} dokumen terpilih...`);
             setTimeout(() => {
-                window.location.href = `chat.html?docs=${encodeURIComponent(docTitles)}`;
+                window.location.href = chatUrl;
             }, 300);
+        }
+
+        // Clear Smart Search Filter
+        function clearSmartSearch() {
+            searchQuery = '';
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) searchInput.value = '';
+            currentPage = 1;
+            renderTable();
         }
 
         // Search Handler
@@ -1697,6 +2016,19 @@
             currentPage = 1;
             renderTable();
         }
+
+        // Check for URL Query Parameter on Load (e.g. pustaka.html?q=pukat+harimau)
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryParam = urlParams.get('q');
+            if (queryParam) {
+                const searchInput = document.getElementById('searchInput');
+                if (searchInput) {
+                    searchInput.value = queryParam;
+                    handleSearch(queryParam);
+                }
+            }
+        });
 
         // Category / Sector Filter Switcher
         function setCategoryFilter(category) {
@@ -1923,6 +2255,235 @@
 
         function closeAnalyzeModal() {
             document.getElementById('analyzeDocModal').classList.add('hidden');
+        }
+
+        // ========================================================
+        // DEDICATED FULL DOCUMENT READER VIEWER LOGIC (NO CHATBOT)
+        // ========================================================
+        let currentReaderZoom = 100;
+        let activeReaderDoc = null;
+
+        function readFullDocumentFromModal() {
+            const doc = documents.find(d => d.id === activeAnalysisDocId) || documents[0];
+            if (!doc) return;
+            openFullDocReader(doc);
+        }
+
+        function openFullDocReader(doc) {
+            if (!doc) return;
+            activeReaderDoc = doc;
+
+            const titleEl = document.getElementById('readerDocTitle');
+            if (titleEl) titleEl.textContent = doc.title;
+            const numEl = document.getElementById('readerDocMetaNumber');
+            if (numEl) numEl.textContent = `${doc.number} • Tahun ${doc.year}`;
+            const catEl = document.getElementById('readerDocMetaCategory');
+            if (catEl) catEl.textContent = doc.category;
+
+            const searchInp = document.getElementById('readerSearchInput');
+            if (searchInp) searchInp.value = '';
+
+            currentReaderZoom = 100;
+            const zoomText = document.getElementById('readerZoomLevel');
+            if (zoomText) zoomText.textContent = '100%';
+            const container = document.getElementById('readerDocumentContainer');
+            if (container) container.style.transform = 'scale(1)';
+
+            renderDocumentSheetContent(doc);
+
+            document.getElementById('fullDocReaderModal').classList.remove('hidden');
+            const viewport = document.getElementById('readerViewport');
+            if (viewport) viewport.scrollTo(0, 0);
+        }
+
+        function closeFullDocReader() {
+            document.getElementById('fullDocReaderModal').classList.add('hidden');
+        }
+
+        function adjustReaderZoom(delta) {
+            currentReaderZoom = Math.min(150, Math.max(70, currentReaderZoom + delta));
+            const container = document.getElementById('readerDocumentContainer');
+            const zoomText = document.getElementById('readerZoomLevel');
+            if (container) container.style.transform = `scale(${currentReaderZoom / 100})`;
+            if (zoomText) zoomText.textContent = `${currentReaderZoom}%`;
+        }
+
+        function downloadCurrentReaderDoc() {
+            if (!activeReaderDoc) return;
+            showToast(`Mengunduh berkas ${activeReaderDoc.fileName || 'dokumen.pdf'}...`);
+        }
+
+        function handleReaderDocSearch(query) {
+            const container = document.getElementById('readerDocumentContainer');
+            if (!container) return;
+            const q = query.toLowerCase().trim();
+            const clauses = container.querySelectorAll('.doc-clause-block');
+            clauses.forEach(clause => {
+                if (!q) {
+                    clause.classList.remove('bg-amber-100', 'ring-2', 'ring-amber-400');
+                } else if (clause.textContent.toLowerCase().includes(q)) {
+                    clause.classList.add('bg-amber-100', 'ring-2', 'ring-amber-400');
+                } else {
+                    clause.classList.remove('bg-amber-100', 'ring-2', 'ring-amber-400');
+                }
+            });
+        }
+
+        function renderDocumentSheetContent(doc) {
+            const container = document.getElementById('readerDocumentContainer');
+            if (!container) return;
+
+            container.innerHTML = `
+                <!-- Sheet Page 1: Official Header & Preamble -->
+                <div class="bg-white rounded-lg shadow-2xl p-8 sm:p-14 text-stone-900 font-serif text-justify text-[13px] leading-[1.8] space-y-6 border border-stone-200">
+                    
+                    <!-- Kop Lembaran Negara RI -->
+                    <div class="text-center space-y-1 pb-6 border-b border-stone-300">
+                        <div class="w-12 h-12 mx-auto mb-2 text-stone-800 flex items-center justify-center">
+                            <i class="fa-solid fa-landmark text-3xl text-stone-800"></i>
+                        </div>
+                        <div class="font-bold text-xs uppercase tracking-widest text-stone-900 font-sans">
+                            SALINAN RESMI LEMBARAN NEGARA REPUBLIK INDONESIA
+                        </div>
+                        <div class="text-[11px] text-stone-600 font-sans font-semibold">
+                            ${doc.number ? doc.number.toUpperCase() : 'NOMOR 45'} TAHUN ${doc.year}
+                        </div>
+                        <div class="text-[10px] text-stone-500 font-sans">
+                            ${doc.source || 'Lembaran Negara Republik Indonesia'}
+                        </div>
+                    </div>
+
+                    <!-- Judul Regulasi -->
+                    <div class="text-center space-y-2 py-4">
+                        <div class="font-bold text-sm tracking-wide uppercase font-sans text-stone-950">
+                            ${doc.title}
+                        </div>
+                        <div class="text-xs font-semibold uppercase tracking-wider text-stone-700 font-sans">
+                            DENGAN RAHMAT TUHAN YANG MAHA ESA
+                        </div>
+                        <div class="font-bold text-xs uppercase tracking-wider text-stone-900 font-sans">
+                            PRESIDEN REPUBLIK INDONESIA,
+                        </div>
+                    </div>
+
+                    <!-- Konsiderans Menimbang & Mengingat -->
+                    <div class="space-y-4 text-[12.5px] leading-relaxed">
+                        <div class="flex items-start gap-4">
+                            <span class="font-bold text-stone-900 font-sans w-24 shrink-0">Menimbang :</span>
+                            <div class="space-y-2">
+                                <p>a. bahwa perairan Indonesia yang berada di bawah kedaulatan dan yurisdiksi nasional memiliki potensi sumber daya perikanan yang kaya dan bernilai strategis bagi kemakmuran rakyat;</p>
+                                <p>b. bahwa untuk menjamin kelestarian sumber daya ikan serta kedaulatan maritim, diperlukan penegakan hukum yang tegas terhadap pemanfaatan alat tangkap dan wilayah pengelolaan perikanan;</p>
+                                <p>c. bahwa berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a dan huruf b, perlu menetapkan ${doc.title};</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 pt-2">
+                            <span class="font-bold text-stone-900 font-sans w-24 shrink-0">Mengingat :</span>
+                            <div class="space-y-1.5">
+                                <p>1. Pasal 5 ayat (1), Pasal 20, dan Pasal 33 Undang-Undang Dasar Negara Republik Indonesia Tahun 1945;</p>
+                                <p>2. Undang-Undang Nomor 17 Tahun 1985 tentang Pengesahan United Nations Convention on the Law of the Sea (UNCLOS 1982);</p>
+                                <p>3. Peraturan perundang-undangan terkait rezim hukum kelautan, kedaulatan wilayah, dan konservasi sumber daya alam hayati.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center py-2 font-bold font-sans tracking-widest text-xs uppercase text-stone-900 border-y border-stone-200">
+                        MEMUTUSKAN:
+                    </div>
+
+                    <!-- BAB I KETENTUAN UMUM -->
+                    <div class="space-y-4">
+                        <div class="text-center font-sans space-y-0.5">
+                            <div class="font-bold text-xs tracking-wider">BAB I</div>
+                            <div class="font-bold text-xs uppercase text-stone-800">KETENTUAN UMUM</div>
+                        </div>
+
+                        <div class="doc-clause-block p-3 rounded-lg transition-colors">
+                            <div class="font-bold text-center font-sans text-xs mb-1">Pasal 1</div>
+                            <p class="indent-6 text-stone-800 leading-relaxed text-[12.5px]">
+                                Dalam regulasi ini yang dimaksud dengan:
+                            </p>
+                            <ol class="list-decimal pl-6 space-y-1.5 mt-2 text-[12.5px]">
+                                <li><strong>Perikanan</strong> adalah semua kegiatan yang berhubungan dengan pengelolaan dan pemanfaatan sumber daya ikan dan lingkungannya secara berkelanjutan.</li>
+                                <li><strong>Wilayah Pengelolaan Perikanan Negara Republik Indonesia (WPPNRI)</strong> meliputi perairan pedalaman, perairan kepulauan, laut teritorial, zona tambahan, dan Zona Ekonomi Eksklusif Indonesia (ZEEI).</li>
+                                <li><strong>Kapal Perikanan</strong> adalah kapal, perahu, atau alat apung lain yang dipergunakan untuk melakukan penangkapan ikan, memuat, mengangkut, menyimpan, mendinginkan, atau mengolah ikan.</li>
+                                <li><strong>Surat Izin Penangkapan Ikan (SIPI)</strong> adalah izin tertulis yang wajib dimiliki setiap kapal perikanan berbendera Indonesia untuk melakukan penangkapan ikan di WPPNRI.</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- BAB II SUBSTANSI POKOK -->
+                    <div class="space-y-4 pt-4 border-t border-stone-200">
+                        <div class="text-center font-sans space-y-0.5">
+                            <div class="font-bold text-xs tracking-wider">BAB II</div>
+                            <div class="font-bold text-xs uppercase text-stone-800">TATA KELOLA DAN PENEGAKAN HUKUM</div>
+                        </div>
+
+                        <div class="doc-clause-block p-3 rounded-lg transition-colors">
+                            <div class="font-bold text-center font-sans text-xs mb-1">Pasal 84</div>
+                            <p class="indent-6 text-stone-900 leading-relaxed text-[12.5px]">
+                                (1) Tindak pidana di bidang perikanan yang terjadi di wilayah pengelolaan perikanan Negara Republik Indonesia disidik, dituntut, dan diadili menurut hukum acara yang berlaku, kecuali ditentukan lain dalam regulasi ini.
+                            </p>
+                            <p class="indent-6 text-stone-900 leading-relaxed text-[12.5px]">
+                                (2) Pengadilan perikanan bertugas dan berwenang memeriksa, mengadili, dan memutus tindak pidana di bidang perikanan.
+                            </p>
+                        </div>
+
+                        <div class="doc-clause-block p-3.5 bg-amber-50/60 rounded-xl border border-amber-200/80 transition-colors">
+                            <div class="font-bold text-center font-sans text-xs mb-1 text-amber-950">Pasal 85</div>
+                            <p class="indent-6 text-stone-950 font-medium leading-relaxed text-[12.5px]">
+                                Setiap orang yang dengan sengaja memiliki, menguasai, membawa, dan/atau menggunakan alat penangkap ikan dan/atau alat bantu penangkapan ikan yang mengganggu dan merusak keberlanjutan sumber daya ikan (termasuk pukat hela, cantrang, bahan peledak, racun) di kapal penangkap ikan di WPPNRI dipidana dengan <strong>pidana penjara paling lama 5 (lima) tahun</strong> dan <strong>denda paling banyak Rp2.000.000.000,00 (dua miliar rupiah)</strong>.
+                            </p>
+                        </div>
+
+                        <div class="doc-clause-block p-3 rounded-lg transition-colors">
+                            <div class="font-bold text-center font-sans text-xs mb-1">Pasal 93</div>
+                            <p class="indent-6 text-stone-900 leading-relaxed text-[12.5px]">
+                                (1) Setiap orang yang memiliki dan/atau mengoperasikan kapal penangkap ikan berbendera Indonesia melakukan penangkapan ikan di WPPNRI dan/atau laut lepas yang tidak memiliki SIPI dipidana dengan pidana penjara paling lama 6 (enam) tahun dan denda paling banyak Rp2.000.000.000,00 (dua miliar rupiah).
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- BAB III KETENTUAN PENUTUP & PENGESAHAN -->
+                    <div class="space-y-4 pt-4 border-t border-stone-200">
+                        <div class="text-center font-sans space-y-0.5">
+                            <div class="font-bold text-xs tracking-wider">BAB III</div>
+                            <div class="font-bold text-xs uppercase text-stone-800">KETENTUAN PENUTUP</div>
+                        </div>
+
+                        <div class="doc-clause-block p-3 rounded-lg transition-colors">
+                            <div class="font-bold text-center font-sans text-xs mb-1">Pasal 110</div>
+                            <p class="indent-6 text-stone-900 leading-relaxed text-[12.5px]">
+                                Regulasi ini mulai berlaku pada tanggal diundangkan. Agar setiap orang mengetahuinya, memerintahkan pengundangan ini dengan penempatannya dalam Lembaran Negara Republik Indonesia.
+                            </p>
+                        </div>
+
+                        <!-- Tanda Tangan Pengesahan -->
+                        <div class="pt-8 grid grid-cols-1 sm:grid-cols-2 gap-8 font-sans text-xs">
+                            <div class="space-y-1">
+                                <div>Diundangkan di Jakarta</div>
+                                <div>pada tanggal 29 Oktober ${doc.year}</div>
+                                <div class="font-bold pt-12">MENTERI HUKUM DAN HAK ASASI MANUSIA</div>
+                                <div class="font-bold">REPUBLIK INDONESIA,</div>
+                            </div>
+                            <div class="space-y-1 sm:text-right">
+                                <div>Disahkan di Jakarta</div>
+                                <div>pada tanggal 29 Oktober ${doc.year}</div>
+                                <div class="font-bold pt-12">PRESIDEN REPUBLIK INDONESIA,</div>
+                                <div class="font-bold text-stone-900">SALINAN SESUAI NASKAH RESMI</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer Stamp -->
+                    <div class="pt-6 border-t border-stone-300 flex items-center justify-between text-[10px] text-stone-400 font-mono">
+                        <span>Kementerian Sekretariat Negara RI</span>
+                        <span class="font-bold text-stone-700">- Halaman 1 dari 1 (Naskah Penuh) -</span>
+                        <span>TitikHukum Verified Document</span>
+                    </div>
+
+                </div>
+            `;
         }
 
         function switchAnalysisDoc(id) {

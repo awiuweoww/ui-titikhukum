@@ -1451,9 +1451,31 @@ Dikutip dari TitikHukum AI (Naskah Resmi Lembaran Negara RI).`;
             }
         }
 
-        // Initialize resizer on load
+        // Initialize resizer and handle URL query parameters (?docs=...&prompt=...)
         window.addEventListener('DOMContentLoaded', () => {
             initSplitResizer();
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const docsParam = urlParams.get('docs');
+            const promptParam = urlParams.get('prompt');
+
+            if (docsParam) {
+                const docBadge = document.getElementById('topActiveDocBadge');
+                const docName = document.getElementById('topActiveDocName');
+                if (docBadge && docName) {
+                    docName.textContent = decodeURIComponent(docsParam);
+                    docBadge.classList.remove('hidden');
+                    docBadge.classList.add('flex');
+                }
+            }
+
+            if (promptParam) {
+                const chatInput = document.getElementById('chatInput');
+                if (chatInput) {
+                    chatInput.value = decodeURIComponent(promptParam);
+                    chatInput.focus();
+                }
+            }
         });
     </script>
 

@@ -1,0 +1,1384 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pusat Evaluasi AI - Portal Ahli Hukum Titik Hukum</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Flaticon Uicons CDN -->
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#26150d',
+                            darkRed: '#1f0f08',
+                            ruby: '#381d12',
+                            crimson: '#4a2717',
+                            accent: '#2b170d',
+                            dark: '#0f172a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fafaf9;
+        }
+
+        /* Fixed Dark Courtroom Brown Sticky Navbar */
+        .navbar-brown {
+            background-color: #211209 !important;
+            background: linear-gradient(180deg, rgba(35, 19, 11, 0.98) 0%, rgba(26, 14, 8, 0.98) 100%) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5) !important;
+            border-bottom: 1px solid rgba(85, 45, 25, 0.8) !important;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c7c7c7;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+
+        /* Modal backdrop animation */
+        .modal-backdrop {
+            animation: fadeIn 0.2s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.97); }
+            to { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#fafaf9] text-gray-900 antialiased selection:bg-[#2e170d] selection:text-white">
+
+    <!-- ======================================================== -->
+    <!-- 1. FIXED TOP NAVBAR                                      -->
+    <!-- ======================================================== -->
+    <header id="mainNavbar" class="fixed top-0 left-0 right-0 z-50 w-full py-4 navbar-brown">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="navbarInner" class="flex items-center justify-between">
+                
+                <!-- Left: Titik Hukum Brand Logo with Expert Badge -->
+                <a href="index.html" class="flex items-center gap-2.5 group cursor-pointer" title="Titik Hukum - Portal Ahli Hukum">
+                    <img src="../assets/logo-white.png" alt="Titik Hukum Logo" class="h-8 sm:h-9 object-contain transition-transform duration-300 group-hover:scale-105" />
+                    <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-wider uppercase bg-rose-500/20 text-rose-300 border border-rose-500/40">AHLI HUKUM</span>
+                </a>
+
+                <!-- Center: Menu Navigation Links (Active on Evaluasi AI) -->
+                <nav class="hidden md:flex items-center gap-7 lg:gap-9 text-[13px]">
+                    <a href="index.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm cursor-pointer">
+                        Beranda
+                    </a>
+                    <a href="pustaka.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Pustaka Dokumen
+                    </a>
+                    <a href="chat.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm flex items-center gap-1.5">
+                        <span>Asisten Hukum</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-extrabold bg-white/20 text-white backdrop-blur-xs">AI</span>
+                    </a>
+                    <!-- Active Indicator on Evaluasi AI -->
+                    <a href="evaluasi.html" class="text-white font-bold transition-all duration-300 transform hover:scale-110 hover:text-white py-1 inline-block drop-shadow-sm relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white/80">
+                        Evaluasi AI
+                    </a>
+                    <a href="profil.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Profil Saya
+                    </a>
+                </nav>
+
+                <!-- Right: Language, Theme & Logout Buttons -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    
+                    <!-- Language Switcher -->
+                    <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1 text-white/80 hover:text-white text-xs font-semibold transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1" title="Ganti Bahasa (EN / ID)">
+                        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24">
+                            <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+                        </svg>
+                        <span id="navLangLabel" class="font-bold text-xs tracking-wide">EN</span>
+                    </button>
+
+                    <!-- Theme Dark/Light Mode Icon Button -->
+                    <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-white/90 hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1 shrink-0" title="Ganti Mode Tema (Terang / Gelap)">
+                        <span id="navThemeIconContainer" class="inline-flex items-center justify-center w-5 h-5 shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                                <circle cx="12" cy="12" r="4.5"></circle>
+                                <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                                <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                                <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                                <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                                <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                                <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                                <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <!-- Logout / User Badge Button -->
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-white/40 bg-white/10 text-white hover:bg-rose-600 hover:border-rose-600 hover:text-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1" title="Keluar dari akun ahli hukum">
+                        <i class="fa-solid fa-graduation-cap text-rose-400 text-xs"></i>
+                        <span>Hukum (Keluar)</span>
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-8.5 h-8.5 flex items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white hover:bg-white hover:text-gray-900 transition ml-1" title="Menu Navigasi">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-sm"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Overlay Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-3">
+            <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
+                <a href="index.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Beranda</a>
+                <a href="pustaka.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Pustaka Dokumen</a>
+                <a href="chat.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Asisten Hukum AI</a>
+                <a href="evaluasi.html" onclick="toggleMobileMenu()" class="block py-2 text-white font-bold border-b border-white/10">Evaluasi AI</a>
+                <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Profil Saya</a>
+                
+                <div class="pt-2">
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="w-full py-2.5 rounded-lg border border-rose-500 bg-rose-600 text-white text-xs font-semibold flex items-center justify-center gap-2">
+                        <i class="fi fi-rr-sign-out-alt text-xs"></i>
+                        <span>Hukum (Keluar)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ======================================================== -->
+    <!-- 2. MAIN CONTENT WRAPPER                                  -->
+    <!-- ======================================================== -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 pb-16">
+        
+        <!-- Page Title & Header Bar -->
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-zinc-200">
+            <div>
+                <div class="flex items-center gap-2.5">
+                    <span class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-rose-100 text-rose-900 border border-rose-300">
+                        Legal AI Audit Room
+                    </span>
+                    <span class="text-xs text-zinc-500">Standar Riset Regulasi BRIN</span>
+                </div>
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 tracking-tight mt-1.5">
+                    Pusat Evaluasi & Validasi Penalaran AI
+                </h1>
+                <p class="text-xs sm:text-sm text-zinc-500 mt-1 max-w-3xl leading-relaxed">
+                    Uji keabsahan rujukan pasal, hierarki hukum perundang-undangan, dan deteksi halusinasi pada keluaran Chatbot AI untuk penyempurnaan sistem RAG Titik Hukum.
+                </p>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-2.5 shrink-0">
+                <button type="button" onclick="exportMyEvaluationsCSV()" class="px-3.5 py-2 rounded-xl border border-zinc-300 bg-white hover:bg-zinc-50 text-zinc-700 text-xs font-semibold transition shadow-xs flex items-center gap-2">
+                    <i class="fi fi-rr-file-spreadsheet text-zinc-900 text-sm"></i>
+                    <span>Ekspor Rekap CSV</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- 3. LIVE REVIEWER METRICS STATS CARDS                     -->
+        <!-- ======================================================== -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-6 mb-8">
+            
+            <!-- Card 1: Total Evaluasi Saya -->
+            <div class="bg-white rounded-2xl p-5 border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-zinc-500">Total Evaluasi Saya</span>
+                    <i class="fi fi-rr-document-signed text-amber-800/60 text-sm"></i>
+                </div>
+                <div class="mt-3">
+                    <div id="statMyTotal" class="text-3xl font-extrabold text-amber-900 tracking-tight">5</div>
+                    <p class="text-[11px] text-zinc-400 mt-1">Laporan audit terverifikasi</p>
+                </div>
+            </div>
+
+            <!-- Card 2: Valid Sesuai -->
+            <div class="bg-white rounded-2xl p-5 border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-zinc-500">Valid & Sesuai</span>
+                    <i class="fi fi-rr-checkbox text-emerald-600/60 text-sm"></i>
+                </div>
+                <div class="mt-3">
+                    <div id="statValidCount" class="text-3xl font-extrabold text-emerald-600 tracking-tight">3</div>
+                    <p class="text-[11px] text-zinc-400 mt-1">Respon AI tepat secara doktrin</p>
+                </div>
+            </div>
+
+            <!-- Card 3: Koreksi Minor -->
+            <div class="bg-white rounded-2xl p-5 border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-zinc-500">Koreksi Minor</span>
+                    <i class="fi fi-rr-edit text-blue-600/60 text-sm"></i>
+                </div>
+                <div class="mt-3">
+                    <div id="statMinorCount" class="text-3xl font-extrabold text-blue-600 tracking-tight">1</div>
+                    <p class="text-[11px] text-zinc-400 mt-1">Penyesuaian redaksional</p>
+                </div>
+            </div>
+
+            <!-- Card 4: Perlu Revisi / Halusinasi -->
+            <div class="bg-white rounded-2xl p-5 border border-zinc-200/90 shadow-[0_1px_3px_rgba(0,0,0,0.04)]">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-semibold text-zinc-500">Perlu Revisi / Koreksi</span>
+                    <i class="fi fi-rr-triangle-warning text-rose-600/60 text-sm"></i>
+                </div>
+                <div class="mt-3">
+                    <div id="statRevisionCount" class="text-3xl font-extrabold text-rose-600 tracking-tight">1</div>
+                    <div class="flex items-center gap-1.5 text-[11px] text-rose-700/80 mt-1">
+                        <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+                        <span>Perlu perbaikan prompt / RAG</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ======================================================== -->
+        <!-- 4. FORMULIR INPUT LEMBAR AUDIT EVALUASI AI               -->
+        <!-- ======================================================== -->
+        <section id="formEvaluasiSection" class="mt-8 bg-white rounded-2xl border border-zinc-200 shadow-sm p-5 sm:p-7">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-5 border-b border-zinc-100">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center text-sm shrink-0 border border-amber-200">
+                        <i class="fi fi-rr-edit"></i>
+                    </div>
+                    <div>
+                        <h2 class="text-base sm:text-lg font-bold text-zinc-900">Formulir Lembar Uji & Evaluasi Respon AI</h2>
+                        <p class="text-xs text-zinc-500">Masukkan kasus uji hukum atau pilih dari template sampel uji coba.</p>
+                    </div>
+                </div>
+
+                <!-- Template Sampler Buttons -->
+                <div class="flex items-center gap-2">
+                    <span class="text-[11px] text-zinc-400 font-semibold uppercase">Sampel Cepat:</span>
+                    <button type="button" onclick="loadSampleCase(1)" class="px-2.5 py-1 rounded-lg border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-[11px] font-medium text-zinc-700 transition">
+                        UU ITE 2024
+                    </button>
+                    <button type="button" onclick="loadSampleCase(2)" class="px-2.5 py-1 rounded-lg border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-[11px] font-medium text-zinc-700 transition">
+                        KUHP 2026
+                    </button>
+                    <button type="button" onclick="loadSampleCase(3)" class="px-2.5 py-1 rounded-lg border border-zinc-200 bg-zinc-50 hover:bg-zinc-100 text-[11px] font-medium text-zinc-700 transition">
+                        Perlindungan Konsumen
+                    </button>
+                </div>
+            </div>
+
+            <!-- Form Body -->
+            <form id="evalForm" onsubmit="handleFormSubmit(event)" class="mt-6 space-y-5">
+                
+                <!-- Row 1: Kueri Kasus Uji & Rujukan Regulasi -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-800 mb-1.5">
+                            Pertanyaan Kasus Uji Hukum <span class="text-rose-500">*</span>
+                        </label>
+                        <input type="text" id="evalKueri" required placeholder="Contoh: Apakah pencemaran nama baik di medsos masih delik aduan dalam UU ITE 2024?" class="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-xs text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-800 mb-1.5">
+                            Rujukan Regulasi / Undang-Undang Terkait <span class="text-rose-500">*</span>
+                        </label>
+                        <input type="text" id="evalRegulasi" required placeholder="Contoh: UU No. 1 Tahun 2024 tentang Perubahan Kedua UU ITE (Pasal 27A & 45 Ayat 4)" class="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-xs text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition">
+                    </div>
+                </div>
+
+                <!-- Row 2: Output Respon Jawaban Chatbot AI -->
+                <div>
+                    <div class="flex items-center justify-between mb-1.5">
+                        <label class="block text-xs font-semibold text-zinc-800">
+                            Output Jawaban Chatbot AI yang Diuji <span class="text-rose-500">*</span>
+                        </label>
+                        <span class="text-[11px] text-zinc-400">Salin dari ruang dialog chat atau masukkan simulasi jawaban AI</span>
+                    </div>
+                    <textarea id="evalJawabanAi" rows="3" required placeholder="Tuliskan atau tempel jawaban chatbot yang dievaluasi..." class="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-xs text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition leading-relaxed"></textarea>
+                </div>
+
+                <!-- Row 3: Penilaian Status Validasi Interaktif (Modern Card UI) -->
+                <div class="p-5 rounded-2xl bg-zinc-50/80 border border-zinc-200/80 space-y-5">
+                    
+                    <!-- Section Title -->
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <label class="block text-xs font-bold text-zinc-800 uppercase tracking-wider">
+                                1. Status Validasi Yuridis <span class="text-rose-500">*</span>
+                            </label>
+                            <p class="text-[11px] text-zinc-500 mt-0.5">Pilih kualifikasi kesesuaian jawaban AI terhadap hukum positif</p>
+                        </div>
+                        <span id="selectedStatusTag" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5 shadow-2xs">
+                            <i class="fi fi-sr-check-circle text-emerald-600 text-xs"></i>
+                            <span>Valid & Sesuai</span>
+                        </span>
+                    </div>
+
+                    <!-- 4 Interactive Cards for Validation Status -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3" id="statusCardGrid">
+                        
+                        <!-- Option 1: Valid Sesuai (Selected by default) -->
+                        <div onclick="selectStatus('Valid Sesuai')" id="card-status-valid" class="status-option-card relative p-4 rounded-2xl border-2 border-emerald-500 bg-white cursor-pointer transition-all duration-200 shadow-sm flex flex-col justify-between opacity-100">
+                            <input type="radio" name="evalStatus" value="Valid Sesuai" checked class="hidden">
+                            <div>
+                                <div class="flex items-center justify-between mb-2.5">
+                                    <div class="w-8 h-8 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-sm">
+                                        <i class="fi fi-sr-check-circle"></i>
+                                    </div>
+                                    <span class="status-indicator-badge px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                        Terverifikasi
+                                    </span>
+                                </div>
+                                <h3 class="font-bold text-xs sm:text-sm text-zinc-900">Valid & Sesuai</h3>
+                                <p class="text-[11px] text-zinc-600 mt-1 leading-snug">Pasal, ayat, dan doktrin yuridis akurat tanpa pertentangan norma.</p>
+                            </div>
+                            <div class="mt-3 pt-2.5 border-t border-zinc-100 flex items-center text-[10px] font-medium text-emerald-700 gap-1.5">
+                                <i class="fi fi-rr-check text-emerald-600 text-[10px]"></i>
+                                <span>Rekomendasi Baseline Model</span>
+                            </div>
+                        </div>
+
+                        <!-- Option 2: Koreksi Minor -->
+                        <div onclick="selectStatus('Koreksi Minor')" id="card-status-minor" class="status-option-card relative p-4 rounded-2xl border border-zinc-200/90 bg-zinc-100/90 opacity-40 grayscale-[40%] hover:opacity-80 hover:grayscale-0 hover:bg-white cursor-pointer transition-all duration-200 shadow-none flex flex-col justify-between">
+                            <input type="radio" name="evalStatus" value="Koreksi Minor" class="hidden">
+                            <div>
+                                <div class="flex items-center justify-between mb-2.5">
+                                    <div class="w-8 h-8 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-sm">
+                                        <i class="fi fi-sr-edit"></i>
+                                    </div>
+                                    <span class="status-indicator-badge px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-blue-50 text-blue-700 border border-blue-200">
+                                        Redaksional
+                                    </span>
+                                </div>
+                                <h3 class="font-bold text-xs sm:text-sm text-zinc-900">Koreksi Minor</h3>
+                                <p class="text-[11px] text-zinc-500 mt-1 leading-snug">Substansi norma benar, ada frasa hukum atau ejaan kurang baku.</p>
+                            </div>
+                            <div class="mt-3 pt-2.5 border-t border-zinc-100 flex items-center text-[10px] font-medium text-zinc-500 gap-1.5">
+                                <i class="fi fi-rr-pencil text-blue-600 text-[10px]"></i>
+                                <span>Penyesuaian Nomenklatur</span>
+                            </div>
+                        </div>
+
+                        <!-- Option 3: Perlu Revisi -->
+                        <div onclick="selectStatus('Perlu Revisi')" id="card-status-revisi" class="status-option-card relative p-4 rounded-2xl border border-zinc-200/90 bg-zinc-100/90 opacity-40 grayscale-[40%] hover:opacity-80 hover:grayscale-0 hover:bg-white cursor-pointer transition-all duration-200 shadow-none flex flex-col justify-between">
+                            <input type="radio" name="evalStatus" value="Perlu Revisi" class="hidden">
+                            <div>
+                                <div class="flex items-center justify-between mb-2.5">
+                                    <div class="w-8 h-8 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center text-sm">
+                                        <i class="fi fi-sr-triangle-warning"></i>
+                                    </div>
+                                    <span class="status-indicator-badge px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-amber-50 text-amber-700 border border-amber-200">
+                                        Substansi
+                                    </span>
+                                </div>
+                                <h3 class="font-bold text-xs sm:text-sm text-zinc-900">Perlu Revisi</h3>
+                                <p class="text-[11px] text-zinc-500 mt-1 leading-snug">Tafsir aturan keliru, norma kedaluwarsa, atau hierarki hukum tidak sinkron.</p>
+                            </div>
+                            <div class="mt-3 pt-2.5 border-t border-zinc-100 flex items-center text-[10px] font-medium text-zinc-500 gap-1.5">
+                                <i class="fi fi-rr-refresh text-amber-600 text-[10px]"></i>
+                                <span>Koreksi Prompt / RAG</span>
+                            </div>
+                        </div>
+
+                        <!-- Option 4: Halusinasi -->
+                        <div onclick="selectStatus('Halusinasi')" id="card-status-halusinasi" class="status-option-card relative p-4 rounded-2xl border border-zinc-200/90 bg-zinc-100/90 opacity-40 grayscale-[40%] hover:opacity-80 hover:grayscale-0 hover:bg-white cursor-pointer transition-all duration-200 shadow-none flex flex-col justify-between">
+                            <input type="radio" name="evalStatus" value="Halusinasi" class="hidden">
+                            <div>
+                                <div class="flex items-center justify-between mb-2.5">
+                                    <div class="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-sm">
+                                        <i class="fi fi-sr-cross-circle"></i>
+                                    </div>
+                                    <span class="status-indicator-badge px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-rose-50 text-rose-700 border border-rose-200">
+                                        Anomali
+                                    </span>
+                                </div>
+                                <h3 class="font-bold text-xs sm:text-sm text-zinc-900">Halusinasi AI</h3>
+                                <p class="text-[11px] text-zinc-500 mt-1 leading-snug">Rujukan pasal fiktif, nomor UU keliru total, atau mengutip aturan palsu.</p>
+                            </div>
+                            <div class="mt-3 pt-2.5 border-t border-zinc-100 flex items-center text-[10px] font-medium text-rose-600 gap-1.5">
+                                <i class="fi fi-rr-ban text-rose-600 text-[10px]"></i>
+                                <span>Reject Output</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Hidden input for auto score calculation based on status -->
+                    <input type="hidden" id="evalSkor" value="95">
+
+                </div>
+
+                <!-- Row 4: 4 Parameter Audit Hukum BRIN -->
+                <div class="pt-2">
+                    <label class="block text-xs font-semibold text-zinc-800 mb-2">Penilaian 4 Parameter Audit Hukum Standar BRIN</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                        
+                        <!-- Param 1 -->
+                        <div class="p-3 bg-zinc-50 border border-zinc-200 rounded-xl">
+                            <span class="text-[11px] font-bold text-zinc-700 block mb-1">1. Akurasi Rujukan Pasal</span>
+                            <select id="evalParam1" class="w-full px-2.5 py-1.5 bg-white border border-zinc-300 rounded-lg text-xs text-zinc-800 focus:outline-none">
+                                <option value="Akurat (Pasal 27A & 45 Ayat 4)">Akurat & Tepat Ayat</option>
+                                <option value="Pasal Tepat, Tafsir Kurang">Pasal Tepat, Tafsir Kurang</option>
+                                <option value="Rujukan Pasal Kedaluwarsa">Rujukan Pasal Kedaluwarsa</option>
+                                <option value="Pasal Fiktif / Salah">Pasal Fiktif / Salah</option>
+                            </select>
+                        </div>
+
+                        <!-- Param 2 -->
+                        <div class="p-3 bg-zinc-50 border border-zinc-200 rounded-xl">
+                            <span class="text-[11px] font-bold text-zinc-700 block mb-1">2. Hierarki Regulasi (UU 12/11)</span>
+                            <select id="evalParam2" class="w-full px-2.5 py-1.5 bg-white border border-zinc-300 rounded-lg text-xs text-zinc-800 focus:outline-none">
+                                <option value="Sesuai Hierarki Perundang-undangan">Sesuai Hierarki Hukum</option>
+                                <option value="Mengabaikan Putusan MK">Mengabaikan Putusan MK</option>
+                                <option value="Konflik Peraturan Lebih Rendah">Konflik Aturan Pelaksana</option>
+                                <option value="Tidak Memperhatikan Asas Lex Specialis">Abai Lex Specialis</option>
+                            </select>
+                        </div>
+
+                        <!-- Param 3 -->
+                        <div class="p-3 bg-zinc-50 border border-zinc-200 rounded-xl">
+                            <span class="text-[11px] font-bold text-zinc-700 block mb-1">3. Bahasa & Doktrin Hukum</span>
+                            <select id="evalParam3" class="w-full px-2.5 py-1.5 bg-white border border-zinc-300 rounded-lg text-xs text-zinc-800 focus:outline-none">
+                                <option value="Baku & Presisi Doktrin">Baku & Presisi Doktrin</option>
+                                <option value="Frasa Kurang Baku">Frasa Kurang Baku</option>
+                                <option value="Redaksi Terlalu Awam">Redaksi Terlalu Awam</option>
+                                <option value="Keliru Konstruksi Delik">Keliru Konstruksi Delik</option>
+                            </select>
+                        </div>
+
+                        <!-- Param 4 -->
+                        <div class="p-3 bg-zinc-50 border border-zinc-200 rounded-xl">
+                            <span class="text-[11px] font-bold text-zinc-700 block mb-1">4. Risiko Halusinasi Teks</span>
+                            <select id="evalParam4" class="w-full px-2.5 py-1.5 bg-white border border-zinc-300 rounded-lg text-xs text-zinc-800 focus:outline-none">
+                                <option value="Sangat Rendah (0-5%)">Sangat Rendah (0-5%)</option>
+                                <option value="Rendah (5-15%)">Rendah (5-15%)</option>
+                                <option value="Sedang (15-30%)">Sedang (15-30%)</option>
+                                <option value="Tinggi (>30% Opini Fiktif)">Tinggi (>30% Fiktif)</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Row 5: Catatan Analisis Ahli & Rekomendasi Prompt RAG -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 pt-2">
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-800 mb-1.5">
+                            Catatan Temuan & Analisis Koreksi Yuridis <span class="text-rose-500">*</span>
+                        </label>
+                        <textarea id="evalCatatan" rows="3" required placeholder="Jelaskan analisis hukum mengapa jawaban AI ini valid/keliru, rujukan norma penjelas, atau putusan pengadilan pendukung..." class="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-xs text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition leading-relaxed"></textarea>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-zinc-800 mb-1.5">
+                            Rekomendasi Pembaruan Prompt & RAG Database <span class="text-rose-500">*</span>
+                        </label>
+                        <textarea id="evalRekomendasi" rows="3" required placeholder="Rekomendasi untuk tim engineer AI (contoh: prioritaskan chunk pasal 27A revisi terbaru, instruksikan AI membedakan delik aduan absolut)..." class="w-full px-4 py-2.5 bg-zinc-50 border border-zinc-300 rounded-xl text-xs text-zinc-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition leading-relaxed"></textarea>
+                    </div>
+                </div>
+
+                <!-- Form Action Buttons -->
+                <div class="pt-4 flex flex-col sm:flex-row items-center justify-between gap-3 border-t border-zinc-100">
+                    <span class="text-[11px] text-zinc-400">
+                        <i class="fi fi-rr-info text-zinc-500 mr-1"></i>
+                        Data evaluasi akan tersinkronisasi otomatis ke Dashboard Admin & Tim Engineer AI.
+                    </span>
+                    <div class="flex items-center gap-3 w-full sm:w-auto">
+                        <button type="reset" class="px-4 py-2.5 rounded-xl border border-zinc-300 bg-white hover:bg-zinc-50 text-zinc-700 text-xs font-semibold transition flex-1 sm:flex-initial">
+                            Reset Form
+                        </button>
+                        <button type="submit" class="px-6 py-2.5 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-semibold transition shadow-sm active:scale-95 flex items-center justify-center gap-2 flex-1 sm:flex-initial">
+                            <i class="fi fi-rr-disk text-xs"></i>
+                            <span>Simpan & Kirim Evaluasi</span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </section>
+
+        <!-- ======================================================== -->
+        <!-- 5. TABEL RIWAYAT AUDIT EVALUASI SAYA                     -->
+        <!-- ======================================================== -->
+        <section class="mt-10">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+                <div>
+                    <h2 class="text-lg font-bold text-zinc-900">Riwayat Lembar Audit Saya</h2>
+                    <p class="text-xs text-zinc-500">Daftar evaluasi dan uji akurasi AI yang telah Anda serahkan.</p>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="flex items-center gap-2.5">
+                    <div class="relative">
+                        <i class="fi fi-rr-search absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs"></i>
+                        <input type="text" id="filterSearchInput" oninput="renderTable()" placeholder="Cari kueri / regulasi..." class="pl-9 pr-4 py-2 rounded-xl bg-white border border-zinc-300 text-xs text-zinc-800 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 w-48 sm:w-60">
+                    </div>
+                    <select id="filterStatusSelect" onchange="renderTable()" class="px-3 py-2 rounded-xl bg-white border border-zinc-300 text-xs text-zinc-800 focus:outline-none font-medium">
+                        <option value="ALL">Semua Status</option>
+                        <option value="Valid Sesuai">Valid Sesuai</option>
+                        <option value="Koreksi Minor">Koreksi Minor</option>
+                        <option value="Perlu Revisi">Perlu Revisi</option>
+                        <option value="Halusinasi">Halusinasi</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Compact Table Container -->
+            <div class="bg-white rounded-2xl border border-zinc-200 shadow-xs overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-zinc-50/80 border-b border-zinc-200 text-[11px] font-bold text-zinc-500 uppercase tracking-wider">
+                            <th onclick="toggleSort('kueri')" class="py-3 px-4 w-[42%] cursor-pointer hover:bg-zinc-100/90 transition select-none group" title="Urutkan berdasarkan Kasus Uji / Regulasi">
+                                <div class="flex items-center gap-1.5">
+                                    <span>Kasus Uji & Regulasi Rujukan</span>
+                                    <span id="sortIcon_kueri" class="text-zinc-400 group-hover:text-zinc-700 transition text-[10px]"><i class="fa-solid fa-sort"></i></span>
+                                </div>
+                            </th>
+                            <th onclick="toggleSort('skor')" class="py-3 px-4 w-[20%] cursor-pointer hover:bg-zinc-100/90 transition select-none group" title="Urutkan berdasarkan Skor Akurasi">
+                                <div class="flex items-center gap-1.5">
+                                    <span>Status & Skor Akurasi</span>
+                                    <span id="sortIcon_skor" class="text-zinc-400 group-hover:text-zinc-700 transition text-[10px]"><i class="fa-solid fa-sort"></i></span>
+                                </div>
+                            </th>
+                            <th onclick="toggleSort('param1')" class="py-3 px-4 w-[24%] cursor-pointer hover:bg-zinc-100/90 transition select-none group" title="Urutkan berdasarkan Parameter">
+                                <div class="flex items-center gap-1.5">
+                                    <span>Parameter Ringkas</span>
+                                    <span id="sortIcon_param1" class="text-zinc-400 group-hover:text-zinc-700 transition text-[10px]"><i class="fa-solid fa-sort"></i></span>
+                                </div>
+                            </th>
+                            <th class="py-3 px-4 w-[14%] text-right">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody id="evalTableBody" class="divide-y divide-zinc-100 text-xs text-zinc-700">
+                        <!-- Rendered via JS -->
+                    </tbody>
+                </table>
+
+                <!-- Empty State -->
+                <div id="evalEmptyState" class="hidden py-12 text-center">
+                    <i class="fi fi-rr-inbox text-3xl text-zinc-300 mb-2 block"></i>
+                    <p class="text-xs font-bold text-zinc-600">Belum ada data evaluasi yang sesuai</p>
+                    <p class="text-[11px] text-zinc-400 mt-0.5">Gunakan formulir di atas untuk menambahkan hasil audit baru.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ======================================================== -->
+    <!-- 6. MODAL RINCIAN DETAIL EVALUASI                         -->
+    <!-- ======================================================== -->
+    <div id="evalDetailModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 sm:p-6">
+        <div class="bg-white w-full max-w-4xl rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden modal-backdrop relative max-h-[90vh] flex flex-col">
+            
+            <!-- Modal Header -->
+            <div class="bg-[#211209] text-white p-5 sm:px-7 sm:py-5 flex items-center justify-between shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-white/10 border border-white/20 flex items-center justify-center text-amber-300">
+                        <i class="fi fi-rr-document-signed text-base"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white">Lembar Detail Audit Evaluasi AI</h3>
+                        <p class="text-[11px] text-white/70">Verifikasi yuridis resmi sistem Titik Hukum BRIN.</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeEvalDetailModal()" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition">
+                    <i class="fi fi-rr-cross-small text-base"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content (Scrollable) -->
+            <div class="p-6 sm:p-7 overflow-y-auto space-y-5 text-xs text-zinc-800 flex-1">
+                
+                <!-- Info Reviewer & Skor -->
+                <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div>
+                        <span class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider block">Reviewer Ahli</span>
+                        <span class="font-bold text-zinc-900 text-sm" id="modalReviewer">Tenaga Ahli Hukum</span>
+                        <span class="text-[11px] text-zinc-500 block" id="modalInstitusi">BRIN (Badan Riset & Inovasi Nasional)</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span id="modalStatusBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-300">Valid Sesuai</span>
+                        <span id="modalSkorBadge" class="px-3 py-1 rounded-full text-xs font-bold bg-zinc-900 text-white">Skor: 95%</span>
+                    </div>
+                </div>
+
+                <!-- Kasus Uji & Regulasi -->
+                <div>
+                    <span class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">Pertanyaan Kasus Uji Hukum</span>
+                    <p class="font-semibold text-zinc-900 text-xs mt-1 p-3 bg-zinc-50 rounded-xl border border-zinc-200" id="modalKueri"></p>
+                </div>
+
+                <div>
+                    <span class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">Rujukan Dasar Regulasi</span>
+                    <p class="text-zinc-700 text-xs mt-1 p-3 bg-zinc-50 rounded-xl border border-zinc-200 font-medium" id="modalRegulasi"></p>
+                </div>
+
+                <!-- Output AI -->
+                <div>
+                    <span class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">Output Jawaban Chatbot AI yang Diuji</span>
+                    <div class="p-3.5 bg-zinc-900 text-zinc-100 rounded-xl text-xs font-mono leading-relaxed mt-1 whitespace-pre-line" id="modalJawabanAi"></div>
+                </div>
+
+                <!-- 4 Parameters Grid -->
+                <div>
+                    <span class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider block mb-2">Hasil Audit 4 Parameter Regulasi BRIN</span>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+                        <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+                            <span class="text-[11px] text-zinc-500 block">1. Akurasi Pasal</span>
+                            <span class="font-bold text-zinc-900" id="modalParam1"></span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+                            <span class="text-[11px] text-zinc-500 block">2. Hierarki Regulasi (UU 12/11)</span>
+                            <span class="font-bold text-zinc-900" id="modalParam2"></span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+                            <span class="text-[11px] text-zinc-500 block">3. Bahasa & Doktrin</span>
+                            <span class="font-bold text-zinc-900" id="modalParam3"></span>
+                        </div>
+                        <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+                            <span class="text-[11px] text-zinc-500 block">4. Risiko Halusinasi</span>
+                            <span class="font-bold text-zinc-900" id="modalParam4"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Catatan Koreksi -->
+                <div>
+                    <span class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">Catatan Temuan & Analisis Koreksi Ahli</span>
+                    <div class="p-3.5 bg-amber-50/60 rounded-xl border border-amber-200 text-amber-950 leading-relaxed mt-1" id="modalCatatan"></div>
+                </div>
+
+                <!-- Rekomendasi RAG -->
+                <div>
+                    <span class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">Rekomendasi Pembaruan Prompt & Database RAG</span>
+                    <div class="p-3.5 bg-blue-50/60 rounded-xl border border-blue-200 text-blue-950 leading-relaxed mt-1" id="modalRekomendasi"></div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="p-4 sm:px-7 bg-zinc-50 border-t border-zinc-200 flex items-center justify-between shrink-0">
+                <span class="text-[11px] text-zinc-400" id="modalWaktu">Waktu Evaluasi: -</span>
+                <button type="button" onclick="closeEvalDetailModal()" class="px-5 py-2 rounded-xl bg-zinc-900 hover:bg-black text-white text-xs font-semibold transition">
+                    Tutup
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- MODAL KONFIRMASI HAPUS EVALUASI                          -->
+    <!-- ======================================================== -->
+    <div id="deleteConfirmModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs items-center justify-center p-4 sm:p-6">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden modal-backdrop relative p-6 animate-in zoom-in-95 duration-150">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-100 text-rose-600 flex items-center justify-center shrink-0">
+                    <i class="fi fi-rr-trash text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-sm sm:text-base font-bold text-zinc-900">Hapus Lembar Audit?</h3>
+                    <p class="text-xs text-zinc-500 mt-1 leading-relaxed">
+                        Tindakan ini tidak dapat dibatalkan. Catatan audit dan analisis yuridis ini akan dihapus secara permanen dari sistem.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-2.5 mt-6 pt-4 border-t border-zinc-100">
+                <button type="button" onclick="closeDeleteModal()" class="px-4 py-2 rounded-xl border border-zinc-300 bg-white hover:bg-zinc-100 text-zinc-700 text-xs font-semibold transition">
+                    Batal
+                </button>
+                <button type="button" id="confirmDeleteBtn" onclick="executeDeleteEvaluation()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition shadow-md shadow-rose-600/20 active:scale-95 flex items-center gap-1.5">
+                    <i class="fi fi-rr-trash text-xs"></i>
+                    <span>Ya, Hapus Data</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- 7. TOAST NOTIFIKASI                                      -->
+    <!-- ======================================================== -->
+    <div id="toastNotification" style="display: none; opacity: 0; transform: translateY(20px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);" class="fixed bottom-6 right-6 z-50 bg-zinc-900 text-white px-4 py-3 rounded-2xl shadow-2xl items-center gap-3 text-xs border border-white/10 pointer-events-none">
+        <div id="toastIcon" class="w-5 h-5 rounded-full bg-white/10 text-emerald-400 flex items-center justify-center text-xs shrink-0">
+            <i class="fi fi-rr-check"></i>
+        </div>
+        <span id="toastMessage" class="font-medium">Data berhasil disimpan</span>
+        <button type="button" onclick="hideToastImmediately()" class="text-zinc-400 hover:text-white transition ml-2 text-xs cursor-pointer pointer-events-auto" title="Tutup">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <!-- ======================================================== -->
+    <!-- JAVASCRIPT CONTROLLERS                                   -->
+    <!-- ======================================================== -->
+    <script>
+        const STORAGE_KEY = 'titikhukum_evaluations';
+
+        const DEFAULT_RECORDS = [
+            {
+                id: 'eval-001',
+                kueri: 'Apakah tindak pidana pencemaran nama baik di media sosial masih berstatus delik aduan dalam UU ITE 2024?',
+                regulasi: 'UU No. 1 Tahun 2024 tentang Perubahan Kedua UU ITE (Pasal 27A & Pasal 45 Ayat 4)',
+                reviewer: 'Tenaga Ahli Hukum (hukum1)',
+                institusi: 'BRIN (Badan Riset & Inovasi Nasional)',
+                status: 'Valid Sesuai',
+                skor: '96%',
+                param1: 'Akurat (Pasal 27A & 45 Ayat 4)',
+                param2: 'Sesuai Hierarki Hukum',
+                param3: 'Baku & Presisi Doktrin',
+                param4: 'Sangat Rendah (0-5%)',
+                catatan: 'AI menjawab dengan tepat bahwa Pasal 27A juncto Pasal 45 Ayat 4 UU 1/2024 secara eksplisit menegaskan delik aduan absolut (hanya dapat dituntut atas pengaduan korban langsung).',
+                rekomendasi: 'Pertahankan chunking pasal 27A dan berikan referensi silang ke SKB 3 Menteri tentang Pedoman Implementasi UU ITE.',
+                jawabanAi: 'Berdasarkan Pasal 27A jo. Pasal 45 Ayat (4) UU No. 1 Tahun 2024, tindak pidana penyerangan kehormatan atau nama baik melalui sistem elektronik merupakan delik aduan absolut. Penuntutan hanya dapat dilakukan atas pengaduan dari korban langsung, bukan pihak lain.',
+                waktu: '03 Sep 2026, 09:30 WIB'
+            },
+            {
+                id: 'eval-002',
+                kueri: 'Bagaimana pertanggungjawaban pidana korporasi dalam KUHP Baru (UU 1/2023) jika pengurus melakukan suap?',
+                regulasi: 'UU No. 1 Tahun 2023 tentang KUHP (Pasal 45 - 50 Buku I)',
+                reviewer: 'Tenaga Ahli Hukum (hukum1)',
+                institusi: 'BRIN (Badan Riset & Inovasi Nasional)',
+                status: 'Valid Sesuai',
+                skor: '92%',
+                param1: 'Akurat (Pasal 45 - 50 KUHP)',
+                param2: 'Sesuai Hierarki Hukum',
+                param3: 'Baku & Presisi Doktrin',
+                param4: 'Rendah (5-15%)',
+                catatan: 'Penalaran AI sudah memisahkan antara pertanggungjawaban individu personil pengendali dengan korporasi sebagai subjek hukum mandiri.',
+                rekomendasi: 'Tambahkan pengingat transisi bahwa KUHP Baru mulai berlaku efektif secara penuh pada Januari 2026.',
+                jawabanAi: 'Dalam UU 1/2023 (KUHP Baru), korporasi diakui sebagai subjek tindak pidana. Berdasarkan Pasal 46 dan 47, tindak pidana korporasi dapat dimintakan pertanggungjawaban jika dilakukan oleh orang yang memiliki kedudukan fungsional dalam struktur organisasi.',
+                waktu: '02 Sep 2026, 14:15 WIB'
+            },
+            {
+                id: 'eval-003',
+                kueri: 'Apakah klausul eksonerasi dalam perjanjian baku e-commerce sah menurut UU Perlindungan Konsumen?',
+                regulasi: 'UU No. 8 Tahun 1999 tentang Perlindungan Konsumen (Pasal 18 Ayat 1)',
+                reviewer: 'Tenaga Ahli Hukum (hukum1)',
+                institusi: 'BRIN (Badan Riset & Inovasi Nasional)',
+                status: 'Koreksi Minor',
+                skor: '88%',
+                param1: 'Pasal Tepat, Tafsir Kurang',
+                param2: 'Sesuai Hierarki Hukum',
+                param3: 'Frasa Kurang Baku',
+                param4: 'Rendah (5-15%)',
+                catatan: 'Jawaban AI menyatakan klausul tersebut "batal demi hukum", namun belum menjelaskan kewajiban pelaku usaha untuk menyesuaikan klausul baku sesuai Pasal 18 ayat 3.',
+                rekomendasi: 'Perbaiki prompt agar selalu mengutip konsekuensi perdata (batal demi hukum) sekaligus sanksi administratif bagi pelaku usaha.',
+                jawabanAi: 'Menurut Pasal 18 UU No. 8/1999 tentang Perlindungan Konsumen, pelaku usaha dilarang mencantumkan klausul baku yang mengalihkan tanggung jawab (klausul eksonerasi). Klausul tersebut dinyatakan batal demi hukum.',
+                waktu: '01 Sep 2026, 11:20 WIB'
+            },
+            {
+                id: 'eval-004',
+                kueri: 'Apakah pengujian formil Perppu dapat diajukan ke Mahkamah Konstitusi?',
+                regulasi: 'Putusan MK No. 138/PUU-VII/2009 & Putusan MK No. 91/PUU-XVIII/2020',
+                reviewer: 'Tenaga Ahli Hukum (hukum1)',
+                institusi: 'BRIN (Badan Riset & Inovasi Nasional)',
+                status: 'Valid Sesuai',
+                skor: '95%',
+                param1: 'Akurat & Tepat Putusan MK',
+                param2: 'Sesuai Hierarki Hukum',
+                param3: 'Baku & Presisi Doktrin',
+                param4: 'Sangat Rendah (0-5%)',
+                catatan: 'AI secara presisi merujuk pada yurisprudensi Putusan MK No. 138/PUU-VII/2009 yang membuka pintu uji materiil dan formil terhadap Perppu.',
+                rekomendasi: 'Hubungkan node graf RAG antara Perppu dengan putusan-putusan MK yang menguji ihwal kegentingan memaksa.',
+                jawabanAi: 'Ya, Mahkamah Konstitusi berwenang menguji Perppu baik secara materiil maupun formil, sebagaimana ditetapkan dalam Putusan MK No. 138/PUU-VII/2009.',
+                waktu: '31 Agu 2026, 16:45 WIB'
+            },
+            {
+                id: 'eval-005',
+                kueri: 'Penerapan prinsip Strict Liability dalam gugatan ganti rugi pencemaran lingkungan hidup',
+                regulasi: 'UU No. 32 Tahun 2009 tentang Perlindungan dan Pengelolaan Lingkungan Hidup (Pasal 88)',
+                reviewer: 'Tenaga Ahli Hukum (hukum1)',
+                institusi: 'BRIN (Badan Riset & Inovasi Nasional)',
+                status: 'Perlu Revisi',
+                skor: '76%',
+                param1: 'Pasal Tepat, Tafsir Kurang',
+                param2: 'Sesuai Hierarki Hukum',
+                param3: 'Keliru Konstruksi Delik',
+                param4: 'Sedang (15-30%)',
+                catatan: 'AI sempat mencampurkan konsep Strict Liability perdata lingkungan (Pasal 88 UU 32/2009 tanpa perlu membuktikan unsur kesalahan) dengan pertanggungjawaban pidana yang mensyaratkan mens rea.',
+                rekomendasi: 'Update prompt sistem pembeda tegas antara gugatan perdata ganti kerugian lingkungan dengan penuntutan pidana lingkungan.',
+                jawabanAi: 'Prinsip strict liability diatur dalam Pasal 88 UU 32/2009, di mana pertanggungjawaban timbul secara mutlak tanpa pembuktian kesalahan. Namun AI sempat menyatakan perlu adanya unsur kesengajaan dalam ganti rugi.',
+                waktu: '30 Agu 2026, 10:05 WIB'
+            }
+        ];
+
+        let myEvaluations = [];
+
+        function initData() {
+            try {
+                const stored = localStorage.getItem(STORAGE_KEY);
+                if (stored) {
+                    myEvaluations = JSON.parse(stored);
+                } else {
+                    myEvaluations = [...DEFAULT_RECORDS];
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(myEvaluations));
+                }
+            } catch (e) {
+                myEvaluations = [...DEFAULT_RECORDS];
+            }
+
+            renderMetrics();
+            renderTable();
+        }
+
+        function saveEvaluations() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(myEvaluations));
+            renderMetrics();
+            renderTable();
+        }
+
+        function renderMetrics() {
+            const total = myEvaluations.length;
+            const valid = myEvaluations.filter(e => e.status === 'Valid Sesuai').length;
+            const minor = myEvaluations.filter(e => e.status === 'Koreksi Minor').length;
+            const revision = myEvaluations.filter(e => e.status === 'Perlu Revisi' || e.status === 'Halusinasi').length;
+
+            const elTotal = document.getElementById('statMyTotal');
+            if (elTotal) elTotal.textContent = total;
+            const elValid = document.getElementById('statValidCount');
+            if (elValid) elValid.textContent = valid;
+            const elMinor = document.getElementById('statMinorCount');
+            if (elMinor) elMinor.textContent = minor;
+            const elRevision = document.getElementById('statRevisionCount');
+            if (elRevision) elRevision.textContent = revision;
+        }
+
+        let currentSortColumn = null; // 'kueri' | 'skor' | 'param1'
+        let currentSortOrder = 'asc'; // 'asc' | 'desc'
+
+        function toggleSort(columnKey) {
+            if (currentSortColumn === columnKey) {
+                currentSortOrder = currentSortOrder === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSortColumn = columnKey;
+                currentSortOrder = 'asc';
+            }
+            updateSortIcons();
+            renderTable();
+        }
+
+        function updateSortIcons() {
+            ['kueri', 'skor', 'param1'].forEach(col => {
+                const iconEl = document.getElementById(`sortIcon_${col}`);
+                if (!iconEl) return;
+                if (currentSortColumn === col) {
+                    iconEl.className = 'text-zinc-900 font-bold transition text-[10px]';
+                    iconEl.innerHTML = currentSortOrder === 'asc' 
+                        ? '<i class="fa-solid fa-arrow-up-short-wide text-zinc-800"></i>' 
+                        : '<i class="fa-solid fa-arrow-down-wide-short text-zinc-800"></i>';
+                } else {
+                    iconEl.className = 'text-zinc-400 group-hover:text-zinc-700 transition text-[10px]';
+                    iconEl.innerHTML = '<i class="fa-solid fa-sort"></i>';
+                }
+            });
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('evalTableBody');
+            const empty = document.getElementById('evalEmptyState');
+            if (!tbody) return;
+
+            const searchQuery = (document.getElementById('filterSearchInput')?.value || '').toLowerCase();
+            const statusFilter = document.getElementById('filterStatusSelect')?.value || 'ALL';
+
+            let filtered = myEvaluations.filter(item => {
+                const matchesSearch = item.kueri.toLowerCase().includes(searchQuery) ||
+                                      item.regulasi.toLowerCase().includes(searchQuery) ||
+                                      (item.catatan || '').toLowerCase().includes(searchQuery);
+                const matchesStatus = (statusFilter === 'ALL') || (item.status === statusFilter);
+                return matchesSearch && matchesStatus;
+            });
+
+            if (currentSortColumn) {
+                filtered.sort((a, b) => {
+                    let valA, valB;
+                    if (currentSortColumn === 'skor') {
+                        valA = parseInt(a.skor) || 0;
+                        valB = parseInt(b.skor) || 0;
+                    } else {
+                        valA = (a[currentSortColumn] || '').toString().toLowerCase();
+                        valB = (b[currentSortColumn] || '').toString().toLowerCase();
+                    }
+                    if (valA < valB) return currentSortOrder === 'asc' ? -1 : 1;
+                    if (valA > valB) return currentSortOrder === 'asc' ? 1 : -1;
+                    return 0;
+                });
+            }
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = '';
+                empty.classList.remove('hidden');
+                return;
+            }
+
+            empty.classList.add('hidden');
+            tbody.innerHTML = filtered.map(item => {
+                let statusBadgeClass = 'bg-zinc-100 text-zinc-700 border-zinc-200';
+                if (item.status === 'Valid Sesuai') statusBadgeClass = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                else if (item.status === 'Koreksi Minor') statusBadgeClass = 'bg-blue-50 text-blue-700 border-blue-200';
+                else if (item.status === 'Perlu Revisi') statusBadgeClass = 'bg-amber-50 text-amber-700 border-amber-200';
+                else if (item.status === 'Halusinasi') statusBadgeClass = 'bg-rose-50 text-rose-700 border-rose-200';
+
+                return `
+                    <tr class="hover:bg-zinc-50/70 transition">
+                        <!-- Kolom 1: Kasus Uji & Regulasi -->
+                        <td class="py-3.5 px-4 align-top">
+                            <span class="font-bold text-zinc-900 line-clamp-2 block text-xs leading-snug">
+                                ${item.kueri}
+                            </span>
+                            <div class="flex items-center gap-1.5 mt-1 text-[11px] text-zinc-500 line-clamp-1">
+                                <i class="fi fi-rr-book-alt text-[10px] text-zinc-400"></i>
+                                <span>${item.regulasi}</span>
+                            </div>
+                        </td>
+
+                        <!-- Kolom 2: Status & Skor -->
+                        <td class="py-3.5 px-4 align-top">
+                            <div class="flex items-center gap-2">
+                                <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold border ${statusBadgeClass} inline-block">
+                                    ${item.status}
+                                </span>
+                                <span class="text-xs font-extrabold text-zinc-900">${item.skor}</span>
+                            </div>
+                            <span class="text-[10px] text-zinc-400 block mt-1">${item.waktu || 'Baru'}</span>
+                        </td>
+
+                        <!-- Kolom 3: Parameter Ringkas -->
+                        <td class="py-3.5 px-4 align-top">
+                            <div class="space-y-0.5 text-[11px]">
+                                <div class="text-zinc-600 truncate"><span class="font-semibold text-zinc-800">Pasal:</span> ${item.param1 || 'Akurat'}</div>
+                                <div class="text-zinc-500 truncate"><span class="font-semibold text-zinc-700">Halusinasi:</span> ${item.param4 || 'Rendah'}</div>
+                            </div>
+                        </td>
+
+                        <!-- Kolom 4: Aksi -->
+                        <td class="py-3.5 px-4 align-top text-right">
+                            <div class="flex items-center justify-end gap-1.5">
+                                <button type="button" onclick="openEvalDetailModal('${item.id}')" class="px-2.5 py-1.5 rounded-lg border border-zinc-300 bg-white hover:bg-zinc-100 text-zinc-800 text-[11px] font-bold transition shadow-2xs flex items-center gap-1">
+                                    <span>Detail</span>
+                                    <i class="fi fi-rr-arrow-right text-[10px]"></i>
+                                </button>
+                                <button type="button" onclick="deleteEvaluation('${item.id}')" class="w-7 h-7 rounded-lg border border-zinc-200 bg-white hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 text-zinc-400 flex items-center justify-center transition" title="Hapus evaluasi ini">
+                                    <i class="fi fi-rr-trash text-xs"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        let pendingDeleteId = null;
+
+        function deleteEvaluation(id) {
+            pendingDeleteId = id;
+            const modal = document.getElementById('deleteConfirmModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeDeleteModal() {
+            pendingDeleteId = null;
+            const modal = document.getElementById('deleteConfirmModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+            }
+        }
+
+        function executeDeleteEvaluation() {
+            if (!pendingDeleteId) return;
+            const id = pendingDeleteId;
+
+            myEvaluations = myEvaluations.filter(item => item.id !== id);
+            saveEvaluations();
+            closeDeleteModal();
+            showToast('Lembar evaluasi berhasil dihapus!');
+        }
+
+        function scrollToForm() {
+            const formSection = document.getElementById('formEvaluasiSection');
+            if (formSection) {
+                formSection.scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('evalKueri').focus();
+            }
+        }
+
+        function updateSkorDisplay(val) {
+            const disp = document.getElementById('skorValueDisplay');
+            let label = 'Baik';
+            let colorClass = 'text-emerald-800 bg-emerald-100 border-emerald-300';
+            if (val >= 90) {
+                label = 'Sangat Baik';
+                colorClass = 'text-emerald-800 bg-emerald-100 border-emerald-300';
+            } else if (val >= 75) {
+                label = 'Cukup Baik';
+                colorClass = 'text-blue-800 bg-blue-100 border-blue-300';
+            } else if (val >= 50) {
+                label = 'Perlu Revisi';
+                colorClass = 'text-amber-800 bg-amber-100 border-amber-300';
+            } else {
+                label = 'Halusinasi Tinggi';
+                colorClass = 'text-rose-800 bg-rose-100 border-rose-300';
+            }
+
+            disp.className = `text-xs font-extrabold px-3 py-1 rounded-xl border shadow-2xs ${colorClass}`;
+            disp.textContent = `${val}% (${label})`;
+        }
+
+        function setQuickScore(val) {
+            const slider = document.getElementById('evalSkor');
+            if (slider) {
+                slider.value = val;
+                updateSkorDisplay(val);
+            }
+        }
+
+        function selectStatus(statusVal) {
+            // Reset all cards to dimmed/darker unselected state
+            const cards = document.querySelectorAll('.status-option-card');
+            cards.forEach(card => {
+                card.className = 'status-option-card relative p-4 rounded-2xl border border-zinc-200/90 bg-zinc-100/90 opacity-40 grayscale-[40%] hover:opacity-80 hover:grayscale-0 hover:bg-white cursor-pointer transition-all duration-200 shadow-none flex flex-col justify-between';
+                const radio = card.querySelector('input[type="radio"]');
+                if (radio) radio.checked = false;
+            });
+
+            // Set active card styles and auto-calculated score
+            let targetCardId = 'card-status-valid';
+            let autoScore = '95';
+            let tagHtml = '<i class="fi fi-sr-check-circle text-emerald-600 text-xs"></i><span>Valid & Sesuai</span>';
+            let tagClass = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5 shadow-2xs';
+
+            if (statusVal === 'Valid Sesuai') {
+                targetCardId = 'card-status-valid';
+                autoScore = '95';
+                const card = document.getElementById(targetCardId);
+                if (card) card.className = 'status-option-card relative p-4 rounded-2xl border-2 border-emerald-500 bg-white shadow-sm cursor-pointer transition-all duration-200 flex flex-col justify-between opacity-100';
+                tagHtml = '<i class="fi fi-sr-check-circle text-emerald-600 text-xs"></i><span>Valid & Sesuai</span>';
+                tagClass = 'px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5 shadow-2xs';
+            } else if (statusVal === 'Koreksi Minor') {
+                targetCardId = 'card-status-minor';
+                autoScore = '80';
+                const card = document.getElementById(targetCardId);
+                if (card) card.className = 'status-option-card relative p-4 rounded-2xl border-2 border-blue-500 bg-white shadow-sm cursor-pointer transition-all duration-200 flex flex-col justify-between opacity-100';
+                tagHtml = '<i class="fi fi-sr-edit text-blue-600 text-xs"></i><span>Koreksi Minor</span>';
+                tagClass = 'px-3 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200 flex items-center gap-1.5 shadow-2xs';
+            } else if (statusVal === 'Perlu Revisi') {
+                targetCardId = 'card-status-revisi';
+                autoScore = '50';
+                const card = document.getElementById(targetCardId);
+                if (card) card.className = 'status-option-card relative p-4 rounded-2xl border-2 border-amber-500 bg-white shadow-sm cursor-pointer transition-all duration-200 flex flex-col justify-between opacity-100';
+                tagHtml = '<i class="fi fi-sr-triangle-warning text-amber-600 text-xs"></i><span>Perlu Revisi</span>';
+                tagClass = 'px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-700 border border-amber-200 flex items-center gap-1.5 shadow-2xs';
+            } else if (statusVal === 'Halusinasi') {
+                targetCardId = 'card-status-halusinasi';
+                autoScore = '20';
+                const card = document.getElementById(targetCardId);
+                if (card) card.className = 'status-option-card relative p-4 rounded-2xl border-2 border-rose-500 bg-white shadow-sm cursor-pointer transition-all duration-200 flex flex-col justify-between opacity-100';
+                tagHtml = '<i class="fi fi-sr-cross-circle text-rose-600 text-xs"></i><span>Halusinasi AI</span>';
+                tagClass = 'px-3 py-1 rounded-full text-xs font-bold bg-rose-50 text-rose-700 border border-rose-200 flex items-center gap-1.5 shadow-2xs';
+            }
+
+            const skorEl = document.getElementById('evalSkor');
+            if (skorEl) skorEl.value = autoScore;
+
+            const activeCard = document.getElementById(targetCardId);
+            if (activeCard) {
+                const radio = activeCard.querySelector('input[type="radio"]');
+                if (radio) radio.checked = true;
+            }
+
+            const tagEl = document.getElementById('selectedStatusTag');
+            if (tagEl) {
+                tagEl.className = tagClass;
+                tagEl.innerHTML = tagHtml;
+            }
+        }
+
+        function loadSampleCase(num) {
+            if (num === 1) {
+                document.getElementById('evalKueri').value = 'Apakah pasal pencemaran nama baik di UU ITE 2024 masih bisa dilaporkan oleh orang ketiga/kuasa hukum?';
+                document.getElementById('evalRegulasi').value = 'UU No. 1 Tahun 2024 tentang Perubahan Kedua UU ITE (Pasal 27A jo Pasal 45 Ayat 4)';
+                document.getElementById('evalJawabanAi').value = 'Pasal 27A UU 1/2024 mengatur perbuatan sengaja menyerang kehormatan orang lain. Pasal 45 Ayat 4 menegaskan bahwa tindak pidana ini merupakan delik aduan yang hanya dapat diadukan oleh korban langsung yang bersangkutan.';
+                document.getElementById('evalCatatan').value = 'Jawaban AI presisi dan sesuai dengan asas delik aduan absolut tanpa multitafsir.';
+                document.getElementById('evalRekomendasi').value = 'Tambahkan referensi yurisprudensi MA yang relevan.';
+                selectStatus('Valid Sesuai');
+            } else if (num === 2) {
+                document.getElementById('evalKueri').value = 'Bagaimana syarat pertanggungjawaban pidana korporasi dalam KUHP Baru?';
+                document.getElementById('evalRegulasi').value = 'UU No. 1 Tahun 2023 tentang KUHP (Pasal 45 - 50)';
+                document.getElementById('evalJawabanAi').value = 'Korporasi dapat dimintai pertanggungjawaban jika tindak pidana dilakukan dalam lingkup usaha untuk memberi manfaat bagi korporasi atau dibiarkan oleh pengurus korporasi.';
+                document.getElementById('evalCatatan').value = 'Ada istilah nomenklatur yang bisa diperjelas pada definisi pengurus fungsional.';
+                document.getElementById('evalRekomendasi').value = 'Perjelas batas antara perbuatan perorangan dan kebijakan direksi.';
+                selectStatus('Koreksi Minor');
+            } else if (num === 3) {
+                document.getElementById('evalKueri').value = 'Apakah klausula baku pengalihan tanggung jawab sepihak oleh pelaku usaha sah secara hukum?';
+                document.getElementById('evalRegulasi').value = 'UU No. 8 Tahun 1999 tentang Perlindungan Konsumen (Pasal 18)';
+                document.getElementById('evalJawabanAi').value = 'Klausula baku yang mengalihkan tanggung jawab pelaku usaha atau menyatakan tunduk pada aturan baru sepihak adalah batal demi hukum berdasarkan Pasal 18 UUPK.';
+                document.getElementById('evalCatatan').value = 'Kutipan pasal dan dasar pembatalan demi hukum sangat jelas dan tepat.';
+                document.getElementById('evalRekomendasi').value = 'Pertahankan format rujukan pasal tegas seperti ini.';
+                selectStatus('Valid Sesuai');
+            }
+            showToast('Sampel kasus uji berhasil dimuat ke formulir!');
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const kueri = document.getElementById('evalKueri').value.trim();
+            const regulasi = document.getElementById('evalRegulasi').value.trim();
+            const jawabanAi = document.getElementById('evalJawabanAi').value.trim();
+            const catatan = document.getElementById('evalCatatan').value.trim();
+            const rekomendasi = document.getElementById('evalRekomendasi').value.trim();
+            const skor = document.getElementById('evalSkor').value + '%';
+            
+            const statusRadio = document.querySelector('input[name="evalStatus"]:checked');
+            const status = statusRadio ? statusRadio.value : 'Valid Sesuai';
+
+            const param1 = document.getElementById('evalParam1').value;
+            const param2 = document.getElementById('evalParam2').value;
+            const param3 = document.getElementById('evalParam3').value;
+            const param4 = document.getElementById('evalParam4').value;
+
+            // Get logged in expert name
+            let reviewerName = 'Tenaga Ahli Hukum (hukum1)';
+            try {
+                const auth = JSON.parse(localStorage.getItem('titikhukum_auth'));
+                if (auth && auth.user) reviewerName = auth.user;
+            } catch (err) {}
+
+            const newRecord = {
+                id: 'eval-' + Date.now(),
+                kueri,
+                regulasi,
+                reviewer: reviewerName,
+                institusi: 'BRIN (Badan Riset & Inovasi Nasional)',
+                status,
+                skor,
+                param1,
+                param2,
+                param3,
+                param4,
+                catatan,
+                rekomendasi,
+                jawabanAi,
+                waktu: new Date().toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }) + ' WIB'
+            };
+
+            myEvaluations.unshift(newRecord);
+            saveEvaluations();
+
+            // Reset form
+            document.getElementById('evalForm').reset();
+            updateSkorDisplay(95);
+            showToast('Lembar evaluasi berhasil disimpan & tersinkronkan ke Admin!');
+
+            // Scroll down to table
+            const tableEl = document.getElementById('evalTableBody');
+            if (tableEl) tableEl.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function openEvalDetailModal(id) {
+            const item = myEvaluations.find(e => e.id === id);
+            if (!item) return;
+
+            document.getElementById('modalReviewer').textContent = item.reviewer || 'Tenaga Ahli Hukum';
+            document.getElementById('modalInstitusi').textContent = item.institusi || 'BRIN (Badan Riset & Inovasi Nasional)';
+            document.getElementById('modalKueri').textContent = item.kueri;
+            document.getElementById('modalRegulasi').textContent = item.regulasi;
+            document.getElementById('modalJawabanAi').textContent = item.jawabanAi;
+            document.getElementById('modalParam1').textContent = item.param1 || '-';
+            document.getElementById('modalParam2').textContent = item.param2 || '-';
+            document.getElementById('modalParam3').textContent = item.param3 || '-';
+            document.getElementById('modalParam4').textContent = item.param4 || '-';
+            document.getElementById('modalCatatan').textContent = item.catatan || '-';
+            document.getElementById('modalRekomendasi').textContent = item.rekomendasi || '-';
+            document.getElementById('modalStatusBadge').textContent = item.status;
+            document.getElementById('modalSkorBadge').textContent = 'Skor: ' + item.skor;
+            document.getElementById('modalWaktu').textContent = 'Waktu Evaluasi: ' + (item.waktu || '-');
+
+            document.getElementById('evalDetailModal').classList.remove('hidden');
+        }
+
+        function closeEvalDetailModal() {
+            document.getElementById('evalDetailModal').classList.add('hidden');
+        }
+
+        // Export CSV
+        function exportMyEvaluationsCSV() {
+            if (myEvaluations.length === 0) {
+                showToast('Belum ada data evaluasi untuk diekspor.');
+                return;
+            }
+
+            const headers = [
+                'No',
+                'ID Evaluasi',
+                'Reviewer Ahli',
+                'Institusi',
+                'Kueri Kasus Uji Hukum',
+                'Rujukan Regulasi',
+                'Status Validasi',
+                'Skor Akurasi',
+                'Akurasi Pasal',
+                'Hierarki Regulasi',
+                'Bahasa Hukum',
+                'Risiko Halusinasi',
+                'Catatan Koreksi Ahli',
+                'Rekomendasi RAG',
+                'Waktu Evaluasi'
+            ];
+
+            const rows = myEvaluations.map((item, idx) => [
+                idx + 1,
+                item.id,
+                `"${(item.reviewer || '').replace(/"/g, '""')}"`,
+                `"${(item.institusi || '').replace(/"/g, '""')}"`,
+                `"${(item.kueri || '').replace(/"/g, '""')}"`,
+                `"${(item.regulasi || '').replace(/"/g, '""')}"`,
+                `"${(item.status || '').replace(/"/g, '""')}"`,
+                `"${(item.skor || '').replace(/"/g, '""')}"`,
+                `"${(item.param1 || '').replace(/"/g, '""')}"`,
+                `"${(item.param2 || '').replace(/"/g, '""')}"`,
+                `"${(item.param3 || '').replace(/"/g, '""')}"`,
+                `"${(item.param4 || '').replace(/"/g, '""')}"`,
+                `"${(item.catatan || '').replace(/"/g, '""')}"`,
+                `"${(item.rekomendasi || '').replace(/"/g, '""')}"`,
+                `"${(item.waktu || '').replace(/"/g, '""')}"`
+            ]);
+
+            const csvContent = '\uFEFF' + [
+                headers.join(','),
+                ...rows.map(r => r.join(','))
+            ].join('\r\n');
+
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.setAttribute('href', url);
+            downloadAnchor.setAttribute('download', `Rekap_Evaluasi_Ahli_Hukum_TitikHukum_${new Date().toISOString().slice(0, 10)}.csv`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            downloadAnchor.remove();
+            URL.revokeObjectURL(url);
+            showToast('Rekap evaluasi CSV berhasil diunduh!');
+        }
+
+        // Navbar Controllers
+        let currentLang = 'EN';
+        function toggleNavLang() {
+            currentLang = currentLang === 'EN' ? 'ID' : 'EN';
+            const label = document.getElementById('navLangLabel');
+            if (label) label.textContent = currentLang;
+            showToast(currentLang === 'EN' ? 'Language switched to English' : 'Bahasa dialihkan ke Bahasa Indonesia');
+        }
+
+        let isDarkMode = false;
+        const sunSvgHtml = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                <circle cx="12" cy="12" r="4.5"></circle>
+                <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+            </svg>
+        `;
+        const moonSvgHtml = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        `;
+
+        function toggleNavTheme() {
+            isDarkMode = !isDarkMode;
+            const container = document.getElementById('navThemeIconContainer');
+            if (container) {
+                container.innerHTML = isDarkMode ? sunSvgHtml : moonSvgHtml;
+                container.style.transform = isDarkMode ? 'rotate(0deg)' : 'rotate(360deg)';
+            }
+            showToast(isDarkMode ? 'Mode Gelap diaktifkan' : 'Mode Terang diaktifkan');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        let toastTimer = null;
+
+        function showToast(msg = 'Data berhasil disimpan') {
+            const toast = document.getElementById('toastNotification');
+            const toastMsg = document.getElementById('toastMessage');
+            if (!toast || !toastMsg) return;
+
+            if (toastTimer) {
+                clearTimeout(toastTimer);
+            }
+
+            toastMsg.textContent = msg;
+            toast.style.display = 'flex';
+            toast.offsetHeight; // Trigger reflow for transition
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateY(0)';
+            toast.style.pointerEvents = 'auto';
+
+            toastTimer = setTimeout(() => {
+                hideToastImmediately();
+            }, 2500);
+        }
+
+        function hideToastImmediately() {
+            const toast = document.getElementById('toastNotification');
+            if (!toast) return;
+            if (toastTimer) {
+                clearTimeout(toastTimer);
+                toastTimer = null;
+            }
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(20px)';
+            toast.style.pointerEvents = 'none';
+            setTimeout(() => {
+                if (toast.style.opacity === '0') {
+                    toast.style.display = 'none';
+                }
+            }, 300);
+        }
+
+        document.addEventListener('DOMContentLoaded', initData);
+    </script>
+</body>
+</html>

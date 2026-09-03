@@ -234,25 +234,39 @@
                 <div class="flex items-center gap-3 sm:gap-4">
                     
                     <!-- Language Switcher -->
-                    <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1 text-white/80 hover:text-white text-xs font-semibold transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1" data-tooltip="Ganti Bahasa (EN / ID)" data-tooltip-pos="bottom" title="Ganti Bahasa (EN / ID)">
-                        <i class="fi fi-rr-globe text-sm"></i>
+                    <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1 text-white/80 hover:text-white text-xs font-semibold transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1" title="Ganti Bahasa (EN / ID)">
+                        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24">
+                            <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+                        </svg>
                         <span id="navLangLabel" class="font-bold text-xs tracking-wide">EN</span>
                     </button>
 
                     <!-- Theme Dark/Light Mode Icon Button -->
-                    <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-white/90 hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1 shrink-0" data-tooltip="Ganti Mode Tema" data-tooltip-pos="bottom" title="Ganti Mode Tema (Terang / Gelap)">
-                        <i class="fi fi-rr-brightness text-base"></i>
+                    <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-white/90 hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1 shrink-0" title="Ganti Mode Tema (Terang / Gelap)">
+                        <span id="navThemeIconContainer" class="inline-flex items-center justify-center w-5 h-5 shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                                <circle cx="12" cy="12" r="4.5"></circle>
+                                <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                                <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                                <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                                <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                                <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                                <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                                <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </span>
                     </button>
 
                     <!-- Logout / User Badge Button -->
-                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-white/40 bg-white/10 text-white hover:bg-rose-600 hover:border-rose-600 hover:text-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1" data-tooltip="Keluar dari Portal Admin" data-tooltip-pos="bottom" title="Keluar dari mode admin">
-                        <i class="fi fi-sr-shield-check text-amber-300 text-xs"></i>
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-white/40 bg-white/10 text-white hover:bg-rose-600 hover:border-rose-600 hover:text-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1" title="Keluar dari mode admin">
+                        <i class="fa-solid fa-user-shield text-amber-300 text-xs"></i>
                         <span>Admin (Keluar)</span>
                     </a>
 
                     <!-- Mobile Menu Button -->
-                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-8.5 h-8.5 flex items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white hover:bg-white hover:text-gray-900 transition ml-1" data-tooltip="Menu Navigasi" data-tooltip-pos="bottom">
-                        <i id="mobileMenuIcon" class="fi fi-rr-menu-burger text-sm"></i>
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-8.5 h-8.5 flex items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white hover:bg-white hover:text-gray-900 transition ml-1" title="Menu Navigasi">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-sm"></i>
                     </button>
                 </div>
 
@@ -262,14 +276,14 @@
         <!-- Mobile Navigation Overlay Dropdown -->
         <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-3">
             <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
-                <a href="index.html" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Beranda</a>
-                <a href="pustaka.html" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Pustaka Dokumen</a>
-                <a href="pengguna.html" class="block py-2 text-white font-bold border-b border-white/10">Kelola Ahli Hukum</a>
-                <a href="profil.html" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Profil Saya</a>
+                <a href="index.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Beranda</a>
+                <a href="pustaka.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Pustaka Dokumen</a>
+                <a href="pengguna.html" onclick="toggleMobileMenu()" class="block py-2 text-white font-bold border-b border-white/10">Kelola Ahli Hukum</a>
+                <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Profil Saya</a>
                 
                 <div class="pt-2">
                     <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="w-full py-2.5 rounded-lg border border-rose-500 bg-rose-600 text-white text-xs font-semibold flex items-center justify-center gap-2">
-                        <i class="fi fi-rr-sign-out-alt text-xs"></i>
+                        <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
                         <span>Admin (Keluar)</span>
                     </a>
                 </div>
@@ -390,27 +404,27 @@
         <div id="sectionMembers" class="space-y-6">
             
             <!-- Filter & Search Toolbar -->
-            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-white p-3 rounded-2xl border border-zinc-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
+            <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-2.5 sm:gap-3 bg-white p-2.5 sm:p-3 rounded-2xl border border-zinc-200/90 shadow-[0_1px_2px_rgba(0,0,0,0.03)]">
                 
-                <!-- Search Input Bar with Shortcut -->
-                <div class="relative flex-1">
+                <!-- Search Input Bar with Shortcut (Proporsional) -->
+                <div class="relative flex-1 min-w-[220px] max-w-full md:max-w-md">
                     <i class="fi fi-rr-search absolute left-3.5 top-1/2 -translate-y-1/2 text-zinc-400 text-xs"></i>
-                    <input type="text" id="searchInput" oninput="handleSearchFilter()" placeholder="Cari nama ahli, NIP, email, atau bidang kepakaran..." class="w-full pl-9 pr-14 py-2 bg-zinc-50 border border-zinc-200 rounded-xl text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition">
+                    <input type="text" id="searchInput" oninput="handleSearchFilter()" placeholder="Cari nama ahli, NIP, email, atau kepakaran..." class="w-full pl-9 pr-12 py-2 bg-zinc-50 border border-zinc-200 rounded-xl text-xs text-zinc-900 placeholder-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 focus:border-zinc-900 transition">
                     <span class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono font-semibold bg-zinc-200/70 text-zinc-600 px-1.5 py-0.5 rounded border border-zinc-300 cursor-help" data-tooltip="Tekan Ctrl+F untuk cari cepat">⌘F</span>
                 </div>
 
-                <!-- Filters & View Switchers -->
-                <div class="flex items-center gap-2 overflow-x-auto">
+                <!-- Filters & View Switchers (No Horizontal Scroll) -->
+                <div class="flex items-center gap-2 shrink-0 flex-wrap sm:flex-nowrap">
                     
-                    <!-- Filter Status (HANYA SEMUA, AKTIF, NONAKTIF) -->
-                    <select id="filterStatus" onchange="handleSearchFilter()" class="py-2 px-3 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 cursor-pointer" data-tooltip="Filter menurut status akun">
+                    <!-- Filter Status -->
+                    <select id="filterStatus" onchange="handleSearchFilter()" class="py-2 px-2.5 sm:px-3 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 cursor-pointer" data-tooltip="Filter menurut status akun">
                         <option value="all">Semua Status</option>
                         <option value="Aktif">Status: Aktif</option>
                         <option value="Nonaktif">Status: Nonaktif</option>
                     </select>
 
                     <!-- Filter Lembaga -->
-                    <select id="filterInstitusi" onchange="handleSearchFilter()" class="py-2 px-3 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 cursor-pointer" data-tooltip="Filter menurut lembaga mitra">
+                    <select id="filterInstitusi" onchange="handleSearchFilter()" class="py-2 px-2.5 sm:px-3 bg-zinc-50 border border-zinc-200 rounded-xl text-xs font-semibold text-zinc-700 focus:outline-none focus:ring-2 focus:ring-zinc-900/20 cursor-pointer" data-tooltip="Filter menurut lembaga mitra">
                         <option value="all">Semua Lembaga</option>
                         <option value="BRIN">BRIN</option>
                         <option value="Mahkamah Agung">Mahkamah Agung</option>
@@ -448,11 +462,36 @@
                     <table class="w-full text-left text-xs">
                         <thead class="bg-zinc-50 text-zinc-500 uppercase font-bold border-b border-zinc-200 text-[10px] tracking-wider">
                             <tr>
-                                <th scope="col" class="px-5 py-3.5">Nama & Profil Ahli</th>
-                                <th scope="col" class="px-4 py-3.5">NIP / ID Periset</th>
-                                <th scope="col" class="px-4 py-3.5">Institusi Afiliasi</th>
-                                <th scope="col" class="px-4 py-3.5">Bidang Kepakaran</th>
-                                <th scope="col" class="px-4 py-3.5">Status Akses</th>
+                                <th scope="col" onclick="toggleSortAdmin('nama')" class="px-5 py-3.5 cursor-pointer hover:bg-zinc-100 transition select-none group">
+                                    <div class="flex items-center gap-1.5">
+                                        <span>Nama & Profil Ahli</span>
+                                        <span id="adminSort_nama" class="text-zinc-400 group-hover:text-zinc-700 text-[9px]"><i class="fa-solid fa-sort"></i></span>
+                                    </div>
+                                </th>
+                                <th scope="col" onclick="toggleSortAdmin('nip')" class="px-4 py-3.5 cursor-pointer hover:bg-zinc-100 transition select-none group">
+                                    <div class="flex items-center gap-1.5">
+                                        <span>NIP / ID Periset</span>
+                                        <span id="adminSort_nip" class="text-zinc-400 group-hover:text-zinc-700 text-[9px]"><i class="fa-solid fa-sort"></i></span>
+                                    </div>
+                                </th>
+                                <th scope="col" onclick="toggleSortAdmin('institusi')" class="px-4 py-3.5 cursor-pointer hover:bg-zinc-100 transition select-none group">
+                                    <div class="flex items-center gap-1.5">
+                                        <span>Institusi Afiliasi</span>
+                                        <span id="adminSort_institusi" class="text-zinc-400 group-hover:text-zinc-700 text-[9px]"><i class="fa-solid fa-sort"></i></span>
+                                    </div>
+                                </th>
+                                <th scope="col" onclick="toggleSortAdmin('kepakaran')" class="px-4 py-3.5 cursor-pointer hover:bg-zinc-100 transition select-none group">
+                                    <div class="flex items-center gap-1.5">
+                                        <span>Bidang Kepakaran</span>
+                                        <span id="adminSort_kepakaran" class="text-zinc-400 group-hover:text-zinc-700 text-[9px]"><i class="fa-solid fa-sort"></i></span>
+                                    </div>
+                                </th>
+                                <th scope="col" onclick="toggleSortAdmin('status')" class="px-4 py-3.5 cursor-pointer hover:bg-zinc-100 transition select-none group">
+                                    <div class="flex items-center gap-1.5">
+                                        <span>Status Akses</span>
+                                        <span id="adminSort_status" class="text-zinc-400 group-hover:text-zinc-700 text-[9px]"><i class="fa-solid fa-sort"></i></span>
+                                    </div>
+                                </th>
                                 <th scope="col" class="px-5 py-3.5 text-right">Aksi</th>
                             </tr>
                         </thead>
@@ -509,12 +548,8 @@
                         </p>
                     </div>
 
-                    <!-- 3 Ringkasan Metrik Singkat -->
+                    <!-- 2 Ringkasan Metrik Singkat -->
                     <div class="flex items-center gap-2.5 flex-wrap">
-                        <div class="px-3 py-1.5 rounded-xl bg-zinc-50 border border-zinc-200 text-center">
-                            <span class="text-[10px] text-zinc-400 uppercase font-semibold block">Rata-rata Skor</span>
-                            <span class="text-xs font-extrabold text-emerald-700">⭐ 4.3 / 5.0 (86%)</span>
-                        </div>
                         <div class="px-3 py-1.5 rounded-xl bg-zinc-50 border border-zinc-200 text-center">
                             <span class="text-[10px] text-zinc-400 uppercase font-semibold block">Rujukan Valid</span>
                             <span class="text-xs font-extrabold text-emerald-700">3 Akurat</span>
@@ -548,9 +583,24 @@
                 <table class="w-full text-left text-xs">
                     <thead class="bg-zinc-50 text-zinc-500 uppercase font-bold border-b border-zinc-200 text-[10px] tracking-wider">
                         <tr>
-                            <th scope="col" class="px-5 py-3.5 w-1/2">Kasus Uji / Kueri Pertanyaan Hukum</th>
-                            <th scope="col" class="px-4 py-3.5 w-1/4">Reviewer Ahli</th>
-                            <th scope="col" class="px-4 py-3.5 whitespace-nowrap">Status & Skor</th>
+                            <th scope="col" onclick="toggleSortEval('kueri')" class="px-5 py-3.5 w-1/2 cursor-pointer hover:bg-zinc-100 transition select-none group" title="Urutkan Kasus Uji / Kueri">
+                                <div class="flex items-center gap-1.5">
+                                    <span>Kasus Uji / Kueri Pertanyaan Hukum</span>
+                                    <span id="evalSort_kueri" class="text-zinc-400 group-hover:text-zinc-700 text-[9px]"><i class="fa-solid fa-sort"></i></span>
+                                </div>
+                            </th>
+                            <th scope="col" onclick="toggleSortEval('reviewer')" class="px-4 py-3.5 w-1/4 cursor-pointer hover:bg-zinc-100 transition select-none group" title="Urutkan Reviewer Ahli">
+                                <div class="flex items-center gap-1.5">
+                                    <span>Reviewer Ahli</span>
+                                    <span id="evalSort_reviewer" class="text-zinc-400 group-hover:text-zinc-700 text-[9px]"><i class="fa-solid fa-sort"></i></span>
+                                </div>
+                            </th>
+                            <th scope="col" onclick="toggleSortEval('status')" class="px-4 py-3.5 whitespace-nowrap cursor-pointer hover:bg-zinc-100 transition select-none group" title="Urutkan Status Validasi">
+                                <div class="flex items-center gap-1.5">
+                                    <span>Status & Skor</span>
+                                    <span id="evalSort_status" class="text-zinc-400 group-hover:text-zinc-700 text-[9px]"><i class="fa-solid fa-sort"></i></span>
+                                </div>
+                            </th>
                             <th scope="col" class="px-5 py-3.5 text-right whitespace-nowrap">Aksi</th>
                         </tr>
                     </thead>
@@ -830,13 +880,45 @@
     </div>
 
     <!-- ======================================================== -->
+    <!-- MODAL KONFIRMASI HAPUS EVALUASI                          -->
+    <!-- ======================================================== -->
+    <div id="deleteEvalModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-xs items-center justify-center p-4 sm:p-6">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden modal-backdrop relative p-6 animate-in zoom-in-95 duration-150">
+            <div class="flex items-start gap-4">
+                <div class="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-100 text-rose-600 flex items-center justify-center shrink-0">
+                    <i class="fi fi-rr-trash text-xl"></i>
+                </div>
+                <div class="flex-1">
+                    <h3 class="text-sm sm:text-base font-bold text-zinc-900">Hapus Lembar Evaluasi?</h3>
+                    <p class="text-xs text-zinc-500 mt-1 leading-relaxed">
+                        Tindakan ini tidak dapat dibatalkan. Catatan audit dan analisis yuridis ini akan dihapus secara permanen dari sistem.
+                    </p>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-2.5 mt-6 pt-4 border-t border-zinc-100">
+                <button type="button" onclick="closeDeleteEvalModal()" class="px-4 py-2 rounded-xl border border-zinc-300 bg-white hover:bg-zinc-100 text-zinc-700 text-xs font-semibold transition">
+                    Batal
+                </button>
+                <button type="button" id="confirmDeleteBtn" onclick="executeDeleteEvaluation()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition shadow-md shadow-rose-600/20 active:scale-95 flex items-center gap-1.5">
+                    <i class="fi fi-rr-trash text-xs"></i>
+                    <span>Ya, Hapus Data</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================================== -->
     <!-- 10. TOAST NOTIFIKASI                                     -->
     <!-- ======================================================== -->
-    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-zinc-900 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs border border-white/10 pointer-events-none">
-        <div id="toastIcon" class="w-5 h-5 rounded-full bg-white/10 text-emerald-400 flex items-center justify-center text-xs">
+    <div id="toastNotification" style="display: none; opacity: 0; transform: translateY(20px); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);" class="fixed bottom-6 right-6 z-50 bg-zinc-900 text-white px-4 py-3 rounded-2xl shadow-2xl items-center gap-3 text-xs border border-white/10 pointer-events-none">
+        <div id="toastIcon" class="w-5 h-5 rounded-full bg-white/10 text-emerald-400 flex items-center justify-center text-xs shrink-0">
             <i class="fi fi-rr-check"></i>
         </div>
         <span id="toastMessage" class="font-medium">Data berhasil diperbarui</span>
+        <button type="button" onclick="hideToastImmediately()" class="text-zinc-400 hover:text-white transition ml-2 text-xs cursor-pointer pointer-events-auto" title="Tutup">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
     </div>
 
     <!-- ======================================================== -->
@@ -845,6 +927,18 @@
     <script>
         // Data Default Tenaga Ahli Hukum dengan Foto Profil Gambar Asli
         const DEFAULT_EXPERTS = [
+            {
+                id: 'exp-hukum1',
+                nama: 'Ahli Hukum (hukum1)',
+                nip: '198701012015011001',
+                email: 'hukum1@titikhukum.id',
+                phone: '(021) 7890-8888',
+                institusi: 'BRIN (Badan Riset & Inovasi Nasional)',
+                kepakaran: 'Hukum Siber, Riset Regulasi & AI Reviewer',
+                status: 'Aktif',
+                bergabung: '03 Sep 2026',
+                avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&auto=format&fit=crop&q=80'
+            },
             {
                 id: 'exp-01',
                 nama: 'Dr. Esther Howard, S.H., M.H.',
@@ -997,13 +1091,43 @@
             renderEvaluasiTab();
         }
 
+        let adminSortColumn = null;
+        let adminSortOrder = 'asc';
+
+        function toggleSortAdmin(columnKey) {
+            if (adminSortColumn === columnKey) {
+                adminSortOrder = adminSortOrder === 'asc' ? 'desc' : 'asc';
+            } else {
+                adminSortColumn = columnKey;
+                adminSortOrder = 'asc';
+            }
+            updateAdminSortIcons();
+            handleSearchFilter();
+        }
+
+        function updateAdminSortIcons() {
+            ['nama', 'nip', 'institusi', 'kepakaran', 'status'].forEach(col => {
+                const iconEl = document.getElementById(`adminSort_${col}`);
+                if (!iconEl) return;
+                if (adminSortColumn === col) {
+                    iconEl.className = 'text-zinc-900 font-bold text-[9px]';
+                    iconEl.innerHTML = adminSortOrder === 'asc' 
+                        ? '<i class="fa-solid fa-arrow-up-short-wide text-zinc-900"></i>' 
+                        : '<i class="fa-solid fa-arrow-down-wide-short text-zinc-900"></i>';
+                } else {
+                    iconEl.className = 'text-zinc-400 group-hover:text-zinc-700 text-[9px]';
+                    iconEl.innerHTML = '<i class="fa-solid fa-sort"></i>';
+                }
+            });
+        }
+
         // Search & Filter Controller
         function handleSearchFilter() {
             const query = (document.getElementById('searchInput').value || '').toLowerCase().trim();
             const statusFilter = document.getElementById('filterStatus').value;
             const instFilter = document.getElementById('filterInstitusi').value;
 
-            const filtered = expertsData.filter(item => {
+            let filtered = expertsData.filter(item => {
                 const matchQuery = !query || 
                     item.nama.toLowerCase().includes(query) ||
                     item.nip.toLowerCase().includes(query) ||
@@ -1017,6 +1141,16 @@
 
                 return matchQuery && matchStatus && matchInst;
             });
+
+            if (adminSortColumn) {
+                filtered.sort((a, b) => {
+                    const valA = (a[adminSortColumn] || '').toString().toLowerCase();
+                    const valB = (b[adminSortColumn] || '').toString().toLowerCase();
+                    if (valA < valB) return adminSortOrder === 'asc' ? -1 : 1;
+                    if (valA > valB) return adminSortOrder === 'asc' ? 1 : -1;
+                    return 0;
+                });
+            }
 
             renderCards(filtered);
             renderTable(filtered);
@@ -1330,9 +1464,41 @@
             }
         ];
 
+        function getActiveEvaluationRecords() {
+            try {
+                const stored = localStorage.getItem('titikhukum_evaluations');
+                if (stored) {
+                    const parsed = JSON.parse(stored);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        return parsed.map(p => ({
+                            id: p.id,
+                            reviewer: p.reviewer || 'Tenaga Ahli Hukum (hukum1)',
+                            institusi: p.institusi || 'BRIN (Badan Riset & Inovasi Nasional)',
+                            avatarUrl: '../assets/pp.jpg',
+                            kueri: p.kueri,
+                            regulasi: p.regulasi,
+                            skor: p.skor,
+                            status: p.status,
+                            statusClass: p.status === 'Valid Sesuai' ? 'bg-emerald-50 text-emerald-800 border-emerald-200' : p.status === 'Koreksi Minor' ? 'bg-blue-50 text-blue-800 border-blue-200' : 'bg-amber-50 text-amber-800 border-amber-200',
+                            dotClass: p.status === 'Valid Sesuai' ? 'bg-emerald-500' : p.status === 'Koreksi Minor' ? 'bg-blue-500' : 'bg-amber-500',
+                            catatan: p.catatan,
+                            rekomendasi: p.rekomendasi,
+                            jawabanAi: p.jawabanAi,
+                            waktu: p.waktu,
+                            param1: p.param1 || '95%',
+                            param2: p.param2 || '90%',
+                            param3: p.param3 || '90%',
+                            param4: p.param4 || 'Rendah'
+                        }));
+                    }
+                }
+            } catch (err) {}
+            return EVALUATION_RECORDS;
+        }
+
         // Render Tabel Evaluasi Chatbot AI
         function renderEvaluasiTab(filteredList = null) {
-            const list = filteredList || EVALUATION_RECORDS;
+            const list = filteredList || getActiveEvaluationRecords();
             const tbody = document.getElementById('evalTableBody');
             const emptyState = document.getElementById('evalEmptyState');
             const tabCount = document.getElementById('tabCountEvaluasi');
@@ -1383,13 +1549,140 @@
                         </div>
                     </td>
                     <td class="px-5 py-3.5 text-right whitespace-nowrap">
-                        <button type="button" onclick="event.stopPropagation(); openEvalDetailModal('${item.id}')" class="px-3 py-1.5 rounded-xl text-zinc-700 bg-zinc-100 hover:bg-zinc-900 hover:text-white text-xs font-semibold inline-flex items-center gap-1.5 transition" data-tooltip="Lihat rincian lembar audit lengkap" title="Buka Rincian">
-                            <span>Rincian</span>
-                            <i class="fi fi-rr-angle-small-right text-xs"></i>
-                        </button>
+                        <div class="flex items-center justify-end gap-1.5">
+                            <button type="button" onclick="event.stopPropagation(); openEvalDetailModal('${item.id}')" class="px-3 py-1.5 rounded-xl text-zinc-700 bg-zinc-100 hover:bg-zinc-900 hover:text-white text-xs font-semibold inline-flex items-center gap-1.5 transition shadow-2xs" data-tooltip="Lihat rincian lembar audit lengkap" title="Buka Rincian">
+                                <span>Rincian</span>
+                                <i class="fi fi-rr-angle-small-right text-xs"></i>
+                            </button>
+                            <button type="button" onclick="event.stopPropagation(); deleteAdminEvaluation('${item.id}')" class="w-7 h-7 rounded-lg border border-zinc-200 bg-white hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 text-zinc-400 flex items-center justify-center transition" title="Hapus laporan evaluasi ini">
+                                <i class="fi fi-rr-trash text-xs"></i>
+                            </button>
+                        </div>
                     </td>
                 </tr>
             `).join('');
+        }
+
+        let pendingEvalDeleteId = null;
+
+        // Buka Modal Konfirmasi Hapus Data Evaluasi
+        function deleteAdminEvaluation(id) {
+            pendingEvalDeleteId = id;
+            const modal = document.getElementById('deleteEvalModal');
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.style.display = 'flex';
+            }
+        }
+
+        function closeDeleteEvalModal() {
+            pendingEvalDeleteId = null;
+            const modal = document.getElementById('deleteEvalModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+            }
+        }
+
+        // Eksekusi Penghapusan Setelah Konfirmasi
+        function executeDeleteEvaluation() {
+            if (!pendingEvalDeleteId) return;
+            const id = pendingEvalDeleteId;
+
+            try {
+                const stored = localStorage.getItem('titikhukum_evaluations');
+                if (stored) {
+                    let parsed = JSON.parse(stored);
+                    if (Array.isArray(parsed)) {
+                        parsed = parsed.filter(item => item.id !== id);
+                        localStorage.setItem('titikhukum_evaluations', JSON.stringify(parsed));
+                    }
+                }
+            } catch (e) {}
+
+            const idx = EVALUATION_RECORDS.findIndex(item => item.id === id);
+            if (idx !== -1) {
+                EVALUATION_RECORDS.splice(idx, 1);
+            }
+
+            closeDeleteEvalModal();
+            renderMetrics();
+            handleEvalFilter();
+            showToast('Data evaluasi berhasil dihapus!');
+        }
+
+        let toastTimer = null;
+
+        function showNotification(msg = 'Data berhasil disimpan') {
+            showToast(msg);
+        }
+
+        function showToast(msg = 'Data berhasil disimpan') {
+            const toast = document.getElementById('toastNotification');
+            const toastMsg = document.getElementById('toastMessage');
+            if (!toast || !toastMsg) return;
+
+            if (toastTimer) {
+                clearTimeout(toastTimer);
+            }
+
+            toastMsg.textContent = msg;
+            toast.style.display = 'flex';
+            toast.offsetHeight; // Trigger reflow for transition
+            toast.style.opacity = '1';
+            toast.style.transform = 'translateY(0)';
+            toast.style.pointerEvents = 'auto';
+
+            toastTimer = setTimeout(() => {
+                hideToastImmediately();
+            }, 2500);
+        }
+
+        function hideToastImmediately() {
+            const toast = document.getElementById('toastNotification');
+            if (!toast) return;
+            if (toastTimer) {
+                clearTimeout(toastTimer);
+                toastTimer = null;
+            }
+            toast.style.opacity = '0';
+            toast.style.transform = 'translateY(20px)';
+            toast.style.pointerEvents = 'none';
+            setTimeout(() => {
+                if (toast.style.opacity === '0') {
+                    toast.style.display = 'none';
+                }
+            }, 300);
+        }
+
+        let evalSortColumn = null;
+        let evalSortOrder = 'asc';
+
+        function toggleSortEval(columnKey) {
+            if (evalSortColumn === columnKey) {
+                evalSortOrder = evalSortOrder === 'asc' ? 'desc' : 'asc';
+            } else {
+                evalSortColumn = columnKey;
+                evalSortOrder = 'asc';
+            }
+            updateEvalSortIcons();
+            handleEvalFilter();
+        }
+
+        function updateEvalSortIcons() {
+            ['kueri', 'reviewer', 'status'].forEach(col => {
+                const iconEl = document.getElementById(`evalSort_${col}`);
+                if (!iconEl) return;
+                if (evalSortColumn === col) {
+                    iconEl.className = 'text-zinc-900 font-bold text-[9px]';
+                    iconEl.innerHTML = evalSortOrder === 'asc' 
+                        ? '<i class="fa-solid fa-arrow-up-short-wide text-zinc-900"></i>' 
+                        : '<i class="fa-solid fa-arrow-down-wide-short text-zinc-900"></i>';
+                } else {
+                    iconEl.className = 'text-zinc-400 group-hover:text-zinc-700 text-[9px]';
+                    iconEl.innerHTML = '<i class="fa-solid fa-sort"></i>';
+                }
+            });
         }
 
         // Filter Controller untuk Evaluasi
@@ -1397,7 +1690,8 @@
             const query = (document.getElementById('evalSearchInput').value || '').toLowerCase().trim();
             const statusFilter = document.getElementById('evalFilterStatus').value;
 
-            const filtered = EVALUATION_RECORDS.filter(item => {
+            const records = getActiveEvaluationRecords();
+            let filtered = records.filter(item => {
                 const matchQuery = !query || 
                     item.reviewer.toLowerCase().includes(query) ||
                     item.kueri.toLowerCase().includes(query) ||
@@ -1409,12 +1703,23 @@
                 return matchQuery && matchStatus;
             });
 
+            if (evalSortColumn) {
+                filtered.sort((a, b) => {
+                    const valA = (a[evalSortColumn] || '').toString().toLowerCase();
+                    const valB = (b[evalSortColumn] || '').toString().toLowerCase();
+                    if (valA < valB) return evalSortOrder === 'asc' ? -1 : 1;
+                    if (valA > valB) return evalSortOrder === 'asc' ? 1 : -1;
+                    return 0;
+                });
+            }
+
             renderEvaluasiTab(filtered);
         }
 
         // Open Detail Modal
         function openEvalDetailModal(id) {
-            const item = EVALUATION_RECORDS.find(e => e.id === id);
+            const records = getActiveEvaluationRecords();
+            const item = records.find(e => e.id === id);
             if (!item) return;
 
             document.getElementById('evalModalReviewerImg').src = item.avatarUrl;
@@ -1622,7 +1927,7 @@
 
         // Export Rekap Tabel Lengkap Semua Laporan Evaluasi AI ke CSV (Excel Compatible)
         function exportLaporanEvaluasiCSV() {
-            const list = typeof EVALUATION_RECORDS !== 'undefined' ? EVALUATION_RECORDS : [];
+            const list = getActiveEvaluationRecords();
             if (list.length === 0) {
                 showToast('Belum ada data laporan evaluasi untuk diekspor.');
                 return;
@@ -1683,28 +1988,13 @@
             showToast('Rekap tabel lengkap semua laporan evaluasi berhasil diunduh!');
         }
 
-        // Toast Notification Trigger
-        function showToast(msg) {
-            const toast = document.getElementById('toastNotification');
-            const toastMsg = document.getElementById('toastMessage');
-            if (!toast || !toastMsg) return;
-
-            toastMsg.textContent = msg;
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            toast.classList.add('translate-y-0', 'opacity-100');
-
-            setTimeout(() => {
-                toast.classList.remove('translate-y-0', 'opacity-100');
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3000);
-        }
-
         // Navbar Language & Theme Controllers
         let currentLang = 'EN';
         function toggleNavLang() {
             currentLang = currentLang === 'EN' ? 'ID' : 'EN';
             const label = document.getElementById('navLangLabel');
             if (label) label.textContent = currentLang;
+            showToast(currentLang === 'EN' ? 'Bahasa dialihkan ke English' : 'Bahasa dialihkan ke Bahasa Indonesia');
         }
 
         function toggleMobileMenu() {
@@ -1716,8 +2006,33 @@
         }
 
         let isDarkMode = false;
+        const sunSvgHtml = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                <circle cx="12" cy="12" r="4.5"></circle>
+                <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+            </svg>
+        `;
+
+        const moonSvgHtml = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        `;
+
         function toggleNavTheme() {
             isDarkMode = !isDarkMode;
+            const container = document.getElementById('navThemeIconContainer');
+            if (container) {
+                container.innerHTML = isDarkMode ? sunSvgHtml : moonSvgHtml;
+                container.style.transform = isDarkMode ? 'rotate(0deg)' : 'rotate(360deg)';
+            }
             showToast(isDarkMode ? 'Mode Gelap diaktifkan' : 'Mode Terang diaktifkan');
         }
 

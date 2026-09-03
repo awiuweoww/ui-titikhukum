@@ -12,6 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Flaticon Uicons CDN -->
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
 
     <script>
         tailwind.config = {
@@ -126,14 +129,14 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between">
                 
-                <!-- Left: Titik Hukum Brand Logo with Admin Badge -->
+                <!-- Left: Titik Hukum Brand Logo -->
                 <a href="index.html" class="flex items-center gap-2.5 group">
                     <img src="../assets/logo-white.png" alt="Titik Hukum Logo" class="h-8 sm:h-9 object-contain transition-transform duration-300 group-hover:scale-105" />
-                    <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-wider uppercase bg-amber-400/20 text-amber-300 border border-amber-400/40">ADMIN</span>
+                    <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-wider uppercase bg-rose-500/20 text-rose-300 border border-rose-500/40">AHLI HUKUM</span>
                 </a>
 
                 <!-- Center: Menu Navigation Links (Bold di Pustaka Dokumen) -->
-                <nav class="hidden md:flex items-center gap-8 lg:gap-10 text-[13px]">
+                <nav class="hidden md:flex items-center gap-7 lg:gap-9 text-[13px]">
                     <a href="index.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
                         Beranda
                     </a>
@@ -141,15 +144,19 @@
                     <a href="pustaka.html" class="text-white font-bold transition-all duration-300 transform hover:scale-110 hover:text-white py-1 inline-block drop-shadow-sm relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white/80">
                         Pustaka Dokumen
                     </a>
-                    <a href="pengguna.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
-                        Kelola Ahli Hukum
+                    <a href="chat.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm flex items-center gap-1.5">
+                        <span>Asisten Hukum</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-extrabold bg-white/20 text-white backdrop-blur-xs">AI</span>
+                    </a>
+                    <a href="evaluasi.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Evaluasi AI
                     </a>
                     <a href="profil.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
                         Profil Saya
                     </a>
                 </nav>
 
-                <!-- Right: Language, Theme & Masuk & Daftar Buttons -->
+                <!-- Right: Language, Theme & Logout Buttons -->
                 <div class="flex items-center gap-3 sm:gap-4">
                     
                     <!-- Language Switcher -->
@@ -178,9 +185,9 @@
                     </button>
 
                     <!-- Logout / User Badge Button -->
-                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-white/40 bg-white/10 text-white hover:bg-rose-600 hover:border-rose-600 hover:text-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1" title="Keluar dari mode admin">
-                        <i class="fa-solid fa-user-shield text-amber-300 text-xs"></i>
-                        <span>Admin (Keluar)</span>
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-white/40 bg-white/10 text-white hover:bg-rose-600 hover:border-rose-600 hover:text-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1" title="Keluar dari akun ahli hukum">
+                        <i class="fa-solid fa-graduation-cap text-rose-400 text-xs"></i>
+                        <span>Hukum (Keluar)</span>
                     </a>
 
                     <!-- Mobile Menu Button -->
@@ -197,13 +204,14 @@
             <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
                 <a href="index.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Beranda</a>
                 <a href="pustaka.html" onclick="toggleMobileMenu()" class="block py-2 text-white font-bold border-b border-white/10">Pustaka Dokumen</a>
-                <a href="pengguna.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Kelola Ahli Hukum</a>
+                <a href="chat.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Asisten Hukum AI</a>
+                <a href="evaluasi.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Evaluasi AI</a>
                 <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Profil Saya</a>
                 
                 <div class="pt-2">
                     <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="w-full py-2.5 rounded-lg border border-rose-500 bg-rose-600 text-white text-xs font-semibold flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
-                        <span>Admin (Keluar)</span>
+                        <i class="fi fi-rr-sign-out-alt text-xs"></i>
+                        <span>Hukum (Keluar)</span>
                     </a>
                 </div>
             </div>
@@ -235,13 +243,12 @@
             </div>
         </div>
 
-        <!-- Toolbar (Search & Add Button at Top Row, Category Filter & Tanya AI at Bottom Row) -->
+        <!-- Toolbar (Search Input at Top, Category Filter Pills & Dynamic Tanya AI Button Below) -->
         <div class="space-y-3.5">
             
-            <!-- Row 1: Search Input (Kiri) & + Tambah Dokumen Baru (Kanan) -->
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-3">
-                <!-- Search Input Component -->
-                <div class="relative w-full sm:max-w-md md:max-w-lg flex items-center">
+            <!-- Row 1: Search Input Component -->
+            <div class="w-full flex items-center justify-between gap-3">
+                <div class="relative w-full max-w-xl flex items-center">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xs sm:text-sm pointer-events-none"></i>
                     <input 
                         type="text" 
@@ -251,15 +258,9 @@
                         class="w-full pl-10 sm:pl-11 pr-5 py-2.5 sm:py-3 rounded-full bg-[#edebe6] border border-black/5 text-xs sm:text-[13px] text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20 transition shadow-2xs"
                     />
                 </div>
-
-                <!-- + Tambah Dokumen Baru Button (Coklat Courtroom) -->
-                <button type="button" onclick="openAddModal()" class="w-full sm:w-[240px] py-3 px-5 rounded-full bg-[#26150d] hover:bg-[#381d12] text-white text-xs sm:text-[13px] font-semibold transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 shrink-0">
-                    <span>Tambah Dokumen Baru</span>
-                    <i class="fa-solid fa-plus text-xs"></i>
-                </button>
             </div>
 
-            <!-- Row 2: Category Filter Pills (Kiri) & Button Tanya AI (Kanan - Tepat di bawah Tambah Dokumen Baru) -->
+            <!-- Row 2: Category Filter Pills (Kiri) & Button Tanya AI (Kanan saat checkbox dipilih) -->
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <!-- Sector / Jenis Aturan Pills Switcher -->
                 <div class="flex items-center gap-1 bg-[#edebe6] p-1.5 rounded-full w-fit max-w-full overflow-x-auto border border-black/5 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
@@ -280,10 +281,32 @@
                     </button>
                 </div>
 
-                <!-- Button Hapus Dokumen Terpilih (Merah, Tepat Di Bawah Tambah Dokumen Baru, Lebar Sama) -->
-                <button type="button" id="deleteBatchBtn" onclick="openDeleteConfirmModal()" class="hidden w-full sm:w-[240px] py-3.5 px-5 rounded-full bg-rose-600 hover:bg-rose-700 text-white text-xs sm:text-[13px] font-bold tracking-wide transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 shrink-0 border border-rose-700">
-                    <i class="fa-solid fa-trash-can text-sm text-white"></i>
-                    <span>Hapus Dokumen (<span id="selectedCountBadge" class="font-black text-white">0</span>)</span>
+                <!-- Button Tanya AI (Kuning Teks Coklat, Muncul saat checkbox dipilih) -->
+                <button type="button" id="tanyaAiBatchBtn" onclick="tanyaAiSelectedDocs()" class="hidden py-2.5 px-6 rounded-full bg-[#f4be37] hover:bg-[#e6b12a] text-[#26150d] text-xs sm:text-[13px] font-bold tracking-wide transition-all shadow-md active:scale-95 flex items-center justify-center gap-2 shrink-0 border border-[#d49e1a]">
+                    <i class="fa-solid fa-robot text-sm text-[#26150d]"></i>
+                    <span class="text-[#26150d]">Tanya AI (<span id="selectedCountBadge" class="font-black text-[#26150d]">0</span>)</span>
+                </button>
+            </div>
+
+            <!-- Smart AI Search Banner (Muncul otomatis saat user mencari keyword/pertanyaan alami) -->
+            <div id="smartSearchBanner" class="hidden p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs animate-in fade-in duration-200">
+                <div class="flex items-start sm:items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-2xs font-bold mt-0.5 sm:mt-0">
+                        <i class="fa-solid fa-wand-magic-sparkles text-xs"></i>
+                    </div>
+                    <div>
+                        <div class="font-bold text-gray-900 flex items-center gap-2 flex-wrap">
+                            <span>Hasil Pencarian Semantik:</span>
+                            <span id="searchQueryBadge" class="px-2 py-0.5 rounded-md bg-amber-100/80 text-[#26150d] font-semibold italic border border-amber-300/60">"..."</span>
+                        </div>
+                        <div class="text-[11px] text-gray-500 mt-0.5">
+                            Menemukan <strong id="smartMatchCount" class="text-[#26150d] font-bold">0 regulasi relevan</strong> • Centang 1 atau beberapa dokumen lalu klik <strong class="text-amber-800">Tanya AI</strong> untuk analisis lanjutan.
+                        </div>
+                    </div>
+                </div>
+                <button type="button" onclick="clearSmartSearch()" class="px-3.5 py-1.5 rounded-xl bg-white border border-stone-200 text-stone-700 hover:bg-stone-100 font-semibold transition text-xs shrink-0 shadow-2xs flex items-center gap-1.5 active:scale-95">
+                    <i class="fa-solid fa-rotate-left text-[10px] text-stone-400"></i>
+                    <span>Reset Pencarian</span>
                 </button>
             </div>
 
@@ -374,213 +397,96 @@
     </main>
 
     <!-- ======================================================== -->
-    <!-- MODAL 1: ISI DETAIL DOKUMEN (MATCH USER SCREENSHOT EXACT) -->
+    <!-- MODAL 1: TAMBAH DOKUMEN BARU                             -->
     <!-- ======================================================== -->
-    <div id="addDocModal" onclick="if(event.target === this) closeAddModal()" class="hidden fixed inset-0 z-50 modal-backdrop bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
-        <div class="bg-white rounded-[24px] sm:rounded-[28px] w-full max-w-4xl overflow-hidden shadow-2xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200 my-auto" onclick="event.stopPropagation()">
+    <div id="addDocModal" onclick="if(event.target === this) closeAddModal()" class="hidden fixed inset-0 z-50 modal-backdrop bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-[28px] w-full max-w-2xl overflow-hidden shadow-2xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200" onclick="event.stopPropagation()">
             
-            <!-- Modal Header -->
-            <div class="p-6 sm:p-8 pb-4 border-b border-gray-100 flex items-start justify-between">
-                <div class="space-y-1">
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 leading-tight">Isi Detail Dokumen</h3>
-                    <p class="text-xs sm:text-[13px] text-gray-400 font-normal">Lengkapi metadata dan unggah berkas naskah regulasi hukum</p>
+            <div class="p-6 sm:p-8 border-b border-gray-100 flex items-center justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900">Tambah Dokumen Baru</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Unggah berkas PDF naskah hukum untuk dipetakan hierarki pasalnya.</p>
                 </div>
-                <button type="button" onclick="closeAddModal()" class="w-8 h-8 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-700 flex items-center justify-center transition" title="Tutup">
-                    <i class="fa-solid fa-xmark text-base"></i>
+                <button type="button" onclick="closeAddModal()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
             </div>
 
-            <!-- Form Content (Dropzone + 2-Column Grid Exact Fields) -->
-            <form id="addDocForm" onsubmit="handleAddSubmit(event)" class="p-6 sm:p-8 space-y-4 text-xs sm:text-[13px] max-h-[75vh] overflow-y-auto">
+            <form id="addDocForm" onsubmit="handleAddSubmit(event)" class="p-6 sm:p-8 space-y-5 text-xs sm:text-[13px]">
                 
-                <!-- 1. Dropzone Unggah Berkas PDF -->
-                <div class="space-y-1.5 pb-2 border-b border-gray-100">
-                    <label class="block font-medium text-gray-700 text-xs">Unggah Berkas Naskah PDF <span class="text-rose-500">*</span></label>
-                    <div id="dropZone" class="border-2 border-dashed border-gray-200 hover:border-[#26150d] rounded-2xl p-5 text-center cursor-pointer transition-all bg-gray-50/50 hover:bg-[#faf8f5] group" onclick="document.getElementById('pdfFileInput').click()">
+                <!-- PDF Upload Zone -->
+                <div>
+                    <label class="block font-bold text-gray-800 mb-2">Unggah Berkas PDF <span class="text-rose-500">*</span></label>
+                    <div id="dropZone" class="border-2 border-dashed border-gray-300 hover:border-[#26150d] rounded-2xl p-6 text-center cursor-pointer transition bg-gray-50/60" onclick="document.getElementById('pdfFileInput').click()">
                         <input type="file" id="pdfFileInput" accept="application/pdf" class="hidden" onchange="handleFileSelected(this)">
-                        <div class="space-y-1.5">
-                            <div class="w-10 h-10 rounded-full bg-gray-200/80 group-hover:bg-[#f6eee7] text-gray-500 group-hover:text-[#26150d] flex items-center justify-center mx-auto transition">
+                        <div class="space-y-2">
+                            <div class="w-10 h-10 rounded-full bg-[#f6eee7] text-[#26150d] flex items-center justify-center mx-auto">
                                 <i class="fa-solid fa-cloud-arrow-up text-base"></i>
                             </div>
-                            <div id="dropZoneText" class="font-bold text-gray-800 text-xs sm:text-[13px]">
-                                Pilih file PDF atau tarik & letakkan di sini
+                            <div id="fileNamePreview" class="font-semibold text-gray-800">
+                                Klik untuk memilih file PDF atau tarik ke sini
                             </div>
                             <div class="text-[11px] text-gray-400 font-normal">
-                                PDF, DOCX, Scan OCR resmi • Maksimal hingga 50MB
-                            </div>
-                            <div class="pt-0.5">
-                                <span class="inline-block px-4 py-1.5 rounded-lg bg-white border border-gray-200 text-gray-700 text-xs font-semibold shadow-2xs group-hover:border-[#26150d] group-hover:text-[#26150d] transition">
-                                    Browse files
-                                </span>
+                                Format didukung: PDF Dokumen Resmi (Maks. 50 MB)
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3.5 pt-1">
-                    
-                    <!-- LEFT COLUMN -->
-                    <div class="space-y-3.5">
-                        <!-- Judul -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Judul <span class="text-rose-500">*</span></label>
-                            <input type="text" id="addTitle" required placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Nomor -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Nomor <span class="text-rose-500">*</span></label>
-                            <input type="text" id="addNumber" required placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Tahun -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Tahun</label>
-                            <input type="text" id="addYear" placeholder="e.g., 1900-2025" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 placeholder:text-gray-400 bg-white transition">
-                        </div>
-
-                        <!-- Bentuk Peraturan -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Bentuk Peraturan</label>
-                            <input type="text" id="addBentukPeraturan" placeholder="e.g., Undang-Undang" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 placeholder:text-gray-400 bg-white transition">
-                        </div>
-
-                        <!-- Bentuk Singkat -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Bentuk Singkat</label>
-                            <input type="text" id="addBentukSingkat" placeholder="e.g., UU" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 placeholder:text-gray-400 bg-white transition">
-                        </div>
-
-                        <!-- Sumber -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Sumber</label>
-                            <input type="text" id="addSource" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Subjek -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Subjek</label>
-                            <input type="text" id="addSubjek" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Lokasi -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Lokasi</label>
-                            <input type="text" id="addLokasi" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Judul Dokumen -->
+                    <div class="sm:col-span-2">
+                        <label class="block font-bold text-gray-800 mb-1.5">Judul / Naskah Regulasi <span class="text-rose-500">*</span></label>
+                        <input type="text" id="addTitle" required placeholder="Contoh: UU Nomor 1 Tahun 2024 tentang Perubahan UU ITE" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
                     </div>
 
-                    <!-- RIGHT COLUMN -->
-                    <div class="space-y-3.5">
-                        <!-- Tanggal Penetapan -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Tanggal Penetapan</label>
-                            <input type="date" id="addTglPenetapan" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Tanggal Pengundangan -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Tanggal Pengundangan</label>
-                            <input type="date" id="addTglPengundangan" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Tanggal Berlaku -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Tanggal Berlaku</label>
-                            <input type="date" id="addTglBerlaku" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Tempat Penetapan -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Tempat Penetapan</label>
-                            <input type="text" id="addTempatPenetapan" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- T.E.U (Badan/Pengarang) -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">T.E.U (Badan/Pengarang)</label>
-                            <input type="text" id="addTEU" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Status -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Status</label>
-                            <input type="text" id="addStatus" placeholder="" value="Berlaku" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Bahasa -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Bahasa</label>
-                            <input type="text" id="addBahasa" placeholder="" value="Indonesia" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Bidang Hukum -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Bidang Hukum</label>
-                            <input type="text" id="addBidangHukum" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
+                    <!-- Jenis / Bidang Aturan -->
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Jenis / Bidang Aturan <span class="text-rose-500">*</span></label>
+                        <select id="addCategory" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20 bg-white">
+                            <option value="Kelautan & Perikanan">Kelautan & Perikanan</option>
+                            <option value="Pemerintahan">Pemerintahan & Tata Kelola</option>
+                            <option value="Teknologi & Digital">Teknologi & Digital</option>
+                            <option value="Hukum Pidana">Hukum Pidana & Keadilan</option>
+                            <option value="Agraria & Tata Ruang">Agraria & Tata Ruang</option>
+                            <option value="Keuangan & Bisnis">Keuangan & Bisnis</option>
+                        </select>
                     </div>
 
+                    <!-- Ruang Lingkup / Sub-Bidang -->
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Ruang Lingkup / Sub-Bidang <span class="text-rose-500">*</span></label>
+                        <input type="text" id="addSource" required placeholder="Contoh: Penangkapan Ikan Terukur / SPBE" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                    </div>
+
+                    <!-- Nomor Regulasi -->
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Nomor Regulasi <span class="text-rose-500">*</span></label>
+                        <input type="text" id="addNumber" required placeholder="Contoh: PP No. 11 / UU No. 32" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                    </div>
+
+                    <!-- Tahun Pengundangan -->
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Tahun <span class="text-rose-500">*</span></label>
+                        <input type="number" id="addYear" required min="1945" max="2030" value="2024" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                    </div>
+
+                    <!-- Keterangan Singkat -->
+                    <div class="sm:col-span-2">
+                        <label class="block font-bold text-gray-800 mb-1.5">Abstrak / Catatan Singkat</label>
+                        <textarea id="addNotes" rows="2" placeholder="Catatan mengenai ruang lingkup, perubahan pasal, atau relevansi kasus..." class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20"></textarea>
+                    </div>
                 </div>
 
-                <!-- FULL WIDTH: Catatan -->
-                <div class="pt-1">
-                    <label class="block font-medium text-gray-700 text-xs mb-1.5">Catatan</label>
-                    <textarea id="addCatatan" rows="3" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition resize-y"></textarea>
-                </div>
-
-                <!-- FULL WIDTH: Jenis Tindak Pidana (Custom Brown Dropdown) -->
-                <div class="relative" id="customDropdownContainer">
-                    <label class="block font-medium text-gray-700 text-xs mb-1.5">Jenis Tindak Pidana (Cari atau Pilih)</label>
-                    <input type="hidden" id="addJenisTindakPidana" value="">
-                    
-                    <button type="button" id="customDropdownTrigger" onclick="toggleCustomTopicDropdown()" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-500 bg-white transition flex items-center justify-between text-left text-xs sm:text-[13px]">
-                        <span id="selectedTopicLabel">Cari atau pilih topik...</span>
-                        <i class="fa-solid fa-chevron-down text-gray-400 text-xs transition-transform duration-200" id="topicDropdownChevron"></i>
+                <!-- Action Buttons (Brown Button) -->
+                <div class="pt-4 border-t border-gray-100 flex items-center justify-end gap-3">
+                    <button type="button" onclick="closeAddModal()" class="px-5 py-2.5 rounded-full border border-gray-300 hover:bg-gray-100 font-semibold text-gray-700 transition">
+                        Batal
                     </button>
-
-                    <!-- Dropdown List with Courtroom Brown Palette -->
-                    <div id="customTopicDropdownMenu" class="hidden absolute left-0 right-0 bottom-full mb-1 z-50 bg-white rounded-xl border border-stone-200 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150 max-h-56 overflow-y-auto py-1">
-                        <div onclick="selectTopicOption('')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-500 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Cari atau pilih topik...</span>
-                        </div>
-                        <div onclick="selectTopicOption('Pelanggaran Penangkapan Ikan Terukur (PIT)')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-800 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Pelanggaran Penangkapan Ikan Terukur (PIT)</span>
-                        </div>
-                        <div onclick="selectTopicOption('Tindak Pidana ITE / Kejahatan Siber')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-800 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Tindak Pidana ITE / Kejahatan Siber</span>
-                        </div>
-                        <div onclick="selectTopicOption('Penyalahgunaan Wewenang Jabatan')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-800 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Penyalahgunaan Wewenang Jabatan</span>
-                        </div>
-                        <div onclick="selectTopicOption('Pencemaran & Perusakan Wilayah Perairan')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-800 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Pencemaran & Perusakan Wilayah Perairan</span>
-                        </div>
-                        <div onclick="selectTopicOption('Pelanggaran Tata Ruang Wilayah')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-800 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Pelanggaran Tata Ruang Wilayah</span>
-                        </div>
-                        <div onclick="selectTopicOption('Tindak Pidana Perpajakan & Keuangan')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-800 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Tindak Pidana Perpajakan & Keuangan</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Footer Action Buttons -->
-                <div class="pt-4 border-t border-gray-100 flex items-center justify-between gap-3">
-                    <button type="button" onclick="closeAddModal()" class="px-5 py-2.5 rounded-xl border border-rose-200 bg-rose-50/80 hover:bg-rose-100 text-rose-700 font-bold text-xs transition active:scale-95 flex items-center gap-1.5">
-                        <i class="fa-solid fa-xmark text-xs"></i>
-                        <span>Batal</span>
+                    <button type="submit" class="px-6 py-2.5 rounded-full bg-[#26150d] hover:bg-[#381d12] text-white font-semibold transition active:scale-95 shadow-md flex items-center gap-2">
+                        <span>Simpan & Ekstraksi AI</span>
+                        <i class="fa-solid fa-sparkles text-xs text-amber-300"></i>
                     </button>
-                    <div class="flex items-center gap-2.5">
-                        <button type="button" onclick="document.getElementById('addDocForm').reset(); resetCustomTopic();" class="px-4 py-2.5 rounded-xl border border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-xs transition active:scale-95 flex items-center gap-1.5">
-                            <i class="fa-solid fa-rotate-left text-[11px] text-gray-500"></i>
-                            <span>Reset Form</span>
-                        </button>
-                        <button type="submit" class="px-6 py-2.5 rounded-xl bg-[#1b4332] hover:bg-[#143628] text-white font-bold text-xs shadow-md hover:shadow-emerald-950/20 transition active:scale-95 flex items-center gap-2">
-                            <span>Simpan Detail Dokumen</span>
-                            <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                        </button>
-                    </div>
                 </div>
 
             </form>
@@ -589,239 +495,70 @@
     </div>
 
     <!-- ======================================================== -->
-    <!-- MODAL: KONFIRMASI HAPUS BATCH DOKUMEN                    -->
+    <!-- MODAL 2: EDIT METADATA DOKUMEN                           -->
     <!-- ======================================================== -->
-    <div id="deleteConfirmModal" onclick="if(event.target === this) closeDeleteConfirmModal()" class="hidden fixed inset-0 z-50 modal-backdrop bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-        <div class="bg-white rounded-[24px] sm:rounded-[28px] w-full max-w-lg overflow-hidden shadow-2xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200" onclick="event.stopPropagation()">
+    <div id="editDocModal" onclick="if(event.target === this) closeEditModal()" class="hidden fixed inset-0 z-50 modal-backdrop bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
+        <div class="bg-white rounded-[28px] w-full max-w-2xl overflow-hidden shadow-2xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200" onclick="event.stopPropagation()">
             
-            <div class="p-6 sm:p-7 space-y-4">
-                <!-- Icon & Header -->
-                <div class="flex items-start gap-3.5">
-                    <div class="w-12 h-12 rounded-2xl bg-rose-50 border border-rose-100 flex items-center justify-center text-rose-600 shrink-0 shadow-2xs">
-                        <i class="fa-solid fa-triangle-exclamation text-xl"></i>
-                    </div>
-                    <div class="space-y-1">
-                        <h3 class="text-lg sm:text-xl font-bold text-gray-900 leading-tight">Konfirmasi Hapus Dokumen</h3>
-                        <p class="text-xs text-gray-500">Tindakan ini akan menghapus dokumen terpilih secara permanen dari pustaka.</p>
-                    </div>
+            <div class="p-6 sm:p-8 border-b border-gray-100 flex items-center justify-between">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-900">Sunting Metadata Dokumen</h3>
+                    <p class="text-xs text-gray-500 mt-0.5">Perbarui detail referensi dan penomoran dokumen hukum.</p>
                 </div>
-
-                <!-- Details Alert Box -->
-                <div class="p-4 rounded-2xl bg-stone-50 border border-stone-200/80 space-y-2.5">
-                    <div class="text-xs sm:text-[13px] text-gray-700 font-normal leading-relaxed">
-                        Apakah Anda yakin ingin menghapus <strong id="deleteConfirmCount" class="text-rose-600 font-bold">0 berkas</strong> yang dipilih?
-                    </div>
-                    <!-- Selected Documents List Preview -->
-                    <div id="deleteDocsPreviewList" class="max-h-36 overflow-y-auto space-y-1.5 pr-1 text-xs">
-                        <!-- Dynamically populated -->
-                    </div>
-                </div>
-
-                <div class="text-[11px] text-gray-400 italic flex items-center gap-1.5">
-                    <i class="fa-solid fa-circle-info text-gray-400"></i>
-                    <span>Dokumen yang dihapus tidak dapat dipulihkan kembali dari sistem.</span>
-                </div>
-            </div>
-
-            <!-- Footer Action Buttons -->
-            <div class="p-5 sm:p-6 pt-3 bg-gray-50/60 border-t border-gray-100 flex items-center justify-end gap-2.5">
-                <button type="button" onclick="closeDeleteConfirmModal()" class="px-5 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-100 text-gray-700 font-semibold text-xs transition active:scale-95">
-                    Batal
-                </button>
-                <button type="button" onclick="executeDeleteSelectedDocs()" class="px-6 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-md hover:shadow-rose-900/20 transition active:scale-95 flex items-center gap-2">
-                    <i class="fa-solid fa-trash-can text-xs"></i>
-                    <span>Ya, Hapus Dokumen</span>
+                <button type="button" onclick="closeEditModal()" class="w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 flex items-center justify-center transition">
+                    <i class="fa-solid fa-xmark text-sm"></i>
                 </button>
             </div>
 
-        </div>
-    </div>
-
-    <!-- ======================================================== -->
-    <!-- MODAL 2: EDIT METADATA DOKUMEN (Exact Legal Form)        -->
-    <!-- ======================================================== -->
-    <div id="editDocModal" onclick="if(event.target === this) closeEditModal()" class="hidden fixed inset-0 z-50 modal-backdrop bg-black/60 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5 overflow-y-auto">
-        <div class="bg-white rounded-[24px] sm:rounded-[28px] w-full max-w-4xl overflow-hidden shadow-2xl border border-gray-100 animate-in fade-in zoom-in-95 duration-200 my-auto" onclick="event.stopPropagation()">
-            
-            <!-- Modal Header -->
-            <div class="p-6 sm:p-8 pb-4 border-b border-gray-100 flex items-start justify-between">
-                <div class="space-y-1">
-                    <h3 class="text-xl sm:text-2xl font-bold text-gray-900 leading-tight">Sunting Metadata Dokumen</h3>
-                    <p class="text-xs sm:text-[13px] text-gray-400 font-normal">Perbarui detail referensi naskah dan klasifikasi regulasi hukum</p>
-                </div>
-                <button type="button" onclick="closeEditModal()" class="w-8 h-8 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-700 flex items-center justify-center transition" title="Tutup">
-                    <i class="fa-solid fa-xmark text-base"></i>
-                </button>
-            </div>
-
-            <!-- Form Content (2-Column Grid Exact Fields) -->
-            <form id="editDocForm" onsubmit="handleEditSubmit(event)" class="p-6 sm:p-8 space-y-4 text-xs sm:text-[13px] max-h-[75vh] overflow-y-auto">
+            <form id="editDocForm" onsubmit="handleEditSubmit(event)" class="p-6 sm:p-8 space-y-4 text-xs sm:text-[13px]">
                 <input type="hidden" id="editDocId">
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3.5 pt-1">
-                    
-                    <!-- LEFT COLUMN -->
-                    <div class="space-y-3.5">
-                        <!-- Judul -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Judul <span class="text-rose-500">*</span></label>
-                            <input type="text" id="editTitle" required placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Nomor -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Nomor <span class="text-rose-500">*</span></label>
-                            <input type="text" id="editNumber" required placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Tahun -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Tahun</label>
-                            <input type="text" id="editYear" placeholder="e.g., 1900-2025" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 placeholder:text-gray-400 bg-white transition">
-                        </div>
-
-                        <!-- Bentuk Peraturan -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Bentuk Peraturan</label>
-                            <input type="text" id="editBentukPeraturan" placeholder="e.g., Undang-Undang" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 placeholder:text-gray-400 bg-white transition">
-                        </div>
-
-                        <!-- Bentuk Singkat -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Bentuk Singkat</label>
-                            <input type="text" id="editBentukSingkat" placeholder="e.g., UU" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 placeholder:text-gray-400 bg-white transition">
-                        </div>
-
-                        <!-- Sumber -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Sumber</label>
-                            <input type="text" id="editSource" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Subjek -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Subjek</label>
-                            <input type="text" id="editSubjek" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Lokasi -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Lokasi</label>
-                            <input type="text" id="editLokasi" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-                    </div>
-
-                    <!-- RIGHT COLUMN -->
-                    <div class="space-y-3.5">
-                        <!-- Tanggal Penetapan -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Tanggal Penetapan</label>
-                            <input type="date" id="editTglPenetapan" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Tanggal Pengundangan -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Tanggal Pengundangan</label>
-                            <input type="date" id="editTglPengundangan" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Tanggal Berlaku -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Tanggal Berlaku</label>
-                            <input type="date" id="editTglBerlaku" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Tempat Penetapan -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Tempat Penetapan</label>
-                            <input type="text" id="editTempatPenetapan" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- T.E.U (Badan/Pengarang) -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">T.E.U (Badan/Pengarang)</label>
-                            <input type="text" id="editTEU" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Status -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Status</label>
-                            <input type="text" id="editStatus" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Bahasa -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Bahasa</label>
-                            <input type="text" id="editBahasa" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-
-                        <!-- Bidang Hukum -->
-                        <div>
-                            <label class="block font-medium text-gray-700 text-xs mb-1.5">Bidang Hukum</label>
-                            <input type="text" id="editBidangHukum" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition">
-                        </div>
-                    </div>
-
+                <div>
+                    <label class="block font-bold text-gray-800 mb-1.5">Judul Dokumen</label>
+                    <input type="text" id="editTitle" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
                 </div>
 
-                <!-- FULL WIDTH: Catatan -->
-                <div class="pt-1">
-                    <label class="block font-medium text-gray-700 text-xs mb-1.5">Catatan</label>
-                    <textarea id="editCatatan" rows="3" placeholder="" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-900 bg-white transition resize-y"></textarea>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Jenis / Bidang Aturan</label>
+                        <select id="editCategory" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20 bg-white">
+                            <option value="Kelautan & Perikanan">Kelautan & Perikanan</option>
+                            <option value="Pemerintahan">Pemerintahan & Tata Kelola</option>
+                            <option value="Teknologi & Digital">Teknologi & Digital</option>
+                            <option value="Hukum Pidana">Hukum Pidana & Keadilan</option>
+                            <option value="Agraria & Tata Ruang">Agraria & Tata Ruang</option>
+                            <option value="Keuangan & Bisnis">Keuangan & Bisnis</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Ruang Lingkup / Sub-Bidang</label>
+                        <input type="text" id="editSource" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Nomor Regulasi</label>
+                        <input type="text" id="editNumber" required class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-gray-800 mb-1.5">Tahun Pengundangan</label>
+                        <input type="number" id="editYear" required min="1945" max="2030" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20">
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label class="block font-bold text-gray-800 mb-1.5">Abstrak / Catatan Dokumen</label>
+                        <textarea id="editNotes" rows="2" placeholder="Catatan mengenai ruang lingkup, perubahan pasal, atau relevansi kasus..." class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-[#26150d]/20"></textarea>
+                    </div>
                 </div>
 
-                <!-- FULL WIDTH: Jenis Tindak Pidana (Custom Brown Dropdown) -->
-                <div class="relative" id="editCustomDropdownContainer">
-                    <label class="block font-medium text-gray-700 text-xs mb-1.5">Jenis Tindak Pidana (Cari atau Pilih)</label>
-                    <input type="hidden" id="editJenisTindakPidana" value="">
-                    
-                    <button type="button" id="editCustomDropdownTrigger" onclick="toggleEditCustomTopicDropdown()" class="w-full px-3.5 py-2.5 rounded-xl border border-gray-200 focus:outline-none focus:border-[#26150d] focus:ring-2 focus:ring-[#26150d]/10 text-gray-500 bg-white transition flex items-center justify-between text-left text-xs sm:text-[13px]">
-                        <span id="editSelectedTopicLabel">Cari atau pilih topik...</span>
-                        <i class="fa-solid fa-chevron-down text-gray-400 text-xs transition-transform duration-200" id="editTopicDropdownChevron"></i>
+                <div class="pt-4 border-t border-gray-100 flex items-center justify-end gap-3">
+                    <button type="button" onclick="closeEditModal()" class="px-5 py-2.5 rounded-full border border-gray-300 hover:bg-gray-100 font-semibold text-gray-700 transition">
+                        Batal
                     </button>
-
-                    <!-- Dropdown List with Courtroom Brown Palette -->
-                    <div id="editCustomTopicDropdownMenu" class="hidden absolute left-0 right-0 bottom-full mb-1 z-50 bg-white rounded-xl border border-stone-200 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150 max-h-56 overflow-y-auto py-1">
-                        <div onclick="selectEditTopicOption('')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-500 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Cari atau pilih topik...</span>
-                        </div>
-                        <div onclick="selectEditTopicOption('Pelanggaran Penangkapan Ikan Terukur (PIT)')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-800 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Pelanggaran Penangkapan Ikan Terukur (PIT)</span>
-                        </div>
-                        <div onclick="selectEditTopicOption('Tindak Pidana ITE / Kejahatan Siber')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-800 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Tindak Pidana ITE / Kejahatan Siber</span>
-                        </div>
-                        <div onclick="selectEditTopicOption('Penyalahgunaan Wewenang Jabatan')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-800 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Penyalahgunaan Wewenang Jabatan</span>
-                        </div>
-                        <div onclick="selectEditTopicOption('Pencemaran & Perusakan Wilayah Perairan')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-800 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Pencemaran & Perusakan Wilayah Perairan</span>
-                        </div>
-                        <div onclick="selectEditTopicOption('Pelanggaran Tata Ruang Wilayah')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-800 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Pelanggaran Tata Ruang Wilayah</span>
-                        </div>
-                        <div onclick="selectEditTopicOption('Tindak Pidana Perpajakan & Keuangan')" class="topic-item px-3.5 py-2.5 text-xs sm:text-[13px] text-stone-800 hover:bg-[#26150d] hover:text-white cursor-pointer transition flex items-center justify-between">
-                            <span>Tindak Pidana Perpajakan & Keuangan</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Footer Action Buttons -->
-                <div class="pt-4 border-t border-gray-100 flex items-center justify-between gap-3">
-                    <button type="button" onclick="closeEditModal()" class="px-5 py-2.5 rounded-xl border border-rose-200 bg-rose-50/80 hover:bg-rose-100 text-rose-700 font-bold text-xs transition active:scale-95 flex items-center gap-1.5">
-                        <i class="fa-solid fa-xmark text-xs"></i>
-                        <span>Batal</span>
+                    <button type="submit" class="px-6 py-2.5 rounded-full bg-[#26150d] hover:bg-[#381d12] text-white font-semibold transition active:scale-95 shadow-md">
+                        Simpan Perubahan
                     </button>
-                    <div class="flex items-center gap-2.5">
-                        <button type="button" onclick="document.getElementById('editDocForm').reset(); resetEditCustomTopic();" class="px-4 py-2.5 rounded-xl border border-gray-300 bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-xs transition active:scale-95 flex items-center gap-1.5">
-                            <i class="fa-solid fa-rotate-left text-[11px] text-gray-500"></i>
-                            <span>Reset Form</span>
-                        </button>
-                        <button type="submit" class="px-6 py-2.5 rounded-xl bg-[#1b4332] hover:bg-[#143628] text-white font-bold text-xs shadow-md hover:shadow-emerald-950/20 transition active:scale-95 flex items-center gap-2">
-                            <span>Simpan Perubahan</span>
-                            <i class="fa-solid fa-check text-xs"></i>
-                        </button>
-                    </div>
                 </div>
 
             </form>
@@ -1101,91 +838,151 @@
     </div>
 
     <!-- ======================================================== -->
-    <!-- MODAL 5: DEDICATED FULL DOCUMENT READER VIEWER           -->
-    <!-- (Tampilan Pembaca Naskah PDF Lengkap Tanpa Antarmuka Chat)-->
+    <!-- MODAL 5: AUTHENTIC LEGAL PDF DOCUMENT VIEWER             -->
+    <!-- (Tampilan Pembaca PDF Resmi Standar Adobe/Chrome Viewer) -->
     <!-- ======================================================== -->
-    <div id="fullDocReaderModal" class="hidden fixed inset-0 z-[120] modal-backdrop bg-black/85 backdrop-blur-sm flex flex-col justify-between overflow-hidden">
+    <div id="fullDocReaderModal" class="hidden fixed inset-0 z-[120] modal-backdrop bg-black/90 flex flex-col justify-between overflow-hidden">
         
-        <!-- 1. Top Document Reader Toolbar -->
-        <header class="h-14 bg-[#231d1a] border-b border-[#3d3632] px-4 sm:px-6 flex items-center justify-between text-white shrink-0 z-10 shadow-md">
-            <!-- Left: Document Information -->
-            <div class="flex items-center gap-3 min-w-0 pr-4">
-                <div class="w-8 h-8 rounded-lg bg-rose-500/20 border border-rose-500/40 text-rose-400 flex items-center justify-center shrink-0">
-                    <i class="fa-regular fa-file-pdf text-sm"></i>
+        <!-- 1. Top Professional PDF Viewer Toolbar (Chrome/Acrobat Style) -->
+        <header class="h-12 bg-[#323639] border-b border-[#212426] px-3 sm:px-5 flex items-center justify-between text-white shrink-0 z-20 shadow-md select-none">
+            <!-- Left: Sidebar Toggle, Document Title & File Info -->
+            <div class="flex items-center gap-2.5 min-w-0 pr-2">
+                <button type="button" onclick="togglePdfSidebar()" class="w-8 h-8 rounded hover:bg-white/10 text-stone-300 hover:text-white flex items-center justify-center text-xs transition cursor-pointer" title="Buka/Tutup Bilah Sisi Halaman">
+                    <i class="fa-solid fa-table-columns text-xs"></i>
+                </button>
+
+                <div class="w-7 h-7 rounded bg-rose-600 text-white flex items-center justify-center shrink-0 text-[11px] shadow-2xs font-bold">
+                    PDF
                 </div>
-                <div class="min-w-0">
-                    <h3 id="readerDocTitle" class="text-xs sm:text-sm font-bold text-white truncate max-w-[280px] sm:max-w-md md:max-w-xl">
-                        Naskah Dokumen Hukum Lengkap
-                    </h3>
-                    <div class="flex items-center gap-2 text-[10px] text-stone-400 font-mono">
-                        <span id="readerDocMetaNumber">Nomor Regulasi</span>
-                        <span>•</span>
-                        <span id="readerDocMetaCategory" class="text-amber-300">Kategori</span>
-                        <span>•</span>
-                        <span class="text-emerald-400">Salinan Sah RI</span>
-                    </div>
+
+                <div class="min-w-0 flex items-center gap-2">
+                    <span id="readerDocFileName" class="text-xs font-semibold text-stone-200 truncate max-w-[180px] sm:max-w-xs md:max-w-md">
+                        dokumen_regulasi.pdf
+                    </span>
+                    <span class="hidden md:inline-block px-1.5 py-0.5 rounded bg-stone-700/70 text-[10px] text-stone-300 font-mono" id="readerDocMetaSize">
+                        4.8 MB
+                    </span>
                 </div>
             </div>
 
-            <!-- Center/Right: Document Controls (Search in Doc, Zoom, Download, Close) -->
-            <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-                <!-- Search In Document Input -->
-                <div class="relative hidden md:flex items-center">
-                    <i class="fa-solid fa-magnifying-glass absolute left-3 text-stone-400 text-xs pointer-events-none"></i>
+            <!-- Center: Page Navigation & Zoom Controls (Exact Standard PDF Controls) -->
+            <div class="flex items-center gap-1 sm:gap-2">
+                <!-- Page Navigator: [ < ] 1 / 4 [ > ] -->
+                <div class="flex items-center bg-[#242729] rounded border border-stone-700/80 px-1 py-0.5 text-xs text-stone-200">
+                    <button type="button" onclick="navigatePdfPage(-1)" class="w-6 h-6 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center transition cursor-pointer" title="Halaman Sebelumnya">
+                        <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                    </button>
+                    <div class="flex items-center gap-1 px-1.5 font-mono text-[11px]">
+                        <input type="text" id="pdfCurrentPageInput" value="1" onchange="jumpToPdfPage(this.value)" class="w-7 text-center bg-[#323639] border border-stone-600 rounded text-stone-100 font-bold focus:outline-none focus:border-amber-400 py-0.5">
+                        <span class="text-stone-400">/</span>
+                        <span id="pdfTotalPagesCount" class="text-stone-300 font-bold">4</span>
+                    </div>
+                    <button type="button" onclick="navigatePdfPage(1)" class="w-6 h-6 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center transition cursor-pointer" title="Halaman Berikutnya">
+                        <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                    </button>
+                </div>
+
+                <div class="h-5 w-[1px] bg-stone-600 hidden sm:block"></div>
+
+                <!-- Zoom Controls: [ - ] 100% [ + ] [ Fit ] -->
+                <div class="flex items-center bg-[#242729] rounded border border-stone-700/80 px-1 py-0.5 text-xs text-stone-200">
+                    <button type="button" onclick="adjustReaderZoom(-10)" class="w-6 h-6 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center transition cursor-pointer" title="Perkecil (-)">
+                        <i class="fa-solid fa-minus text-[10px]"></i>
+                    </button>
+                    <span id="readerZoomLevel" class="px-2 text-[11px] font-mono font-bold text-stone-200 min-w-[44px] text-center">100%</span>
+                    <button type="button" onclick="adjustReaderZoom(10)" class="w-6 h-6 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center transition cursor-pointer" title="Perbesar (+)">
+                        <i class="fa-solid fa-plus text-[10px]"></i>
+                    </button>
+                </div>
+
+                <button type="button" onclick="resetReaderZoom()" class="hidden md:flex px-2 py-1 rounded bg-[#242729] hover:bg-stone-700 border border-stone-700/80 text-[11px] text-stone-300 items-center gap-1 transition cursor-pointer" title="Sesuaikan Lebar Halaman">
+                    <i class="fa-solid fa-arrows-left-right-to-line text-[10px]"></i>
+                    <span>Sesuai Lebar</span>
+                </button>
+            </div>
+
+            <!-- Right: Search, Print, Download, Close -->
+            <div class="flex items-center gap-1.5 sm:gap-2">
+                <!-- Search in Document -->
+                <div class="relative hidden lg:flex items-center">
+                    <i class="fa-solid fa-magnifying-glass absolute left-2.5 text-stone-400 text-[11px] pointer-events-none"></i>
                     <input 
                         type="text" 
                         id="readerSearchInput" 
                         onkeyup="handleReaderDocSearch(this.value)" 
-                        placeholder="Cari kata/pasal dalam naskah..." 
-                        class="pl-8 pr-3 py-1.5 rounded-lg bg-[#2e2723] border border-[#483f3a] text-xs text-stone-200 placeholder-stone-500 focus:outline-none focus:border-amber-400 w-48 lg:w-64 transition"
+                        placeholder="Cari kata/pasal..." 
+                        class="pl-7 pr-2.5 py-1 rounded bg-[#242729] border border-stone-700 text-xs text-stone-200 placeholder-stone-400 focus:outline-none focus:border-amber-400 w-36 transition"
                     />
                 </div>
 
-                <!-- Zoom Controls -->
-                <div class="hidden sm:flex items-center bg-[#2e2723] border border-[#483f3a] rounded-lg p-0.5">
-                    <button type="button" onclick="adjustReaderZoom(-10)" class="w-7 h-7 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center text-xs transition cursor-pointer" title="Perkecil">
-                        <i class="fa-solid fa-minus"></i>
-                    </button>
-                    <span id="readerZoomLevel" class="px-2 text-[11px] font-mono text-stone-200 font-bold">100%</span>
-                    <button type="button" onclick="adjustReaderZoom(10)" class="w-7 h-7 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center text-xs transition cursor-pointer" title="Perbesar">
-                        <i class="fa-solid fa-plus"></i>
-                    </button>
-                </div>
-
-                <!-- Download PDF Button -->
-                <button type="button" onclick="downloadCurrentReaderDoc()" class="px-3 py-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 border border-stone-600 text-stone-200 text-xs font-medium transition flex items-center gap-1.5 shadow-2xs cursor-pointer" title="Unduh File PDF">
-                    <i class="fa-solid fa-download text-xs text-amber-400"></i>
-                    <span class="hidden sm:inline">Unduh PDF</span>
+                <!-- Print Button -->
+                <button type="button" onclick="window.print()" class="w-8 h-8 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center text-xs transition cursor-pointer" title="Cetak Dokumen">
+                    <i class="fa-solid fa-print"></i>
                 </button>
 
+                <!-- Download Button -->
+                <button type="button" onclick="downloadCurrentReaderDoc()" class="w-8 h-8 rounded hover:bg-white/10 text-stone-300 flex items-center justify-center text-xs transition cursor-pointer" title="Unduh Berkas PDF Asli">
+                    <i class="fa-solid fa-arrow-down-to-line"></i>
+                </button>
+
+                <div class="h-5 w-[1px] bg-stone-600 mx-0.5"></div>
+
                 <!-- Close Reader Button -->
-                <button type="button" onclick="closeFullDocReader()" class="px-3.5 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-sm cursor-pointer" title="Tutup Pembaca Dokumen">
+                <button type="button" onclick="closeFullDocReader()" class="px-3 py-1 rounded bg-stone-700 hover:bg-rose-700 text-stone-200 hover:text-white text-xs font-semibold transition flex items-center gap-1 cursor-pointer" title="Tutup Pembaca PDF">
                     <i class="fa-solid fa-xmark text-xs"></i>
-                    <span>Tutup</span>
+                    <span class="hidden sm:inline">Tutup</span>
                 </button>
             </div>
         </header>
 
-        <!-- 2. Main Reader Viewport Canvas (Dark Backdrop + Pure High-Fidelity Continuous White Sheets) -->
-        <div class="flex-1 overflow-y-auto p-4 sm:p-8 bg-[#302b28] flex flex-col items-center select-text" id="readerViewport">
+        <!-- 2. Main Workspace Layout: Left Sidebar + Central Document Canvas -->
+        <div class="flex-1 flex overflow-hidden bg-[#525659]">
             
-            <div id="readerDocumentContainer" class="w-full max-w-3xl space-y-6 transition-transform duration-150 origin-top">
-                <!-- Dynamically populated document pages with authentic legal formatting -->
-            </div>
+            <!-- Left Sidebar (Page Thumbnails & Outline) -->
+            <aside id="pdfSidebar" class="w-64 bg-[#3a3d40] border-r border-[#2a2c2e] flex flex-col shrink-0 text-stone-200 transition-all duration-200 z-10 select-none">
+                <!-- Sidebar Tab Switcher -->
+                <div class="h-10 border-b border-[#2a2c2e] flex items-center justify-around px-2 text-xs">
+                    <button type="button" onclick="switchPdfSidebarTab('thumbnails')" id="tabThumbnailsBtn" class="flex-1 py-1.5 text-center font-semibold border-b-2 border-amber-400 text-white flex items-center justify-center gap-1.5">
+                        <i class="fa-regular fa-images text-xs"></i>
+                        <span>Halaman</span>
+                    </button>
+                    <button type="button" onclick="switchPdfSidebarTab('outline')" id="tabOutlineBtn" class="flex-1 py-1.5 text-center font-medium text-stone-400 hover:text-stone-200 flex items-center justify-center gap-1.5">
+                        <i class="fa-solid fa-list-ul text-xs"></i>
+                        <span>Daftar Isi</span>
+                    </button>
+                </div>
+
+                <!-- Tab 1 Content: Page Thumbnails List -->
+                <div id="pdfThumbnailsContainer" class="flex-1 overflow-y-auto p-3 space-y-4">
+                    <!-- Populated dynamically with mini page cards -->
+                </div>
+
+                <!-- Tab 2 Content: Document Bookmarks Outline -->
+                <div id="pdfOutlineContainer" class="hidden flex-1 overflow-y-auto p-3 text-xs space-y-1">
+                    <!-- Populated dynamically with legal chapter links -->
+                </div>
+            </aside>
+
+            <!-- Main Document Viewport (Neutral Gray Canvas with Multi-Page A4 Legal Sheets) -->
+            <main class="flex-1 overflow-y-auto p-4 sm:p-8 flex flex-col items-center select-text scroll-smooth" id="readerViewport" onscroll="updateCurrentPageOnScroll()">
+                
+                <div id="readerDocumentContainer" class="w-full max-w-[760px] space-y-8 transition-transform duration-150 origin-top pb-16">
+                    <!-- Populated dynamically with multi-page official legal sheets -->
+                </div>
+
+            </main>
 
         </div>
 
-        <!-- 3. Bottom Quick Navigation Bar -->
-        <footer class="h-10 bg-[#231d1a] border-t border-[#3d3632] px-4 sm:px-6 flex items-center justify-between text-xs text-stone-400 shrink-0">
+        <!-- 3. Bottom Status Strip -->
+        <footer class="h-7 bg-[#282b2d] border-t border-[#1f2122] px-4 flex items-center justify-between text-[11px] text-stone-400 font-mono shrink-0 select-none">
             <div class="flex items-center gap-2">
-                <i class="fa-solid fa-book-open-reader text-amber-400"></i>
-                <span id="readerDocStatusText">Mode Pembaca Naskah Regulasi Penuh • Dokumen Faktual Terverifikasi</span>
+                <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                <span id="readerStatusDocName">Naskah Resmi Lembaran Negara Republik Indonesia</span>
             </div>
-            <div class="flex items-center gap-2">
-                <button type="button" onclick="document.getElementById('readerViewport').scrollTo({top:0, behavior:'smooth'})" class="hover:text-white transition flex items-center gap-1 cursor-pointer">
-                    <i class="fa-solid fa-arrow-up text-[10px]"></i>
-                    <span>Ke Halaman Awal</span>
-                </button>
+            <div class="flex items-center gap-4">
+                <span>Ukuran Asli: A4 (210 × 297 mm)</span>
+                <span>Enkripsi Dokumen: SHA-256 Valid</span>
             </div>
         </footer>
 
@@ -1898,36 +1695,186 @@
             localStorage.setItem('titikhukum_docs_v5', JSON.stringify(documents));
         }
 
-        // Render Table Rows
+        // Legal Stopwords (Menyaring kata tanya & kata hubung agar fokus pada substansi hukum)
+        const LEGAL_STOPWORDS = new Set([
+            'apakah', 'ada', 'yang', 'mengatur', 'tentang', 'mengenai', 'oleh', 'pada', 'untuk', 'dan', 'atau',
+            'dalam', 'dengan', 'ke', 'di', 'dari', 'ini', 'itu', 'seperti', 'bagaimana', 'dimana', 'kapan',
+            'siapa', 'mengapa', 'adakah', 'apa', 'saja', 'ketentuan', 'terkait', 'seputar', 'aturan', 'hukum', 
+            'regulasi', 'undang', 'undang-undang', 'permen', 'pp', 'uu', 'menurut', 'dapat', 'bisa', 'kah'
+        ]);
+
+        // Legal Thesaurus & Concept Synonyms
+        const LEGAL_SYNONYMS = {
+            'alat tangkap': ['alat penangkapan ikan', 'cantrang', 'pukat', 'trawl', 'jaring', 'pukat hela', 'alat tangkap terlarang', 'perikanan', 'kapal tangkap'],
+            'pukat harimau': ['trawl', 'pukat hela', 'cantrang', 'alat penangkapan ikan', 'alat tangkap terlarang', 'perikanan tangkap'],
+            'cantrang': ['alat penangkapan ikan', 'pukat hela', 'trawl', 'alat tangkap dilarang'],
+            'illegal fishing': ['penangkapan ikan terukur', 'tanpa izin', 'ilegal', 'pelanggaran penangkapan ikan', 'wpp', 'kapal asing', 'pencurian ikan'],
+            'satwa air': ['biota laut', 'konservasi', 'spesies dilindungi', 'sumber daya ikan', 'terumbu karang', 'wilayah perairan'],
+            'siber': ['ite', 'informasi dan transaksi elektronik', 'data pribadi', 'kejahatan siber', 'digital', 'elektronik'],
+            'data pribadi': ['pelindungan data', 'privasi', 'pengendali data', 'subjek data'],
+            'tata ruang': ['pesisir', 'pulau kecil', 'ruang laut', 'reklamasi', 'zonasi laut'],
+            'nelayan': ['penangkapan ikan', 'kapal perikanan', 'nelayan kecil', 'usaha perikanan', 'pelaut']
+        };
+
+        // Semantic Query Matcher & Relevance Scorer
+        function calculateDocRelevance(doc, query) {
+            if (!query || !query.trim()) return { score: 0, matchedReason: '', percentage: 0 };
+
+            const rawQuery = query.toLowerCase().trim();
+            
+            // 1. Direct Exact Substring Matches (Highest score)
+            let directScore = 0;
+            const titleLower = (doc.title || '').toLowerCase();
+            const notesLower = (doc.notes || '').toLowerCase();
+            const catLower = (doc.category || '').toLowerCase();
+            const agencyLower = (doc.agency || '').toLowerCase();
+            const numLower = (doc.number || '').toLowerCase();
+
+            if (titleLower.includes(rawQuery)) directScore += 60;
+            if (notesLower.includes(rawQuery)) directScore += 45;
+            if (catLower.includes(rawQuery)) directScore += 30;
+
+            // 2. Tokenize words & filter stopwords
+            const tokens = rawQuery.split(/[\s,?.!/\\-]+/).filter(t => t.length > 2 && !LEGAL_STOPWORDS.has(t));
+            
+            if (tokens.length === 0) {
+                if (directScore > 0) return { score: directScore, matchedReason: 'Kecocokan frasa pencarian', percentage: 96 };
+                return { score: 0, matchedReason: '', percentage: 0 };
+            }
+
+            // 3. Expand search tokens with Legal Synonyms
+            let expandedTokens = [...tokens];
+            tokens.forEach(tok => {
+                for (const [key, syns] of Object.entries(LEGAL_SYNONYMS)) {
+                    if (key.includes(tok) || tok.includes(key)) {
+                        expandedTokens.push(...syns);
+                    }
+                    if (syns.some(s => s.includes(tok))) {
+                        expandedTokens.push(key, ...syns);
+                    }
+                }
+            });
+            expandedTokens = [...new Set(expandedTokens)];
+
+            // 4. Score token matches
+            let tokenScore = 0;
+            let matchedKeywords = [];
+
+            tokens.forEach(tok => {
+                let matched = false;
+                if (titleLower.includes(tok)) {
+                    tokenScore += 35;
+                    matched = true;
+                }
+                if (notesLower.includes(tok)) {
+                    tokenScore += 25;
+                    matched = true;
+                }
+                if (catLower.includes(tok)) {
+                    tokenScore += 15;
+                    matched = true;
+                }
+                if (agencyLower.includes(tok) || numLower.includes(tok)) {
+                    tokenScore += 10;
+                    matched = true;
+                }
+                if (matched) matchedKeywords.push(tok);
+            });
+
+            // 5. Score synonym concept expansion matches
+            expandedTokens.forEach(tok => {
+                if (tokens.includes(tok)) return;
+                let synMatched = false;
+                if (titleLower.includes(tok)) {
+                    tokenScore += 20;
+                    synMatched = true;
+                }
+                if (notesLower.includes(tok)) {
+                    tokenScore += 15;
+                    synMatched = true;
+                }
+                if (synMatched && !matchedKeywords.includes(tok)) {
+                    matchedKeywords.push(tok);
+                }
+            });
+
+            const totalScore = directScore + tokenScore;
+            if (totalScore === 0) return { score: 0, matchedReason: '', percentage: 0 };
+
+            // Calculate percentage (50% to 98%)
+            const maxExpected = Math.max(tokens.length * 35, 50);
+            const percentage = Math.min(98, Math.max(52, Math.round(50 + (totalScore / maxExpected) * 45)));
+
+            let matchedReason = '';
+            if (matchedKeywords.length > 0) {
+                matchedReason = `Kecocokan substansi: ${matchedKeywords.slice(0, 3).map(k => `<strong>${k}</strong>`).join(', ')}`;
+            } else {
+                matchedReason = 'Kecocokan metadata regulasi';
+            }
+
+            return { score: totalScore, matchedReason, percentage };
+        }
+
+        // Render Table Rows (Enhanced with Smart Relevance Ranking & Badges)
         function renderTable() {
             const tbody = document.getElementById('tableBody');
             const emptyState = document.getElementById('emptyState');
+            const smartBanner = document.getElementById('smartSearchBanner');
+            const searchQueryBadge = document.getElementById('searchQueryBadge');
+            const smartMatchCount = document.getElementById('smartMatchCount');
+            
             tbody.innerHTML = '';
 
-            // Filter logic
-            let filtered = documents.filter(doc => {
+            const isSearching = searchQuery.trim().length > 0;
+
+            // Filter & Score logic
+            let scoredDocs = documents.map(doc => {
                 const matchCategory = activeCategory === 'all' || doc.category === activeCategory;
-                const query = searchQuery.toLowerCase();
-                const matchSearch = doc.title.toLowerCase().includes(query) ||
-                                    doc.fileName.toLowerCase().includes(query) ||
-                                    doc.number.toLowerCase().includes(query) ||
-                                    doc.agency.toLowerCase().includes(query) ||
-                                    doc.year.toString().includes(query);
+                if (!matchCategory) return { doc, relevance: { score: -1, matchedReason: '', percentage: 0 } };
 
-                return matchCategory && matchSearch;
+                if (!isSearching) {
+                    return { doc, relevance: { score: 0, matchedReason: '', percentage: 0 } };
+                }
+
+                const relevance = calculateDocRelevance(doc, searchQuery);
+                return { doc, relevance };
             });
 
-            // Sort logic
-            filtered.sort((a, b) => {
-                let valA = a[currentSort.column] || '';
-                let valB = b[currentSort.column] || '';
-                if (typeof valA === 'string') valA = valA.toLowerCase();
-                if (typeof valB === 'string') valB = valB.toLowerCase();
-
-                if (valA < valB) return currentSort.asc ? -1 : 1;
-                if (valA > valB) return currentSort.asc ? 1 : -1;
-                return 0;
+            // Filter out non-matching
+            let filtered = scoredDocs.filter(item => {
+                if (activeCategory !== 'all' && item.doc.category !== activeCategory) return false;
+                if (isSearching) {
+                    return item.relevance.score > 0;
+                }
+                return true;
             });
+
+            // Update Smart Search Banner UI
+            if (smartBanner) {
+                if (isSearching) {
+                    smartBanner.classList.remove('hidden');
+                    if (searchQueryBadge) searchQueryBadge.textContent = `"${searchQuery}"`;
+                    if (smartMatchCount) smartMatchCount.textContent = `${filtered.length} regulasi relevan`;
+                } else {
+                    smartBanner.classList.add('hidden');
+                }
+            }
+
+            // Sort logic: If searching, sort primarily by AI Relevance Score desc
+            if (isSearching) {
+                filtered.sort((a, b) => b.relevance.score - a.relevance.score);
+            } else {
+                filtered.sort((a, b) => {
+                    let valA = a.doc[currentSort.column] || '';
+                    let valB = b.doc[currentSort.column] || '';
+                    if (typeof valA === 'string') valA = valA.toLowerCase();
+                    if (typeof valB === 'string') valB = valB.toLowerCase();
+
+                    if (valA < valB) return currentSort.asc ? -1 : 1;
+                    if (valA > valB) return currentSort.asc ? 1 : -1;
+                    return 0;
+                });
+            }
 
             // Pagination calculation
             const totalDocs = filtered.length;
@@ -1956,12 +1903,41 @@
                 emptyState.classList.add('hidden');
             }
 
-            // Generate HTML Rows (Clean, Proportional, Brown Accents)
-            paginatedDocs.forEach((doc) => {
+            // Generate HTML Rows (Clean, Proportional, Brown Accents & Smart Relevance Badges)
+            paginatedDocs.forEach(({ doc, relevance }) => {
                 const isSelected = selectedDocIds.has(doc.id);
                 const tr = document.createElement('tr');
                 tr.className = `group hover:bg-[#fbf9f7] transition-colors border-b border-gray-100 ${isSelected ? 'bg-[#f6eee7]/60' : ''}`;
                 
+                // Relevance Badge
+                let relevanceBadgeHtml = '';
+                let relevanceExcerptHtml = '';
+                if (isSearching && relevance.score > 0) {
+                    let badgeClass = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                    let dotColor = 'bg-emerald-500';
+                    if (relevance.percentage < 70) {
+                        badgeClass = 'bg-amber-50 text-amber-700 border-amber-200';
+                        dotColor = 'bg-amber-500';
+                    } else if (relevance.percentage < 85) {
+                        badgeClass = 'bg-blue-50 text-blue-700 border-blue-200';
+                        dotColor = 'bg-blue-500';
+                    }
+
+                    relevanceBadgeHtml = `
+                        <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${badgeClass} border shadow-2xs">
+                            <span class="w-1.5 h-1.5 rounded-full ${dotColor} animate-pulse"></span>
+                            <span>${relevance.percentage}% Relevan</span>
+                        </span>
+                    `;
+
+                    relevanceExcerptHtml = `
+                        <div class="text-[11px] text-gray-500 bg-amber-50/50 rounded-lg px-2 py-1 border border-amber-200/50 mt-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-sparkles text-[10px] text-amber-600 shrink-0"></i>
+                            <span class="truncate">${relevance.matchedReason}</span>
+                        </div>
+                    `;
+                }
+
                 tr.innerHTML = `
                     <td class="py-4 pl-6 pr-3 text-center align-middle">
                         <input type="checkbox" onchange="toggleSelectDoc('${doc.id}', this.checked)" ${isSelected ? 'checked' : ''} class="rounded border-gray-300 text-[#26150d] focus:ring-0 cursor-pointer">
@@ -1974,9 +1950,15 @@
                                 <i class="fa-solid fa-chevron-down text-[10px] transform transition-transform" id="chev-${doc.id}"></i>
                             </button>
                             <div class="space-y-1 pr-2">
-                                <div class="font-bold text-gray-900 text-xs sm:text-[13px] leading-snug">
-                                    ${doc.title}
+                                <div class="flex items-center gap-2 flex-wrap">
+                                    <span class="font-bold text-gray-900 text-xs sm:text-[13px] leading-snug">
+                                        ${doc.title}
+                                    </span>
+                                    ${relevanceBadgeHtml}
                                 </div>
+                                
+                                ${relevanceExcerptHtml}
+
                                 <div class="text-[11px] text-gray-400 font-mono flex items-center gap-2">
                                     <span class="inline-flex items-center gap-1 text-gray-500 font-medium">
                                         <i class="fa-regular fa-file-pdf text-rose-500 text-[11px]"></i> 
@@ -2015,16 +1997,13 @@
                         </div>
                     </td>
 
-                    <!-- Col 4: Actions (Icon Edit & Icon Hapus) -->
+                    <!-- Col 4: Actions (Analisis Pill Button with Yellow Magnifying Glass) -->
                     <td class="py-4 pr-6 pl-2 text-right align-top whitespace-nowrap">
-                        <div class="flex items-center justify-end gap-1.5">
-                            <!-- Edit Button -->
-                            <button type="button" onclick="openEditModal('${doc.id}')" class="w-8 h-8 rounded-xl bg-stone-100 hover:bg-[#26150d] hover:text-white text-stone-700 transition flex items-center justify-center shadow-2xs group/btn active:scale-90" title="Sunting Dokumen">
-                                <i class="fa-solid fa-pen-to-square text-xs"></i>
-                            </button>
-                            <!-- Delete Button -->
-                            <button type="button" onclick="openSingleDeleteModal('${doc.id}')" class="w-8 h-8 rounded-xl bg-rose-50 hover:bg-rose-600 hover:text-white text-rose-600 transition flex items-center justify-center shadow-2xs group/btn active:scale-90" title="Hapus Dokumen">
-                                <i class="fa-solid fa-trash-can text-xs"></i>
+                        <div class="flex items-center justify-end">
+                            <!-- Analisis Brown Pill Button -->
+                            <button type="button" onclick="openAnalyzeModal('${doc.id}')" class="px-3.5 py-1.5 rounded-full border border-[#26150d] text-[#26150d] hover:bg-[#26150d] hover:text-white font-semibold text-xs transition-all active:scale-95 shadow-2xs flex items-center gap-1.5">
+                                <i class="fa-solid fa-magnifying-glass text-[11px] text-amber-500 group-hover:text-amber-300"></i>
+                                <span>Analisis</span>
                             </button>
                         </div>
                     </td>
@@ -2053,9 +2032,9 @@
             renderTable();
         }
 
-        // Update Batch Delete Button UI (Muncul di bawah tombol Tambah Dokumen Baru saat checkbox dipilih)
+        // Update Tanya AI Button UI (Muncul di bawah tombol Tambah Dokumen Baru saat checkbox dipilih)
         function updateBatchActionUI() {
-            const batchBtn = document.getElementById('deleteBatchBtn');
+            const batchBtn = document.getElementById('tanyaAiBatchBtn');
             const badge = document.getElementById('selectedCountBadge');
             
             if (batchBtn) {
@@ -2073,187 +2052,30 @@
             }
         }
 
-        // Open Delete Confirmation Modal
-        function openDeleteConfirmModal() {
+        // Tanya AI Selected Documents (Membawa dokumen terpilih + query ke chatbot)
+        function tanyaAiSelectedDocs() {
             if (selectedDocIds.size === 0) return;
+            const selectedDocsList = documents.filter(d => selectedDocIds.has(d.id));
+            const docTitles = selectedDocsList.map(d => d.title).join(', ');
             
-            const countEl = document.getElementById('deleteConfirmCount');
-            const previewList = document.getElementById('deleteDocsPreviewList');
-            if (countEl) countEl.textContent = `${selectedDocIds.size} berkas`;
-            
-            if (previewList) {
-                previewList.innerHTML = '';
-                const selectedList = documents.filter(d => selectedDocIds.has(d.id));
-                selectedList.forEach(d => {
-                    const item = document.createElement('div');
-                    item.className = 'p-2 rounded-xl bg-white border border-stone-200 text-stone-800 flex items-center justify-between gap-2 shadow-2xs';
-                    item.innerHTML = `
-                        <div class="truncate font-semibold text-xs text-gray-900">
-                            <i class="fa-regular fa-file-pdf text-rose-500 mr-1.5"></i>
-                            ${d.number} - ${d.title}
-                        </div>
-                        <span class="text-[10px] text-gray-400 font-mono shrink-0">${d.fileSize || '1.2 MB'}</span>
-                    `;
-                    previewList.appendChild(item);
-                });
+            let chatUrl = `chat.html?docs=${encodeURIComponent(docTitles)}`;
+            if (searchQuery.trim().length > 0) {
+                chatUrl += `&prompt=${encodeURIComponent(searchQuery.trim())}`;
             }
 
-            document.getElementById('deleteConfirmModal').classList.remove('hidden');
+            showToast(`Membuka Asisten AI untuk ${selectedDocIds.size} dokumen terpilih...`);
+            setTimeout(() => {
+                window.location.href = chatUrl;
+            }, 300);
         }
 
-        function closeDeleteConfirmModal() {
-            const modal = document.getElementById('deleteConfirmModal');
-            if (modal) modal.classList.add('hidden');
-        }
-
-        function executeDeleteSelectedDocs() {
-            const deleteCount = selectedDocIds.size;
-            if (deleteCount === 0) return;
-
-            // Remove selected documents from active state
-            documents = documents.filter(d => !selectedDocIds.has(String(d.id)) && !selectedDocIds.has(d.id));
-            selectedDocIds.clear();
-            
-            closeDeleteConfirmModal();
+        // Clear Smart Search Filter
+        function clearSmartSearch() {
+            searchQuery = '';
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) searchInput.value = '';
+            currentPage = 1;
             renderTable();
-            showToast(`${deleteCount} dokumen berhasil dihapus dari pustaka!`);
-        }
-
-        // Single Document Delete Shortcut
-        function openSingleDeleteModal(docId) {
-            selectedDocIds.clear();
-            if (docId) selectedDocIds.add(String(docId));
-            openDeleteConfirmModal();
-        }
-
-        // Edit Modal Controllers
-        function toggleEditCustomTopicDropdown() {
-            const menu = document.getElementById('editCustomTopicDropdownMenu');
-            const chevron = document.getElementById('editTopicDropdownChevron');
-            if (!menu) return;
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                if (chevron) chevron.classList.add('rotate-180');
-            } else {
-                menu.classList.add('hidden');
-                if (chevron) chevron.classList.remove('rotate-180');
-            }
-        }
-
-        function selectEditTopicOption(val) {
-            const hiddenInp = document.getElementById('editJenisTindakPidana');
-            const label = document.getElementById('editSelectedTopicLabel');
-            if (hiddenInp) hiddenInp.value = val;
-            if (label) {
-                label.textContent = val || 'Cari atau pilih topik...';
-                if (val) {
-                    label.classList.remove('text-gray-500');
-                    label.classList.add('text-stone-900', 'font-semibold');
-                } else {
-                    label.classList.remove('text-stone-900', 'font-semibold');
-                    label.classList.add('text-gray-500');
-                }
-            }
-            toggleEditCustomTopicDropdown();
-        }
-
-        function resetEditCustomTopic() {
-            const hiddenInp = document.getElementById('editJenisTindakPidana');
-            const label = document.getElementById('editSelectedTopicLabel');
-            if (hiddenInp) hiddenInp.value = '';
-            if (label) {
-                label.textContent = 'Cari atau pilih topik...';
-                label.classList.remove('text-stone-900', 'font-semibold');
-                label.classList.add('text-gray-500');
-            }
-        }
-
-        function openEditModal(docId) {
-            let doc = documents.find(d => String(d.id) === String(docId));
-            if (!doc && documents.length > 0) {
-                doc = documents[0];
-            }
-            if (!doc) return;
-
-            const setVal = (id, val) => {
-                const el = document.getElementById(id);
-                if (el) el.value = (val !== undefined && val !== null) ? val : '';
-            };
-
-            setVal('editDocId', doc.id);
-            setVal('editTitle', doc.title || '');
-            setVal('editNumber', doc.number || '');
-            setVal('editYear', doc.year || '');
-            setVal('editBentukPeraturan', doc.bentukPeraturan || 'Undang-Undang');
-            setVal('editBentukSingkat', doc.bentukSingkat || 'UU');
-            setVal('editSource', doc.source || '');
-            setVal('editSubjek', doc.subjek || doc.category || '');
-            setVal('editLokasi', doc.lokasi || 'Indonesia');
-            setVal('editTglPenetapan', doc.tglPenetapan || '');
-            setVal('editTglPengundangan', doc.tglPengundangan || '');
-            setVal('editTglBerlaku', doc.tglBerlaku || '');
-            setVal('editTempatPenetapan', doc.tempatPenetapan || 'Jakarta');
-            setVal('editTEU', doc.teu || doc.agency || '');
-            setVal('editStatus', doc.status || 'Berlaku');
-            setVal('editBahasa', doc.bahasa || 'Indonesia');
-            setVal('editBidangHukum', doc.bidangHukum || doc.category || '');
-            setVal('editCatatan', doc.summary || doc.notes || '');
-            
-            const topicVal = doc.jenisTindakPidana || '';
-            setVal('editJenisTindakPidana', topicVal);
-            const label = document.getElementById('editSelectedTopicLabel');
-            if (label) {
-                label.textContent = topicVal || 'Cari atau pilih topik...';
-                if (topicVal) {
-                    label.classList.remove('text-gray-500');
-                    label.classList.add('text-stone-900', 'font-semibold');
-                } else {
-                    label.classList.remove('text-stone-900', 'font-semibold');
-                    label.classList.add('text-gray-500');
-                }
-            }
-
-            const modal = document.getElementById('editDocModal');
-            if (modal) {
-                modal.classList.remove('hidden');
-            }
-        }
-
-        function closeEditModal() {
-            const modal = document.getElementById('editDocModal');
-            if (modal) modal.classList.add('hidden');
-        }
-
-        function handleEditSubmit(e) {
-            e.preventDefault();
-            const id = document.getElementById('editDocId').value;
-            const doc = documents.find(d => String(d.id) === String(id));
-            if (!doc) return;
-
-            doc.title = document.getElementById('editTitle').value || 'Tanpa Judul';
-            doc.number = document.getElementById('editNumber').value || doc.number;
-            doc.year = parseInt(document.getElementById('editYear').value) || doc.year;
-            doc.bentukPeraturan = document.getElementById('editBentukPeraturan').value;
-            doc.bentukSingkat = document.getElementById('editBentukSingkat').value;
-            doc.source = document.getElementById('editSource').value;
-            doc.subjek = document.getElementById('editSubjek').value;
-            doc.lokasi = document.getElementById('editLokasi').value;
-            doc.tglPenetapan = document.getElementById('editTglPenetapan').value;
-            doc.tglPengundangan = document.getElementById('editTglPengundangan').value;
-            doc.tglBerlaku = document.getElementById('editTglBerlaku').value;
-            doc.tempatPenetapan = document.getElementById('editTempatPenetapan').value;
-            doc.teu = document.getElementById('editTEU').value;
-            doc.agency = document.getElementById('editTEU').value || doc.agency;
-            doc.status = document.getElementById('editStatus').value;
-            doc.bahasa = document.getElementById('editBahasa').value;
-            doc.bidangHukum = document.getElementById('editBidangHukum').value;
-            doc.category = document.getElementById('editBidangHukum').value || doc.category;
-            doc.summary = document.getElementById('editCatatan').value;
-            doc.jenisTindakPidana = document.getElementById('editJenisTindakPidana').value;
-
-            closeEditModal();
-            renderTable();
-            showToast(`Metadata regulasi "${doc.number}" berhasil diperbarui!`);
         }
 
         // Search Handler
@@ -2262,6 +2084,19 @@
             currentPage = 1;
             renderTable();
         }
+
+        // Check for URL Query Parameter on Load (e.g. pustaka.html?q=pukat+harimau)
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryParam = urlParams.get('q');
+            if (queryParam) {
+                const searchInput = document.getElementById('searchInput');
+                if (searchInput) {
+                    searchInput.value = queryParam;
+                    handleSearch(queryParam);
+                }
+            }
+        });
 
         // Category / Sector Filter Switcher
         function setCategoryFilter(category) {
@@ -2374,10 +2209,7 @@
         function handleFileSelected(input) {
             if (input.files && input.files[0]) {
                 const file = input.files[0];
-                const previewEl = document.getElementById('fileNamePreview') || document.getElementById('dropZoneText');
-                if (previewEl) {
-                    previewEl.innerHTML = `<span class="text-[#26150d] font-bold">${file.name}</span> (${(file.size / (1024*1024)).toFixed(2)} MB)`;
-                }
+                document.getElementById('fileNamePreview').innerHTML = `<span class="text-[#26150d] font-bold">${file.name}</span> (${(file.size / (1024*1024)).toFixed(2)} MB)`;
             }
         }
 
@@ -2387,50 +2219,74 @@
             let fileName = 'naskah_hukum_baru.pdf';
             let fileSize = '3.5 MB';
 
-            if (fileInput && fileInput.files && fileInput.files[0]) {
+            if (fileInput.files && fileInput.files[0]) {
                 fileName = fileInput.files[0].name;
                 fileSize = (fileInput.files[0].size / (1024*1024)).toFixed(1) + ' MB';
             }
 
-            function getFormVal(id, fallback = '') {
-                const el = document.getElementById(id);
-                return el ? el.value : fallback;
-            }
-
             const newDoc = {
                 id: 'doc-' + Date.now(),
-                title: getFormVal('addTitle', 'Dokumen Regulasi Baru'),
+                title: document.getElementById('addTitle').value,
                 fileName: fileName,
                 fileSize: fileSize,
-                category: getFormVal('addBidangHukum') || getFormVal('addBentukPeraturan') || 'Kelautan & Perikanan',
-                agency: getFormVal('addTEU') || getFormVal('addSource') || 'Kementerian Kelautan dan Perikanan',
-                number: getFormVal('addNumber', 'Nomor Terbit'),
-                year: getFormVal('addYear', new Date().getFullYear().toString()),
-                source: getFormVal('addSource', 'Lembaran Negara'),
+                category: document.getElementById('addCategory').value,
+                agency: document.getElementById('addSource').value,
+                number: document.getElementById('addNumber').value,
+                year: document.getElementById('addYear').value,
+                source: document.getElementById('addSource').value,
                 dateUploaded: 'Hari ini',
-                notes: getFormVal('addCatatan') || 'Dokumen berhasil diunggah dan diverifikasi dalam sistem.',
-                articles: 'Pasal Terstruktur',
-                activeToggle: true,
-                bentukPeraturan: getFormVal('addBentukPeraturan'),
-                bentukSingkat: getFormVal('addBentukSingkat'),
-                subjek: getFormVal('addSubjek'),
-                lokasi: getFormVal('addLokasi'),
-                tglPenetapan: getFormVal('addTglPenetapan'),
-                tglPengundangan: getFormVal('addTglPengundangan'),
-                tglBerlaku: getFormVal('addTglBerlaku'),
-                tempatPenetapan: getFormVal('addTempatPenetapan'),
-                teu: getFormVal('addTEU'),
-                status: getFormVal('addStatus', 'Berlaku'),
-                bahasa: getFormVal('addBahasa', 'Indonesia'),
-                bidangHukum: getFormVal('addBidangHukum'),
-                jenisTindakPidana: getFormVal('addJenisTindakPidana')
+                notes: document.getElementById('addNotes').value || 'Dokumen berhasil diunggah dan dianalisis AI.',
+                articles: 'Memproses...',
+                activeToggle: true
             };
 
             documents.unshift(newDoc);
             saveDocs();
             closeAddModal();
             renderTable();
-            showToast('Dokumen baru berhasil ditambahkan ke pustaka!');
+            showToast('Dokumen baru berhasil ditambahkan!');
+        }
+
+        // ========================================================
+        // EDIT METADATA MODAL & HANDLER
+        // ========================================================
+        function openEditModal(id) {
+            const doc = documents.find(d => d.id === id);
+            if (!doc) return;
+
+            document.getElementById('editDocId').value = doc.id;
+            document.getElementById('editTitle').value = doc.title;
+            document.getElementById('editCategory').value = doc.category;
+            document.getElementById('editSource').value = doc.source;
+            document.getElementById('editNumber').value = doc.number;
+            document.getElementById('editYear').value = doc.year;
+            document.getElementById('editNotes').value = doc.notes || '';
+
+            document.getElementById('editDocModal').classList.remove('hidden');
+        }
+
+        function closeEditModal() {
+            document.getElementById('editDocModal').classList.add('hidden');
+        }
+
+        function handleEditSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('editDocId').value;
+            const doc = documents.find(d => d.id === id);
+            if (doc) {
+                doc.title = document.getElementById('editTitle').value;
+                doc.category = document.getElementById('editCategory').value;
+                doc.source = document.getElementById('editSource').value;
+                doc.agency = document.getElementById('editSource').value;
+                doc.number = document.getElementById('editNumber').value;
+                doc.year = document.getElementById('editYear').value;
+                doc.notes = document.getElementById('editNotes').value;
+
+                saveDocs();
+                closeEditModal();
+                renderTable();
+                showToast('Metadata dokumen berhasil diperbarui!');
+            }
         }
 
         // ========================================================
@@ -2440,9 +2296,14 @@
             const doc = documents.find(d => d.id === id);
             if (!doc) return;
 
-            selectedDocIds.clear();
-            selectedDocIds.add(id);
-            openDeleteConfirmModal();
+            if (confirm(`Apakah Anda yakin ingin menghapus "${doc.title}"?`)) {
+                documents = documents.filter(d => d.id !== id);
+                selectedDocIds.delete(id);
+                saveDocs();
+                updateBatchActionUI();
+                renderTable();
+                showToast('Dokumen telah berhasil dihapus dari pustaka.');
+            }
         }
 
         // ========================================================
@@ -2464,11 +2325,21 @@
             document.getElementById('analyzeDocModal').classList.add('hidden');
         }
 
+        function openChatFromModal(e) {
+            if (e) e.preventDefault();
+            const doc = documents.find(d => d.id === activeAnalysisDocId) || documents[0];
+            const docTitle = doc ? doc.title : '';
+            window.location.href = `chat.html?docs=${encodeURIComponent(docTitle)}`;
+        }
+
         // ========================================================
-        // DEDICATED FULL DOCUMENT READER VIEWER LOGIC (NO CHATBOT)
+        // AUTHENTIC PROFESSIONAL LEGAL PDF VIEWER STATE & LOGIC
         // ========================================================
         let currentReaderZoom = 100;
         let activeReaderDoc = null;
+        let totalPdfPages = 3;
+        let currentPdfPage = 1;
+        let isPdfSidebarOpen = true;
 
         function readFullDocumentFromModal() {
             const doc = documents.find(d => d.id === activeAnalysisDocId) || documents[0];
@@ -2480,23 +2351,33 @@
             if (!doc) return;
             activeReaderDoc = doc;
 
-            const titleEl = document.getElementById('readerDocTitle');
-            if (titleEl) titleEl.textContent = doc.title;
-            const numEl = document.getElementById('readerDocMetaNumber');
-            if (numEl) numEl.textContent = `${doc.number} • Tahun ${doc.year}`;
-            const catEl = document.getElementById('readerDocMetaCategory');
-            if (catEl) catEl.textContent = doc.category;
+            const nameEl = document.getElementById('readerDocFileName');
+            if (nameEl) nameEl.textContent = doc.fileName || `${doc.title}.pdf`;
+            const sizeEl = document.getElementById('readerDocMetaSize');
+            if (sizeEl) sizeEl.textContent = doc.fileSize || '3.8 MB';
+            const statusEl = document.getElementById('readerStatusDocName');
+            if (statusEl) statusEl.textContent = `${doc.title} (${doc.number || 'Salinan Resmi'})`;
 
             const searchInp = document.getElementById('readerSearchInput');
             if (searchInp) searchInp.value = '';
 
             currentReaderZoom = 100;
+            currentPdfPage = 1;
+            totalPdfPages = 3;
+
             const zoomText = document.getElementById('readerZoomLevel');
             if (zoomText) zoomText.textContent = '100%';
             const container = document.getElementById('readerDocumentContainer');
             if (container) container.style.transform = 'scale(1)';
 
-            renderDocumentSheetContent(doc);
+            const pageInp = document.getElementById('pdfCurrentPageInput');
+            if (pageInp) pageInp.value = '1';
+            const totalPagesEl = document.getElementById('pdfTotalPagesCount');
+            if (totalPagesEl) totalPagesEl.textContent = totalPdfPages.toString();
+
+            // Render authentic multi-page sheets & sidebar
+            renderAuthenticPdfPages(doc);
+            renderPdfThumbnailsAndOutline(doc);
 
             document.getElementById('fullDocReaderModal').classList.remove('hidden');
             const viewport = document.getElementById('readerViewport');
@@ -2507,6 +2388,36 @@
             document.getElementById('fullDocReaderModal').classList.add('hidden');
         }
 
+        function togglePdfSidebar() {
+            const sidebar = document.getElementById('pdfSidebar');
+            if (!sidebar) return;
+            isPdfSidebarOpen = !isPdfSidebarOpen;
+            if (isPdfSidebarOpen) {
+                sidebar.classList.remove('-ml-64');
+            } else {
+                sidebar.classList.add('-ml-64');
+            }
+        }
+
+        function switchPdfSidebarTab(tab) {
+            const thumbTabBtn = document.getElementById('tabThumbnailsBtn');
+            const outlineTabBtn = document.getElementById('tabOutlineBtn');
+            const thumbContainer = document.getElementById('pdfThumbnailsContainer');
+            const outlineContainer = document.getElementById('pdfOutlineContainer');
+
+            if (tab === 'thumbnails') {
+                thumbTabBtn.className = 'flex-1 py-1.5 text-center font-semibold border-b-2 border-amber-400 text-white flex items-center justify-center gap-1.5';
+                outlineTabBtn.className = 'flex-1 py-1.5 text-center font-medium text-stone-400 hover:text-stone-200 flex items-center justify-center gap-1.5';
+                thumbContainer.classList.remove('hidden');
+                outlineContainer.classList.add('hidden');
+            } else {
+                outlineTabBtn.className = 'flex-1 py-1.5 text-center font-semibold border-b-2 border-amber-400 text-white flex items-center justify-center gap-1.5';
+                thumbTabBtn.className = 'flex-1 py-1.5 text-center font-medium text-stone-400 hover:text-stone-200 flex items-center justify-center gap-1.5';
+                outlineContainer.classList.remove('hidden');
+                thumbContainer.classList.add('hidden');
+            }
+        }
+
         function adjustReaderZoom(delta) {
             currentReaderZoom = Math.min(150, Math.max(70, currentReaderZoom + delta));
             const container = document.getElementById('readerDocumentContainer');
@@ -2515,181 +2426,342 @@
             if (zoomText) zoomText.textContent = `${currentReaderZoom}%`;
         }
 
+        function resetReaderZoom() {
+            currentReaderZoom = 100;
+            const container = document.getElementById('readerDocumentContainer');
+            const zoomText = document.getElementById('readerZoomLevel');
+            if (container) container.style.transform = 'scale(1)';
+            if (zoomText) zoomText.textContent = '100%';
+        }
+
+        function navigatePdfPage(delta) {
+            jumpToPdfPage(currentPdfPage + delta);
+        }
+
+        function jumpToPdfPage(pageNumber) {
+            const p = parseInt(pageNumber, 10);
+            if (isNaN(p) || p < 1 || p > totalPdfPages) return;
+            currentPdfPage = p;
+            const pageInp = document.getElementById('pdfCurrentPageInput');
+            if (pageInp) pageInp.value = p.toString();
+
+            const targetPageEl = document.getElementById(`pdfPageSheet_${p}`);
+            if (targetPageEl) {
+                targetPageEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            highlightActiveThumbnail(p);
+        }
+
+        function updateCurrentPageOnScroll() {
+            const viewport = document.getElementById('readerViewport');
+            if (!viewport) return;
+            for (let i = 1; i <= totalPdfPages; i++) {
+                const el = document.getElementById(`pdfPageSheet_${i}`);
+                if (el) {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top <= 200 && rect.bottom >= 200) {
+                        if (currentPdfPage !== i) {
+                            currentPdfPage = i;
+                            const pageInp = document.getElementById('pdfCurrentPageInput');
+                            if (pageInp) pageInp.value = i.toString();
+                            highlightActiveThumbnail(i);
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        function highlightActiveThumbnail(pageNum) {
+            for (let i = 1; i <= totalPdfPages; i++) {
+                const thumb = document.getElementById(`pdfThumb_${i}`);
+                if (thumb) {
+                    if (i === pageNum) {
+                        thumb.classList.add('ring-2', 'ring-amber-400', 'bg-stone-800');
+                    } else {
+                        thumb.classList.remove('ring-2', 'ring-amber-400', 'bg-stone-800');
+                    }
+                }
+            }
+        }
+
         function downloadCurrentReaderDoc() {
             if (!activeReaderDoc) return;
-            showToast(`Mengunduh berkas ${activeReaderDoc.fileName || 'dokumen.pdf'}...`);
+            showToast(`Mengunduh berkas resmi ${activeReaderDoc.fileName || 'dokumen.pdf'}...`);
         }
 
         function handleReaderDocSearch(query) {
             const container = document.getElementById('readerDocumentContainer');
             if (!container) return;
             const q = query.toLowerCase().trim();
-            const clauses = container.querySelectorAll('.doc-clause-block');
-            clauses.forEach(clause => {
+            const paragraphs = container.querySelectorAll('.legal-clause-p');
+            paragraphs.forEach(p => {
                 if (!q) {
-                    clause.classList.remove('bg-amber-100', 'ring-2', 'ring-amber-400');
-                } else if (clause.textContent.toLowerCase().includes(q)) {
-                    clause.classList.add('bg-amber-100', 'ring-2', 'ring-amber-400');
+                    p.classList.remove('bg-yellow-200');
+                } else if (p.textContent.toLowerCase().includes(q)) {
+                    p.classList.add('bg-yellow-200');
                 } else {
-                    clause.classList.remove('bg-amber-100', 'ring-2', 'ring-amber-400');
+                    p.classList.remove('bg-yellow-200');
                 }
             });
         }
 
-        function renderDocumentSheetContent(doc) {
+        // Render Page Thumbnails in Sidebar & Outline Tree
+        function renderPdfThumbnailsAndOutline(doc) {
+            const thumbContainer = document.getElementById('pdfThumbnailsContainer');
+            const outlineContainer = document.getElementById('pdfOutlineContainer');
+            if (!thumbContainer || !outlineContainer) return;
+
+            // 1. Thumbnails
+            thumbContainer.innerHTML = '';
+            for (let i = 1; i <= totalPdfPages; i++) {
+                const thumbDiv = document.createElement('div');
+                thumbDiv.id = `pdfThumb_${i}`;
+                thumbDiv.onclick = () => jumpToPdfPage(i);
+                thumbDiv.className = `p-2 rounded cursor-pointer transition flex flex-col items-center gap-1.5 ${i === 1 ? 'ring-2 ring-amber-400 bg-stone-800' : 'hover:bg-stone-700/60'}`;
+                thumbDiv.innerHTML = `
+                    <div class="w-28 h-36 bg-white rounded-xs shadow-md border border-stone-400 flex flex-col p-1.5 text-[4px] leading-tight text-stone-800 overflow-hidden select-none pointer-events-none">
+                        <div class="text-center font-serif font-bold text-[5px] border-b border-stone-300 pb-0.5 mb-1 uppercase">
+                            ${i === 1 ? 'SALINAN RESMI' : `${doc.number || 'LEMBARAN NEGARA'}`}
+                        </div>
+                        <div class="space-y-1 opacity-70">
+                            <div class="h-1 bg-stone-300 rounded-xs w-full"></div>
+                            <div class="h-1 bg-stone-300 rounded-xs w-4/5"></div>
+                            <div class="h-1 bg-stone-300 rounded-xs w-full"></div>
+                            <div class="h-1 bg-stone-300 rounded-xs w-3/4"></div>
+                            <div class="h-1 bg-stone-300 rounded-xs w-full"></div>
+                        </div>
+                        <div class="mt-auto text-center font-mono text-[4px] text-stone-500">- ${i} -</div>
+                    </div>
+                    <span class="text-[11px] font-medium text-stone-300">Halaman ${i}</span>
+                `;
+                thumbContainer.appendChild(thumbDiv);
+            }
+
+            // 2. Outline / Bookmarks
+            outlineContainer.innerHTML = `
+                <div class="space-y-1">
+                    <button type="button" onclick="jumpToPdfPage(1)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200">
+                        <i class="fa-regular fa-file-lines text-stone-400 text-xs"></i>
+                        <span class="truncate font-semibold">Kop & Konsiderans (Menimbang)</span>
+                    </button>
+                    <button type="button" onclick="jumpToPdfPage(1)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
+                        <i class="fa-solid fa-bookmark text-amber-400 text-[10px]"></i>
+                        <span class="truncate">BAB I Ketentuan Umum</span>
+                    </button>
+                    <button type="button" onclick="jumpToPdfPage(2)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
+                        <i class="fa-solid fa-bookmark text-amber-400 text-[10px]"></i>
+                        <span class="truncate">BAB II Tata Kelola & Pengadilan</span>
+                    </button>
+                    <button type="button" onclick="jumpToPdfPage(2)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
+                        <i class="fa-solid fa-gavel text-rose-400 text-[10px]"></i>
+                        <span class="truncate">Pasal 84 - 85 (Sanksi Alat Tangkap)</span>
+                    </button>
+                    <button type="button" onclick="jumpToPdfPage(3)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
+                        <i class="fa-solid fa-bookmark text-amber-400 text-[10px]"></i>
+                        <span class="truncate">BAB III Ketentuan Penutup & Pengesahan</span>
+                    </button>
+                    <button type="button" onclick="jumpToPdfPage(3)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
+                        <i class="fa-solid fa-pen-nib text-stone-400 text-[10px]"></i>
+                        <span class="truncate">Tanda Tangan Pengundangan Resmi</span>
+                    </button>
+                </div>
+            `;
+        }
+
+        // Render Authentic Multi-Page Legal Sheets (Exact Indonesian Statute Typeset)
+        function renderAuthenticPdfPages(doc) {
             const container = document.getElementById('readerDocumentContainer');
             if (!container) return;
 
-            container.innerHTML = `
-                <!-- Sheet Page 1: Official Header & Preamble -->
-                <div class="bg-white rounded-lg shadow-2xl p-8 sm:p-14 text-stone-900 font-serif text-justify text-[13px] leading-[1.8] space-y-6 border border-stone-200">
-                    
-                    <!-- Kop Lembaran Negara RI -->
-                    <div class="text-center space-y-1 pb-6 border-b border-stone-300">
-                        <div class="w-12 h-12 mx-auto mb-2 text-stone-800 flex items-center justify-center">
-                            <i class="fa-solid fa-landmark text-3xl text-stone-800"></i>
-                        </div>
-                        <div class="font-bold text-xs uppercase tracking-widest text-stone-900 font-sans">
-                            SALINAN RESMI LEMBARAN NEGARA REPUBLIK INDONESIA
-                        </div>
-                        <div class="text-[11px] text-stone-600 font-sans font-semibold">
-                            ${doc.number ? doc.number.toUpperCase() : 'NOMOR 45'} TAHUN ${doc.year}
-                        </div>
-                        <div class="text-[10px] text-stone-500 font-sans">
-                            ${doc.source || 'Lembaran Negara Republik Indonesia'}
-                        </div>
-                    </div>
+            const docNumber = doc.number || 'NOMOR 45';
+            const docYear = doc.year || '2009';
+            const docTitleUpper = (doc.title || 'UNDANG-UNDANG REPUBLIK INDONESIA').toUpperCase();
 
-                    <!-- Judul Regulasi -->
-                    <div class="text-center space-y-2 py-4">
-                        <div class="font-bold text-sm tracking-wide uppercase font-sans text-stone-950">
-                            ${doc.title}
+            container.innerHTML = `
+                <!-- ============================================ -->
+                <!-- PAGE 1: OFFICIAL KOP, PREAMBLE & BAB I      -->
+                <!-- ============================================ -->
+                <article id="pdfPageSheet_1" class="bg-white text-[#111827] shadow-xl w-full min-h-[960px] p-10 sm:p-16 font-serif text-[12.5px] leading-[1.8] text-justify relative border border-stone-300">
+                    
+                    <!-- Official Garuda Pancasila Black & White Emblem -->
+                    <div class="text-center space-y-1 mb-8">
+                        <div class="w-14 h-14 mx-auto mb-2 text-stone-900 flex items-center justify-center">
+                            <svg class="w-12 h-12" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2L9 7H15L12 2ZM12 8C7.58 8 4 11.58 4 16C4 18.21 4.9 20.21 6.34 21.66L7.76 20.24C6.67 19.16 6 17.66 6 16C6 12.69 8.69 10 12 10C15.31 10 18 12.69 18 16C18 17.66 17.33 19.16 16.24 20.24L17.66 21.66C19.1 20.21 20 18.21 20 16C20 11.58 16.42 8 12 8Z"/>
+                            </svg>
                         </div>
-                        <div class="text-xs font-semibold uppercase tracking-wider text-stone-700 font-sans">
+                        <div class="font-bold text-[13px] tracking-wider uppercase font-sans text-stone-950">
+                            PRESIDEN REPUBLIK INDONESIA
+                        </div>
+                        <div class="font-bold text-xs tracking-wide uppercase font-sans text-stone-900 pt-2">
+                            ${docTitleUpper}
+                        </div>
+                        <div class="text-xs font-semibold uppercase tracking-widest text-stone-800 font-sans pt-1">
                             DENGAN RAHMAT TUHAN YANG MAHA ESA
                         </div>
-                        <div class="font-bold text-xs uppercase tracking-wider text-stone-900 font-sans">
+                        <div class="font-bold text-xs uppercase tracking-wider text-stone-950 font-sans pt-1">
                             PRESIDEN REPUBLIK INDONESIA,
                         </div>
                     </div>
 
                     <!-- Konsiderans Menimbang & Mengingat -->
-                    <div class="space-y-4 text-[12.5px] leading-relaxed">
+                    <div class="space-y-4 mb-6">
                         <div class="flex items-start gap-4">
                             <span class="font-bold text-stone-900 font-sans w-24 shrink-0">Menimbang :</span>
                             <div class="space-y-2">
-                                <p>a. bahwa perairan Indonesia yang berada di bawah kedaulatan dan yurisdiksi nasional memiliki potensi sumber daya perikanan yang kaya dan bernilai strategis bagi kemakmuran rakyat;</p>
-                                <p>b. bahwa untuk menjamin kelestarian sumber daya ikan serta kedaulatan maritim, diperlukan penegakan hukum yang tegas terhadap pemanfaatan alat tangkap dan wilayah pengelolaan perikanan;</p>
-                                <p>c. bahwa berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a dan huruf b, perlu menetapkan ${doc.title};</p>
+                                <p class="legal-clause-p">a. bahwa perairan Indonesia yang berada di bawah kedaulatan dan yurisdiksi nasional memiliki potensi sumber daya kelautan dan perikanan yang kaya dan bernilai strategis bagi kemakmuran rakyat;</p>
+                                <p class="legal-clause-p">b. bahwa pemanfaatan sumber daya harus diselenggarakan berdasarkan asas keadilan, kepastian hukum, efisiensi, dan keberlanjutan lingkungan maritim nasional;</p>
+                                <p class="legal-clause-p">c. bahwa berdasarkan pertimbangan sebagaimana dimaksud dalam huruf a dan huruf b, perlu membentuk ${doc.title};</p>
                             </div>
                         </div>
 
                         <div class="flex items-start gap-4 pt-2">
                             <span class="font-bold text-stone-900 font-sans w-24 shrink-0">Mengingat :</span>
                             <div class="space-y-1.5">
-                                <p>1. Pasal 5 ayat (1), Pasal 20, dan Pasal 33 Undang-Undang Dasar Negara Republik Indonesia Tahun 1945;</p>
-                                <p>2. Undang-Undang Nomor 17 Tahun 1985 tentang Pengesahan United Nations Convention on the Law of the Sea (UNCLOS 1982);</p>
-                                <p>3. Peraturan perundang-undangan terkait rezim hukum kelautan, kedaulatan wilayah, dan konservasi sumber daya alam hayati.</p>
+                                <p class="legal-clause-p">1. Pasal 5 ayat (1), Pasal 20, Pasal 25A, dan Pasal 33 Undang-Undang Dasar Negara Republik Indonesia Tahun 1945;</p>
+                                <p class="legal-clause-p">2. Undang-Undang Nomor 17 Tahun 1985 tentang Pengesahan United Nations Convention on the Law of the Sea 1982 (Konvensi Perserikatan Bangsa-Bangsa tentang Hukum Laut Tahun 1982);</p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="text-center py-2 font-bold font-sans tracking-widest text-xs uppercase text-stone-900 border-y border-stone-200">
+                    <div class="text-center py-2 font-bold font-sans tracking-widest text-xs uppercase text-stone-950 my-4">
                         MEMUTUSKAN:
                     </div>
 
-                    <!-- BAB I KETENTUAN UMUM -->
-                    <div class="space-y-4">
-                        <div class="text-center font-sans space-y-0.5">
-                            <div class="font-bold text-xs tracking-wider">BAB I</div>
-                            <div class="font-bold text-xs uppercase text-stone-800">KETENTUAN UMUM</div>
+                    <div class="space-y-2">
+                        <div class="flex items-start gap-4 mb-4">
+                            <span class="font-bold text-stone-900 font-sans w-24 shrink-0">Menetapkan :</span>
+                            <p class="font-bold text-stone-950 font-sans uppercase">${docTitleUpper}.</p>
                         </div>
 
-                        <div class="doc-clause-block p-3 rounded-lg transition-colors">
+                        <!-- BAB I KETENTUAN UMUM -->
+                        <div class="text-center font-sans space-y-0.5 pt-4">
+                            <div class="font-bold text-xs tracking-wider">BAB I</div>
+                            <div class="font-bold text-xs uppercase text-stone-900">KETENTUAN UMUM</div>
+                        </div>
+
+                        <div class="py-2">
                             <div class="font-bold text-center font-sans text-xs mb-1">Pasal 1</div>
-                            <p class="indent-6 text-stone-800 leading-relaxed text-[12.5px]">
-                                Dalam regulasi ini yang dimaksud dengan:
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                Dalam Undang-Undang ini yang dimaksud dengan:
                             </p>
-                            <ol class="list-decimal pl-6 space-y-1.5 mt-2 text-[12.5px]">
-                                <li><strong>Perikanan</strong> adalah semua kegiatan yang berhubungan dengan pengelolaan dan pemanfaatan sumber daya ikan dan lingkungannya secara berkelanjutan.</li>
-                                <li><strong>Wilayah Pengelolaan Perikanan Negara Republik Indonesia (WPPNRI)</strong> meliputi perairan pedalaman, perairan kepulauan, laut teritorial, zona tambahan, dan Zona Ekonomi Eksklusif Indonesia (ZEEI).</li>
-                                <li><strong>Kapal Perikanan</strong> adalah kapal, perahu, atau alat apung lain yang dipergunakan untuk melakukan penangkapan ikan, memuat, mengangkut, menyimpan, mendinginkan, atau mengolah ikan.</li>
-                                <li><strong>Surat Izin Penangkapan Ikan (SIPI)</strong> adalah izin tertulis yang wajib dimiliki setiap kapal perikanan berbendera Indonesia untuk melakukan penangkapan ikan di WPPNRI.</li>
+                            <ol class="list-decimal pl-8 space-y-1.5 mt-2">
+                                <li class="legal-clause-p"><strong>Perikanan</strong> adalah semua kegiatan yang berhubungan dengan pengelolaan dan pemanfaatan sumber daya ikan dan lingkungannya mulai dari praproduksi, produksi, pengolahan sampai dengan pemasaran.</li>
+                                <li class="legal-clause-p"><strong>Wilayah Pengelolaan Perikanan Negara Republik Indonesia (WPPNRI)</strong> meliputi perairan pedalaman, perairan kepulauan, laut teritorial, zona tambahan, dan Zona Ekonomi Eksklusif Indonesia (ZEEI).</li>
+                                <li class="legal-clause-p"><strong>Kapal Perikanan</strong> adalah kapal, perahu, atau alat apung lain yang dipergunakan untuk melakukan penangkapan ikan dan/atau mengangkut hasil perikanan.</li>
                             </ol>
                         </div>
                     </div>
 
-                    <!-- BAB II SUBSTANSI POKOK -->
-                    <div class="space-y-4 pt-4 border-t border-stone-200">
-                        <div class="text-center font-sans space-y-0.5">
-                            <div class="font-bold text-xs tracking-wider">BAB II</div>
-                            <div class="font-bold text-xs uppercase text-stone-800">TATA KELOLA DAN PENEGAKAN HUKUM</div>
-                        </div>
+                    <!-- Page 1 Footer -->
+                    <div class="absolute bottom-6 left-12 right-12 pt-4 border-t border-stone-200 flex items-center justify-between text-[11px] text-stone-500 font-mono">
+                        <span>${doc.agency || 'Kementerian Kelautan dan Perikanan RI'}</span>
+                        <span class="font-bold text-stone-800">- 1 -</span>
+                        <span>Salinan Sah Sesuai Aslinya</span>
+                    </div>
+                </article>
 
-                        <div class="doc-clause-block p-3 rounded-lg transition-colors">
+                <!-- ============================================ -->
+                <!-- PAGE 2: SUBSTANSI PASAL 84 - 93             -->
+                <!-- ============================================ -->
+                <article id="pdfPageSheet_2" class="bg-white text-[#111827] shadow-xl w-full min-h-[960px] p-10 sm:p-16 font-serif text-[12.5px] leading-[1.8] text-justify relative border border-stone-300">
+                    
+                    <div class="text-center font-sans space-y-0.5 pb-4">
+                        <div class="font-bold text-xs tracking-wider">BAB VI</div>
+                        <div class="font-bold text-xs uppercase text-stone-900">KETENTUAN PIDANA DAN SANKSI</div>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
                             <div class="font-bold text-center font-sans text-xs mb-1">Pasal 84</div>
-                            <p class="indent-6 text-stone-900 leading-relaxed text-[12.5px]">
-                                (1) Tindak pidana di bidang perikanan yang terjadi di wilayah pengelolaan perikanan Negara Republik Indonesia disidik, dituntut, dan diadili menurut hukum acara yang berlaku, kecuali ditentukan lain dalam regulasi ini.
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                (1) Tindak pidana di bidang perikanan yang terjadi di wilayah pengelolaan perikanan Negara Republik Indonesia sebagaimana dimaksud dalam Pasal 5 disidik, dituntut, dan diadili menurut hukum acara yang berlaku, kecuali ditentukan lain dalam undang-undang ini.
                             </p>
-                            <p class="indent-6 text-stone-900 leading-relaxed text-[12.5px]">
-                                (2) Pengadilan perikanan bertugas dan berwenang memeriksa, mengadili, dan memutus tindak pidana di bidang perikanan.
-                            </p>
-                        </div>
-
-                        <div class="doc-clause-block p-3.5 bg-amber-50/60 rounded-xl border border-amber-200/80 transition-colors">
-                            <div class="font-bold text-center font-sans text-xs mb-1 text-amber-950">Pasal 85</div>
-                            <p class="indent-6 text-stone-950 font-medium leading-relaxed text-[12.5px]">
-                                Setiap orang yang dengan sengaja memiliki, menguasai, membawa, dan/atau menggunakan alat penangkap ikan dan/atau alat bantu penangkapan ikan yang mengganggu dan merusak keberlanjutan sumber daya ikan (termasuk pukat hela, cantrang, bahan peledak, racun) di kapal penangkap ikan di WPPNRI dipidana dengan <strong>pidana penjara paling lama 5 (lima) tahun</strong> dan <strong>denda paling banyak Rp2.000.000.000,00 (dua miliar rupiah)</strong>.
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                (2) Pengadilan perikanan bertugas dan berwenang memeriksa, mengadili, dan memutus tindak pidana di bidang perikanan di wilayah yurisdiksi Republik Indonesia.
                             </p>
                         </div>
 
-                        <div class="doc-clause-block p-3 rounded-lg transition-colors">
+                        <div>
+                            <div class="font-bold text-center font-sans text-xs mb-1">Pasal 85</div>
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                Setiap orang yang dengan sengaja memiliki, menguasai, membawa, dan/atau menggunakan alat penangkap ikan dan/atau alat bantu penangkapan ikan yang mengganggu dan merusak keberlanjutan sumber daya ikan di kapal penangkap ikan di wilayah pengelolaan perikanan Negara Republik Indonesia sebagaimana dimaksud dalam Pasal 9 dipidana dengan <strong>pidana penjara paling lama 5 (lima) tahun</strong> dan <strong>denda paling banyak Rp2.000.000.000,00 (dua miliar rupiah)</strong>.
+                            </p>
+                        </div>
+
+                        <div>
                             <div class="font-bold text-center font-sans text-xs mb-1">Pasal 93</div>
-                            <p class="indent-6 text-stone-900 leading-relaxed text-[12.5px]">
-                                (1) Setiap orang yang memiliki dan/atau mengoperasikan kapal penangkap ikan berbendera Indonesia melakukan penangkapan ikan di WPPNRI dan/atau laut lepas yang tidak memiliki SIPI dipidana dengan pidana penjara paling lama 6 (enam) tahun dan denda paling banyak Rp2.000.000.000,00 (dua miliar rupiah).
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                (1) Setiap orang yang memiliki dan/atau mengoperasikan kapal penangkap ikan berbendera Indonesia melakukan penangkapan ikan di WPPNRI dan/atau laut lepas yang tidak memiliki SIPI sebagaimana dimaksud dalam Pasal 27 ayat (1) dipidana dengan pidana penjara paling lama 6 (enam) tahun dan denda paling banyak Rp2.000.000.000,00 (dua miliar rupiah).
+                            </p>
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                (2) Setiap orang yang memiliki dan/atau mengoperasikan kapal pengangkut ikan berbendera Indonesia yang tidak memiliki SIKPI dipidana dengan pidana penjara paling lama 5 (lima) tahun dan denda paling banyak Rp1.500.000.000,00 (satu miliar lima ratus juta rupiah).
                             </p>
                         </div>
                     </div>
 
-                    <!-- BAB III KETENTUAN PENUTUP & PENGESAHAN -->
-                    <div class="space-y-4 pt-4 border-t border-stone-200">
-                        <div class="text-center font-sans space-y-0.5">
-                            <div class="font-bold text-xs tracking-wider">BAB III</div>
-                            <div class="font-bold text-xs uppercase text-stone-800">KETENTUAN PENUTUP</div>
-                        </div>
+                    <!-- Page 2 Footer -->
+                    <div class="absolute bottom-6 left-12 right-12 pt-4 border-t border-stone-200 flex items-center justify-between text-[11px] text-stone-500 font-mono">
+                        <span>${doc.agency || 'Kementerian Kelautan dan Perikanan RI'}</span>
+                        <span class="font-bold text-stone-800">- 2 -</span>
+                        <span>Salinan Sah Sesuai Aslinya</span>
+                    </div>
+                </article>
 
-                        <div class="doc-clause-block p-3 rounded-lg transition-colors">
+                <!-- ============================================ -->
+                <!-- PAGE 3: PENUTUP & PENGESAHAN LEMBARAN NEGARA -->
+                <!-- ============================================ -->
+                <article id="pdfPageSheet_3" class="bg-white text-[#111827] shadow-xl w-full min-h-[960px] p-10 sm:p-16 font-serif text-[12.5px] leading-[1.8] text-justify relative border border-stone-300">
+                    
+                    <div class="text-center font-sans space-y-0.5 pb-4">
+                        <div class="font-bold text-xs tracking-wider">BAB VII</div>
+                        <div class="font-bold text-xs uppercase text-stone-900">KETENTUAN PENUTUP</div>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
                             <div class="font-bold text-center font-sans text-xs mb-1">Pasal 110</div>
-                            <p class="indent-6 text-stone-900 leading-relaxed text-[12.5px]">
-                                Regulasi ini mulai berlaku pada tanggal diundangkan. Agar setiap orang mengetahuinya, memerintahkan pengundangan ini dengan penempatannya dalam Lembaran Negara Republik Indonesia.
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p">
+                                Undang-Undang ini mulai berlaku pada tanggal diundangkan.
+                            </p>
+                            <p class="indent-8 text-stone-900 leading-relaxed legal-clause-p pt-2">
+                                Agar setiap orang mengetahuinya, memerintahkan pengundangan Undang-Undang ini dengan penempatannya dalam Lembaran Negara Republik Indonesia.
                             </p>
                         </div>
 
-                        <!-- Tanda Tangan Pengesahan -->
+                        <!-- Pengesahan Resmi -->
                         <div class="pt-8 grid grid-cols-1 sm:grid-cols-2 gap-8 font-sans text-xs">
                             <div class="space-y-1">
                                 <div>Diundangkan di Jakarta</div>
-                                <div>pada tanggal 29 Oktober ${doc.year}</div>
-                                <div class="font-bold pt-12">MENTERI HUKUM DAN HAK ASASI MANUSIA</div>
-                                <div class="font-bold">REPUBLIK INDONESIA,</div>
+                                <div>pada tanggal 29 Oktober ${docYear}</div>
+                                <div class="font-bold pt-14 text-stone-950">MENTERI HUKUM DAN HAK ASASI MANUSIA</div>
+                                <div class="font-bold text-stone-950">REPUBLIK INDONESIA,</div>
+                                <div class="pt-10 font-serif font-bold text-stone-900 underline">PATRIALIS AKBAR</div>
                             </div>
                             <div class="space-y-1 sm:text-right">
                                 <div>Disahkan di Jakarta</div>
-                                <div>pada tanggal 29 Oktober ${doc.year}</div>
-                                <div class="font-bold pt-12">PRESIDEN REPUBLIK INDONESIA,</div>
-                                <div class="font-bold text-stone-900">SALINAN SESUAI NASKAH RESMI</div>
+                                <div>pada tanggal 29 Oktober ${docYear}</div>
+                                <div class="font-bold pt-14 text-stone-950">PRESIDEN REPUBLIK INDONESIA,</div>
+                                <div class="pt-10 font-serif font-bold text-stone-900 underline">DR. H. SUSILO BAMBANG YUDHOYONO</div>
                             </div>
+                        </div>
+
+                        <!-- Lembaran Negara Registration -->
+                        <div class="pt-10 border-t border-stone-300 font-sans text-xs space-y-1">
+                            <div class="font-bold text-stone-900 uppercase">LEMBARAN NEGARA REPUBLIK INDONESIA TAHUN ${docYear} NOMOR 154</div>
+                            <div class="text-stone-600 text-[11px]">TAMBAHAN LEMBARAN NEGARA REPUBLIK INDONESIA NOMOR 5073</div>
                         </div>
                     </div>
 
-                    <!-- Footer Stamp -->
-                    <div class="pt-6 border-t border-stone-300 flex items-center justify-between text-[10px] text-stone-400 font-mono">
-                        <span>Kementerian Sekretariat Negara RI</span>
-                        <span class="font-bold text-stone-700">- Halaman 1 dari 1 (Naskah Penuh) -</span>
-                        <span>TitikHukum Verified Document</span>
+                    <!-- Page 3 Footer -->
+                    <div class="absolute bottom-6 left-12 right-12 pt-4 border-t border-stone-200 flex items-center justify-between text-[11px] text-stone-500 font-mono">
+                        <span>${doc.agency || 'Kementerian Kelautan dan Perikanan RI'}</span>
+                        <span class="font-bold text-stone-800">- 3 -</span>
+                        <span>Salinan Sah Sesuai Aslinya</span>
                     </div>
-
-                </div>
+                </article>
             `;
         }
 
@@ -2978,153 +3050,6 @@
 
         function closeDetailItemModal() {
             document.getElementById('analysisDetailItemModal').classList.add('hidden');
-        }
-
-        // Add Document Modal Controllers
-        function openAddModal() {
-            document.getElementById('addDocModal').classList.remove('hidden');
-        }
-
-        function closeAddModal() {
-            document.getElementById('addDocModal').classList.add('hidden');
-            const form = document.getElementById('addDocForm');
-            if (form) form.reset();
-            resetCustomTopic();
-            const dropText = document.getElementById('dropZoneText');
-            if (dropText) dropText.textContent = 'Pilih file PDF atau tarik & letakkan di sini';
-        }
-
-        function handleFileSelected(input) {
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
-                const dropText = document.getElementById('dropZoneText');
-                if (dropText) dropText.textContent = `Berkas Terpilih: ${file.name} (${sizeMb} MB)`;
-            }
-        }
-
-        function toggleCustomTopicDropdown() {
-            const menu = document.getElementById('customTopicDropdownMenu');
-            const chevron = document.getElementById('topicDropdownChevron');
-            if (!menu) return;
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
-                if (chevron) chevron.classList.add('rotate-180');
-            } else {
-                menu.classList.add('hidden');
-                if (chevron) chevron.classList.remove('rotate-180');
-            }
-        }
-
-        function selectTopicOption(val) {
-            const hiddenInp = document.getElementById('addJenisTindakPidana');
-            const label = document.getElementById('selectedTopicLabel');
-            if (hiddenInp) hiddenInp.value = val;
-            if (label) {
-                label.textContent = val || 'Cari atau pilih topik...';
-                if (val) {
-                    label.classList.remove('text-gray-500');
-                    label.classList.add('text-stone-900', 'font-semibold');
-                } else {
-                    label.classList.remove('text-stone-900', 'font-semibold');
-                    label.classList.add('text-gray-500');
-                }
-            }
-            toggleCustomTopicDropdown();
-        }
-
-        function resetCustomTopic() {
-            const hiddenInp = document.getElementById('addJenisTindakPidana');
-            const label = document.getElementById('selectedTopicLabel');
-            if (hiddenInp) hiddenInp.value = '';
-            if (label) {
-                label.textContent = 'Cari atau pilih topik...';
-                label.classList.remove('text-stone-900', 'font-semibold');
-                label.classList.add('text-gray-500');
-            }
-        }
-
-        // Close dropdown when clicking outside
-        document.addEventListener('click', (e) => {
-            const container = document.getElementById('customDropdownContainer');
-            const menu = document.getElementById('customTopicDropdownMenu');
-            const chevron = document.getElementById('topicDropdownChevron');
-            if (container && menu && !container.contains(e.target)) {
-                menu.classList.add('hidden');
-                if (chevron) chevron.classList.remove('rotate-180');
-            }
-
-            const editContainer = document.getElementById('editCustomDropdownContainer');
-            const editMenu = document.getElementById('editCustomTopicDropdownMenu');
-            const editChevron = document.getElementById('editTopicDropdownChevron');
-            if (editContainer && editMenu && !editContainer.contains(e.target)) {
-                editMenu.classList.add('hidden');
-                if (editChevron) editChevron.classList.remove('rotate-180');
-            }
-        });
-
-        function handleAddSubmit(e) {
-            e.preventDefault();
-            const title = document.getElementById('addTitle').value || 'Tanpa Judul';
-            const number = document.getElementById('addNumber').value || 'Regulasi Baru';
-            const yearVal = document.getElementById('addYear').value;
-            const bentukPeraturan = document.getElementById('addBentukPeraturan').value || 'Peraturan';
-            const bentukSingkat = document.getElementById('addBentukSingkat').value || '';
-            const source = document.getElementById('addSource').value || 'Dokumen Resmi';
-            const subjek = document.getElementById('addSubjek').value || '';
-            const lokasi = document.getElementById('addLokasi').value || 'Indonesia';
-            const tglPenetapan = document.getElementById('addTglPenetapan').value || '';
-            const tglPengundangan = document.getElementById('addTglPengundangan').value || '';
-            const tglBerlaku = document.getElementById('addTglBerlaku').value || '';
-            const tempatPenetapan = document.getElementById('addTempatPenetapan').value || 'Jakarta';
-            const teu = document.getElementById('addTEU').value || 'Pemerintah Republik Indonesia';
-            const status = document.getElementById('addStatus').value || 'Berlaku';
-            const bahasa = document.getElementById('addBahasa').value || 'Indonesia';
-            const bidangHukum = document.getElementById('addBidangHukum').value || 'Hukum Administrasi / Sektoral';
-            const catatan = document.getElementById('addCatatan').value || '';
-            const jenisTindakPidana = document.getElementById('addJenisTindakPidana').value || '';
-
-            // Auto parse year from field or number
-            let year = parseInt(yearVal);
-            if (!year || isNaN(year)) {
-                const yearMatch = number.match(/\b(19\d\d|20\d\d)\b/);
-                year = yearMatch ? parseInt(yearMatch[1]) : new Date().getFullYear();
-            }
-
-            const fileInput = document.getElementById('pdfFileInput');
-            const fileName = fileInput.files && fileInput.files[0] ? fileInput.files[0].name : `${number.replace(/\s+/g, '_')}.pdf`;
-
-            const newDoc = {
-                id: documents.length + 1,
-                title: title,
-                number: number,
-                year: year,
-                category: bidangHukum || 'Umum',
-                source: subjek || source || 'Naskah Resmi',
-                agency: teu,
-                summary: catatan || `Dokumen ${bentukPeraturan} ${number} tentang ${title}`,
-                pages: 24,
-                status: status,
-                filename: fileName,
-                fileSize: '1.2 MB',
-                aiIndexStatus: 'Dalam Antrean Ekstraksi',
-                tglPenetapan: tglPenetapan,
-                tglPengundangan: tglPengundangan,
-                tglBerlaku: tglBerlaku,
-                tempatPenetapan: tempatPenetapan,
-                bentukPeraturan: bentukPeraturan,
-                bentukSingkat: bentukSingkat,
-                bahasa: bahasa,
-                jenisTindakPidana: jenisTindakPidana,
-                tindakPidanaCount: jenisTindakPidana ? 3 : 1,
-                sanksiCount: 2,
-                kewenanganCount: 2
-            };
-
-            documents.unshift(newDoc);
-            closeAddModal();
-            renderTable();
-            showToast(`Detail dokumen "${number}" berhasil disimpan & dijadwalkan untuk ekstraksi AI!`);
         }
 
         // Toast Helper

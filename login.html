@@ -652,15 +652,39 @@
 
             // Role Authentication Check
             if ((usernameOrEmail.toLowerCase() === 'admin' || usernameOrEmail.toLowerCase() === 'admin@titikhukum.id') && password === 'admin1234') {
-                localStorage.setItem('titikhukum_auth', JSON.stringify({ role: 'admin', user: 'Administrator', username: 'admin' }));
+                localStorage.setItem('titikhukum_auth', JSON.stringify({ 
+                    role: 'admin', 
+                    user: 'Administrator', 
+                    username: 'admin',
+                    isAhliHukum: false 
+                }));
                 localStorage.setItem('userEmail', usernameOrEmail);
                 showToast(`Selamat datang, Administrator! Mengalihkan ke beranda admin...`, 'success');
 
                 setTimeout(() => {
                     window.location.href = 'admin/index.html';
                 }, 600);
+            } else if ((usernameOrEmail.toLowerCase() === 'hukum1' || usernameOrEmail.toLowerCase() === 'hukum1@titikhukum.id') && password === 'hukum1234') {
+                // Role Ahli Hukum (Folder Khusus: ahli-hukum/)
+                localStorage.setItem('titikhukum_auth', JSON.stringify({ 
+                    role: 'ahli_hukum', 
+                    user: 'Tenaga Ahli Hukum', 
+                    username: 'hukum1',
+                    isAhliHukum: true 
+                }));
+                localStorage.setItem('userEmail', 'hukum1@titikhukum.id');
+                showToast(`Selamat datang, Ahli Hukum! Mengalihkan ke portal ahli hukum...`, 'success');
+
+                setTimeout(() => {
+                    window.location.href = 'ahli-hukum/index.html';
+                }, 600);
             } else {
-                localStorage.setItem('titikhukum_auth', JSON.stringify({ role: 'user', user: usernameOrEmail, username: usernameOrEmail }));
+                localStorage.setItem('titikhukum_auth', JSON.stringify({ 
+                    role: 'user', 
+                    user: usernameOrEmail, 
+                    username: usernameOrEmail,
+                    isAhliHukum: false 
+                }));
                 localStorage.setItem('userEmail', usernameOrEmail);
                 showToast(`Login berhasil! Mengalihkan...`, 'success');
 

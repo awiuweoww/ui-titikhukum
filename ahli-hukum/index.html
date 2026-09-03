@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Titik Hukum - Platform Analisis & Riset Hukum</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans, The Seasons fallbacks (Playfair, Instrument Serif, Cormorant) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Flaticon Uicons CDN -->
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+                        seasons: ['"The Seasons"', '"Instrument Serif"', '"Playfair Display"', '"Cormorant Garamond"', 'Georgia', 'serif'],
+                        heading: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            red: '#26150d',
+                            darkRed: '#1f0f08',
+                            ruby: '#381d12',
+                            crimson: '#4a2717',
+                            accent: '#2b170d',
+                            dark: '#0f172a',
+                        }
+                    },
+                    boxShadow: {
+                        'hero': '0 20px 50px -10px rgba(35, 19, 11, 0.3)',
+                        'card-hover': '0 20px 35px -10px rgba(0,0,0,0.08)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @font-face {
+            font-family: 'The Seasons';
+            src: local('The Seasons'), local('TheSeasons-Regular'), local('TheSeasons');
+        }
+
+        .font-seasons {
+            font-family: 'The Seasons', 'Instrument Serif', 'Playfair Display', 'Cormorant Garamond', Georgia, serif;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: #18181b;
+            scroll-behavior: smooth;
+        }
+
+        /* Red Hero Banner Placeholder */
+        .hero-red-bg {
+            background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 35%, #b91c1c 70%, #dc2626 100%);
+            position: relative;
+        }
+
+        .hero-pattern {
+            background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+
+        .editorial-line {
+            height: 1px;
+            background: rgba(0, 0, 0, 0.12);
+        }
+
+        .editorial-line-light {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Scrolled Dark Courtroom Brown Sticky Navbar */
+        .navbar-scrolled {
+            background-color: #211209 !important;
+            background: linear-gradient(180deg, rgba(35, 19, 11, 0.98) 0%, rgba(26, 14, 8, 0.98) 100%) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.6) !important;
+            border-bottom: 1px solid rgba(85, 45, 25, 0.8) !important;
+            padding-top: 1.1rem !important;
+            padding-bottom: 1.1rem !important;
+        }
+
+        .navbar-scrolled #navbarInner {
+            border-bottom: 0 !important;
+            padding-bottom: 0 !important;
+        }
+
+        /* 4-Step Card Animated Cycle State */
+        .step-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .step-card.step-active {
+            background-color: #f6eee7 !important; /* Soft elegant warm brownish hue */
+            background: linear-gradient(180deg, #f8f1eb 0%, #eee2d7 100%) !important;
+            border-color: #cbb4a3 !important;
+            box-shadow: 0 16px 32px -8px rgba(43, 23, 13, 0.15), 0 0 0 1px rgba(180, 135, 110, 0.15) !important;
+            transform: translateY(-4px);
+        }
+        .step-card.step-active .step-badge {
+            background-color: #26150d !important; /* Elegant Courtroom Mahogany Brown */
+            background: linear-gradient(135deg, #381d12 0%, #1f0f08 100%) !important;
+            color: #ffffff !important;
+            border-color: transparent !important;
+            box-shadow: 0 4px 12px rgba(35, 19, 11, 0.25) !important;
+        }
+        .step-card.step-active .step-thumb {
+            background-color: #ffffff !important;
+            border-color: #dccec3 !important;
+            box-shadow: 0 4px 14px -2px rgba(43, 23, 13, 0.08) !important;
+        }
+        .step-card:not(.step-active) {
+            background-color: #ffffff;
+            border-color: #e5e7eb;
+            transform: translateY(0);
+        }
+        .step-card:not(.step-active):hover {
+            border-color: #d6c4b7;
+            background-color: #fdfbf9;
+        }
+        .step-card:not(.step-active) .step-badge {
+            background-color: #f1f5f9;
+            color: #64748b;
+            border-color: #e2e8f0;
+            box-shadow: none !important;
+        }
+        .step-card:not(.step-active) .step-thumb {
+            background-color: #f8fafc;
+            border-color: #f1f5f9;
+        }
+
+        /* Smooth Wipe / Slide from Left to Right Animation for Video Showcase */
+        @keyframes videoSlideInRight {
+            0% {
+                opacity: 0;
+                transform: translateX(-35px) scale(0.98);
+                filter: blur(4px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+                filter: blur(0px);
+            }
+        }
+
+        .video-slide-enter {
+            animation: videoSlideInRight 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col bg-[#fafaf9] text-gray-900 antialiased selection:bg-[#2e170d] selection:text-white">
+
+    <!-- ======================================================== -->
+    <!-- 1. FIXED TOP NAVBAR (Transparan di Atas, Coklat saat Scroll)-->
+    <!-- ======================================================== -->
+    <header id="mainNavbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full pt-6 sm:pt-9 md:pt-11 pb-0 bg-transparent">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="navbarInner" class="flex items-center justify-between pb-3.5 sm:pb-4 border-b-2 border-white/30 transition-all duration-300">
+                
+                <!-- Left: Titik Hukum Brand Logo (Transparent BG) -->
+                <a href="index.html" onclick="navigateHome(event)" class="flex items-center gap-2.5 group cursor-pointer" title="Titik Hukum">
+                    <img src="../assets/logo-white.png" alt="Titik Hukum Logo" class="h-8 sm:h-9 object-contain transition-transform duration-300 group-hover:scale-105" />
+                    <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-wider uppercase bg-rose-500/20 text-rose-300 border border-rose-500/40">AHLI HUKUM</span>
+                </a>
+
+                <!-- Center: Menu Navigation Links (Hover Scale + Bold Transition) -->
+                <nav class="hidden md:flex items-center gap-7 lg:gap-9 text-[13px]">
+                    <a href="index.html" onclick="navigateHome(event)" class="text-white font-semibold transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm cursor-pointer">
+                        Beranda
+                    </a>
+                    <a href="pustaka.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Pustaka Dokumen
+                    </a>
+                    <a href="chat.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm flex items-center gap-1.5">
+                        <span>Asisten Hukum</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-extrabold bg-white/20 text-white backdrop-blur-xs">AI</span>
+                    </a>
+                    <a href="evaluasi.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Evaluasi AI
+                    </a>
+                    <a href="profil.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Profil Saya
+                    </a>
+                </nav>
+
+                <!-- Right: Language, Theme & Logout Buttons -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    
+                    <!-- Language Switcher (Borderless Clean: Exact Translate Glyphs + EN) -->
+                    <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1 text-white/80 hover:text-white text-xs font-semibold transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1" title="Ganti Bahasa (EN / ID)">
+                        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24">
+                            <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+                        </svg>
+                        <span id="navLangLabel" class="font-bold text-xs tracking-wide">EN</span>
+                    </button>
+
+                    <!-- Theme Dark/Light Mode Icon Button (Pure SVG Sun/Moon) -->
+                    <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-white/90 hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1 shrink-0" title="Ganti Mode Tema (Terang / Gelap)">
+                        <span id="navThemeIconContainer" class="inline-flex items-center justify-center w-5 h-5 shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                                <circle cx="12" cy="12" r="4.5"></circle>
+                                <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                                <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                                <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                                <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                                <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                                <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                                <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <!-- Logout / User Badge Button -->
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-white/40 bg-white/10 text-white hover:bg-rose-600 hover:border-rose-600 hover:text-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1" title="Keluar dari akun ahli hukum">
+                        <i class="fa-solid fa-graduation-cap text-rose-400 text-xs"></i>
+                        <span>Hukum (Keluar)</span>
+                    </a>
+
+                    <!-- Mobile Menu Button -->
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-8.5 h-8.5 flex items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white hover:bg-white hover:text-gray-900 transition ml-1" title="Menu Navigasi">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-sm"></i>
+                    </button>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Overlay Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-2">
+            <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
+                <a href="index.html" onclick="navigateHome(event)" class="block py-2 text-white font-bold border-b border-white/10">Beranda</a>
+                <a href="pustaka.html" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Pustaka Dokumen</a>
+                <a href="chat.html" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Asisten Hukum AI</a>
+                <a href="evaluasi.html" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Evaluasi AI</a>
+                <a href="profil.html" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Profil Saya</a>
+                
+                <div class="pt-2">
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="w-full py-2.5 rounded-lg border border-rose-500 bg-rose-600 text-white text-xs font-semibold flex items-center justify-center gap-2">
+                        <i class="fi fi-rr-sign-out-alt text-xs"></i>
+                        <span>Hukum (Keluar)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ======================================================== -->
+    <!-- HERO SECTION CONTAINER                                   -->
+    <!-- ======================================================== -->
+    <section id="beranda" class="w-full px-2 sm:px-3 md:px-4 pt-2 sm:pt-3 md:pt-4 pb-16">
+        <div class="w-full min-h-[92vh] md:min-h-[96vh] rounded-[24px] sm:rounded-[32px] md:rounded-[36px] overflow-hidden relative border border-gray-300/70 shadow-2xl flex flex-col justify-between p-6 sm:p-10 md:p-14 pt-28 sm:pt-36 md:pt-40 text-white">
+            
+            <!-- Hero Courtroom Background Image & Cinematic Lighting Overlay -->
+            <div class="absolute inset-0 z-0">
+                <img src="../assets/hero.png?v=2" alt="Titik Hukum Courtroom Background" class="w-full h-full object-cover object-center scale-[1.01]" />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/35"></div>
+                <div class="absolute inset-0 bg-black/20 backdrop-blur-[0.5px]"></div>
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- 2. TOP HERO STATS & EDITORIAL DESCRIPTION                -->
+            <!-- ======================================================== -->
+            <div class="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-6 items-start pt-8 md:pt-10">
+                
+                <!-- Left Stats Counters -->
+                <div class="md:col-span-6 flex items-start gap-8 sm:gap-12">
+                    <div>
+                        <div class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-sans text-white drop-shadow-md">
+                            50x
+                        </div>
+                        <div class="text-xs sm:text-sm text-gray-300 font-medium mt-1">
+                            Lebih Cepat dari Riset Manual
+                        </div>
+                    </div>
+                    <div>
+                        <div class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-sans text-white drop-shadow-md">
+                            100%
+                        </div>
+                        <div class="text-xs sm:text-sm text-gray-300 font-medium mt-1">
+                            Keterlacakan Sumber Dokumen
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Editorial Text (Penjelasan Filosofis) -->
+                <div class="md:col-span-6 md:text-right flex flex-col md:items-end justify-start">
+                    <p class="text-xs sm:text-sm md:text-base text-gray-200 max-w-md font-light leading-relaxed drop-shadow-sm">
+                        Mengubah kerumitan ribuan halaman regulasi menjadi kepastian hukum yang transparan melalui analisis AI dengan bukti visual yang presisi.
+                    </p>
+                </div>
+
+            </div>
+
+            <!-- ======================================================== -->
+            <!-- 3. CENTER / BOTTOM HERO MAIN SECTION (Exact Reference)   -->
+            <!-- ======================================================== -->
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-end my-auto pt-8 sm:pt-14 pb-2">
+                
+                <!-- Left: Big Headline & Sub-headline -->
+                <div class="lg:col-span-7 space-y-4 max-w-2xl">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[66px] font-bold tracking-tight text-white leading-[1.08] drop-shadow-lg">
+                        Validasi Legalitas Presisi dalam Satu Titik Terang.
+                    </h1>
+                    <p class="text-xs sm:text-sm md:text-base text-gray-200/90 font-normal max-w-xl leading-relaxed drop-shadow-md">
+                        Platform analisis hukum interaktif. Unggah dokumen referensi, tanyakan risikonya, dan biarkan Asisten AI menunjuk langsung bukti pasalnya pada dokumen anda.
+                    </p>
+                </div>
+
+                <!-- Right: Action Button, Divider Line, and Micro Status -->
+                <div class="lg:col-span-5 flex flex-col items-stretch sm:items-end w-full lg:max-w-xs lg:ml-auto space-y-3">
+                    
+                    <!-- White Action Button -->
+                    <a href="pustaka.html" class="w-full sm:w-auto inline-flex items-center justify-between sm:justify-center gap-4 px-6 py-3.5 rounded-sm bg-white hover:bg-gray-100 text-gray-900 text-xs sm:text-sm font-bold shadow-2xl transition-all transform hover:-translate-y-0.5 active:scale-95">
+                        <span>Mulai Analisis Dokumen</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+
+                    <!-- Thin Divider Line -->
+                    <div class="w-full border-t border-white/35"></div>
+
+                    <!-- Micro Indicator & Serving Line -->
+                    <div class="w-full flex items-center justify-between text-[11px] text-gray-300 font-medium">
+                        <span class="inline-flex items-center text-white/75">
+                            <i class="fa-solid fa-globe text-xs"></i>
+                        </span>
+                        <span class="tracking-wide">Badan Riset dan Inovasi Nasional, 2026</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION 2: ABOUT US (Sesuai Referensi Gambar)            -->
+    <!-- ======================================================== -->
+    <section id="tentang-kami" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-200/70">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-10 items-start">
+            
+            <!-- Left Column: Tentang Kami Header, law1.png (Mahkamah Agung), & Caption -->
+            <div class="md:col-span-3 space-y-6 flex flex-col items-start">
+                <!-- Underlined About Us Title -->
+                <a href="#tentang-kami" class="text-sm sm:text-base font-bold text-gray-900 underline underline-offset-8 decoration-gray-900 hover:text-brand-red transition">
+                    Tentang Kami.
+                </a>
+
+                <!-- Small Image: law1.png (Mahkamah Agung) -->
+                <div class="w-28 h-20 sm:w-32 sm:h-24 rounded-lg overflow-hidden border border-gray-200 shadow-sm group">
+                    <img src="../assets/law1.png" alt="Gedung Mahkamah Agung" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                </div>
+
+                <!-- Small Context Caption -->
+                <p class="text-xs sm:text-[13px] text-gray-600 font-medium leading-relaxed max-w-[210px]">
+                    Dirancang khusus untuk membedah kompleksitas regulasi dan dokumen hukum di Indonesia.
+                </p>
+            </div>
+
+            <!-- Middle Column: Large Editorial Statement & Action Bar -->
+            <div class="md:col-span-6 space-y-8">
+                <p class="text-2xl sm:text-3xl md:text-[32px] font-medium text-gray-900 leading-[1.35] tracking-tight">
+                    Membaca dokumen hukum kini tidak lagi merepotkan. TitikHukum membantu Anda merangkum, menganalisis, dan AI kami akan langsung menyorot jawaban tepat pada pasal aslinya.
+                </p>
+
+                <!-- Bottom Line & Learn More Button -->
+                <div class="flex items-center justify-between gap-6 pt-4">
+                    <div class="w-full max-w-[220px] h-[1px] bg-gray-300"></div>
+
+                    <a href="#teknologi" class="shrink-0 inline-flex items-center gap-2.5 px-5 py-2.5 rounded-sm border border-gray-900 bg-transparent hover:bg-[#26150d] hover:border-[#26150d] hover:text-white text-xs font-bold text-gray-900 transition-all duration-300 shadow-xs active:scale-95">
+                        <span>Pelajari Teknologi Kami</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Right Column: Faktual Tag & law2.png (Sidang Paripurna DPR) -->
+            <div class="md:col-span-3 space-y-4 flex flex-col items-start md:items-end">
+                <div class="text-xs sm:text-sm font-semibold text-gray-700">
+                    100% Berbasis Dokumen Faktual
+                </div>
+
+                <!-- Image: law2.png -->
+                <div class="w-full max-w-[240px] h-36 sm:h-44 rounded-lg overflow-hidden border border-gray-200 shadow-sm group">
+                    <img src="../assets/law2.png" alt="Sidang Regulasi Nasional" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION: 4-STEP WORKFLOW (Sesuai Referensi Gambar)       -->
+    <!-- ======================================================== -->
+    <section id="alur-kerja" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 border-t border-gray-200/70">
+        
+        <!-- Center Title -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-3">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-[1.18]">
+                Unggah dokumennya <span class="font-seasons font-normal italic text-gray-400 px-1">TitikHukum</span> selesaikan sisanya.
+            </h2>
+            <p class="text-sm sm:text-base text-gray-500 font-normal max-w-2xl mx-auto leading-relaxed">
+                Alur kerja otomatis yang dirancang untuk mempercepat riset hukum Anda dari dokumen mentah hingga analisis pasal yang terverifikasi.
+            </p>
+        </div>
+
+        <!-- 4 Step Cards Grid with Connecting Dashed Line -->
+        <div class="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+            
+            <!-- Horizontal Connecting Line (Desktop) -->
+            <div class="hidden lg:block absolute top-5 left-12 right-12 border-t border-dashed border-gray-300 z-0"></div>
+
+            <!-- Step 1 Card -->
+            <div data-step-index="0" class="step-card step-active relative z-10 bg-white rounded-2xl p-6 border border-gray-200/90 shadow-sm flex flex-col justify-between space-y-6 cursor-pointer">
+                <div class="space-y-4">
+                    <!-- Step Badge -->
+                    <div class="inline-flex">
+                        <span class="step-badge px-3.5 py-1 rounded-md bg-gray-950 text-white text-xs font-bold tracking-wide shadow-xs transition-all">
+                            Langkah 1
+                        </span>
+                    </div>
+
+                    <!-- Step Title & Desc -->
+                    <div class="space-y-2">
+                        <h3 class="text-base font-bold text-gray-900">
+                            Unggah Dokumen
+                        </h3>
+                        <p class="text-xs text-gray-500 font-normal leading-relaxed">
+                            Unggah berkas PDF undang-undang, PP, putusan pengadilan, atau draf kontrak bisnis Anda ke dalam sistem tanpa batas halaman.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Isometric Illustration 1 (Upload & Document Stack) -->
+                <div class="step-thumb w-full bg-[#f8fafc] rounded-xl p-4 border border-gray-100 flex items-center justify-center min-h-[140px] transition-all">
+                    <svg class="w-28 h-20 text-gray-400 stroke-current fill-none stroke-[1.25]" viewBox="0 0 120 90">
+                        <!-- Desktop screen & wireframe lines -->
+                        <polygon points="50,15 105,30 105,75 50,60" fill="#ffffff" stroke="#94a3b8" />
+                        <polygon points="50,15 105,30 105,35 50,20" fill="#f1f5f9" stroke="#94a3b8" />
+                        <line x1="60" y1="35" x2="95" y2="44" stroke="#cbd5e1" />
+                        <line x1="60" y1="42" x2="95" y2="51" stroke="#cbd5e1" />
+                        <line x1="60" y1="49" x2="85" y2="56" stroke="#cbd5e1" />
+                        <!-- Stand -->
+                        <path d="M78,67 L78,78 L65,82 L85,87 L98,82 L78,78" fill="#e2e8f0" stroke="#94a3b8" />
+                        <!-- Document layers -->
+                        <polygon points="15,40 40,30 40,65 15,75" fill="#ffffff" stroke="#94a3b8" />
+                        <polygon points="22,45 47,35 47,70 22,80" fill="#ffffff" stroke="#94a3b8" opacity="0.8" />
+                        <polygon points="29,50 54,40 54,75 29,85" fill="#ffffff" stroke="#94a3b8" opacity="0.6" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Step 2 Card -->
+            <div data-step-index="1" class="step-card relative z-10 bg-white rounded-2xl p-6 border border-gray-200/90 shadow-sm flex flex-col justify-between space-y-6 cursor-pointer">
+                <div class="space-y-4">
+                    <!-- Step Badge -->
+                    <div class="inline-flex">
+                        <span class="step-badge px-3.5 py-1 rounded-md bg-gray-100 text-gray-700 text-xs font-semibold tracking-wide border border-gray-200 transition-all">
+                            Langkah 2
+                        </span>
+                    </div>
+
+                    <!-- Step Title & Desc -->
+                    <div class="space-y-2">
+                        <h3 class="text-base font-bold text-gray-900">
+                            AI Memetakan Pasal
+                        </h3>
+                        <p class="text-xs text-gray-500 font-normal leading-relaxed">
+                            Sistem AI dan RAG memproses dokumen, mengindeks hierarki pasal, ayat, konsiderans, serta penjelasan secara otomatis.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Isometric Illustration 2 (AI Matrix Grid) -->
+                <div class="step-thumb w-full bg-[#f8fafc] rounded-xl p-4 border border-gray-100 flex items-center justify-center min-h-[140px] transition-all">
+                    <svg class="w-28 h-20 text-gray-400 stroke-current fill-none stroke-[1.25]" viewBox="0 0 120 90">
+                        <!-- Server box -->
+                        <polygon points="20,50 40,40 40,75 20,85" fill="#ffffff" stroke="#94a3b8" />
+                        <polygon points="20,50 40,40 55,48 35,58" fill="#f1f5f9" stroke="#94a3b8" />
+                        <polygon points="35,58 55,48 55,83 35,93" fill="#e2e8f0" stroke="#94a3b8" />
+                        <!-- 4 screen grid panels -->
+                        <polygon points="60,20 85,10 85,35 60,45" fill="#ffffff" stroke="#94a3b8" />
+                        <polygon points="90,10 115,0 115,25 90,35" fill="#ffffff" stroke="#94a3b8" />
+                        <polygon points="60,50 85,40 85,65 60,75" fill="#ffffff" stroke="#94a3b8" />
+                        <polygon points="90,40 115,30 115,55 90,65" fill="#ffffff" stroke="#94a3b8" />
+                        <!-- Connection wire -->
+                        <path d="M45,70 C50,75 55,60 65,65" stroke="#cbd5e1" stroke-dasharray="2 2" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Step 3 Card -->
+            <div data-step-index="2" class="step-card relative z-10 bg-white rounded-2xl p-6 border border-gray-200/90 shadow-sm flex flex-col justify-between space-y-6 cursor-pointer">
+                <div class="space-y-4">
+                    <!-- Step Badge -->
+                    <div class="inline-flex">
+                        <span class="step-badge px-3.5 py-1 rounded-md bg-gray-100 text-gray-700 text-xs font-semibold tracking-wide border border-gray-200 transition-all">
+                            Langkah 3
+                        </span>
+                    </div>
+
+                    <!-- Step Title & Desc -->
+                    <div class="space-y-2">
+                        <h3 class="text-base font-bold text-gray-900">
+                            Tanyakan & Eksplorasi
+                        </h3>
+                        <p class="text-xs text-gray-500 font-normal leading-relaxed">
+                            Gunakan asisten chat interaktif untuk menanyakan implikasi hukum, analisis klausul risiko, atau membandingkan putusan.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Isometric Illustration 3 (Search Lens & Chat Cards) -->
+                <div class="step-thumb w-full bg-[#f8fafc] rounded-xl p-4 border border-gray-100 flex items-center justify-center min-h-[140px] transition-all">
+                    <svg class="w-28 h-20 text-gray-400 stroke-current fill-none stroke-[1.25]" viewBox="0 0 120 90">
+                        <!-- Floating query cards -->
+                        <polygon points="35,15 70,25 70,55 35,45" fill="#ffffff" stroke="#94a3b8" />
+                        <polygon points="75,20 105,28 105,58 75,50" fill="#ffffff" stroke="#94a3b8" />
+                        <!-- Big Search Box & Magnifier -->
+                        <polygon points="25,45 85,60 85,80 25,65" fill="#ffffff" stroke="#94a3b8" />
+                        <circle cx="50" cy="55" r="10" stroke="#ea3829" stroke-width="1.75" fill="none" />
+                        <line x1="57" y1="62" x2="68" y2="72" stroke="#ea3829" stroke-width="2.5" stroke-linecap="round" />
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Step 4 Card -->
+            <div data-step-index="3" class="step-card relative z-10 bg-white rounded-2xl p-6 border border-gray-200/90 shadow-sm flex flex-col justify-between space-y-6 cursor-pointer">
+                <div class="space-y-4">
+                    <!-- Step Badge -->
+                    <div class="inline-flex">
+                        <span class="step-badge px-3.5 py-1 rounded-md bg-gray-100 text-gray-700 text-xs font-semibold tracking-wide border border-gray-200 transition-all">
+                            Langkah 4
+                        </span>
+                    </div>
+
+                    <!-- Step Title & Desc -->
+                    <div class="space-y-2">
+                        <h3 class="text-base font-bold text-gray-900">
+                            Validasi Bukti Visual
+                        </h3>
+                        <p class="text-xs text-gray-500 font-normal leading-relaxed">
+                            AI secara instan menyorot teks pada pasal aslinya, memberikan transparansi 100% dan laporan hukum siap pakai.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Isometric Illustration 4 (Verified Document & Analytics) -->
+                <div class="step-thumb w-full bg-[#f8fafc] rounded-xl p-4 border border-gray-100 flex items-center justify-center min-h-[140px] transition-all">
+                    <svg class="w-28 h-20 text-gray-400 stroke-current fill-none stroke-[1.25]" viewBox="0 0 120 90">
+                        <!-- Dashboard Screen -->
+                        <polygon points="50,20 100,10 100,55 50,65" fill="#ffffff" stroke="#94a3b8" />
+                        <!-- Chart Line -->
+                        <polyline points="58,48 70,35 82,42 94,25" stroke="#10b981" stroke-width="1.75" fill="none" />
+                        <!-- Stacked Verified Document Nodes -->
+                        <polygon points="15,45 35,38 35,65 15,72" fill="#ffffff" stroke="#94a3b8" />
+                        <polygon points="25,50 45,43 45,70 25,77" fill="#ffffff" stroke="#94a3b8" />
+                        <polygon points="35,55 55,48 55,75 35,82" fill="#ffffff" stroke="#94a3b8" />
+                        <!-- Checkmark circle -->
+                        <circle cx="85" cy="72" r="8" fill="#10b981" stroke="none" />
+                        <polyline points="82,72 84,74 88,69" stroke="#ffffff" stroke-width="1.5" fill="none" stroke-linecap="round" />
+                    </svg>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION: FONDASI TEKNOLOGI UTAMA (Parse, Split, Extract) -->
+    <!-- ======================================================== -->
+    <section id="teknologi" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-gray-200/70">
+        
+        <!-- Header: Headline & Sub-headline -->
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-[1.15]">
+                Pemrosesan AI yang Dirancang untuk <span class="font-seasons font-normal italic text-gray-400">Akurasi Hukum</span>
+            </h2>
+            
+            <p class="text-sm sm:text-base text-gray-500 font-normal max-w-2xl mx-auto leading-relaxed">
+                Sistem end-to-end mutakhir untuk membedah, memecah, dan mengekstrak data terstruktur dari dokumen regulasi apa pun.
+            </p>
+        </div>
+
+        <!-- 2-Column Showcase Layout: Left Tabs / Right Video-Ready Canvas -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+            
+            <!-- Left Column: Interactive Feature Tabs -->
+            <div class="lg:col-span-5 space-y-4">
+                
+                <!-- Tab 1: Bedah Dokumen (Parse) -->
+                <div id="techTabParse" onclick="switchTechTab('parse')" class="tech-tab group border-b border-gray-200 pb-6 pt-2 cursor-pointer transition-all duration-300">
+                    <div class="flex items-center gap-3.5">
+                        <span class="tech-tab-icon text-gray-900 transition-colors">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
+                                <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
+                                <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
+                                <path d="M7 21H5a2 2 0 0 1-2-2v-2"></path>
+                                <line x1="7" y1="12" x2="17" y2="12"></line>
+                            </svg>
+                        </span>
+                        <h3 class="tech-tab-title text-xl font-bold text-gray-900 transition-colors">
+                            Bedah Dokumen (Parse)
+                        </h3>
+                    </div>
+
+                    <!-- Tab 1 Detailed Content -->
+                    <div class="tech-tab-content pt-4 space-y-3.5 text-xs text-gray-600 leading-relaxed pl-8">
+                        <p class="text-gray-700 font-medium leading-relaxed">
+                            Mengubah format dokumen PDF yang padat menjadi data terstruktur yang akurat dan dapat diaudit.
+                        </p>
+                        <ul class="space-y-2.5 list-disc pl-4 text-gray-600 marker:text-gray-400">
+                            <li><strong class="text-gray-900">Struktur Siap-LLM:</strong> Mengonversi tata letak dokumen legal ke dalam format Markdown yang sepenuhnya siap dipahami oleh AI.</li>
+                            <li><strong class="text-gray-900">Pelestarian Hierarki:</strong> Membaca dan mempertahankan hierarki blok konten secara utuh (seperti Bab, Bagian, Pasal, Ayat, hingga Tabel).</li>
+                            <li><strong class="text-gray-900">Koordinat Presisi:</strong> Mengunci data titik koordinat halaman secara akurat pada setiap blok teks untuk mendasari fitur bounding-box.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Tab 2: Segmentasi Pintar (Split) -->
+                <div id="techTabSplit" onclick="switchTechTab('split')" class="tech-tab group border-b border-gray-200 pb-6 pt-4 cursor-pointer transition-all duration-300 opacity-60 hover:opacity-100">
+                    <div class="flex items-center gap-3.5">
+                        <span class="tech-tab-icon text-gray-400 group-hover:text-gray-900 transition-colors">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="7" height="18" rx="1"></rect>
+                                <rect x="14" y="3" width="7" height="18" rx="1"></rect>
+                            </svg>
+                        </span>
+                        <h3 class="tech-tab-title text-xl font-bold text-gray-600 group-hover:text-gray-900 transition-colors">
+                            Segmentasi Pintar (Split)
+                        </h3>
+                    </div>
+
+                    <!-- Tab 2 Detailed Content (Hidden by default) -->
+                    <div class="tech-tab-content hidden pt-4 space-y-3.5 text-xs text-gray-600 leading-relaxed pl-8">
+                        <p class="text-gray-700 font-medium leading-relaxed">
+                            Memecah fail berukuran besar secara otomatis menjadi sub-dokumen yang bersih dan terklasifikasi.
+                        </p>
+                        <ul class="space-y-2.5 list-disc pl-4 text-gray-600 marker:text-gray-400">
+                            <li><strong class="text-gray-900">Pemecahan Dokumen Masif:</strong> Melakukan segmentasi pada dokumen perundang-undangan yang panjang (ratusan halaman) tanpa menghilangkan konteks antar pasal.</li>
+                            <li><strong class="text-gray-900">Klasifikasi Multi-Tipe:</strong> Mampu mendeteksi dan mengklasifikasikan tipe dokumen campuran dalam satu fail (misalnya memisahkan batang tubuh undang-undang dengan lampirannya).</li>
+                            <li><strong class="text-gray-900">Deteksi Pola Identifikasi:</strong> Mengenali pola berulang secara instan (seperti nomor putusan, tanggal penetapan, atau format pasal) untuk pengelompokan semantik.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Tab 3: Ekstraksi Entitas (Extract) -->
+                <div id="techTabExtract" onclick="switchTechTab('extract')" class="tech-tab group border-b border-gray-200 pb-6 pt-4 cursor-pointer transition-all duration-300 opacity-60 hover:opacity-100">
+                    <div class="flex items-center gap-3.5">
+                        <span class="tech-tab-icon text-gray-400 group-hover:text-gray-900 transition-colors">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                                <line x1="11" y1="8" x2="11" y2="14"></line>
+                                <line x1="8" y1="11" x2="14" y2="11"></line>
+                            </svg>
+                        </span>
+                        <h3 class="tech-tab-title text-xl font-bold text-gray-600 group-hover:text-gray-900 transition-colors">
+                            Ekstraksi Entitas (Extract)
+                        </h3>
+                    </div>
+
+                    <!-- Tab 3 Detailed Content (Hidden by default) -->
+                    <div class="tech-tab-content hidden pt-4 space-y-3.5 text-xs text-gray-600 leading-relaxed pl-8">
+                        <p class="text-gray-700 font-medium leading-relaxed">
+                            Menarik informasi hukum spesifik berdasarkan skema parameter yang Anda butuhkan.
+                        </p>
+                        <ul class="space-y-2.5 list-disc pl-4 text-gray-600 marker:text-gray-400">
+                            <li><strong class="text-gray-900">Ekstraksi Berbasis Skema:</strong> Secara otomatis mengidentifikasi dan menarik entitas krusial seperti subjek hukum, sanksi pidana, atau kewenangan lembaga.</li>
+                            <li><strong class="text-gray-900">Transparansi Bawaan:</strong> Setiap nilai yang diekstrak langsung terhubung dengan kutipan bounding-box pada dokumen asli (auditability by default).</li>
+                            <li><strong class="text-gray-900">Pembacaan Tabel Skala Besar:</strong> Mampu mengekstrak ribuan baris data dari tabel lampiran perundang-undangan yang melintasi banyak halaman.</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Column: Video-Ready Showcase Stage -->
+            <div class="lg:col-span-7">
+                
+                <!-- Preview Canvas Container (Seamlessly ready for <video> injection) -->
+                <div class="relative w-full min-h-[420px] sm:min-h-[480px] rounded-3xl overflow-hidden border border-gray-200/90 shadow-lg flex items-center justify-center p-6 sm:p-10 transition-all duration-500 bg-gradient-to-br from-[#f0fdf4] via-[#ecfdf5] to-[#dcfce7]" id="techVisualCanvas">
+                    
+                    <!-- Isometric Grid Backdrop Pattern -->
+                    <div class="absolute inset-0 opacity-40 pointer-events-none" style="background-image: linear-gradient(#10b98122 1px, transparent 1px), linear-gradient(90deg, #10b98122 1px, transparent 1px); background-size: 32px 32px;"></div>
+
+                    <!-- Active Visual Mockup 1: Parse (Bedah Dokumen) -->
+                    <div id="visualParse" class="tech-visual relative z-10 w-full flex items-center justify-center video-slide-enter">
+                        <div class="relative w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl border border-emerald-200/90 bg-white/40 backdrop-blur-xs group">
+                            <video id="videoParse" src="../assets/parse.mp4" autoplay loop muted playsinline class="w-full h-auto object-cover rounded-2xl shadow-inner"></video>
+                        </div>
+                    </div>
+
+                    <!-- Active Visual Mockup 2: Split (Segmentasi Pintar) -->
+                    <div id="visualSplit" class="tech-visual hidden relative z-10 w-full flex items-center justify-center">
+                        <div class="relative w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl border border-purple-200/90 bg-white/40 backdrop-blur-xs group">
+                            <video id="videoSplit" src="../assets/split.mp4" autoplay loop muted playsinline class="w-full h-auto object-cover rounded-2xl shadow-inner"></video>
+                        </div>
+                    </div>
+
+                    <!-- Active Visual Mockup 3: Extract (Ekstraksi Entitas) -->
+                    <div id="visualExtract" class="tech-visual hidden relative z-10 w-full flex items-center justify-center">
+                        <div class="relative w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl border border-blue-200/90 bg-white/40 backdrop-blur-xs group">
+                            <video id="videoExtract" src="../assets/extract.mp4" autoplay loop muted playsinline class="w-full h-auto object-cover rounded-2xl shadow-inner"></video>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- SECTION: FAQ (Sesuai Referensi Gambar)                   -->
+    <!-- ======================================================== -->
+    <section id="faq" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-gray-200/70">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            
+            <!-- Left Column: Title, Subtitle, and FAQ Link -->
+            <div class="lg:col-span-5 space-y-6">
+                <h2 class="text-4xl sm:text-5xl lg:text-[54px] font-extrabold text-gray-900 tracking-tight leading-[1.1]">
+                    Ada Pertanyaan?<br />
+                    <span class="text-gray-900">Kami Siap Membantu.</span>
+                </h2>
+                
+                <p class="text-xs sm:text-sm text-gray-500 font-normal leading-relaxed max-w-md">
+                    Temukan jawaban atas pertanyaan umum mengenai cara kerja AI, validasi pasal, keamanan data, dan akurasi riset hukum di TitikHukum.
+                </p>
+            </div>
+
+            <!-- Right Column: Interactive FAQ Accordion List -->
+            <div class="lg:col-span-7 divide-y divide-gray-300">
+                
+                <!-- FAQ Item 1 (Default Open) -->
+                <div class="faq-item py-6 first:pt-0">
+                    <button type="button" onclick="toggleFaq(this)" class="w-full flex items-center justify-between gap-4 text-left group focus:outline-none cursor-pointer">
+                        <span class="text-base sm:text-lg font-bold text-gray-900 group-hover:text-gray-700 transition-colors">
+                            Bagaimana cara kerja analisis AI di TitikHukum?
+                        </span>
+                        <span class="faq-icon text-xl font-light text-gray-800 transition-transform duration-300 shrink-0 select-none">
+                            −
+                        </span>
+                    </button>
+                    <div class="faq-answer pt-3 text-xs sm:text-sm text-gray-600 font-normal leading-relaxed">
+                        <strong class="text-gray-900 font-bold">TitikHukum</strong> menggunakan arsitektur AI dan RAG (<em class="italic">Retrieval-Augmented Generation</em>) terdedikasi yang membedah hierarki pasal, mengindeks koordinat halaman, dan langsung menyorot bukti teks pada naskah hukum asli untuk mencegah halusinasi data secara <strong class="text-gray-900 font-bold">100%</strong>.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item py-6">
+                    <button type="button" onclick="toggleFaq(this)" class="w-full flex items-center justify-between gap-4 text-left group focus:outline-none cursor-pointer">
+                        <span class="text-base sm:text-lg font-bold text-gray-900 group-hover:text-gray-700 transition-colors">
+                            Apakah dokumen yang saya unggah aman dan rahasia?
+                        </span>
+                        <span class="faq-icon text-xl font-light text-gray-800 transition-transform duration-300 shrink-0 select-none">
+                            +
+                        </span>
+                    </button>
+                    <div class="faq-answer hidden pt-3 text-xs sm:text-sm text-gray-600 font-normal leading-relaxed">
+                        <strong class="text-gray-900 font-bold">Sangat aman.</strong> Setiap dokumen yang Anda unggah diproses melalui enkripsi tingkat perbankan (<em class="italic">enterprise-grade encryption</em>) dan tidak pernah digunakan untuk melatih model AI publik tanpa izin Anda.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item py-6">
+                    <button type="button" onclick="toggleFaq(this)" class="w-full flex items-center justify-between gap-4 text-left group focus:outline-none cursor-pointer">
+                        <span class="text-base sm:text-lg font-bold text-gray-900 group-hover:text-gray-700 transition-colors">
+                            Format dokumen apa saja yang didukung?
+                        </span>
+                        <span class="faq-icon text-xl font-light text-gray-800 transition-transform duration-300 shrink-0 select-none">
+                            +
+                        </span>
+                    </button>
+                    <div class="faq-answer hidden pt-3 text-xs sm:text-sm text-gray-600 font-normal leading-relaxed">
+                        <strong class="text-gray-900 font-bold">TitikHukum</strong> mendukung dokumen PDF hasil pemindaian (<em class="italic">scanned PDF</em>), berkas digital undang-undang, PP, Perpres, rancangan regulasi, draf perjanjian kontrak bisnis, hingga bundel berkas perkara pengadilan ratusan halaman.
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item py-6">
+                    <button type="button" onclick="toggleFaq(this)" class="w-full flex items-center justify-between gap-4 text-left group focus:outline-none cursor-pointer">
+                        <span class="text-base sm:text-lg font-bold text-gray-900 group-hover:text-gray-700 transition-colors">
+                            Apa yang membedakan TitikHukum dengan AI generatif biasa?
+                        </span>
+                        <span class="faq-icon text-xl font-light text-gray-800 transition-transform duration-300 shrink-0 select-none">
+                            +
+                        </span>
+                    </button>
+                    <div class="faq-answer hidden pt-3 text-xs sm:text-sm text-gray-600 font-normal leading-relaxed">
+                        AI generatif konvensional sering mengalami halusinasi dan salah mengutip pasal hukum. <strong class="text-gray-900 font-bold">TitikHukum</strong> menerapkan sistem <strong class="text-gray-900 font-bold"><em class="italic">visual grounding</em></strong> di mana setiap jawaban langsung ditautkan ke titik koordinat dokumen asli dengan transparansi dan validasi <strong class="text-gray-900 font-bold">100%</strong>.
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ======================================================== -->
+    <!-- STATEMENT EDITORIAL FOOTER (Brown BG with White Text)    -->
+    <!-- ======================================================== -->
+    <footer class="w-full px-3 sm:px-6 lg:px-8 pb-8 pt-4">
+        <div class="max-w-7xl mx-auto rounded-[32px] sm:rounded-[44px] bg-[#23130b] text-white p-8 sm:p-12 md:p-16 lg:p-20 overflow-hidden relative shadow-2xl border border-white/10 flex flex-col justify-between space-y-12 sm:space-y-16">
+            
+            <!-- Top Row: Editorial Tagline & Pill Contact Button -->
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                <div>
+                    <h3 class="font-serif text-2xl sm:text-3xl md:text-4xl text-white leading-tight max-w-xs font-normal">
+                        Your legal AI<br />research partner
+                    </h3>
+                </div>
+
+                <div>
+                    <a href="../login.html" class="inline-flex items-center justify-center px-8 py-3.5 rounded-full border border-white/40 bg-white/10 hover:bg-white hover:text-[#23130b] text-sm sm:text-base font-medium text-white transition-all duration-300 shadow-xs active:scale-95">
+                        <span>Hubungi Kami</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Middle Row: 4 Column Navigation & Social Badges -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 pt-4 text-xs sm:text-sm">
+                
+                <!-- Col 1: Solusi -->
+                <div class="space-y-3">
+                    <h4 class="font-bold text-white text-sm sm:text-base font-serif">Solusi AI</h4>
+                    <ul class="space-y-2 text-stone-300 font-normal text-xs sm:text-[13px]">
+                        <li><a href="#teknologi" class="hover:text-white transition">Bedah Dokumen (Parse)</a></li>
+                        <li><a href="#teknologi" class="hover:text-white transition">Segmentasi Pintar (Split)</a></li>
+                        <li><a href="#teknologi" class="hover:text-white transition">Ekstraksi Entitas (Extract)</a></li>
+                        <li><a href="#alur-kerja" class="hover:text-white transition">Validasi Visual Pasal</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 2: Eksplorasi -->
+                <div class="space-y-3">
+                    <h4 class="font-bold text-white text-sm sm:text-base font-serif">Eksplorasi</h4>
+                    <ul class="space-y-2 text-stone-300 font-normal text-xs sm:text-[13px]">
+                        <li><a href="index.html" onclick="navigateHome(event)" class="hover:text-white transition cursor-pointer">Beranda</a></li>
+                        <li><a href="pustaka.html" class="hover:text-white transition">Pustaka Dokumen</a></li>
+                        <li><a href="#tentang-kami" class="hover:text-white transition">Tentang Kami</a></li>
+                        <li><a href="#alur-kerja" class="hover:text-white transition">Alur Kerja</a></li>
+                        <li><a href="#faq" class="hover:text-white transition">FAQ</a></li>
+                        <li><a href="../login.html" class="hover:text-white text-stone-200 font-normal transition">Masuk & Daftar</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Say hello! (Social Badges) -->
+                <div class="space-y-3">
+                    <h4 class="font-bold text-white text-sm sm:text-base font-serif">Say hello!</h4>
+                    <div class="flex flex-wrap gap-2 pt-1">
+                        <a href="#twitter" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-[11px] font-medium text-white hover:bg-white hover:text-[#23130b] shadow-2xs transition-all">
+                            <i class="fa-brands fa-x-twitter text-xs"></i>
+                            <span>@titikhukum</span>
+                        </a>
+                        <a href="#instagram" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-[11px] font-medium text-white hover:bg-white hover:text-[#23130b] shadow-2xs transition-all">
+                            <i class="fa-brands fa-instagram text-xs text-rose-400"></i>
+                            <span>@titikhukum</span>
+                        </a>
+                        <a href="https://brin.go.id" target="_blank" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-[11px] font-medium text-white hover:bg-white hover:text-[#23130b] shadow-2xs transition-all">
+                            <i class="fa-solid fa-globe text-xs text-sky-400"></i>
+                            <span>brin.go.id</span>
+                        </a>
+                        <a href="mailto:kontak@titikhukum.id" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 border border-white/15 text-[11px] font-medium text-white hover:bg-white hover:text-[#23130b] shadow-2xs transition-all">
+                            <i class="fa-solid fa-envelope text-xs text-emerald-400"></i>
+                            <span>@titikhukum</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Col 4: Lembaga Afiliasi / Riset -->
+                <div class="space-y-3">
+                    <a href="https://brin.go.id" target="_blank" class="inline-flex items-center gap-1.5 font-bold text-white text-sm sm:text-base font-serif hover:underline">
+                        <span>Riset & Inovasi</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+                    
+                    <div class="p-4 rounded-2xl bg-white/10 border border-white/15 shadow-xs space-y-2 backdrop-blur-xs">
+                        <div class="flex items-center gap-2">
+                            <img src="../assets/logo-white.png" alt="Titik Hukum Logo" class="h-4.5 object-contain" />
+                        </div>
+                        <p class="text-[11px] text-stone-300 font-normal leading-tight">
+                            Badan Riset dan Inovasi Nasional (BRIN) &copy; 2026
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Bottom Statement Wordmark: titikhukum. -->
+            <div class="pt-6 sm:pt-10 select-none text-left w-full overflow-hidden">
+                <div class="text-[11.2vw] sm:text-[12vw] md:text-[12.6vw] font-black tracking-[-0.04em] leading-[0.8] text-white/95 font-sans -mb-2 sm:-mb-5 whitespace-nowrap text-left">
+                    titikhukum.
+                </div>
+            </div>
+
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Visual Language Toggle (EN <-> ID)
+        let currentNavLang = 'EN';
+        function toggleNavLang() {
+            currentNavLang = currentNavLang === 'EN' ? 'ID' : 'EN';
+            const label = document.getElementById('navLangLabel');
+            const labelMobile = document.getElementById('navLangLabelMobile');
+            if (label) label.textContent = currentNavLang;
+            if (labelMobile) labelMobile.textContent = currentNavLang;
+        }
+
+        // Visual Theme Toggle (Clean Radiant Sun <-> Moon SVG switch)
+        let isDarkMode = true;
+        const sunSvgHtml = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                <circle cx="12" cy="12" r="4.5"></circle>
+                <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+            </svg>
+        `;
+        const moonSvgHtml = `
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+        `;
+
+        function toggleNavTheme() {
+            isDarkMode = !isDarkMode;
+            const container = document.getElementById('navThemeIconContainer');
+            const containerMobile = document.getElementById('navThemeIconContainerMobile');
+            
+            if (container) {
+                container.innerHTML = isDarkMode ? sunSvgHtml : moonSvgHtml;
+                container.style.transform = isDarkMode ? 'rotate(0deg)' : 'rotate(360deg)';
+            }
+            if (containerMobile) {
+                containerMobile.innerHTML = isDarkMode ? sunSvgHtml : moonSvgHtml;
+            }
+        }
+            
+        // Sticky Navbar Background Scroll Handler (Transparan di atas, Coklat saat scroll)
+        const navbar = document.getElementById('mainNavbar');
+        
+        function handleNavbarScroll() {
+            if (window.scrollY > 25) {
+                // Scrolled down: Solid dark courtroom mahogany brown navbar
+                navbar.classList.add('navbar-scrolled');
+                navbar.classList.remove('pt-6', 'sm:pt-9', 'md:pt-11', 'bg-transparent');
+            } else {
+                // At the very top: Positioned lower inside hero frame, transparent
+                navbar.classList.remove('navbar-scrolled');
+                navbar.classList.add('pt-6', 'sm:pt-9', 'md:pt-11', 'bg-transparent');
+            }
+        }
+
+        window.addEventListener('scroll', handleNavbarScroll);
+        window.addEventListener('DOMContentLoaded', handleNavbarScroll);
+
+        // ========================================================
+        // 4-STEP WORKFLOW ANIMATED CYCLING (1 -> 2 -> 3 -> 4 -> 1)
+        // ========================================================
+        let currentActiveStep = 0;
+        const stepCards = document.querySelectorAll('.step-card');
+
+        function setActiveStep(stepIndex) {
+            stepCards.forEach((card, idx) => {
+                if (idx === stepIndex) {
+                    card.classList.add('step-active');
+                } else {
+                    card.classList.remove('step-active');
+                }
+            });
+        }
+
+        let stepInterval = setInterval(() => {
+            if (stepCards.length > 0) {
+                currentActiveStep = (currentActiveStep + 1) % stepCards.length;
+                setActiveStep(currentActiveStep);
+            }
+        }, 2400);
+
+        // Interactive pause on hover / click
+        stepCards.forEach((card, idx) => {
+            card.addEventListener('mouseenter', () => {
+                clearInterval(stepInterval);
+                currentActiveStep = idx;
+                setActiveStep(currentActiveStep);
+            });
+            card.addEventListener('mouseleave', () => {
+                clearInterval(stepInterval);
+                stepInterval = setInterval(() => {
+                    if (stepCards.length > 0) {
+                        currentActiveStep = (currentActiveStep + 1) % stepCards.length;
+                        setActiveStep(currentActiveStep);
+                    }
+                }, 2400);
+            });
+            card.addEventListener('click', () => {
+                currentActiveStep = idx;
+                setActiveStep(currentActiveStep);
+            });
+        });
+
+        // ========================================================
+        // TECH FOUNDATION TABS (Parse, Split, Extract)
+        // ========================================================
+        function switchTechTab(tabId) {
+            const tabs = ['parse', 'split', 'extract'];
+            const canvasBg = {
+                'parse': 'from-[#f0fdf4] via-[#ecfdf5] to-[#dcfce7]',
+                'split': 'from-[#faf5ff] via-[#f3e8ff] to-[#e9d5ff]',
+                'extract': 'from-[#eff6ff] via-[#e0f2fe] to-[#dbeafe]'
+            };
+
+            tabs.forEach(t => {
+                const tabEl = document.getElementById(`techTab${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                const visualEl = document.getElementById(`visual${t.charAt(0).toUpperCase() + t.slice(1)}`);
+                
+                if (tabEl) {
+                    const title = tabEl.querySelector('.tech-tab-title');
+                    const icon = tabEl.querySelector('.tech-tab-icon');
+                    const content = tabEl.querySelector('.tech-tab-content');
+
+                    if (t === tabId) {
+                        tabEl.classList.remove('opacity-60');
+                        tabEl.classList.add('opacity-100');
+                        if (title) {
+                            title.classList.remove('text-gray-600');
+                            title.classList.add('text-gray-900');
+                        }
+                        if (icon) {
+                            icon.classList.remove('text-gray-400');
+                            icon.classList.add('text-gray-900');
+                        }
+                        if (content) content.classList.remove('hidden');
+                    } else {
+                        tabEl.classList.remove('opacity-100');
+                        tabEl.classList.add('opacity-60');
+                        if (title) {
+                            title.classList.remove('text-gray-900');
+                            title.classList.add('text-gray-600');
+                        }
+                        if (icon) {
+                            icon.classList.remove('text-gray-900');
+                            icon.classList.add('text-gray-400');
+                        }
+                        if (content) content.classList.add('hidden');
+                    }
+                }
+
+                if (visualEl) {
+                    const video = visualEl.querySelector('video');
+                    if (t === tabId) {
+                        visualEl.classList.remove('hidden', 'video-slide-enter');
+                        // Force DOM reflow to re-trigger CSS animation
+                        void visualEl.offsetWidth;
+                        visualEl.classList.add('video-slide-enter');
+                        if (video) {
+                            video.currentTime = 0;
+                            video.play().catch(() => {});
+                        }
+                    } else {
+                        visualEl.classList.add('hidden');
+                        visualEl.classList.remove('video-slide-enter');
+                        if (video) {
+                            video.pause();
+                        }
+                    }
+                }
+            });
+
+            // Update Canvas Gradient
+            const canvas = document.getElementById('techVisualCanvas');
+            if (canvas) {
+                canvas.className = `relative w-full min-h-[420px] sm:min-h-[480px] rounded-3xl overflow-hidden border border-gray-200/90 shadow-lg flex items-center justify-center p-6 sm:p-10 transition-all duration-500 bg-gradient-to-br ${canvasBg[tabId]}`;
+            }
+        }
+
+        // ========================================================
+        // FAQ ACCORDION TOGGLE
+        // ========================================================
+        function toggleFaq(button) {
+            const item = button.closest('.faq-item');
+            const answer = item.querySelector('.faq-answer');
+            const icon = button.querySelector('.faq-icon');
+            const isHidden = answer.classList.contains('hidden');
+
+            // Close all other FAQ items for an accordion feel
+            document.querySelectorAll('.faq-item').forEach(otherItem => {
+                const otherAnswer = otherItem.querySelector('.faq-answer');
+                const otherIcon = otherItem.querySelector('.faq-icon');
+                if (otherAnswer && otherItem !== item) {
+                    otherAnswer.classList.add('hidden');
+                    if (otherIcon) otherIcon.textContent = '+';
+                }
+            });
+
+            // Toggle current item
+            if (isHidden) {
+                answer.classList.remove('hidden');
+                icon.textContent = '−';
+            } else {
+                answer.classList.add('hidden');
+                icon.textContent = '+';
+            }
+        }
+
+        // Clean reload for Beranda (clears hashes, resets scroll, full page refresh)
+        function navigateHome(e) {
+            if (e) e.preventDefault();
+            const baseUrl = window.location.href.split('#')[0].split('?')[0];
+            window.history.replaceState(null, '', baseUrl);
+            window.scrollTo({ top: 0, behavior: 'instant' });
+            window.location.replace(baseUrl);
+            window.location.reload();
+        }
+    </script>
+</body>
+</html>

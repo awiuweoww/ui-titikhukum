@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Ahli Hukum - Titik Hukum</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Flaticon Uicons & Font Awesome -->
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
+    <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            brown: '#211209',
+                            lightBrown: '#f6eee7',
+                            borderBrown: '#d6c4b7'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fafaf9;
+        }
+
+        .navbar-brown {
+            background-color: #211209 !important;
+            background: linear-gradient(180deg, rgba(35, 19, 11, 0.98) 0%, rgba(26, 14, 8, 0.98) 100%) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5) !important;
+            border-bottom: 1px solid rgba(85, 45, 25, 0.8) !important;
+        }
+    </style>
+</head>
+<body class="bg-[#fafaf9] text-gray-800 font-sans min-h-screen flex flex-col antialiased">
+
+    <!-- ======================================================== -->
+    <!-- 1. FIXED TOP NAVBAR                                      -->
+    <!-- ======================================================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 w-full py-4 navbar-brown">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                
+                <!-- Left Logo -->
+                <a href="index.html" class="flex items-center gap-2.5 group cursor-pointer" title="Titik Hukum">
+                    <img src="../assets/logo-white.png" alt="Titik Hukum Logo" class="h-8 sm:h-9 object-contain transition-transform duration-300 group-hover:scale-105" />
+                    <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-wider uppercase bg-rose-500/20 text-rose-300 border border-rose-500/40">AHLI HUKUM</span>
+                </a>
+
+                <!-- Center Nav -->
+                <nav class="hidden md:flex items-center gap-7 lg:gap-9 text-[13px]">
+                    <a href="index.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">Beranda</a>
+                    <a href="pustaka.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">Pustaka Dokumen</a>
+                    <a href="chat.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm flex items-center gap-1.5">
+                        <span>Asisten Hukum</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-extrabold bg-white/20 text-white backdrop-blur-xs">AI</span>
+                    </a>
+                    <a href="evaluasi.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Evaluasi AI
+                    </a>
+                    <a href="profil.html" class="text-white font-bold transition-all duration-300 transform hover:scale-110 hover:text-white py-1 inline-block drop-shadow-sm relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white/80">Profil Saya</a>
+                </nav>
+
+                <!-- Right Actions -->
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1 text-white/80 hover:text-white text-xs font-semibold transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1" title="Ganti Bahasa (EN / ID)">
+                        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
+                        <span id="navLangLabel" class="font-bold text-xs tracking-wide">EN</span>
+                    </button>
+
+                    <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-white/90 hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1 shrink-0" title="Ganti Mode Tema (Terang / Gelap)">
+                        <span id="navThemeIconContainer" class="inline-flex items-center justify-center w-5 h-5 shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><circle cx="12" cy="12" r="4.5"></circle><line x1="12" y1="1.5" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22.5"></line><line x1="4.22" y1="4.22" x2="6" y2="6"></line><line x1="18" y1="18" x2="19.78" y2="19.78"></line><line x1="1.5" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22.5" y2="12"></line><line x1="4.22" y1="19.78" x2="6" y2="18"></line><line x1="18" y1="6" x2="19.78" y2="4.22"></line></svg>
+                        </span>
+                    </button>
+
+                    <a href="../login.html" onclick="handleLogout()" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-white/40 bg-white/10 text-white hover:bg-rose-600 hover:border-rose-600 hover:text-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1" title="Keluar dari akun ahli hukum">
+                        <i class="fa-solid fa-graduation-cap text-rose-400 text-xs"></i>
+                        <span>Hukum (Keluar)</span>
+                    </a>
+
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-8.5 h-8.5 flex items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white hover:bg-white hover:text-gray-900 transition ml-1">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Overlay Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-3">
+            <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
+                <a href="index.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Beranda</a>
+                <a href="pustaka.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Pustaka Dokumen</a>
+                <a href="chat.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Asisten Hukum AI</a>
+                <a href="evaluasi.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Evaluasi AI</a>
+                <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 text-white font-bold border-b border-white/10">Profil Saya</a>
+                
+                <div class="pt-2">
+                    <a href="../login.html" onclick="handleLogout()" class="w-full py-2.5 rounded-lg border border-rose-500 bg-rose-600 text-white text-xs font-semibold flex items-center justify-center gap-2">
+                        <i class="fi fi-rr-sign-out-alt text-xs"></i>
+                        <span>Hukum (Keluar)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ======================================================== -->
+    <!-- 2. CONTENT WRAPPER                                       -->
+    <!-- ======================================================== -->
+    <main class="flex-1 flex justify-center items-start pt-28 pb-8 px-4 sm:px-6 md:pt-32 md:pb-12">
+        <div class="w-full max-w-4xl bg-white rounded-2xl border border-zinc-200 shadow-sm flex flex-col md:flex-row overflow-hidden min-h-[620px]">
+            
+            <!-- SIDEBAR -->
+            <aside class="w-full md:w-[270px] p-6 sm:p-8 md:border-r border-b md:border-b-0 border-zinc-200 shrink-0 bg-white flex flex-col">
+                <div class="w-20 h-20 mx-auto rounded-full overflow-hidden mb-3 border-2 border-rose-500/60 p-0.5 bg-zinc-100 shrink-0 shadow-sm">
+                    <img src="../assets/pp.jpg" alt="Profile Picture" class="w-full h-full object-cover rounded-full" onerror="this.src='https://via.placeholder.com/90'">
+                </div>
+                
+                <p id="sidebar-handle" class="text-xs text-center text-zinc-500 mb-0.5 tracking-wide break-all px-2">@hukum1</p>
+                <h2 id="sidebar-name" class="text-sm text-center font-bold text-zinc-900 tracking-tight mb-2 break-words px-2">Tenaga Ahli Hukum</h2>
+                <div class="text-center mb-6">
+                    <span class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-rose-50 text-rose-700 border border-rose-200 inline-block">Reviewer Terverifikasi BRIN</span>
+                </div>
+
+                <ul class="flex flex-col gap-1.5 flex-1 text-xs">
+                    <li class="px-3.5 py-2.5 font-semibold text-brand-brown bg-brand-lightBrown rounded-xl relative cursor-pointer before:content-[''] before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[3px] before:bg-brand-brown before:rounded-r-sm">
+                        Profil & Biodata
+                    </li>
+                    <a href="evaluasi.html" class="block px-3.5 py-2.5 text-zinc-700 rounded-xl cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1 flex items-center justify-between">
+                        <span>Riwayat Evaluasi AI</span>
+                        <span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 font-bold text-[10px]">5 Uji</span>
+                    </a>
+                    <li class="px-3.5 py-2.5 text-zinc-700 rounded-xl cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">
+                        Keamanan & Sandi
+                    </li>
+                    <li onclick="handleLogout()" class="px-3.5 py-2.5 font-semibold text-rose-600 rounded-xl cursor-pointer transition-all duration-200 hover:bg-rose-50 hover:text-rose-700 hover:translate-x-1">
+                        Keluar
+                    </li>
+                </ul>
+            </aside>
+            
+            <!-- MAIN PANEL -->
+            <section class="flex-1 p-6 sm:p-10 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between pb-4 mb-6 border-b border-zinc-100">
+                        <div>
+                            <h1 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Profil Tenaga Ahli Hukum</h1>
+                            <p class="text-xs text-zinc-500">Informasi identitas dan wewenang pengujian sistem kecerdasan artifisial.</p>
+                        </div>
+                        <span class="px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1.5">
+                            <i class="fi fi-sr-shield-check text-emerald-600 text-xs"></i>
+                            <span>Akun Ahli Aktif</span>
+                        </span>
+                    </div>
+
+                    <form class="flex flex-col gap-4 text-xs" onsubmit="event.preventDefault();">
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="flex flex-col gap-1.5">
+                                <label class="font-bold text-zinc-700 uppercase tracking-wider text-[10px]">Nama Lengkap & Gelar</label>
+                                <input type="text" id="name" class="w-full px-3.5 py-2.5 border border-zinc-200 rounded-xl text-xs text-zinc-700 bg-zinc-50 cursor-not-allowed focus:outline-none" value="Dr. Fabian Bimo, S.H., M.H." readonly>
+                            </div>
+                            <div class="flex flex-col gap-1.5">
+                                <label class="font-bold text-zinc-700 uppercase tracking-wider text-[10px]">NIP / Identitas Pegawai</label>
+                                <input type="text" id="nip" class="w-full px-3.5 py-2.5 border border-zinc-200 rounded-xl text-xs text-zinc-700 bg-zinc-50 cursor-not-allowed focus:outline-none" value="198701012015011001" readonly>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div class="flex flex-col gap-1.5">
+                                <label class="font-bold text-zinc-700 uppercase tracking-wider text-[10px]">Nama Pengguna (Username)</label>
+                                <input type="text" id="username" class="w-full px-3.5 py-2.5 border border-zinc-200 rounded-xl text-xs text-zinc-700 bg-zinc-50 cursor-not-allowed focus:outline-none" value="hukum1" readonly>
+                            </div>
+                            <div class="flex flex-col gap-1.5">
+                                <label class="font-bold text-zinc-700 uppercase tracking-wider text-[10px]">Alamat Surel Resmi</label>
+                                <input type="email" id="email" class="w-full px-3.5 py-2.5 border border-zinc-200 rounded-xl text-xs text-zinc-700 bg-zinc-50 cursor-not-allowed focus:outline-none" value="hukum1@titikhukum.id" readonly>
+                            </div>
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-bold text-zinc-700 uppercase tracking-wider text-[10px]">Lembaga / Institusi Afiliasi</label>
+                            <input type="text" class="w-full px-3.5 py-2.5 border border-zinc-200 rounded-xl text-xs text-zinc-700 bg-zinc-50 cursor-not-allowed focus:outline-none" value="BRIN (Badan Riset & Inovasi Nasional)" readonly>
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-bold text-zinc-700 uppercase tracking-wider text-[10px]">Bidang Kepakaran Hukum</label>
+                            <input type="text" class="w-full px-3.5 py-2.5 border border-zinc-200 rounded-xl text-xs text-zinc-700 bg-zinc-50 cursor-not-allowed focus:outline-none" value="Hukum Siber, ITE, & Audit Penalaran AI Yuridis" readonly>
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <label class="font-bold text-zinc-700 uppercase tracking-wider text-[10px]">Peran & Hak Akses Sistem</label>
+                            <div class="p-3 bg-zinc-50 rounded-xl border border-zinc-200 text-zinc-600 leading-relaxed text-[11px]">
+                                Memiliki wewenang untuk melakukan pengujian <em>bounding box</em>, penelusuran naskah regulasi multi-dokumen, serta mengisi lembar audit akurasi dan validasi model RAG Titik Hukum.
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        function handleLogout() {
+            localStorage.removeItem('titikhukum_auth');
+            localStorage.removeItem('userEmail');
+            sessionStorage.removeItem('redirect_after_login');
+            window.location.href = '../login.html';
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            if (menu) menu.classList.toggle('hidden');
+        }
+
+        let currentLang = 'EN';
+        function toggleNavLang() {
+            currentLang = currentLang === 'EN' ? 'ID' : 'EN';
+            const label = document.getElementById('navLangLabel');
+            if (label) label.textContent = currentLang;
+        }
+
+        let isDarkMode = false;
+        function toggleNavTheme() {
+            isDarkMode = !isDarkMode;
+        }
+    </script>
+</body>
+</html>

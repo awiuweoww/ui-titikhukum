@@ -3,18 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script>
-        // Auth Guard: Direct to login if user is not authenticated
-        (function() {
-            try {
-                const auth = localStorage.getItem('titikhukum_auth') || localStorage.getItem('userEmail');
-                if (!auth) {
-                    sessionStorage.setItem('redirect_after_login', 'profil.html');
-                    window.location.replace('login.html');
-                }
-            } catch(e) {}
-        })();
-    </script>
+    <title>Edit Profil - Titik Hukum</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +31,6 @@
         }
     </script>
 
-    <!-- Custom CSS -->
     <style>
         .navbar-brown {
             background-color: #211209;
@@ -87,7 +75,6 @@
 </head>
 <body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
 
-    <!-- HEADER TITIK HUKUM -->
     <header class="fixed top-0 left-0 right-0 z-50 w-full py-4 navbar-brown">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between">
@@ -129,46 +116,31 @@
                 </div>
             </div>
         </div>
-
-        <!-- Mobile Navigation Overlay Dropdown -->
-        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-3">
-            <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
-                <a href="index.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Beranda</a>
-                <a href="pustaka.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Pustaka Dokumen</a>
-                <a href="chat.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Asisten Hukum AI</a>
-                <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 text-white font-bold border-b border-white/10">Profil Saya</a>
-                
-                <div class="pt-2">
-                    <a href="login.html" class="w-full py-2.5 rounded-lg border border-white bg-white text-gray-900 text-xs font-normal flex items-center justify-center gap-2">
-                        <span>Masuk & Daftar</span>
-                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
     </header>
 
-    <!-- CONTENT WRAPPER -->
     <main class="flex-1 flex justify-center items-start pt-28 pb-8 px-8 md:pt-32 md:pb-12 md:px-5">
-        <div class="w-full max-w-[1000px] bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row overflow-hidden min-h-[620px]">
+        <!-- [MODIFIKASI] Menambahkan h-[620px] max-h-[620px] agar kotak terkunci tingginya sama dengan halaman profil -->
+        <div class="w-full max-w-[1000px] bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row overflow-hidden h-[620px] max-h-[620px]">
             
-            <!-- SIDEBAR -->
             <aside class="w-full md:w-[260px] p-8 md:border-r border-b md:border-b-0 border-gray-200 shrink-0 bg-white flex flex-col">
-                <!-- Tambahan mx-auto di sini agar foto ke tengah -->
-                <div class="w-[90px] h-[90px] mx-auto rounded-full overflow-hidden mb-4 border border-gray-200 bg-gray-100 shrink-0">
+                <div class="w-[90px] h-[90px] mx-auto rounded-full overflow-hidden mb-4 border border-gray-200 bg-gray-100 relative group cursor-pointer">
                     <img src="assets/pp.jpg" alt="Profile Picture" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/90'">
+                    <div class="absolute inset-0 bg-black/40 hidden group-hover:flex items-center justify-center transition-all">
+                        <i class="fa-solid fa-camera text-white"></i>
+                    </div>
                 </div>
-                
-                <!-- [MODIFIKASI] Ditambahkan 'break-all' agar teks panjang otomatis turun ke bawah dan tidak keluar border -->
-                <p id="sidebar-handle" class="text-[0.8rem] text-center text-gray-500 mb-1 tracking-wide break-all px-2">@username</p>
-                <h2 id="sidebar-name" class="text-[0.95rem] text-center font-bold text-gray-900 tracking-wide mb-8 break-words px-2">Nama Lengkap</h2>
+                <p class="text-[0.8rem] text-center text-gray-500 mb-1 tracking-wide">@masbimo123</p>
+                <h2 class="text-[0.95rem] text-center font-bold text-gray-900 uppercase tracking-wide mb-8">Bimo Amba</h2>
 
                 <ul class="flex flex-col gap-1.5 flex-1">
-                    <li class="px-3.5 py-2.5 text-[0.88rem] font-semibold text-brand-brown bg-brand-lightBrown rounded-md relative cursor-pointer before:content-[''] before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[3px] before:bg-brand-brown before:rounded-r-sm">Profil</li>
-                    <a href="edit-profile.html" class="block px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">Edit Profil</a>
+                    <a href="profil.html" class="block px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">Profil</a>
+                    
+                    <li class="px-3.5 py-2.5 text-[0.88rem] font-semibold text-brand-brown bg-brand-lightBrown rounded-md relative cursor-pointer before:content-[''] before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[3px] before:bg-brand-brown before:rounded-r-sm">Edit Profil</li>
+                    
                     <li class="px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">Kata Sandi</li>
                     <li class="px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">Riwayat</li>
-                    <li onclick="handleLogout()" class="px-3.5 py-2.5 text-[0.88rem] font-semibold text-red-600 rounded-md cursor-pointer transition-all duration-200 hover:bg-red-50 hover:text-red-700 hover:translate-x-1">Keluar</li>
+                    
+                    <li class="px-3.5 py-2.5 text-[0.88rem] font-semibold text-red-600 rounded-md cursor-pointer transition-all duration-200 hover:bg-red-50 hover:text-red-700 hover:translate-x-1">Keluar</li>
                     
                     <li class="mt-auto px-3.5 py-2.5 text-[0.88rem] text-gray-500 rounded-md cursor-pointer transition-all duration-200 hover:bg-gray-100 hover:text-brand-brown flex items-center justify-center gap-2 group">
                         <span>Laporan</span>
@@ -176,49 +148,57 @@
                     </li>
                 </ul>
             </aside>
-            
-            <!-- MAIN PANEL -->
-            <section class="flex-1 p-8 md:p-10 flex flex-col justify-between">
+
+            <!-- [MODIFIKASI] Menambahkan overflow-y-auto agar panel ini bisa di-scroll ketika konten memanjang -->
+            <section class="flex-1 p-8 md:p-10 flex flex-col justify-between overflow-y-auto">
                 <div>
-                    <div class="relative flex justify-center items-center mb-10">
-                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 text-center">Profil</h1>
+                    <div class="flex justify-center items-center mb-10">
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 text-center">Edit Profil</h1>
                     </div>
 
                     <form class="flex flex-col gap-5 max-w-[580px] mx-auto w-full" onsubmit="event.preventDefault();">
                         <div class="flex flex-col gap-1.5">
                             <div class="flex justify-between items-baseline">
                                 <label for="name" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Nama Lengkap</label>
+                                <span class="text-[0.72rem] text-gray-500">Kami sangat mengutamakan penggunaan nama asli di sini.</span>
                             </div>
-                            <input type="text" id="name" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-500 bg-gray-50 cursor-not-allowed focus:outline-none shadow-sm" readonly>
+                            <input type="text" id="name" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" value="Bimo Amba">
                         </div>
 
                         <div class="flex flex-col gap-1.5">
                             <div class="flex justify-between items-baseline">
                                 <label for="username" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Nama Pengguna</label>
                             </div>
-                            <input type="text" id="username" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-500 bg-gray-50 cursor-not-allowed focus:outline-none shadow-sm" readonly>
+                            <input type="text" id="username" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" value="masbimo123">
                         </div>
 
                         <div class="flex flex-col gap-1.5">
                             <label for="email" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Alamat Surel</label>
-                            <input type="email" id="email" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-500 bg-gray-50 cursor-not-allowed focus:outline-none shadow-sm" readonly>
+                            <input type="email" id="email" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" value="example:titikhukum@hotmail.com">
                         </div>
 
                         <div class="flex flex-col gap-1.5">
                             <label for="location" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Domisili</label>
-                            <input type="text" id="location" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-500 bg-gray-50 cursor-not-allowed focus:outline-none shadow-sm" value="Ngawi" readonly>
+                            <input type="text" id="location" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" value="Ngawi">
                         </div>
 
                         <div class="flex flex-col gap-1.5">
                             <label for="website" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Situs Web</label>
-                            <input type="url" id="website" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-500 bg-gray-50 cursor-not-allowed focus:outline-none shadow-sm" value="example.com" readonly>
+                            <input type="url" id="website" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" value="example.com">
                         </div>
 
                         <div class="flex flex-col gap-1.5">
                             <div class="flex justify-between items-baseline">
                                 <label for="bio" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Bio</label>
+                                <span class="text-[0.72rem] text-gray-500">Maksimal 200 karakter</span>
                             </div>
-                            <textarea id="bio" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-500 bg-gray-50 cursor-not-allowed focus:outline-none shadow-sm h-24 resize-y" readonly>Maksimal 200 karakter</textarea>
+                            <textarea id="bio" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm h-24 resize-y">Maksimal 200 karakter</textarea>
+                        </div>
+                        
+                        <div class="mt-4 flex justify-end">
+                            <button type="submit" class="bg-brand-brown hover:bg-brand-hoverBrown text-white px-6 py-2.5 rounded-lg text-[0.85rem] font-bold tracking-wide transition-colors shadow-sm">
+                                Simpan Perubahan
+                            </button>
                         </div>
                     </form>
                 </div>
@@ -226,108 +206,5 @@
         </div>
     </main>
 
-<<<<<<< Updated upstream
-=======
-    <script>
-        // Load logged in user data automatically and format properly
-        document.addEventListener('DOMContentLoaded', () => {
-            try {
-                const userEmail = localStorage.getItem('userEmail') || 'user@titikhukum.id';
-                
-                // Ambil string sebelum simbol '@' dari email login
-                const baseName = userEmail.includes('@') ? userEmail.split('@')[0] : userEmail;
-                
-                // 1. Nama Pengguna (Username): Huruf kecil semua & bersih dari simbol aneh
-                const cleanUsername = baseName.toLowerCase().replace(/[^a-z0-9_.]/g, '');
-                
-                // 2. Nama Lengkap: Otomatis dibentuk dari baseName, dipisah titik/angka, huruf kapital di awal kata
-                const formattedFullName = baseName
-                    .replace(/[0-9]/g, '') // Hilangkan angka jika ada
-                    .split(/[._-]/)
-                    .filter(Boolean)
-                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-                    .join(' ') || "Pengguna Titik Hukum";
-
-                // Masukkan ke Sidebar
-                const sidebarNameEl = document.getElementById('sidebar-name');
-                if (sidebarNameEl) sidebarNameEl.textContent = formattedFullName;
-
-                const sidebarHandleEl = document.getElementById('sidebar-handle');
-                if (sidebarHandleEl) sidebarHandleEl.textContent = `@${cleanUsername}`;
-
-                // Masukkan ke Form Input Form Profil
-                const nameInput = document.getElementById('name');
-                if (nameInput) nameInput.value = formattedFullName;
-
-                const usernameInput = document.getElementById('username');
-                if (usernameInput) usernameInput.value = cleanUsername;
-
-                const emailInput = document.getElementById('email');
-                if (emailInput) emailInput.value = userEmail;
-
-            } catch(e) {
-                console.error("Gagal memuat data profil:", e);
-            }
-        });
-
-        function handleLogout() {
-            localStorage.removeItem('titikhukum_auth');
-            localStorage.removeItem('userEmail');
-            sessionStorage.removeItem('redirect_after_login');
-            window.location.href = 'index.html';
-        }
-
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            const icon = document.getElementById('mobileMenuIcon');
-            if (!menu) return;
-            menu.classList.toggle('hidden');
-            if (icon) {
-                if (menu.classList.contains('hidden')) {
-                    icon.classList.remove('fa-xmark');
-                    icon.classList.add('fa-bars');
-                } else {
-                    icon.classList.remove('fa-bars');
-                    icon.classList.add('fa-xmark');
-                }
-            }
-        }
-
-        let currentLang = 'EN';
-        function toggleNavLang() {
-            currentLang = currentLang === 'EN' ? 'ID' : 'EN';
-            const label = document.getElementById('navLangLabel');
-            if (label) label.textContent = currentLang;
-        }
-
-        let isDarkMode = false;
-        function toggleNavTheme() {
-            isDarkMode = !isDarkMode;
-            const container = document.getElementById('navThemeIconContainer');
-            if (!container) return;
-            if (isDarkMode) {
-                container.innerHTML = `
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                `;
-            } else {
-                container.innerHTML = `
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
-                        <circle cx="12" cy="12" r="4.5"></circle>
-                        <line x1="12" y1="1.5" x2="12" y2="4"></line>
-                        <line x1="12" y1="20" x2="12" y2="22.5"></line>
-                        <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
-                        <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
-                        <line x1="1.5" y1="12" x2="4" y2="12"></line>
-                        <line x1="20" y1="12" x2="22.5" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
-                        <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
-                    </svg>
-                `;
-            }
-        }
-    </script>
->>>>>>> Stashed changes
 </body>
 </html>

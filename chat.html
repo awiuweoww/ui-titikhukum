@@ -156,14 +156,35 @@
             </a>
         </div>
 
-        <!-- Active Document Indicator (Positioned in Exact Center of Header) -->
-        <div id="topActiveDocBadge" class="hidden absolute left-1/2 -translate-x-1/2 items-center gap-2 px-3 py-1 rounded-xl bg-[#f6eee7] border border-[#d6c4b7] text-[11px] text-[#26150d] animate-in fade-in shadow-2xs z-10">
-            <i class="fa-regular fa-file-pdf text-rose-600"></i>
-            <span class="font-bold truncate max-w-[180px] sm:max-w-[280px]" id="topActiveDocName"></span>
-            <span class="text-[10px] text-stone-500 hidden sm:inline" id="topActiveDocMeta">• Dokumen Terlampir</span>
-            <button type="button" onclick="detachCurrentDoc()" class="text-stone-400 hover:text-rose-600 ml-1 text-xs cursor-pointer" title="Lepas dokumen">
-                <i class="fa-solid fa-xmark"></i>
+        <!-- Active Document Dropdown Badge (Positioned in Center of Header) -->
+        <div id="topActiveDocBadge" class="hidden absolute left-1/2 -translate-x-1/2 z-30">
+            <button 
+                type="button" 
+                id="topActiveDocDropdownBtn" 
+                onclick="toggleTopDocDropdown(event)" 
+                class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#f6eee7] hover:bg-[#eedfd1] border border-[#d6c4b7] text-[11px] text-[#26150d] font-semibold transition active:scale-95 shadow-2xs cursor-pointer select-none"
+                title="Lihat dokumen pustaka terlampir"
+            >
+                <i class="fa-regular fa-file-pdf text-rose-600 text-xs"></i>
+                <span id="topActiveDocCountLabel" class="font-bold">1 Dokumen Terlampir</span>
+                <i id="topActiveDocChevron" class="fa-solid fa-chevron-down text-[10px] text-stone-600 transition-transform duration-200 ml-0.5"></i>
             </button>
+
+            <!-- Dropdown Menu List of Attached Docs -->
+            <div id="topActiveDocDropdownMenu" class="hidden absolute left-1/2 -translate-x-1/2 top-full mt-2 w-72 sm:w-80 bg-white rounded-2xl border border-[#d6c4b7] shadow-xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                <div class="flex items-center justify-between px-2.5 py-1.5 border-b border-stone-100 mb-1 text-[11px] font-bold text-stone-800">
+                    <span class="flex items-center gap-1.5">
+                        <i class="fa-solid fa-book-bookmark text-[#8c5835] text-xs"></i>
+                        <span>Dokumen Terlampir</span>
+                    </span>
+                    <button type="button" onclick="detachAllPustakaDocs()" class="text-rose-600 hover:text-rose-700 text-[10px] font-semibold hover:underline cursor-pointer">
+                        Lepas Semua
+                    </button>
+                </div>
+                <div id="topActiveDocList" class="max-h-56 overflow-y-auto space-y-1">
+                    <!-- Dynamic Items -->
+                </div>
+            </div>
         </div>
 
         <div class="flex items-center gap-2 sm:gap-3">
@@ -438,9 +459,6 @@
                     <h2 class="font-serif text-2xl sm:text-3xl text-[#26150d] font-normal tracking-tight">
                         Apa yang ingin Anda teliti hari ini?
                     </h2>
-                    <p class="text-xs sm:text-sm text-stone-600 mt-2 max-w-md">
-                        Asisten riset hukum terpadu BRIN dengan ekstraksi pasal cerdas dan penelusuran naskah asli PDF.
-                    </p>
 
                     <!-- Initial Floating Input Card (Grok-Style with File Attachment) -->
                     <div class="w-full mt-8 p-3 rounded-2xl bg-white border border-[#d6c4b7] shadow-md focus-within:border-[#26150d] focus-within:ring-2 focus-within:ring-[#26150d]/10 transition-all text-left">
@@ -463,6 +481,7 @@
                             rows="2"
                             placeholder="Tanyakan analisis tindak pidana, kewenangan lembaga, atau lampirkan dokumen PDF..." 
                             class="w-full resize-none border-0 focus:outline-none text-xs sm:text-sm text-gray-800 placeholder-gray-400 bg-transparent px-1 py-1"
+                            oninput="updateWelcomeSendButtonState()"
                             onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendWelcomeQuery(); }"
                         ></textarea>
 
@@ -478,7 +497,14 @@
                                 </span>
                             </div>
 
-                            <button type="button" onclick="sendWelcomeQuery()" class="w-9 h-9 rounded-xl bg-[#26150d] hover:bg-[#381d12] text-white flex items-center justify-center transition active:scale-95 shadow-xs">
+                            <button 
+                                type="button" 
+                                id="welcomeSendBtn"
+                                onclick="sendWelcomeQuery()" 
+                                disabled
+                                class="w-9 h-9 rounded-xl bg-stone-200 text-stone-400 flex items-center justify-center transition shadow-none cursor-not-allowed opacity-70"
+                                title="Kirim pesan"
+                            >
                                 <i class="fa-solid fa-arrow-up text-xs"></i>
                             </button>
                         </div>
@@ -565,6 +591,7 @@
                                 rows="2" 
                                 placeholder="Ajukan pertanyaan hukum atau minta analisis perbandingan pasal..." 
                                 class="w-full px-2.5 py-1 text-xs sm:text-[13px] bg-transparent border-0 focus:outline-none text-stone-800 placeholder-stone-400 resize-none leading-relaxed font-sans"
+                                oninput="updateChatSendButtonState()"
                                 onkeydown="handleInputKeyDown(event)"
                             ></textarea>
 
@@ -602,8 +629,10 @@
                                 <!-- Right Action: Sleek Icon Send Button -->
                                 <button 
                                     type="button" 
+                                    id="chatSendBtn"
                                     onclick="handleSendMessage()" 
-                                    class="w-8 h-8 rounded-xl bg-[#26150d] hover:bg-[#3d1f13] text-[#deb896] hover:text-white flex items-center justify-center transition active:scale-95 shadow-sm cursor-pointer"
+                                    disabled
+                                    class="w-8 h-8 rounded-xl bg-stone-200 text-stone-400 flex items-center justify-center transition shadow-none cursor-not-allowed opacity-70"
                                     title="Kirim pesan"
                                 >
                                     <i class="fa-solid fa-arrow-up text-xs"></i>
@@ -815,20 +844,41 @@
                 chatChip.classList.add('flex');
             }
 
-            // Show and update top navbar active document badge
-            const topBadge = document.getElementById('topActiveDocBadge');
-            const topDocName = document.getElementById('topActiveDocName');
-            if (topBadge && topDocName) {
-                topDocName.textContent = file.name;
-                topBadge.classList.remove('hidden');
-                topBadge.classList.add('flex');
+            // Note: Header badge (topActiveDocBadge) only shows for documents opened from Pustaka Dokumen
+            updateWelcomeSendButtonState();
+            updateChatSendButtonState();
+        }
+
+        function updateChatSendButtonState() {
+            const chatInput = document.getElementById('chatInput');
+            const sendBtn = document.getElementById('chatSendBtn');
+            if (!chatInput || !sendBtn) return;
+            
+            const hasText = chatInput.value.trim().length > 0 || !!attachedDoc;
+            sendBtn.disabled = !hasText;
+            if (hasText) {
+                sendBtn.className = 'w-8 h-8 rounded-xl bg-[#26150d] hover:bg-[#3d1f13] text-[#deb896] hover:text-white flex items-center justify-center transition active:scale-95 shadow-sm cursor-pointer';
+            } else {
+                sendBtn.className = 'w-8 h-8 rounded-xl bg-stone-200 text-stone-400 flex items-center justify-center transition shadow-none cursor-not-allowed opacity-70';
             }
         }
 
-        // Detach attached document
-        function detachCurrentDoc() {
-            attachedDoc = null;
+        function updateWelcomeSendButtonState() {
+            const welcomeInput = document.getElementById('welcomeInput');
+            const sendBtn = document.getElementById('welcomeSendBtn');
+            if (!welcomeInput || !sendBtn) return;
+            
+            const hasText = welcomeInput.value.trim().length > 0 || !!attachedDoc;
+            sendBtn.disabled = !hasText;
+            if (hasText) {
+                sendBtn.className = 'w-9 h-9 rounded-xl bg-[#26150d] hover:bg-[#381d12] text-white flex items-center justify-center transition active:scale-95 shadow-xs cursor-pointer';
+            } else {
+                sendBtn.className = 'w-9 h-9 rounded-xl bg-stone-200 text-stone-400 flex items-center justify-center transition shadow-none cursor-not-allowed opacity-70';
+            }
+        }
 
+        // Clear input attachment UI chips and file inputs without altering active session document
+        function clearInputAttachment() {
             // Hide Welcome Chip
             const welcomeChip = document.getElementById('welcomeAttachedDocChip');
             if (welcomeChip) {
@@ -843,18 +893,119 @@
                 chatChip.classList.remove('flex');
             }
 
-            // Hide Top Navbar Badge
-            const topBadge = document.getElementById('topActiveDocBadge');
-            if (topBadge) {
-                topBadge.classList.add('hidden');
-                topBadge.classList.remove('flex');
-            }
-
             // Reset file input values
             const welcomeFileInput = document.getElementById('welcomeFileInput');
             const chatFileInput = document.getElementById('chatFileInput');
             if (welcomeFileInput) welcomeFileInput.value = '';
             if (chatFileInput) chatFileInput.value = '';
+
+            updateWelcomeSendButtonState();
+            updateChatSendButtonState();
+        }
+
+        // ========================================================
+        // PUSTAKA ATTACHED DOCUMENTS DROPDOWN STATE
+        // ========================================================
+        let activePustakaDocs = [];
+
+        function setPustakaAttachedDocs(docsList) {
+            if (typeof docsList === 'string') {
+                activePustakaDocs = docsList.split(/,\s*/).map(s => s.trim()).filter(Boolean);
+            } else if (Array.isArray(docsList)) {
+                activePustakaDocs = docsList.map(s => s.trim()).filter(Boolean);
+            } else {
+                activePustakaDocs = [];
+            }
+            renderTopDocDropdown();
+        }
+
+        function renderTopDocDropdown() {
+            const badge = document.getElementById('topActiveDocBadge');
+            const label = document.getElementById('topActiveDocCountLabel');
+            const list = document.getElementById('topActiveDocList');
+            const menu = document.getElementById('topActiveDocDropdownMenu');
+
+            if (!badge || !label || !list) return;
+
+            if (activePustakaDocs.length === 0) {
+                badge.classList.add('hidden');
+                badge.classList.remove('flex');
+                if (menu) menu.classList.add('hidden');
+                return;
+            }
+
+            badge.classList.remove('hidden');
+            badge.classList.add('flex');
+
+            const count = activePustakaDocs.length;
+            label.textContent = `${count} Dokumen Terlampir`;
+
+            list.innerHTML = activePustakaDocs.map(docName => `
+                <div class="flex items-center justify-between p-2 rounded-xl hover:bg-[#faf7f4] transition group">
+                    <div class="flex items-center gap-2 min-w-0 flex-1 pr-2">
+                        <div class="w-6 h-6 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
+                            <i class="fa-regular fa-file-pdf text-rose-600 text-[10px]"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="font-bold text-xs text-stone-900 truncate" title="${escapeHtml(docName)}">${escapeHtml(docName)}</div>
+                            <div class="text-[10px] text-stone-500">Pustaka Dokumen</div>
+                        </div>
+                    </div>
+                    <button type="button" onclick="removePustakaDoc('${escapeHtml(docName)}', event)" class="w-6 h-6 rounded-lg hover:bg-rose-50 text-stone-400 hover:text-rose-600 flex items-center justify-center transition cursor-pointer text-xs shrink-0" title="Lepas dokumen ini">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        function toggleTopDocDropdown(e) {
+            if (e) e.stopPropagation();
+            const menu = document.getElementById('topActiveDocDropdownMenu');
+            const chevron = document.getElementById('topActiveDocChevron');
+            if (!menu) return;
+
+            const isHidden = menu.classList.contains('hidden');
+            if (isHidden) {
+                menu.classList.remove('hidden');
+                if (chevron) chevron.classList.add('rotate-180');
+            } else {
+                menu.classList.add('hidden');
+                if (chevron) chevron.classList.remove('rotate-180');
+            }
+        }
+
+        function removePustakaDoc(docName, e) {
+            if (e) e.stopPropagation();
+            activePustakaDocs = activePustakaDocs.filter(d => d !== docName);
+            renderTopDocDropdown();
+            showToast(`Dokumen "${docName}" dilepas.`);
+        }
+
+        function detachAllPustakaDocs() {
+            activePustakaDocs = [];
+            renderTopDocDropdown();
+            showToast('Semua dokumen rujukan pustaka dilepas.');
+        }
+
+        // Global click listener to close dropdown on click outside
+        window.addEventListener('click', (e) => {
+            const badge = document.getElementById('topActiveDocBadge');
+            const menu = document.getElementById('topActiveDocDropdownMenu');
+            const chevron = document.getElementById('topActiveDocChevron');
+            if (badge && menu && !badge.contains(e.target)) {
+                menu.classList.add('hidden');
+                if (chevron) chevron.classList.remove('rotate-180');
+            }
+        });
+
+        // Detach attached document completely (manual cancel by user)
+        function detachCurrentDoc() {
+            attachedDoc = null;
+            clearInputAttachment();
+            detachAllPustakaDocs();
+
+            updateWelcomeSendButtonState();
+            updateChatSendButtonState();
         }
 
         // Toggle Sidebar on desktop & mobile with dynamic tooltip state
@@ -898,24 +1049,24 @@
             const query = input.value.trim();
             if (!query && !attachedDoc) return;
 
-            const isGrounded = !!attachedDoc;
-            const finalQuery = query || (attachedDoc ? `Analisis ringkas untuk dokumen ${attachedDoc.name}` : '');
-            startChatWithQuery(finalQuery, isGrounded);
+            const docToSend = attachedDoc;
+            const isGrounded = !!docToSend;
+            const finalQuery = query || (docToSend ? `Analisis ringkas untuk dokumen ${docToSend.name}` : '');
+            
+            // Clear input attachment chip so it enters chat and doesn't remain in typing box
+            attachedDoc = null;
+            clearInputAttachment();
+
+            startChatWithQuery(finalQuery, isGrounded, docToSend ? docToSend.name : null, docToSend);
         }
 
         function startQueryWithPrompt(promptText) {
-            // When selecting a predefined prompt from legal library, show active doc badge
-            const topBadge = document.getElementById('topActiveDocBadge');
-            const topDocName = document.getElementById('topActiveDocName');
-            if (topBadge && topDocName) {
-                topDocName.textContent = 'UU_Nomor_45_Tahun_2009.pdf';
-                topBadge.classList.remove('hidden');
-                topBadge.classList.add('flex');
-            }
+            // When selecting a predefined prompt from legal library, show active doc badge dropdown
+            setPustakaAttachedDocs(['UU_Nomor_45_Tahun_2009.pdf']);
             startChatWithQuery(promptText, true, 'UU_Nomor_45_Tahun_2009.pdf');
         }
 
-        function startChatWithQuery(query, isGrounded = false, forcedDocName = null) {
+        function startChatWithQuery(query, isGrounded = false, forcedDocName = null, sentDoc = null) {
             document.getElementById('welcomeState').classList.add('hidden');
             const bottomInput = document.getElementById('bottomChatInputContainer');
             if (bottomInput) bottomInput.classList.remove('hidden');
@@ -924,22 +1075,41 @@
             container.classList.remove('hidden');
             container.innerHTML = ''; // Start fresh for query
             document.getElementById('chatInput').value = '';
+            updateChatSendButtonState();
 
-            // Render User Bubble
-            renderUserMessage(query);
+            // Render User Bubble with attached document if present
+            renderUserMessage(query, sentDoc);
 
             // Generate AI Response
-            renderAiResponse(query, isGrounded || !!attachedDoc, forcedDocName || (attachedDoc ? attachedDoc.name : null));
+            const targetDocName = forcedDocName || (sentDoc ? sentDoc.name : null);
+            renderAiResponse(query, isGrounded || !!targetDocName, targetDocName);
         }
 
         // Render User Message Bubble
-        function renderUserMessage(text) {
+        function renderUserMessage(text, doc = null) {
             const container = document.getElementById('chatMessagesContainer');
             const userDiv = document.createElement('div');
             userDiv.className = 'flex justify-end animate-in fade-in duration-200';
+            
+            let docHtml = '';
+            if (doc) {
+                docHtml = `
+                    <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/10 border border-white/15 text-white mb-2 text-left">
+                        <div class="w-8 h-8 rounded-lg bg-rose-500/20 border border-rose-400/30 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-file-pdf text-rose-400 text-sm"></i>
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <div class="font-semibold truncate text-xs sm:text-[13px] text-white">${escapeHtml(doc.name)}</div>
+                            <div class="text-[10px] text-stone-300 font-mono">${escapeHtml(doc.size || 'PDF Dokumen')}</div>
+                        </div>
+                    </div>
+                `;
+            }
+
             userDiv.innerHTML = `
                 <div class="max-w-xl bg-[#26150d] text-white rounded-2xl rounded-tr-xs p-4 text-xs sm:text-[13px] shadow-sm leading-relaxed">
-                    ${escapeHtml(text)}
+                    ${docHtml}
+                    ${text ? `<div>${escapeHtml(text)}</div>` : ''}
                 </div>
             `;
             container.appendChild(userDiv);
@@ -1116,19 +1286,30 @@
         function handleSendMessage() {
             const input = document.getElementById('chatInput');
             const text = input.value.trim();
-            if (!text) return;
+            if (!text && !attachedDoc) return;
+
+            const docToSend = attachedDoc;
 
             // If in welcome state, switch
             if (!document.getElementById('welcomeState').classList.contains('hidden')) {
-                startChatWithQuery(text, !!attachedDoc);
+                const finalQuery = text || (docToSend ? `Analisis ringkas untuk dokumen ${docToSend.name}` : '');
+                attachedDoc = null;
+                clearInputAttachment();
+                startChatWithQuery(finalQuery, !!docToSend, docToSend ? docToSend.name : null, docToSend);
                 return;
             }
 
-            renderUserMessage(text);
+            // Clear input and attachment chip so it enters chat
+            attachedDoc = null;
+            clearInputAttachment();
             input.value = '';
+            updateChatSendButtonState();
+
+            const finalQuery = text || (docToSend ? `Analisis ringkas untuk dokumen ${docToSend.name}` : '');
+            renderUserMessage(finalQuery, docToSend);
 
             // Render AI response accordingly
-            renderAiResponse(text, !!attachedDoc, attachedDoc ? attachedDoc.name : null);
+            renderAiResponse(finalQuery, !!docToSend, docToSend ? docToSend.name : null);
         }
 
         // Start Fresh New Chat
@@ -1366,14 +1547,8 @@
                 }
             }
 
-            // Show top navbar badge when loading from history
-            const topBadge = document.getElementById('topActiveDocBadge');
-            const topDocName = document.getElementById('topActiveDocName');
-            if (topBadge && topDocName) {
-                topDocName.textContent = 'UU_Nomor_45_Tahun_2009.pdf';
-                topBadge.classList.remove('hidden');
-                topBadge.classList.add('flex');
-            }
+            // Show top navbar badge dropdown when loading from history
+            setPustakaAttachedDocs(['UU_Nomor_45_Tahun_2009.pdf']);
 
             if (type === 'tindak_pidana') {
                 startChatWithQuery('Jelaskan tindak pidana penggunaan alat tangkap terlarang dan sanksi pasalnya di UU Nomor 45 Tahun 2009.', true, 'UU_Nomor_45_Tahun_2009.pdf');
@@ -1454,19 +1629,15 @@ Dikutip dari TitikHukum AI (Naskah Resmi Lembaran Negara RI).`;
         // Initialize resizer and handle URL query parameters (?docs=...&prompt=...)
         window.addEventListener('DOMContentLoaded', () => {
             initSplitResizer();
+            updateWelcomeSendButtonState();
+            updateChatSendButtonState();
 
             const urlParams = new URLSearchParams(window.location.search);
             const docsParam = urlParams.get('docs');
             const promptParam = urlParams.get('prompt');
 
             if (docsParam) {
-                const docBadge = document.getElementById('topActiveDocBadge');
-                const docName = document.getElementById('topActiveDocName');
-                if (docBadge && docName) {
-                    docName.textContent = decodeURIComponent(docsParam);
-                    docBadge.classList.remove('hidden');
-                    docBadge.classList.add('flex');
-                }
+                setPustakaAttachedDocs(decodeURIComponent(docsParam));
             }
 
             if (promptParam) {
@@ -1497,7 +1668,7 @@ Dikutip dari TitikHukum AI (Naskah Resmi Lembaran Negara RI).`;
             </div>
 
             <div class="pt-3 flex items-center justify-end gap-2.5 border-t border-stone-100">
-                <button type="button" onclick="closeDeleteHistoryModal()" class="px-4 py-2 rounded-xl border border-[#d6c4b7] text-stone-700 hover:bg-[#f6eee7] text-xs font-semibold transition cursor-pointer">
+                <button type="button" onclick="closeDeleteHistoryModal()" class="px-4 py-2 rounded-xl border border-[#d6c4b7] text-stone-700 hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 text-xs font-semibold transition cursor-pointer">
                     Batal
                 </button>
                 <button type="button" onclick="executeDeleteHistory()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold transition shadow-xs flex items-center gap-1.5 cursor-pointer">

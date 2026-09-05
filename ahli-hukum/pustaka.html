@@ -326,22 +326,22 @@
                             <th scope="col" class="py-4 pl-6 pr-3 w-12 text-center bg-stone-50">
                                 <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this.checked)" class="rounded border-gray-300 text-[#26150d] focus:ring-0 cursor-pointer">
                             </th>
-                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[340px] w-[46%] bg-stone-50" onclick="sortTable('title')">
+                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[340px] w-[46%] bg-stone-50 select-none hover:bg-stone-100 transition" onclick="sortTable('title')">
                                 <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
                                     <span>Nama & Berkas Dokumen</span>
-                                    <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
+                                    <span id="sortIcon_title" class="text-gray-400 group-hover:text-gray-700 text-[10px]"><i class="fa-solid fa-sort"></i></span>
                                 </div>
                             </th>
-                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[200px] w-[26%] bg-stone-50" onclick="sortTable('category')">
+                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[200px] w-[26%] bg-stone-50 select-none hover:bg-stone-100 transition" onclick="sortTable('category')">
                                 <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
                                     <span>Jenis / Bidang Aturan</span>
-                                    <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
+                                    <span id="sortIcon_category" class="text-gray-400 group-hover:text-gray-700 text-[10px]"><i class="fa-solid fa-sort"></i></span>
                                 </div>
                             </th>
-                            <th scope="col" class="py-4 px-3 cursor-pointer group min-w-[150px] w-[16%] bg-stone-50" onclick="sortTable('year')">
+                            <th scope="col" class="py-4 px-3 cursor-pointer group min-w-[150px] w-[16%] bg-stone-50 select-none hover:bg-stone-100 transition" onclick="sortTable('year')">
                                 <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
                                     <span>Metadata Regulasi</span>
-                                    <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
+                                    <span id="sortIcon_year" class="text-gray-400 group-hover:text-gray-700 text-[10px]"><i class="fa-solid fa-sort"></i></span>
                                 </div>
                             </th>
                             <th scope="col" class="py-4 pr-6 pl-2 text-right min-w-[130px] w-[12%] bg-stone-50">
@@ -480,7 +480,7 @@
 
                 <!-- Action Buttons (Brown Button) -->
                 <div class="pt-4 border-t border-gray-100 flex items-center justify-end gap-3">
-                    <button type="button" onclick="closeAddModal()" class="px-5 py-2.5 rounded-full border border-gray-300 hover:bg-gray-100 font-semibold text-gray-700 transition">
+                    <button type="button" onclick="closeAddModal()" class="px-5 py-2.5 rounded-full border border-gray-300 hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 font-semibold text-gray-700 transition cursor-pointer">
                         Batal
                     </button>
                     <button type="submit" class="px-6 py-2.5 rounded-full bg-[#26150d] hover:bg-[#381d12] text-white font-semibold transition active:scale-95 shadow-md flex items-center gap-2">
@@ -553,7 +553,7 @@
                 </div>
 
                 <div class="pt-4 border-t border-gray-100 flex items-center justify-end gap-3">
-                    <button type="button" onclick="closeEditModal()" class="px-5 py-2.5 rounded-full border border-gray-300 hover:bg-gray-100 font-semibold text-gray-700 transition">
+                    <button type="button" onclick="closeEditModal()" class="px-5 py-2.5 rounded-full border border-gray-300 hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 font-semibold text-gray-700 transition cursor-pointer">
                         Batal
                     </button>
                     <button type="submit" class="px-6 py-2.5 rounded-full bg-[#26150d] hover:bg-[#381d12] text-white font-semibold transition active:scale-95 shadow-md">
@@ -938,28 +938,17 @@
         <!-- 2. Main Workspace Layout: Left Sidebar + Central Document Canvas -->
         <div class="flex-1 flex overflow-hidden bg-[#525659]">
             
-            <!-- Left Sidebar (Page Thumbnails & Outline) -->
+            <!-- Left Sidebar (Page Thumbnails) -->
             <aside id="pdfSidebar" class="w-64 bg-[#3a3d40] border-r border-[#2a2c2e] flex flex-col shrink-0 text-stone-200 transition-all duration-200 z-10 select-none">
-                <!-- Sidebar Tab Switcher -->
-                <div class="h-10 border-b border-[#2a2c2e] flex items-center justify-around px-2 text-xs">
-                    <button type="button" onclick="switchPdfSidebarTab('thumbnails')" id="tabThumbnailsBtn" class="flex-1 py-1.5 text-center font-semibold border-b-2 border-amber-400 text-white flex items-center justify-center gap-1.5">
-                        <i class="fa-regular fa-images text-xs"></i>
-                        <span>Halaman</span>
-                    </button>
-                    <button type="button" onclick="switchPdfSidebarTab('outline')" id="tabOutlineBtn" class="flex-1 py-1.5 text-center font-medium text-stone-400 hover:text-stone-200 flex items-center justify-center gap-1.5">
-                        <i class="fa-solid fa-list-ul text-xs"></i>
-                        <span>Daftar Isi</span>
-                    </button>
+                <!-- Sidebar Header -->
+                <div class="h-10 border-b border-[#2a2c2e] flex items-center px-4 text-xs font-semibold text-white gap-2">
+                    <i class="fa-regular fa-images text-amber-400 text-xs"></i>
+                    <span>Halaman</span>
                 </div>
 
-                <!-- Tab 1 Content: Page Thumbnails List -->
+                <!-- Page Thumbnails List -->
                 <div id="pdfThumbnailsContainer" class="flex-1 overflow-y-auto p-3 space-y-4">
                     <!-- Populated dynamically with mini page cards -->
-                </div>
-
-                <!-- Tab 2 Content: Document Bookmarks Outline -->
-                <div id="pdfOutlineContainer" class="hidden flex-1 overflow-y-auto p-3 text-xs space-y-1">
-                    <!-- Populated dynamically with legal chapter links -->
                 </div>
             </aside>
 
@@ -2115,6 +2104,22 @@
             renderTable();
         }
 
+        function updateSortIcons() {
+            ['title', 'category', 'year'].forEach(col => {
+                const iconEl = document.getElementById(`sortIcon_${col}`);
+                if (!iconEl) return;
+                if (currentSort.column === col) {
+                    iconEl.className = 'text-zinc-900 font-bold text-[10px] transition';
+                    iconEl.innerHTML = currentSort.asc 
+                        ? '<i class="fa-solid fa-arrow-up-short-wide text-zinc-900"></i>' 
+                        : '<i class="fa-solid fa-arrow-down-wide-short text-zinc-900"></i>';
+                } else {
+                    iconEl.className = 'text-gray-400 group-hover:text-gray-700 text-[10px] transition';
+                    iconEl.innerHTML = '<i class="fa-solid fa-sort"></i>';
+                }
+            });
+        }
+
         // Sorting Helper
         function sortTable(column) {
             if (currentSort.column === column) {
@@ -2123,6 +2128,7 @@
                 currentSort.column = column;
                 currentSort.asc = true;
             }
+            updateSortIcons();
             renderTable();
         }
 
@@ -2377,7 +2383,7 @@
 
             // Render authentic multi-page sheets & sidebar
             renderAuthenticPdfPages(doc);
-            renderPdfThumbnailsAndOutline(doc);
+            renderPdfThumbnails(doc);
 
             document.getElementById('fullDocReaderModal').classList.remove('hidden');
             const viewport = document.getElementById('readerViewport');
@@ -2396,25 +2402,6 @@
                 sidebar.classList.remove('-ml-64');
             } else {
                 sidebar.classList.add('-ml-64');
-            }
-        }
-
-        function switchPdfSidebarTab(tab) {
-            const thumbTabBtn = document.getElementById('tabThumbnailsBtn');
-            const outlineTabBtn = document.getElementById('tabOutlineBtn');
-            const thumbContainer = document.getElementById('pdfThumbnailsContainer');
-            const outlineContainer = document.getElementById('pdfOutlineContainer');
-
-            if (tab === 'thumbnails') {
-                thumbTabBtn.className = 'flex-1 py-1.5 text-center font-semibold border-b-2 border-amber-400 text-white flex items-center justify-center gap-1.5';
-                outlineTabBtn.className = 'flex-1 py-1.5 text-center font-medium text-stone-400 hover:text-stone-200 flex items-center justify-center gap-1.5';
-                thumbContainer.classList.remove('hidden');
-                outlineContainer.classList.add('hidden');
-            } else {
-                outlineTabBtn.className = 'flex-1 py-1.5 text-center font-semibold border-b-2 border-amber-400 text-white flex items-center justify-center gap-1.5';
-                thumbTabBtn.className = 'flex-1 py-1.5 text-center font-medium text-stone-400 hover:text-stone-200 flex items-center justify-center gap-1.5';
-                outlineContainer.classList.remove('hidden');
-                thumbContainer.classList.add('hidden');
             }
         }
 
@@ -2507,13 +2494,12 @@
             });
         }
 
-        // Render Page Thumbnails in Sidebar & Outline Tree
-        function renderPdfThumbnailsAndOutline(doc) {
+        // Render Page Thumbnails in Sidebar
+        function renderPdfThumbnails(doc) {
             const thumbContainer = document.getElementById('pdfThumbnailsContainer');
-            const outlineContainer = document.getElementById('pdfOutlineContainer');
-            if (!thumbContainer || !outlineContainer) return;
+            if (!thumbContainer) return;
 
-            // 1. Thumbnails
+            // Thumbnails
             thumbContainer.innerHTML = '';
             for (let i = 1; i <= totalPdfPages; i++) {
                 const thumbDiv = document.createElement('div');
@@ -2538,36 +2524,6 @@
                 `;
                 thumbContainer.appendChild(thumbDiv);
             }
-
-            // 2. Outline / Bookmarks
-            outlineContainer.innerHTML = `
-                <div class="space-y-1">
-                    <button type="button" onclick="jumpToPdfPage(1)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200">
-                        <i class="fa-regular fa-file-lines text-stone-400 text-xs"></i>
-                        <span class="truncate font-semibold">Kop & Konsiderans (Menimbang)</span>
-                    </button>
-                    <button type="button" onclick="jumpToPdfPage(1)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
-                        <i class="fa-solid fa-bookmark text-amber-400 text-[10px]"></i>
-                        <span class="truncate">BAB I Ketentuan Umum</span>
-                    </button>
-                    <button type="button" onclick="jumpToPdfPage(2)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
-                        <i class="fa-solid fa-bookmark text-amber-400 text-[10px]"></i>
-                        <span class="truncate">BAB II Tata Kelola & Pengadilan</span>
-                    </button>
-                    <button type="button" onclick="jumpToPdfPage(2)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
-                        <i class="fa-solid fa-gavel text-rose-400 text-[10px]"></i>
-                        <span class="truncate">Pasal 84 - 85 (Sanksi Alat Tangkap)</span>
-                    </button>
-                    <button type="button" onclick="jumpToPdfPage(3)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
-                        <i class="fa-solid fa-bookmark text-amber-400 text-[10px]"></i>
-                        <span class="truncate">BAB III Ketentuan Penutup & Pengesahan</span>
-                    </button>
-                    <button type="button" onclick="jumpToPdfPage(3)" class="w-full text-left px-2.5 py-1.5 rounded hover:bg-stone-700 transition flex items-center gap-2 text-stone-200 pl-5">
-                        <i class="fa-solid fa-pen-nib text-stone-400 text-[10px]"></i>
-                        <span class="truncate">Tanda Tangan Pengundangan Resmi</span>
-                    </button>
-                </div>
-            `;
         }
 
         // Render Authentic Multi-Page Legal Sheets (Exact Indonesian Statute Typeset)
@@ -3066,6 +3022,7 @@
 
         // Initial Render on Load
         document.addEventListener('DOMContentLoaded', () => {
+            updateSortIcons();
             renderTable();
         });
     </script>

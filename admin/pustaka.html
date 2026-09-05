@@ -303,22 +303,22 @@
                             <th scope="col" class="py-4 pl-6 pr-3 w-12 text-center bg-stone-50">
                                 <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this.checked)" class="rounded border-gray-300 text-[#26150d] focus:ring-0 cursor-pointer">
                             </th>
-                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[340px] w-[46%] bg-stone-50" onclick="sortTable('title')">
+                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[340px] w-[46%] bg-stone-50 select-none hover:bg-stone-100 transition" onclick="sortTable('title')">
                                 <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
                                     <span>Nama & Berkas Dokumen</span>
-                                    <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
+                                    <span id="sortIcon_title" class="text-gray-400 group-hover:text-gray-700 text-[10px]"><i class="fa-solid fa-sort"></i></span>
                                 </div>
                             </th>
-                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[200px] w-[26%] bg-stone-50" onclick="sortTable('category')">
+                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[200px] w-[26%] bg-stone-50 select-none hover:bg-stone-100 transition" onclick="sortTable('category')">
                                 <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
                                     <span>Jenis / Bidang Aturan</span>
-                                    <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
+                                    <span id="sortIcon_category" class="text-gray-400 group-hover:text-gray-700 text-[10px]"><i class="fa-solid fa-sort"></i></span>
                                 </div>
                             </th>
-                            <th scope="col" class="py-4 px-3 cursor-pointer group min-w-[150px] w-[16%] bg-stone-50" onclick="sortTable('year')">
+                            <th scope="col" class="py-4 px-3 cursor-pointer group min-w-[150px] w-[16%] bg-stone-50 select-none hover:bg-stone-100 transition" onclick="sortTable('year')">
                                 <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
                                     <span>Metadata Regulasi</span>
-                                    <i class="fa-solid fa-sort text-[10px] text-gray-400"></i>
+                                    <span id="sortIcon_year" class="text-gray-400 group-hover:text-gray-700 text-[10px]"><i class="fa-solid fa-sort"></i></span>
                                 </div>
                             </th>
                             <th scope="col" class="py-4 pr-6 pl-2 text-right min-w-[130px] w-[12%] bg-stone-50">
@@ -625,7 +625,7 @@
 
             <!-- Footer Action Buttons -->
             <div class="p-5 sm:p-6 pt-3 bg-gray-50/60 border-t border-gray-100 flex items-center justify-end gap-2.5">
-                <button type="button" onclick="closeDeleteConfirmModal()" class="px-5 py-2.5 rounded-xl border border-gray-200 hover:bg-gray-100 text-gray-700 font-semibold text-xs transition active:scale-95">
+                <button type="button" onclick="closeDeleteConfirmModal()" class="px-5 py-2.5 rounded-xl border border-gray-200 hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 text-gray-700 font-semibold text-xs transition active:scale-95 cursor-pointer">
                     Batal
                 </button>
                 <button type="button" onclick="executeDeleteSelectedDocs()" class="px-6 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-md hover:shadow-rose-900/20 transition active:scale-95 flex items-center gap-2">
@@ -2280,6 +2280,22 @@
             renderTable();
         }
 
+        function updateSortIcons() {
+            ['title', 'category', 'year'].forEach(col => {
+                const iconEl = document.getElementById(`sortIcon_${col}`);
+                if (!iconEl) return;
+                if (currentSort.column === col) {
+                    iconEl.className = 'text-zinc-900 font-bold text-[10px] transition';
+                    iconEl.innerHTML = currentSort.asc 
+                        ? '<i class="fa-solid fa-arrow-up-short-wide text-zinc-900"></i>' 
+                        : '<i class="fa-solid fa-arrow-down-wide-short text-zinc-900"></i>';
+                } else {
+                    iconEl.className = 'text-gray-400 group-hover:text-gray-700 text-[10px] transition';
+                    iconEl.innerHTML = '<i class="fa-solid fa-sort"></i>';
+                }
+            });
+        }
+
         // Sorting Helper
         function sortTable(column) {
             if (currentSort.column === column) {
@@ -2288,6 +2304,7 @@
                 currentSort.column = column;
                 currentSort.asc = true;
             }
+            updateSortIcons();
             renderTable();
         }
 
@@ -3141,6 +3158,7 @@
 
         // Initial Render on Load
         document.addEventListener('DOMContentLoaded', () => {
+            updateSortIcons();
             renderTable();
         });
     </script>

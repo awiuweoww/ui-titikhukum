@@ -137,11 +137,9 @@
                     
                     <a href="javascript:void(0)" onclick="navigateTo('edit-profile.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Edit Profil</a>
                     
-                    <!-- Menu Riwayat yang sudah diubah namanya -->
-                    <a href="#" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Riwayat Laporan</a>
-                    
-                    <!-- Menu Pengaturan baru yang ditambahkan di bawahnya -->
-                    <a href="#" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Pengaturan</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('laporan-user.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Riwayat Laporan</a>                    
+
+                    <a href="javascript:void(0)" onclick="navigateTo('pengaturan-user.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Pengaturan</a>
                     
                     <li onclick="showLogoutPopup()" class="px-4 py-2.5 text-[0.9rem] font-semibold text-red-500 rounded-lg cursor-pointer transition-all duration-300 hover:bg-red-50 border border-transparent">Keluar</li>
                     
@@ -253,6 +251,16 @@
             </div>
             
             <form onsubmit="submitReport(event)" class="flex flex-col gap-4">
+
+                <!-- Kolom Subjek Laporan -->
+                <div class="flex flex-col gap-1.5">
+                    <div class="flex justify-between items-baseline">
+                        <label for="reportSubject" class="text-[0.75rem] font-bold text-gray-700">Subjek <span class="text-red-500">*</span></label>
+                        <span id="subjectCharCount" class="text-[0.7rem] text-gray-500 transition-colors">0/30 karakter</span>
+                    </div>
+                    <input type="text" id="reportSubject" required maxlength="30" placeholder="Contoh: Gagal unggah foto" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-[0.85rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" oninput="updateSubjectCharCount(this)">
+                </div>
+
                 <div class="flex flex-col gap-1.5">
                     <label for="reportDetail" class="text-[0.75rem] font-bold text-gray-700">Detail Keluhan <span class="text-red-500">*</span></label>
                     <textarea id="reportDetail" required placeholder="Jelaskan masalah yang Anda hadapi secara detail..." class="w-full px-3 py-2 border border-gray-200 rounded-lg text-[0.85rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 h-28 resize-none"></textarea>
@@ -410,8 +418,19 @@
             document.getElementById('reportPopup').classList.add('hidden');
             document.getElementById('reportDetail').value = ''; 
             
+            // Bersihkan kolom subjek dan reset counter karakter
+            document.getElementById('reportSubject').value = '';
+            const subjectCounter = document.getElementById('subjectCharCount');
+            if(subjectCounter) {
+                subjectCounter.textContent = '0/30 karakter';
+                subjectCounter.classList.remove('text-red-500');
+                subjectCounter.classList.add('text-gray-500');
+            }
+
             // Panggil fungsi hapus file agar lampirannya ikut keriset
-            removeSelectedFile(); 
+            if (typeof removeSelectedFile === "function") {
+                removeSelectedFile(); 
+            }
         }
 
         function submitReport(event) {
@@ -513,6 +532,25 @@
         function closeSuccessReportPopup() {
             document.getElementById('successReportPopup').classList.add('hidden');
         }
+
+        function updateSubjectCharCount(inputElement) {
+            const maxChars = 30;
+            const currentLength = inputElement.value.length;
+            const counterElement = document.getElementById('subjectCharCount');
+
+            // Update teks jumlah karakter
+            counterElement.textContent = `${currentLength}/${maxChars} karakter`;
+
+            // Ubah warna menjadi merah jika sudah mencapai batas maksimal
+            if (currentLength >= maxChars) {
+                counterElement.classList.add('text-red-500');
+                counterElement.classList.remove('text-gray-500');
+            } else {
+                counterElement.classList.remove('text-red-500');
+                counterElement.classList.add('text-gray-500');
+            }
+        }
+
     </script>
 </body>
 </html>

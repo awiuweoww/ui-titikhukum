@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pengaturan - Titik Hukum</title>
+    <script>
+        // Auth Guard: Direct to login if user is not authenticated
+        (function() {
+            try {
+                const auth = localStorage.getItem('titikhukum_auth') || localStorage.getItem('userEmail');
+                if (!auth) {
+                    sessionStorage.setItem('redirect_after_login', 'pengaturan-user.html');
+                    window.location.replace('login.html');
+                }
+            } catch(e) {}
+        })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            brown: '#2d1a11', 
+                            darkBrown: '#1a0f0a',
+                            hoverBrown: '#42281a',
+                            lightBrown: '#fdfbf9',
+                            borderBrown: '#e8ded8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .navbar-brown {
+            background-color: #211209;
+            background: linear-gradient(180deg, rgba(35, 19, 11, 0.98) 0%, rgba(26, 14, 8, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(85, 45, 25, 0.8);
+        }
+        
+        .page-transition {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #fdfbf9; }
+        ::-webkit-scrollbar-thumb { background: #d1cfc7; border-radius: 9999px; }
+
+        /* Custom styling dropdown agar panahnya elegan */
+        select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+            background-repeat: no-repeat;
+            background-position-x: 95%;
+            background-position-y: 50%;
+        }
+    </style>
+</head>
+<body class="bg-[#f7f5f2] text-gray-800 font-sans min-h-screen flex flex-col page-transition">
+
+    <header class="fixed top-0 left-0 right-0 z-50 w-full py-4 navbar-brown">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                
+                <a href="index.html" class="flex items-center gap-3 group">
+                    <img src="assets/logo-white.png" alt="Titik Hukum Logo" class="h-8 sm:h-9 object-contain transition-transform duration-300 group-hover:scale-105" />
+                </a>
+
+                <nav class="hidden md:flex items-center gap-8 lg:gap-10 text-[13px]">
+                    <a href="index.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">Beranda</a>
+                    <a href="pustaka.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">Pustaka Dokumen</a>
+                    <a href="chat.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm flex items-center gap-1.5">
+                        <span>Asisten Hukum</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[9px] font-extrabold bg-white/20 text-white backdrop-blur-xs">AI</span>
+                    </a>
+                    <a href="profil.html" class="text-white font-bold transition-all duration-300 transform hover:scale-110 hover:text-white py-1 inline-block drop-shadow-sm relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white/80">Profil Saya</a>
+                </nav>
+
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1 text-white/80 hover:text-white text-xs font-semibold transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1" title="Ganti Bahasa (EN / ID)">
+                        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
+                        <span id="navLangLabel" class="font-bold text-xs tracking-wide">EN</span>
+                    </button>
+
+                    <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-white/90 hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1 shrink-0" title="Ganti Mode Tema (Terang / Gelap)">
+                        <span id="navThemeIconContainer" class="inline-flex items-center justify-center w-5 h-5 shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><circle cx="12" cy="12" r="4.5"></circle><line x1="12" y1="1.5" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22.5"></line><line x1="4.22" y1="4.22" x2="6" y2="6"></line><line x1="18" y1="18" x2="19.78" y2="19.78"></line><line x1="1.5" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22.5" y2="12"></line><line x1="4.22" y1="19.78" x2="6" y2="18"></line><line x1="18" y1="6" x2="19.78" y2="4.22"></line></svg>
+                        </span>
+                    </button>
+
+                    <a href="login.html" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg border border-white/50 bg-transparent text-white hover:bg-white hover:text-gray-900 hover:border-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1">
+                        <span>Masuk & Daftar</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                    </a>
+
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-8.5 h-8.5 flex items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white hover:bg-white hover:text-gray-900 transition ml-1">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-3">
+            <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
+                <a href="index.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Beranda</a>
+                <a href="pustaka.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Pustaka Dokumen</a>
+                <a href="chat.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Asisten Hukum AI</a>
+                <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 text-white font-bold border-b border-white/10">Profil Saya</a>
+                
+                <div class="pt-2">
+                    <a href="login.html" class="w-full py-2.5 rounded-lg border border-white bg-white text-gray-900 text-xs font-normal flex items-center justify-center gap-2">
+                        <span>Masuk & Daftar</span>
+                        <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 flex justify-center items-start pt-28 pb-8 px-4 sm:px-8 md:pt-32 md:pb-12">
+        <div class="w-full max-w-[1100px] bg-white rounded-[24px] border border-brand-borderBrown shadow-[0_4px_24px_-8px_rgba(0,0,0,0.05)] flex flex-col md:flex-row overflow-hidden min-h-[620px] relative">
+            
+            <!-- SIDEBAR -->
+            <aside class="w-full md:w-[280px] pt-16 p-8 md:border-r border-b md:border-b-0 border-brand-borderBrown shrink-0 bg-brand-lightBrown flex flex-col items-center relative z-10">
+                <div class="w-[90px] h-[90px] mx-auto rounded-full overflow-hidden mb-4 border border-brand-borderBrown bg-white shrink-0 shadow-sm relative">
+                    <img id="sidebar-pic" src="assets/pp.jpg" alt="Profile Picture" class="w-full h-full object-cover" onerror="this.src='assets/pp.jpg'">
+                </div>
+                <p id="sidebar-handle" class="text-[0.8rem] text-center text-gray-500 mb-1 tracking-wide truncate w-full px-2">@username</p>
+                <h2 id="sidebar-name" class="text-[0.95rem] text-center font-bold text-gray-900 tracking-wide mb-8 break-words w-full px-2 line-clamp-2">Nama Lengkap</h2>
+
+                <ul class="flex flex-col gap-2 w-full flex-1">
+                    <a href="javascript:void(0)" onclick="navigateTo('profil.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Profil</a>
+                    
+                    <a href="javascript:void(0)" onclick="navigateTo('edit-profile.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Edit Profil</a>
+                    
+                    <a href="javascript:void(0)" onclick="navigateTo('laporan-user.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Riwayat Laporan</a>
+                    
+                    <!-- MENU AKTIF: Pengaturan -->
+                    <li class="px-4 py-2.5 text-[0.9rem] font-semibold text-brand-brown bg-white shadow-sm border border-brand-borderBrown rounded-lg relative cursor-default">Pengaturan</li>
+                    
+                    <li onclick="showLogoutPopup()" class="px-4 py-2.5 text-[0.9rem] font-semibold text-red-500 rounded-lg cursor-pointer transition-all duration-300 hover:bg-red-50 border border-transparent">Keluar</li>
+                    
+                    <li onclick="showReportPopup()" class="mt-auto px-4 py-2.5 text-[0.88rem] text-gray-400 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown flex items-center justify-center gap-2 group border border-transparent">
+                        <span>Laporan</span>
+                        <i class="fa-solid fa-circle-exclamation group-hover:text-brand-brown transition-colors"></i>
+                    </li>
+                </ul>
+            </aside>
+
+            <!-- KONTEN UTAMA PENGATURAN -->
+            <section class="flex-1 p-8 md:p-12 flex flex-col relative bg-white">
+                <div class="relative flex flex-col mb-8">
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-tight">Pengaturan</h1>
+                    <p class="text-[0.85rem] text-gray-500 mt-2">Kelola preferensi akun, keamanan, dan tampilan antarmuka Anda.</p>
+                </div>
+
+                <div class="bg-white border border-brand-borderBrown rounded-xl shadow-sm overflow-hidden flex flex-col p-6 sm:p-8 gap-8">
+                    
+                    <!-- Pengaturan 1: Ganti Email -->
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-gray-900 text-[0.95rem] mb-1">Ganti Email</h3>
+                            <p class="text-[0.8rem] text-gray-500 max-w-sm">Perbarui alamat surel yang terhubung dengan akun Titik Hukum Anda.</p>
+                        </div>
+                        <div class="flex flex-col sm:items-end w-full sm:w-auto gap-3">
+                            <input type="email" id="settingsEmail" placeholder="Masukkan email baru..." class="w-full sm:w-[260px] px-3.5 py-2.5 border border-gray-200 rounded-lg text-[0.85rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm">
+                            <button onclick="saveSettings('email')" class="bg-brand-brown hover:bg-brand-hoverBrown text-white px-5 py-2 rounded-lg text-[0.8rem] font-bold transition-colors shadow-sm w-full sm:w-auto">Simpan Email</button>
+                        </div>
+                    </div>
+
+                    <hr class="border-gray-100">
+
+                    <!-- Pengaturan 2: Ganti Sandi (Dengan Bar Kekuatan) -->
+                    <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-gray-900 text-[0.95rem] mb-1">Ganti Kata Sandi</h3>
+                            <p class="text-[0.8rem] text-gray-500 max-w-sm">Pastikan akun Anda tetap aman dengan menggunakan kata sandi yang kuat.</p>
+                        </div>
+                        <div class="flex flex-col sm:items-end w-full sm:w-auto gap-3">
+                            <div class="w-full sm:w-[260px] flex flex-col gap-1.5">
+                                <input type="password" id="settingsPassword" placeholder="Kata sandi baru..." class="w-full px-3.5 py-2.5 border border-gray-200 rounded-lg text-[0.85rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" oninput="checkPasswordStrength(this.value)">
+                                
+                                <!-- Bar Kekuatan Sandi (Satu Bar Utuh) -->
+                                <div class="h-1.5 w-full bg-gray-200 rounded-full mt-1 overflow-hidden">
+                                    <div id="passwordStrengthBar" class="h-full w-0 bg-transparent transition-all duration-300"></div>
+                                </div>
+                                <p id="passwordFeedback" class="text-[0.65rem] text-gray-400 text-right h-3">Minimal 6 karakter</p>
+                            </div>
+                            
+                            <button onclick="saveSettings('password')" class="bg-brand-brown hover:bg-brand-hoverBrown text-white px-5 py-2 rounded-lg text-[0.8rem] font-bold transition-colors shadow-sm w-full sm:w-auto">Ubah Sandi</button>
+                        </div>
+                    </div>
+
+                    <hr class="border-gray-100">
+
+                    <!-- Pengaturan 3: Ganti Bahasa -->
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-gray-900 text-[0.95rem] mb-1">Preferensi Bahasa</h3>
+                            <p class="text-[0.8rem] text-gray-500">Pilih bahasa utama untuk antarmuka aplikasi.</p>
+                        </div>
+                        <div class="w-full sm:w-auto">
+                            <select id="settingsLanguage" class="w-full sm:w-[260px] px-3.5 py-2.5 border border-gray-200 rounded-lg text-[0.85rem] font-medium text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm cursor-pointer" onchange="saveSettings('language')">
+                                <option value="id" selected>Bahasa Indonesia</option>
+                                <option value="en">English (US)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <hr class="border-gray-100">
+
+                    <!-- Pengaturan 4: Mode Gelap (Toggle) -->
+                    <div class="flex items-center justify-between gap-4">
+                        <div class="flex-1">
+                            <h3 class="font-bold text-gray-900 text-[0.95rem] mb-1">Mode Tampilan</h3>
+                            <p class="text-[0.8rem] text-gray-500">Gunakan tema gelap (Dark Mode) untuk mengurangi ketegangan mata.</p>
+                        </div>
+                        <div class="shrink-0 pt-1">
+                            <label class="relative inline-flex items-center cursor-pointer group">
+                                <input type="checkbox" id="darkModeToggle" class="sr-only peer" onchange="toggleDarkModeSetting()">
+                                <div class="w-12 h-[26px] bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[3px] after:left-[3px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-brand-brown"></div>
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </div>
+
+        <!-- POP-UPS -->
+
+        <!-- Pop-up Konfirmasi Logout -->
+        <div id="logoutPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+            <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
+                <div class="w-12 h-12 rounded-full bg-red-50 text-red-500 flex items-center justify-center mx-auto mb-1">
+                    <i class="fa-solid fa-arrow-right-from-bracket text-xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-900 text-lg">Konfirmasi Keluar</h3>
+                <p class="text-[0.8rem] text-gray-500">Apakah Anda yakin ingin keluar dari sesi ini?</p>
+                <div class="flex gap-3 mt-3">
+                    <button onclick="closeLogoutPopup()" class="flex-1 py-2.5 text-gray-600 font-bold rounded-lg border border-gray-200 hover:bg-gray-50 transition">Batal</button>
+                    <button onclick="handleLogout()" class="flex-1 py-2.5 text-white font-bold rounded-lg bg-red-500 hover:bg-red-600 transition shadow-sm">Ya, Keluar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pop-up Pengaturan BERHASIL -->
+        <div id="settingsSuccessPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+            <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
+                <div class="w-12 h-12 rounded-full bg-green-50 text-green-500 flex items-center justify-center mx-auto mb-1">
+                    <i class="fa-solid fa-circle-check text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-900 text-lg">Berhasil</h3>
+                <p id="settingsSuccessMessage" class="text-[0.8rem] text-gray-500 leading-relaxed">Pengaturan berhasil diperbarui.</p>
+                <button onclick="closeSettingsPopup('settingsSuccessPopup')" class="mt-3 w-full py-2.5 text-white font-bold rounded-lg bg-brand-brown hover:bg-brand-hoverBrown transition shadow-sm">Tutup</button>
+            </div>
+        </div>
+
+        <!-- Pop-up Pengaturan GAGAL (Validasi Error) -->
+        <div id="settingsErrorPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+            <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
+                <div class="w-12 h-12 rounded-full bg-red-50 text-red-500 flex items-center justify-center mx-auto mb-1">
+                    <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-900 text-lg">Peringatan</h3>
+                <p id="settingsErrorMessage" class="text-[0.8rem] text-gray-500 leading-relaxed">Terjadi kesalahan pada input.</p>
+                <button onclick="closeSettingsPopup('settingsErrorPopup')" class="mt-3 w-full py-2.5 text-white font-bold rounded-lg bg-brand-brown hover:bg-brand-hoverBrown transition shadow-sm">Mengerti</button>
+            </div>
+        </div>
+
+        <!-- Pop-up Laporan / Keluhan -->
+        <div id="reportPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+            <div class="bg-white rounded-2xl p-6 w-[400px] shadow-2xl flex flex-col gap-4">
+                <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
+                    <div class="w-10 h-10 rounded-full bg-brand-lightBrown text-brand-brown flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-envelope-open-text"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-[1.05rem]">Kirim Laporan</h3>
+                        <p class="text-[0.75rem] text-gray-500">Sampaikan kendala atau keluhan Anda.</p>
+                    </div>
+                </div>
+                
+                <form onsubmit="submitReport(event)" class="flex flex-col gap-4">
+                    <div class="flex flex-col gap-1.5">
+                        <div class="flex justify-between items-baseline">
+                            <label for="reportSubject" class="text-[0.75rem] font-bold text-gray-700">Subjek <span class="text-red-500">*</span></label>
+                            <span id="subjectCharCount" class="text-[0.7rem] text-gray-500 transition-colors">0/30 karakter</span>
+                        </div>
+                        <input type="text" id="reportSubject" required maxlength="30" placeholder="Contoh: Gagal unggah foto" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-[0.85rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" oninput="updateSubjectCharCount(this)">
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label for="reportDetail" class="text-[0.75rem] font-bold text-gray-700">Detail Keluhan <span class="text-red-500">*</span></label>
+                        <textarea id="reportDetail" required placeholder="Jelaskan masalah yang Anda hadapi secara detail..." class="w-full px-3 py-2 border border-gray-200 rounded-lg text-[0.85rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 h-28 resize-none"></textarea>
+                    </div>
+
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[0.75rem] font-bold text-gray-700">Lampirkan Screenshot (Opsional)</label>
+                        <div class="flex items-center gap-3">
+                            <input type="file" id="reportScreenshot" accept=".jpg, .jpeg, .png" class="hidden" onchange="handleFileSelect(event)">
+                            <button type="button" onclick="document.getElementById('reportScreenshot').click()" class="py-2 px-4 rounded-lg font-semibold bg-brand-lightBrown text-brand-brown hover:bg-brand-borderBrown transition text-[0.8rem] shrink-0">
+                                Choose File
+                            </button>
+                            <span id="fileNameDisplay" class="text-[0.8rem] text-gray-500 truncate max-w-[160px]">No file chosen</span>
+                            <button type="button" id="removeFileBtn" onclick="removeSelectedFile()" class="hidden text-red-500 hover:text-red-700 transition shrink-0" title="Hapus Lampiran">
+                                <i class="fa-solid fa-xmark text-lg"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-3 mt-2">
+                        <button type="button" onclick="closeReportPopup()" class="flex-1 py-2.5 text-gray-600 font-bold text-[0.85rem] rounded-lg border border-gray-200 hover:bg-gray-50 transition">Batal</button>
+                        <button type="submit" class="flex-1 py-2.5 text-white font-bold text-[0.85rem] rounded-lg bg-brand-brown hover:bg-brand-hoverBrown transition shadow-sm">Kirim Laporan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="successReportPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+            <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
+                <div class="w-12 h-12 rounded-full bg-green-50 text-green-500 flex items-center justify-center mx-auto mb-1">
+                    <i class="fa-solid fa-circle-check text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-900 text-lg">Laporan Terkirim</h3>
+                <p class="text-[0.8rem] text-gray-500 leading-relaxed">Terima kasih! Laporan Anda telah berhasil dikirim dan akan segera diproses.</p>
+                <button onclick="closeSuccessReportPopup()" class="mt-3 w-full py-2.5 text-white font-bold rounded-lg bg-brand-brown hover:bg-brand-hoverBrown transition shadow-sm">Tutup</button>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            loadSidebarData();
+            
+            // Inisialisasi input Email saat halaman dimuat
+            const emailInput = document.getElementById('settingsEmail');
+            if(emailInput) {
+                emailInput.value = localStorage.getItem('userEmail') || '';
+            }
+        });
+
+        // --- LOGIKA PENGATURAN (Validasi & Pop-Up HTML) ---
+        function saveSettings(type) {
+            if (type === 'email') {
+                const val = document.getElementById('settingsEmail').value.trim();
+                // Regex super standar untuk mengecek keberadaan string@string.domain
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                
+                if (!val) {
+                    showErrorSettings("Alamat surel tidak boleh kosong.");
+                } else if (!emailRegex.test(val)) {
+                    showErrorSettings("Format surel tidak valid. Pastikan ada simbol '@' dan domain yang benar.");
+                } else {
+                    localStorage.setItem('userEmail', val);
+                    showSuccessSettings("Alamat surel berhasil diperbarui menjadi:\n" + val);
+                    loadSidebarData(); // Update sidebar seketika
+                }
+
+            } else if (type === 'password') {
+                const val = document.getElementById('settingsPassword').value;
+                if (val.length < 6) {
+                    showErrorSettings("Gagal. Kata sandi yang dimasukkan kurang dari 6 karakter.");
+                } else {
+                    showSuccessSettings("Kata sandi berhasil diubah dan diamankan.");
+                    document.getElementById('settingsPassword').value = '';
+                    checkPasswordStrength(''); // Reset visual bar kata sandi
+                }
+
+            } else if (type === 'language') {
+                const lang = document.getElementById('settingsLanguage').value;
+                const langName = lang === 'id' ? 'Bahasa Indonesia' : 'English (US)';
+                showSuccessSettings("Preferensi bahasa telah diubah ke " + langName + ".");
+            }
+        }
+
+        // --- FUNGSI METERAN KEKUATAN SANDI ---
+        function checkPasswordStrength(password) {
+            const bar = document.getElementById('passwordStrengthBar');
+            const feedback = document.getElementById('passwordFeedback');
+
+            // Jika input kosong
+            if (password.length === 0) {
+                bar.style.width = '0%';
+                bar.className = 'h-full transition-all duration-300 bg-transparent';
+                feedback.textContent = 'Minimal 6 karakter';
+                feedback.className = 'text-[0.65rem] text-gray-400 text-right h-3';
+                return;
+            }
+
+            // Jika kurang dari 6 karakter (Merah / Pendek)
+            if (password.length < 6) {
+                bar.style.width = '33.33%';
+                bar.className = 'h-full transition-all duration-300 bg-red-500';
+                feedback.textContent = 'Terlalu pendek (Min. 6)';
+                feedback.className = 'text-[0.65rem] text-red-500 text-right h-3';
+                return;
+            }
+
+            // Hitung variasi karakter (Huruf kecil, Huruf besar, Angka, Semua Simbol)
+            let strength = 0;
+            if (/[a-z]/.test(password)) strength += 1;
+            if (/[A-Z]/.test(password)) strength += 1;
+            if (/[0-9]/.test(password)) strength += 1;
+            if (/[^a-zA-Z0-9]/.test(password)) strength += 1; // Mendeteksi titik dan semua simbol
+
+            // Eksekusi Lebar Bar dan Warna
+            if (strength <= 2) {
+                // Lemah: Hanya 1 atau 2 jenis karakter (Merah - 33%)
+                bar.style.width = '33.33%';
+                bar.className = 'h-full transition-all duration-300 bg-red-500';
+                feedback.textContent = 'Lemah';
+                feedback.className = 'text-[0.65rem] text-red-500 text-right h-3';
+            } else if (strength === 3) {
+                // Sedang: Kombinasi 3 jenis karakter (Kuning - 66%)
+                bar.style.width = '66.66%';
+                bar.className = 'h-full transition-all duration-300 bg-yellow-400';
+                feedback.textContent = 'Sedang';
+                feedback.className = 'text-[0.65rem] text-yellow-500 text-right h-3';
+            } else {
+                // Kuat: Kombinasi sangat variatif (Hijau - 100%)
+                bar.style.width = '100%';
+                bar.className = 'h-full transition-all duration-300 bg-green-500';
+                feedback.textContent = 'Kuat';
+                feedback.className = 'text-[0.65rem] text-green-500 text-right h-3';
+            }
+        }
+
+        // --- FUNGSI MANIPULASI POP-UP PENGATURAN ---
+        function showSuccessSettings(msg) {
+            document.getElementById('settingsSuccessMessage').textContent = msg;
+            document.getElementById('settingsSuccessPopup').classList.remove('hidden');
+        }
+
+        function showErrorSettings(msg) {
+            document.getElementById('settingsErrorMessage').textContent = msg;
+            document.getElementById('settingsErrorPopup').classList.remove('hidden');
+        }
+
+        function closeSettingsPopup(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // --- TOGGLE DARK MODE (UI ONLY) ---
+        function toggleDarkModeSetting() {
+            const isChecked = document.getElementById('darkModeToggle').checked;
+            toggleNavTheme(); // Memicu fungsi ganti icon theme navbar yang sudah ada
+        }
+
+
+        // --- FUNGSI STANDAR LAINNYA ---
+        function loadSidebarData() {
+            try {
+                const userEmail = localStorage.getItem('userEmail') || 'user@titikhukum.id';
+                const baseName = userEmail.includes('@') ? userEmail.split('@')[0] : userEmail;
+                const defaultUsername = baseName.toLowerCase().replace(/[^a-z0-9_.]/g, '');
+                const defaultName = baseName.replace(/[0-9]/g, '').split(/[._-]/).filter(Boolean).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') || "Pengguna Titik Hukum";
+
+                let savedProfile = JSON.parse(localStorage.getItem('titikhukum_user_profile') || '{}');
+                if (savedProfile.email && savedProfile.email !== userEmail) {
+                    savedProfile = {}; 
+                }
+
+                const finalName = savedProfile.name || defaultName;
+                const finalUsername = savedProfile.username || defaultUsername;
+                let currentProfilePic = 'assets/pp.jpg';
+                if (savedProfile.profilePic !== undefined) {
+                    currentProfilePic = savedProfile.profilePic;
+                }
+
+                if(document.getElementById('sidebar-name')) document.getElementById('sidebar-name').textContent = finalName;
+                if(document.getElementById('sidebar-handle')) document.getElementById('sidebar-handle').textContent = `@${finalUsername}`;
+                if(document.getElementById('sidebar-pic')) document.getElementById('sidebar-pic').src = currentProfilePic;
+            } catch(e) {
+                console.error("Gagal sinkronisasi data sidebar:", e);
+            }
+        }
+
+        function navigateTo(url) {
+            document.body.style.opacity = '0';
+            document.body.style.transform = 'translateY(-10px)';
+            document.body.style.transition = 'all 0.3s ease-in';
+            setTimeout(() => {
+                window.location.href = url;
+            }, 300);
+        }
+
+        function showLogoutPopup() {
+            document.getElementById('logoutPopup').classList.remove('hidden');
+        }
+
+        function closeLogoutPopup() {
+            document.getElementById('logoutPopup').classList.add('hidden');
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('titikhukum_auth');
+            localStorage.removeItem('userEmail');
+            sessionStorage.removeItem('redirect_after_login');
+            window.location.href = 'index.html';
+        }
+
+        function showReportPopup() {
+            document.getElementById('reportPopup').classList.remove('hidden');
+        }
+
+        function closeReportPopup() {
+            document.getElementById('reportPopup').classList.add('hidden');
+            document.getElementById('reportDetail').value = ''; 
+            document.getElementById('reportSubject').value = '';
+            
+            const subjectCounter = document.getElementById('subjectCharCount');
+            if(subjectCounter) {
+                subjectCounter.textContent = '0/30 karakter';
+                subjectCounter.classList.remove('text-red-500');
+                subjectCounter.classList.add('text-gray-500');
+            }
+
+            if (typeof removeSelectedFile === "function") {
+                removeSelectedFile(); 
+            }
+        }
+
+        function closeSuccessReportPopup() {
+            document.getElementById('successReportPopup').classList.add('hidden');
+        }
+
+        function submitReport(event) {
+            event.preventDefault(); 
+            
+            // Karena laporan sekarang disave ke localStorage, kita harus panggil logic simpannya
+            const subjectValue = document.getElementById('reportSubject').value;
+            const fileInput = document.getElementById('reportScreenshot');
+            const file = fileInput ? fileInput.files[0] : null;
+            
+            const dateObj = new Date();
+            const months = ["Jan", "Feb", "Mar", "Apr", "Mei", "Jun", "Jul", "Ags", "Sep", "Okt", "Nov", "Des"];
+            const formattedDate = `${String(dateObj.getDate()).padStart(2, '0')} ${months[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
+
+            const newReport = {
+                id: Date.now().toString(), 
+                subject: subjectValue,
+                date: formattedDate,
+                status: "Terkirim",
+                progress: "Belum Diproses",
+                file: null,
+                canPull: true
+            };
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    newReport.file = e.target.result;
+                    saveReportLocally(newReport);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                saveReportLocally(newReport);
+            }
+        }
+
+        function saveReportLocally(report) {
+            let stored = JSON.parse(localStorage.getItem('titikhukum_user_reports') || '[]');
+            stored.unshift(report);
+            localStorage.setItem('titikhukum_user_reports', JSON.stringify(stored));
+            
+            closeReportPopup(); 
+            document.getElementById('successReportPopup').classList.remove('hidden');
+        }
+
+        function updateSubjectCharCount(inputElement) {
+            const maxChars = 30;
+            const currentLength = inputElement.value.length;
+            const counterElement = document.getElementById('subjectCharCount');
+            counterElement.textContent = `${currentLength}/${maxChars} karakter`;
+            if (currentLength >= maxChars) {
+                counterElement.classList.add('text-red-500');
+                counterElement.classList.remove('text-gray-500');
+            } else {
+                counterElement.classList.remove('text-red-500');
+                counterElement.classList.add('text-gray-500');
+            }
+        }
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            const display = document.getElementById('fileNameDisplay');
+            const removeBtn = document.getElementById('removeFileBtn');
+
+            if (file) {
+                display.textContent = file.name;
+                display.classList.remove('text-gray-500');
+                display.classList.add('text-gray-900', 'font-medium');
+                removeBtn.classList.remove('hidden');
+            }
+        }
+
+        function removeSelectedFile() {
+            const input = document.getElementById('reportScreenshot');
+            const display = document.getElementById('fileNameDisplay');
+            const removeBtn = document.getElementById('removeFileBtn');
+            if(input) input.value = ''; 
+            if(display) {
+                display.textContent = 'No file chosen';
+                display.classList.add('text-gray-500');
+                display.classList.remove('text-gray-900', 'font-medium');
+            }
+            if(removeBtn) removeBtn.classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            if (!menu) return;
+            menu.classList.toggle('hidden');
+            if (icon) {
+                if (menu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                }
+            }
+        }
+
+        let currentLang = 'EN';
+        function toggleNavLang() {
+            currentLang = currentLang === 'EN' ? 'ID' : 'EN';
+            const label = document.getElementById('navLangLabel');
+            if (label) label.textContent = currentLang;
+        }
+
+        let isDarkMode = false;
+        function toggleNavTheme() {
+            isDarkMode = !isDarkMode;
+            const container = document.getElementById('navThemeIconContainer');
+            if (!container) return;
+            if (isDarkMode) {
+                container.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+            } else {
+                container.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><circle cx="12" cy="12" r="4.5"></circle><line x1="12" y1="1.5" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22.5"></line><line x1="4.22" y1="4.22" x2="6" y2="6"></line><line x1="18" y1="18" x2="19.78" y2="19.78"></line><line x1="1.5" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22.5" y2="12"></line><line x1="4.22" y1="19.78" x2="6" y2="18"></line><line x1="18" y1="6" x2="19.78" y2="4.22"></line></svg>`;
+            }
+        }
+    </script>
+</body>
+</html>

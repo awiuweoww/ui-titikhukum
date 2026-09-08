@@ -3,7 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profil Saya - Titik Hukum</title>
+    <title>Profil Admin - Titik Hukum</title>
+    <script>
+        // AUTH GUARD KHUSUS ADMIN: Tendang user selain admin
+        (function() {
+            try {
+                const authString = localStorage.getItem('titikhukum_auth');
+                
+                // 1. Jika tidak ada data login sama sekali
+                if (!authString) {
+                    sessionStorage.setItem('redirect_after_login', 'admin/profil.html');
+                    window.location.replace('../login.html');
+                    return;
+                }
+
+                // 2. Parse data login dan cek Role-nya
+                const authData = JSON.parse(authString);
+                
+                if (authData.role !== 'admin') {
+                    // Jika role BUKAN admin, tendang ke habitat aslinya
+                    if (authData.role === 'ahli_hukum') {
+                        window.location.replace('../ahli-hukum/index.html');
+                    } else {
+                        window.location.replace('../pustaka.html'); // Tendang ke pustaka user biasa
+                    }
+                }
+            } catch(e) {
+                // Jika terjadi error sistem atau manipulasi localStorage, lempar ke login
+                window.location.replace('../login.html');
+            }
+        })();
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,10 +50,11 @@
                     },
                     colors: {
                         brand: {
-                            brown: '#26150d',
-                            darkBrown: '#1f0f08',
-                            hoverBrown: '#381d12',
-                            lightBrown: '#f6eee7',
+                            brown: '#2d1a11', 
+                            darkBrown: '#1a0f0a',
+                            hoverBrown: '#42281a',
+                            lightBrown: '#fdfbf9',
+                            borderBrown: '#e8ded8'
                         }
                     }
                 }
@@ -31,7 +62,6 @@
         }
     </script>
 
-    <!-- Custom CSS -->
     <style>
         .navbar-brown {
             background-color: #211209;
@@ -41,42 +71,25 @@
             box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
             border-bottom: 1px solid rgba(85, 45, 25, 0.8);
         }
-        input[type="checkbox"] {
-            accent-color: #26150d;
-            cursor: pointer;
-            width: 1.05rem;
-            height: 1.05rem;
+        
+        .page-transition {
+            animation: fadeIn 0.4s ease-out forwards;
         }
-        .cat-pill { transition: all 0.2s ease; }
-        .cat-pill.active {
-            background-color: #26150d;
-            color: #ffffff;
-            font-weight: 600;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        .cat-pill:not(.active) {
-            background-color: transparent;
-            color: #666663;
-        }
-        .cat-pill:not(.active):hover {
-            background-color: #e5e4de;
-            color: #26150d;
-        }
+
         ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f0ec; }
+        ::-webkit-scrollbar-track { background: #fdfbf9; }
         ::-webkit-scrollbar-thumb { background: #d1cfc7; border-radius: 9999px; }
-        .dropdown-menu {
-            animation: dropdownFadeIn 0.15s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            transform-origin: top right;
-        }
-        @keyframes dropdownFadeIn {
-            from { opacity: 0; transform: scale(0.96) translateY(-6px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans min-h-screen flex flex-col">
+<body class="bg-[#f7f5f2] text-gray-800 font-sans min-h-screen flex flex-col page-transition">
 
-    <!-- HEADER TITIK HUKUM -->
+    <!-- ======================================================== -->
+    <!-- NAVBAR ADMIN (Diambil dari kodingan pustaka admin) -->
+    <!-- ======================================================== -->
     <header class="fixed top-0 left-0 right-0 z-50 w-full py-4 navbar-brown">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between">
@@ -87,26 +100,48 @@
                     <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-wider uppercase bg-amber-400/20 text-amber-300 border border-amber-400/40">ADMIN</span>
                 </a>
 
-                <!-- Center: Menu Navigation Links (Bold di Profil Saya) -->
+                <!-- Center: Menu Navigation Links (Aktif di Profil Saya) -->
                 <nav class="hidden md:flex items-center gap-8 lg:gap-10 text-[13px]">
-                    <a href="index.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">Beranda</a>
-                    <a href="pustaka.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">Pustaka Dokumen</a>
-                    <a href="pengguna.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">Kelola Ahli Hukum</a>
-                    <a href="profil.html" class="text-white font-bold transition-all duration-300 transform hover:scale-110 hover:text-white py-1 inline-block drop-shadow-sm relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white/80">Profil Saya</a>
+                    <a href="index.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Beranda
+                    </a>
+                    <a href="pustaka.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Pustaka Dokumen
+                    </a>
+                    <a href="pengguna.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Kelola Ahli Hukum
+                    </a>
+                    <!-- Active Bold Indicator on Profil Saya -->
+                    <a href="profil.html" class="text-white font-bold transition-all duration-300 transform hover:scale-110 hover:text-white py-1 inline-block drop-shadow-sm relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white/80">
+                        Profil Saya
+                    </a>
                 </nav>
 
-                <!-- Right: Language, Theme & Logout Buttons -->
+                <!-- Right: Language, Theme & Masuk & Daftar Buttons -->
                 <div class="flex items-center gap-3 sm:gap-4">
+                    
                     <!-- Language Switcher -->
                     <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1 text-white/80 hover:text-white text-xs font-semibold transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1" title="Ganti Bahasa (EN / ID)">
-                        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
+                        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24">
+                            <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+                        </svg>
                         <span id="navLangLabel" class="font-bold text-xs tracking-wide">EN</span>
                     </button>
 
                     <!-- Theme Dark/Light Mode Icon Button -->
                     <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-white/90 hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1 shrink-0" title="Ganti Mode Tema (Terang / Gelap)">
                         <span id="navThemeIconContainer" class="inline-flex items-center justify-center w-5 h-5 shrink-0">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><circle cx="12" cy="12" r="4.5"></circle><line x1="12" y1="1.5" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22.5"></line><line x1="4.22" y1="4.22" x2="6" y2="6"></line><line x1="18" y1="18" x2="19.78" y2="19.78"></line><line x1="1.5" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22.5" y2="12"></line><line x1="4.22" y1="19.78" x2="6" y2="18"></line><line x1="18" y1="6" x2="19.78" y2="4.22"></line></svg>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                                <circle cx="12" cy="12" r="4.5"></circle>
+                                <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                                <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                                <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                                <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                                <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                                <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                                <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+                            </svg>
                         </span>
                     </button>
 
@@ -142,95 +177,276 @@
         </div>
     </header>
 
-    <!-- CONTENT WRAPPER -->
-    <main class="flex-1 flex justify-center items-start pt-28 pb-8 px-8 md:pt-32 md:pb-12 md:px-5">
-        <div class="w-full max-w-[1000px] bg-white rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row overflow-hidden min-h-[620px]">
+    <main class="flex-1 flex justify-center items-start pt-28 pb-8 px-4 sm:px-8 md:pt-32 md:pb-12">
+        <div class="w-full max-w-[1100px] bg-white rounded-[24px] border border-brand-borderBrown shadow-[0_4px_24px_-8px_rgba(0,0,0,0.05)] flex flex-col md:flex-row overflow-hidden min-h-[620px] relative">
             
-            <!-- SIDEBAR-->
-            <aside class="w-full md:w-[260px] p-8 md:border-r border-b md:border-b-0 border-gray-200 shrink-0 bg-white flex flex-col">
-                <div class="w-[90px] h-[90px] rounded-full overflow-hidden mb-4 border border-gray-200 bg-gray-100">
-                    <img src="../assets/pp.jpg" alt="Profile Picture" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/90'">
-                </div>
-                <p class="text-[0.8rem] text-gray-500 mb-1 tracking-wide">@masbimo123</p>
-                <h2 class="text-[0.95rem] font-bold text-gray-900 uppercase tracking-wide mb-8">Bimo Amba</h2>
+            <!-- SIDEBAR KIRI ADMIN -->
+            <aside class="w-full md:w-[280px] pt-16 p-8 md:border-r border-b md:border-b-0 border-brand-borderBrown shrink-0 bg-brand-lightBrown flex flex-col items-center relative z-10">
+                <ul class="flex flex-col gap-2 w-full flex-1">
+                    <li class="px-4 py-2.5 text-[0.9rem] font-semibold text-brand-brown bg-white shadow-sm border border-brand-borderBrown rounded-lg relative cursor-default">Profil</li>
+                    
+                    <a href="javascript:void(0)" onclick="navigateTo('edit-profile.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Edit Profil</a>
+                    
+                    <!-- Laporan Pengguna menggantikan Riwayat Laporan -->
+                    <a href="javascript:void(0)" onclick="navigateTo('laporan-pengguna.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Laporan Pengguna</a>
 
-                <ul class="flex flex-col gap-1.5 flex-1">
-                    <li class="px-3.5 py-2.5 text-[0.88rem] font-semibold text-brand-brown bg-brand-lightBrown rounded-md relative cursor-pointer before:content-[''] before:absolute before:left-0 before:top-1.5 before:bottom-1.5 before:w-[3px] before:bg-brand-brown before:rounded-r-sm">Profil</li>
-                    <li class="px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">Edit Profil</li>
-                    <li class="px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">Kata Sandi</li>
-                    <li class="px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">Riwayat</li>
+                    <a href="javascript:void(0)" onclick="navigateTo('pengaturan.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Pengaturan</a>
                     
-                    <!-- Tombol Keluar -->
-                    <li class="px-3.5 py-2.5 text-[0.88rem] font-semibold text-red-600 rounded-md cursor-pointer transition-all duration-200 hover:bg-red-50 hover:text-red-700 hover:translate-x-1">Keluar</li>
+                    <li onclick="showLogoutPopup()" class="px-4 py-2.5 text-[0.9rem] font-semibold text-red-500 rounded-lg cursor-pointer transition-all duration-300 hover:bg-red-50 border border-transparent">Keluar</li>
                     
-                    <!-- Tombol Laporan -->
-                     <li class="mt-auto px-3.5 py-2.5 text-[0.88rem] text-gray-500 rounded-md cursor-pointer transition-all duration-200 hover:bg-gray-100 hover:text-brand-brown flex items-center justify-center gap-2 group">
-                        <span>Laporan</span>
-                        <i class="fa-solid fa-circle-exclamation text-gray-400 group-hover:text-brand-brown transition-colors"></i>
-                    </li>
+                    <!-- Tombol Laporan sudah dihapus dari ujung bawah -->
                 </ul>
             </aside>
 
-            <!-- MAIN PANEL -->
-            <section class="flex-1 p-8 md:p-10 flex flex-col justify-between">
-                <div>
-                    <!-- Header Profil & Lingkaran Persentase -->
-                    <div class="flex justify-between items-start mb-10">
-                        <h1 class="text-[1.8rem] font-bold text-gray-900">Profil</h1>
+            <section class="flex-1 flex flex-col relative bg-white">
+                
+                <div class="h-[160px] md:h-[200px] w-full bg-brand-darkBrown relative overflow-hidden shrink-0">
+                    <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop" alt="Library Cover Image" class="w-full h-full object-cover opacity-60 mix-blend-screen">
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-brown/90 via-brand-brown/40 to-transparent"></div>
+                    
+                    <button onclick="navigateTo('edit-profile.html')" class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md text-brand-brown hover:bg-brand-brown hover:text-white transition-all transform hover:scale-105 z-20" title="Edit Profil">
+                        <i class="fa-solid fa-pen text-[0.85rem]"></i>
+                    </button>
+                </div>
+
+                <div class="px-8 md:px-12 pb-12 relative flex-1 flex flex-col">
+                    
+                    <div class="flex items-start gap-5 -mt-14 mb-8 relative z-20">
                         
-                        <div class="flex flex-col items-center">
-                            <div class="w-[52px] h-[52px] rounded-full flex items-center justify-center relative" style="background: conic-gradient(#26150d 0% 75%, #E5E5E5 75% 100%);">
-                                <div class="absolute w-[42px] h-[42px] bg-white rounded-full"></div>
-                                <span class="relative z-10 text-[0.8rem] font-bold text-brand-brown">75%</span>
+                        <div class="flex flex-col items-center w-[110px] shrink-0">
+                            <!-- Update path gambar ke folder assets utama -->
+                            <div class="w-[110px] h-[110px] rounded-full overflow-hidden border-[4px] border-white shadow-lg bg-gray-100 shrink-0 relative z-20">
+                                <img id="main-pic" src="../assets/pp.jpg" alt="Profile Picture" class="w-full h-full object-cover">
                             </div>
-                            <span class="text-[0.6rem] font-bold text-gray-400 mt-1.5 tracking-wider uppercase">Lengkap</span>
+                            
+                            <div class="mt-1.5 flex flex-col items-center w-[160px]">
+                                <p id="main-handle" class="text-gray-500 font-medium tracking-wide truncate text-[0.85rem] text-center">@username</p>
+                                
+                                <!-- BADGE HAK AKSES PENUH ADMIN -->
+                                <div class="inline-flex items-center mt-1.5 px-2.5 py-1 bg-green-50 text-green-700 text-[10px] font-bold rounded-full border border-green-200">
+                                    <i class="fa-solid fa-shield-check mr-1.5"></i>Akun Hak Akses Penuh
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 max-w-[220px] md:max-w-[320px] shrink-0">
+                            <h1 id="main-name" class="text-2xl md:text-[1.65rem] font-extrabold text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-gray-400 tracking-tight leading-tight break-words line-clamp-3" style="filter: drop-shadow(0px 3px 6px rgba(0,0,0,0.85));">Nama Lengkap</h1>
                         </div>
                     </div>
 
-                    <!-- FORM -->
-                    <form class="flex flex-col gap-5 max-w-[580px]" onsubmit="event.preventDefault();">
-                        <div class="flex flex-col gap-1.5">
-                            <div class="flex justify-between items-baseline">
-                                <label for="name" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Nama Lengkap</label>
-                                <span class="text-[0.72rem] text-gray-500">Kami sangat mengutamakan penggunaan nama asli di sini.</span>
+                    <div class="bg-brand-lightBrown border border-brand-borderBrown rounded-2xl p-6 md:p-8 flex flex-col gap-6 flex-1 shadow-sm">
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white border border-brand-borderBrown flex items-center justify-center shrink-0 shadow-sm text-brand-brown">
+                                    <i class="fa-regular fa-envelope"></i>
+                                </div>
+                                <p id="main-email" class="text-[0.95rem] font-semibold text-gray-800 break-all">email@example.com</p>
                             </div>
-                            <input type="text" id="name" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" value="Bimo Amba">
-                        </div>
 
-                        <div class="flex flex-col gap-1.5">
-                            <div class="flex justify-between items-baseline">
-                                <label for="username" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Nama Pengguna</label>
+                            <div class="flex items-center gap-4">
+                                <div class="w-10 h-10 rounded-full bg-white border border-brand-borderBrown flex items-center justify-center shrink-0 shadow-sm text-brand-brown">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+                                <p id="main-location" class="text-[0.95rem] font-semibold text-gray-800 capitalize">Domisili Anda</p>
                             </div>
-                            <input type="text" id="username" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" value="masbimo123">
-                        </div>
 
-                        <div class="flex flex-col gap-1.5">
-                            <label for="email" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Alamat Surel</label>
-                            <input type="email" id="email" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" placeholder="example:titikhukum@hotmail.com">
-                        </div>
-
-                        <div class="flex flex-col gap-1.5">
-                            <label for="location" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Domisili</label>
-                            <input type="text" id="location" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" value="Ngawi">
-                        </div>
-
-                        <div class="flex flex-col gap-1.5">
-                            <label for="website" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Situs Web</label>
-                            <input type="url" id="website" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" placeholder="example.com">
-                        </div>
-
-                        <div class="flex flex-col gap-1.5">
-                            <div class="flex justify-between items-baseline">
-                                <label for="bio" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Bio</label>
-                                <span class="text-[0.72rem] text-gray-500">Maksimal 200 karakter</span>
+                            <div class="flex items-center gap-4 md:col-span-2">
+                                <div class="w-10 h-10 rounded-full bg-white border border-brand-borderBrown flex items-center justify-center shrink-0 shadow-sm text-brand-brown">
+                                    <i class="fa-solid fa-link"></i>
+                                </div>
+                                <a id="main-website" href="#" target="_blank" class="text-[0.95rem] font-semibold text-blue-600 hover:underline break-all w-full truncate">Belum ditambahkan</a>
                             </div>
-                            <textarea id="bio" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm h-24 resize-y" placeholder="Maksimal 200 karakter"></textarea>
                         </div>
-                    </form>
+
+                        <hr class="border-brand-borderBrown border-dashed my-2">
+
+                        <div class="flex flex-col">
+                            <p class="text-[0.7rem] font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-quote-left text-brand-brown/50"></i> Tentang Saya
+                            </p>
+                            <p id="main-bio" class="text-[0.95rem] text-gray-600 leading-relaxed bg-white p-5 rounded-xl border border-brand-borderBrown shadow-sm min-h-[100px]">
+                                Belum ada informasi bio yang ditambahkan.
+                            </p>
+                        </div>
+
+                    </div>
                 </div>
             </section>
         </div>
+
+        <!-- Pop-up Konfirmasi Keluar -->
+        <div id="logoutPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+            <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
+                <div class="w-12 h-12 rounded-full bg-red-50 text-red-500 flex items-center justify-center mx-auto mb-1">
+                    <i class="fa-solid fa-arrow-right-from-bracket text-xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-900 text-lg">Konfirmasi Keluar</h3>
+                <p class="text-[0.8rem] text-gray-500">Apakah Anda yakin ingin keluar dari sesi ini?</p>
+                <div class="flex gap-3 mt-3">
+                    <button onclick="closeLogoutPopup()" class="flex-1 py-2.5 text-gray-600 font-bold rounded-lg border border-gray-200 hover:bg-gray-50 transition">Batal</button>
+                    <button onclick="handleLogout()" class="flex-1 py-2.5 text-white font-bold rounded-lg bg-red-500 hover:bg-red-600 transition shadow-sm">Ya, Keluar</button>
+                </div>
+            </div>
+        </div>
     </main>
 
+    <script>
+        function navigateTo(url) {
+            document.body.style.opacity = '0';
+            document.body.style.transform = 'translateY(-10px)';
+            document.body.style.transition = 'all 0.3s ease-in';
+            setTimeout(() => {
+                // Trik: Pastikan browser tahu kita sedang navigasi di folder /admin/
+                const currentPath = window.location.pathname;
+                if (!currentPath.includes('/admin/')) {
+                    window.location.href = 'admin/' + url;
+                } else {
+                    window.location.href = url; 
+                }
+            }, 300);
+        }
+
+        const DEFAULT_AVATAR = '../assets/pp.jpg'; // Path disesuaikan ke folder assets root
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProfileData();
+        });
+
+        function loadProfileData() {
+            try {
+                const userEmail = localStorage.getItem('userEmail') || 'admin@titikhukum.com';
+                const baseName = userEmail.includes('@') ? userEmail.split('@')[0] : userEmail;
+                
+                const defaultUsername = baseName.toLowerCase().replace(/[^a-z0-9_.]/g, '');
+                const defaultName = baseName
+                    .replace(/[0-9]/g, '')
+                    .split(/[._-]/)
+                    .filter(Boolean)
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ') || "Admin Titik Hukum";
+
+                let savedProfile = JSON.parse(localStorage.getItem('titikhukum_admin_profile') || '{}');
+
+                if (savedProfile.email && savedProfile.email !== userEmail) {
+                    savedProfile = {}; 
+                }
+
+                const finalName = savedProfile.name || defaultName;
+                const finalUsername = savedProfile.username || defaultUsername;
+                const finalEmail = userEmail; 
+                const finalLocation = savedProfile.location || 'Indonesia';
+                const finalWebsite = savedProfile.website || '';
+                const finalBio = savedProfile.bio || '';
+                
+                let currentProfilePic = DEFAULT_AVATAR;
+                if (savedProfile.profilePic !== undefined) {
+                    currentProfilePic = savedProfile.profilePic;
+                }
+
+                if(document.getElementById('main-pic')) document.getElementById('main-pic').src = currentProfilePic;
+                
+                if(document.getElementById('main-name')) document.getElementById('main-name').textContent = finalName;
+                if(document.getElementById('main-handle')) document.getElementById('main-handle').textContent = `@${finalUsername}`;
+                if(document.getElementById('main-email')) document.getElementById('main-email').textContent = finalEmail;
+                if(document.getElementById('main-location')) document.getElementById('main-location').textContent = finalLocation;
+                
+                const webEl = document.getElementById('main-website');
+                if(webEl) {
+                    if(finalWebsite.trim() === '') {
+                        webEl.textContent = 'Belum ditambahkan';
+                        webEl.removeAttribute('href');
+                        webEl.classList.replace('text-blue-600', 'text-gray-400');
+                        webEl.classList.remove('hover:underline');
+                    } else {
+                        webEl.textContent = finalWebsite;
+                        webEl.href = finalWebsite.startsWith('http') ? finalWebsite : `https://${finalWebsite}`;
+                        webEl.classList.replace('text-gray-400', 'text-blue-600');
+                        webEl.classList.add('hover:underline');
+                    }
+                }
+
+                const bioEl = document.getElementById('main-bio');
+                if(bioEl) {
+                    if(finalBio.trim() === '' || finalBio === 'Maksimal 200 karakter') {
+                        bioEl.textContent = 'Belum ada informasi bio yang ditambahkan.';
+                        bioEl.classList.add('italic', 'text-gray-400');
+                    } else {
+                        bioEl.textContent = finalBio;
+                        bioEl.classList.remove('italic', 'text-gray-400');
+                    }
+                }
+
+            } catch(e) {
+                console.error("Gagal sinkronisasi data:", e);
+            }
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('titikhukum_auth');
+            localStorage.removeItem('userEmail');
+            sessionStorage.removeItem('redirect_after_login');
+            window.location.href = '../index.html'; // Path disesuaikan keluar dari folder admin
+        }
+
+        function showLogoutPopup() {
+            document.getElementById('logoutPopup').classList.remove('hidden');
+        }
+
+        function closeLogoutPopup() {
+            document.getElementById('logoutPopup').classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            if (!menu) return;
+            menu.classList.toggle('hidden');
+            if (icon) {
+                if (menu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                }
+            }
+        }
+
+        let currentLang = 'EN';
+        function toggleNavLang() {
+            currentLang = currentLang === 'EN' ? 'ID' : 'EN';
+            const label = document.getElementById('navLangLabel');
+            if (label) label.textContent = currentLang;
+        }
+
+        let isDarkMode = false;
+        function toggleNavTheme() {
+            isDarkMode = !isDarkMode;
+            const container = document.getElementById('navThemeIconContainer');
+            if (!container) return;
+            if (isDarkMode) {
+                container.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                `;
+            } else {
+                container.innerHTML = `
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                        <circle cx="12" cy="12" r="4.5"></circle>
+                        <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                        <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                        <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                        <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                        <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                        <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                        <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+                    </svg>
+                `;
+            }
+        }
+    </script>
 </body>
 </html>

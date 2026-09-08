@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profil Admin - Titik Hukum</title>
+    <script>
+        // AUTH GUARD KHUSUS ADMIN: Tendang user selain admin
+        (function() {
+            try {
+                const authString = localStorage.getItem('titikhukum_auth');
+                
+                // 1. Jika tidak ada data login sama sekali
+                if (!authString) {
+                    sessionStorage.setItem('redirect_after_login', 'admin/profil.html');
+                    window.location.replace('../login.html');
+                    return;
+                }
+
+                // 2. Parse data login dan cek Role-nya
+                const authData = JSON.parse(authString);
+                
+                if (authData.role !== 'admin') {
+                    // Jika role BUKAN admin, tendang ke habitat aslinya
+                    if (authData.role === 'ahli_hukum') {
+                        window.location.replace('../ahli-hukum/index.html');
+                    } else {
+                        window.location.replace('../pustaka.html'); // Tendang ke pustaka user biasa
+                    }
+                }
+            } catch(e) {
+                // Jika terjadi error sistem atau manipulasi localStorage, lempar ke login
+                window.location.replace('../login.html');
+            }
+        })();
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            brown: '#2d1a11', 
+                            darkBrown: '#1a0f0a',
+                            hoverBrown: '#42281a',
+                            lightBrown: '#fdfbf9',
+                            borderBrown: '#e8ded8'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .navbar-brown {
+            background-color: #211209;
+            background: linear-gradient(180deg, rgba(35, 19, 11, 0.98) 0%, rgba(26, 14, 8, 0.98) 100%);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid rgba(85, 45, 25, 0.8);
+        }
+        
+        .page-transition {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #fdfbf9; }
+        ::-webkit-scrollbar-thumb { background: #d1cfc7; border-radius: 9999px; }
+    </style>
+</head>
+<body class="bg-[#f7f5f2] text-gray-800 font-sans min-h-screen flex flex-col page-transition">
+
+    <!-- ======================================================== -->
+    <!-- NAVBAR ADMIN -->
+    <!-- ======================================================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 w-full py-4 navbar-brown">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                
+                <a href="index.html" class="flex items-center gap-2.5 group">
+                    <img src="../assets/logo-white.png" alt="Titik Hukum Logo" class="h-8 sm:h-9 object-contain transition-transform duration-300 group-hover:scale-105" />
+                    <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-wider uppercase bg-amber-400/20 text-amber-300 border border-amber-400/40">ADMIN</span>
+                </a>
+
+                <nav class="hidden md:flex items-center gap-8 lg:gap-10 text-[13px]">
+                    <a href="index.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Beranda
+                    </a>
+                    <a href="pustaka.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Pustaka Dokumen
+                    </a>
+                    <a href="pengguna.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
+                        Kelola Ahli Hukum
+                    </a>
+                    <a href="profil.html" class="text-white font-bold transition-all duration-300 transform hover:scale-110 hover:text-white py-1 inline-block drop-shadow-sm relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white/80">
+                        Profil Saya
+                    </a>
+                </nav>
+
+                <div class="flex items-center gap-3 sm:gap-4">
+                    <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1 text-white/80 hover:text-white text-xs font-semibold transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1" title="Ganti Bahasa (EN / ID)">
+                        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24">
+                            <path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/>
+                        </svg>
+                        <span id="navLangLabel" class="font-bold text-xs tracking-wide">EN</span>
+                    </button>
+
+                    <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-white/90 hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1 shrink-0" title="Ganti Mode Tema (Terang / Gelap)">
+                        <span id="navThemeIconContainer" class="inline-flex items-center justify-center w-5 h-5 shrink-0">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block">
+                                <circle cx="12" cy="12" r="4.5"></circle>
+                                <line x1="12" y1="1.5" x2="12" y2="4"></line>
+                                <line x1="12" y1="20" x2="12" y2="22.5"></line>
+                                <line x1="4.22" y1="4.22" x2="6" y2="6"></line>
+                                <line x1="18" y1="18" x2="19.78" y2="19.78"></line>
+                                <line x1="1.5" y1="12" x2="4" y2="12"></line>
+                                <line x1="20" y1="12" x2="22.5" y2="12"></line>
+                                <line x1="4.22" y1="19.78" x2="6" y2="18"></line>
+                                <line x1="18" y1="6" x2="19.78" y2="4.22"></line>
+                            </svg>
+                        </span>
+                    </button>
+
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-white/40 bg-white/10 text-white hover:bg-rose-600 hover:border-rose-600 hover:text-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1" title="Keluar dari mode admin">
+                        <i class="fa-solid fa-user-shield text-amber-300 text-xs"></i>
+                        <span>Admin (Keluar)</span>
+                    </a>
+
+                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-8.5 h-8.5 flex items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white hover:bg-white hover:text-gray-900 transition ml-1">
+                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-3">
+            <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
+                <a href="index.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Beranda</a>
+                <a href="pustaka.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Pustaka Dokumen</a>
+                <a href="pengguna.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Kelola Ahli Hukum</a>
+                <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 text-white font-bold border-b border-white/10">Profil Saya</a>
+                
+                <div class="pt-2">
+                    <a href="../login.html" onclick="localStorage.removeItem('titikhukum_auth')" class="w-full py-2.5 rounded-lg border border-rose-500 bg-rose-600 text-white text-xs font-semibold flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
+                        <span>Admin (Keluar)</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 flex justify-center items-start pt-28 pb-8 px-8 md:pt-32 md:pb-12 md:px-5">
+        <div class="w-full max-w-[1100px] bg-white rounded-[24px] border border-brand-borderBrown shadow-[0_4px_24px_-8px_rgba(0,0,0,0.05)] flex flex-col md:flex-row overflow-hidden min-h-[620px]">
+            
+            <!-- ======================================================== -->
+            <!-- SIDEBAR ADMIN -->
+            <!-- ======================================================== -->
+            <aside class="w-full md:w-[280px] p-8 md:border-r border-b md:border-b-0 border-brand-borderBrown shrink-0 bg-brand-lightBrown flex flex-col">
+                <div onclick="openPhotoPopup()" class="w-[90px] h-[90px] mx-auto rounded-full overflow-hidden mb-4 border border-brand-borderBrown bg-white relative group cursor-pointer shrink-0 shadow-sm">
+                    <img id="sidebar-pic" src="../assets/pp.jpg" alt="Profile Picture" class="w-full h-full object-cover" onerror="this.src='../assets/pp.jpg'">
+                    <div class="absolute inset-0 bg-black/40 hidden group-hover:flex items-center justify-center transition-all">
+                        <i class="fa-solid fa-camera text-white"></i>
+                    </div>
+                </div>
+                <p id="sidebar-handle" class="text-[0.8rem] text-center text-gray-500 mb-1 tracking-wide break-all px-2 shrink-0">@username</p>
+                <h2 id="sidebar-name" class="text-[0.95rem] text-center font-bold text-gray-900 tracking-wide break-words px-2 shrink-0">Nama Lengkap</h2>
+
+                <!-- BADGE ADMIN (Rounded-md sesuai kesepakatan) -->
+                <div class="flex justify-center mb-8 mt-1.5">
+                    <div class="inline-flex items-center px-2.5 py-1 bg-green-50 text-green-700 text-[10px] font-bold rounded-md border border-green-200 shadow-sm">
+                        <i class="fa-solid fa-shield-check mr-1.5"></i>Akun Hak Akses Penuh
+                    </div>
+                </div>
+
+                <ul class="flex flex-col gap-1.5 flex-1">
+                    <a href="javascript:void(0)" onclick="navigateTo('profil.html')" class="block px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-white hover:text-brand-brown hover:translate-x-1 border border-transparent">Profil</a>
+                    
+                    <!-- MENU AKTIF: Edit Profil -->
+                    <li class="px-4 py-2.5 text-[0.88rem] font-semibold text-brand-brown bg-white shadow-sm border border-brand-borderBrown rounded-lg relative cursor-default">Edit Profil</li>
+                    
+                    <!-- Menu Admin -->
+                    <a href="javascript:void(0)" onclick="navigateTo('laporan-pengguna.html')" class="block px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-white hover:text-brand-brown hover:translate-x-1 border border-transparent">Laporan Pengguna</a>
+                    
+                    <a href="javascript:void(0)" onclick="navigateTo('pengaturan.html')" class="block px-3.5 py-2.5 text-[0.88rem] text-gray-700 rounded-md cursor-pointer transition-all duration-200 hover:bg-white hover:text-brand-brown hover:translate-x-1 border border-transparent">Pengaturan</a>
+                    
+                    <li onclick="showLogoutPopup()" class="px-3.5 py-2.5 text-[0.88rem] font-semibold text-red-600 rounded-md cursor-pointer transition-all duration-200 hover:bg-red-50 hover:text-red-700 hover:translate-x-1 border border-transparent">Keluar</li>
+                </ul>
+            </aside>
+
+            <!-- KONTEN FORM EDIT -->
+            <section class="flex-1 p-8 md:p-10 flex flex-col justify-between">
+                <div>
+                    <div class="relative flex justify-center items-center mb-10">
+                        <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 text-center">Edit Profil</h1>
+                    </div>
+
+                    <form id="editProfileForm" class="flex flex-col gap-5 max-w-[580px] mx-auto w-full" onsubmit="showConfirmPopup(event);">
+                        <div class="flex flex-col gap-1.5">
+                            <div class="flex justify-between items-baseline">
+                                <label for="name" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Nama Lengkap <span class="text-red-500">*</span></label>
+                                <span class="text-[0.72rem] text-gray-500">Kami sangat mengutamakan penggunaan nama asli di sini.</span>
+                            </div>
+                            <input type="text" id="name" required class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm">
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <div class="flex justify-between items-baseline">
+                                <label for="username" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Nama Pengguna <span class="text-red-500">*</span></label>
+                            </div>
+                            <input type="text" id="username" required class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm">
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <label for="email" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Alamat Surel <span class="text-red-500">*</span></label>
+                            <input type="email" id="email" required class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" readonly>
+                        </div>
+                        
+                        <div class="flex flex-col gap-1.5">
+                            <label for="location" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Domisili <span class="text-red-500">*</span></label>
+                            <input type="text" id="location" required class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm capitalize" value="Indonesia">
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <label for="website" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Situs Web</label>
+                            <input type="url" id="website" placeholder="example.com" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm placeholder-gray-400">
+                        </div>
+
+                        <div class="flex flex-col gap-1.5">
+                            <div class="flex justify-between items-baseline">
+                                <label for="bio" class="text-[0.72rem] font-bold text-brand-brown uppercase tracking-wide">Bio</label>
+                                <span class="text-[0.72rem] text-gray-500">Maksimal 200 karakter</span>
+                            </div>
+                            <textarea id="bio" placeholder="Maksimal 200 karakter" class="w-full px-3.5 py-2.5 border border-gray-200 rounded-md text-[0.88rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm h-24 resize-y placeholder-gray-400"></textarea>
+                        </div>
+                        
+                        <div class="mt-4 flex justify-end">
+                            <button type="submit" class="bg-brand-brown hover:bg-brand-hoverBrown text-white px-6 py-2.5 rounded-lg text-[0.85rem] font-bold tracking-wide transition-colors shadow-sm">
+                                Simpan Perubahan
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- SEMUA POP-UP DILETAKKAN DI SINI -->
+
+    <!-- Pop-up Edit Foto Profil -->
+    <div id="photoPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-3">
+            <h3 class="text-center font-bold text-gray-900 mb-2">Ubah Foto Profil</h3>
+            <button onclick="document.getElementById('fileUpload').click(); closePhotoPopup();" class="w-full py-2.5 bg-brand-brown text-white font-semibold rounded-lg hover:bg-brand-hoverBrown transition">
+                Unggah Foto
+            </button>
+            <button onclick="deletePhoto()" class="w-full py-2.5 bg-red-50 text-red-600 font-semibold rounded-lg hover:bg-red-100 transition">
+                Hapus Foto
+            </button>
+            <button onclick="closePhotoPopup()" class="w-full py-2 text-gray-500 font-medium hover:text-gray-800 transition mt-2">
+                Batal
+            </button>
+            <input type="file" id="fileUpload" accept=".jpg, .jpeg, .png" class="hidden" onchange="previewPhoto(event)">
+        </div>
+    </div>
+
+    <!-- Pop-up Konfirmasi Simpan Profil -->
+    <div id="confirmPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-brand-lightBrown text-brand-brown flex items-center justify-center mx-auto mb-1">
+                <i class="fa-solid fa-question text-xl"></i>
+            </div>
+            <h3 class="font-bold text-gray-900 text-lg">Simpan Perubahan?</h3>
+            <p class="text-[0.8rem] text-gray-500">Apakah Anda yakin ingin menerapkan perubahan pada profil ini?</p>
+            <div class="flex gap-3 mt-3">
+                <button onclick="closeConfirmPopup()" class="flex-1 py-2.5 text-gray-600 font-bold rounded-lg border border-gray-200 hover:bg-gray-50 transition">Tidak</button>
+                <button onclick="executeSaveProfile()" class="flex-1 py-2.5 text-white font-bold rounded-lg bg-brand-brown hover:bg-brand-hoverBrown transition">Ya</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pop-up Error Format File -->
+    <div id="errorPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-1">
+                <i class="fa-solid fa-triangle-exclamation text-xl"></i>
+            </div>
+            <h3 class="font-bold text-gray-900 text-lg">Format Tidak Sesuai</h3>
+            <p class="text-[0.8rem] text-gray-500">Gagal mengunggah. Pastikan file berformat JPG atau PNG.</p>
+            <button onclick="closeErrorPopup()" class="mt-3 w-full py-2.5 text-white font-bold rounded-lg bg-brand-brown hover:bg-brand-hoverBrown transition">Tutup</button>
+        </div>
+    </div>
+
+    <!-- Pop-up Konfirmasi Logout -->
+    <div id="logoutPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
+        <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-red-50 text-red-500 flex items-center justify-center mx-auto mb-1">
+                <i class="fa-solid fa-arrow-right-from-bracket text-xl"></i>
+            </div>
+            <h3 class="font-bold text-gray-900 text-lg">Konfirmasi Keluar</h3>
+            <p class="text-[0.8rem] text-gray-500">Apakah Anda yakin ingin keluar dari sesi ini?</p>
+            <div class="flex gap-3 mt-3">
+                <button onclick="closeLogoutPopup()" class="flex-1 py-2.5 text-gray-600 font-bold rounded-lg border border-gray-200 hover:bg-gray-50 transition">Batal</button>
+                <button onclick="handleLogout()" class="flex-1 py-2.5 text-white font-bold rounded-lg bg-red-500 hover:bg-red-600 transition shadow-sm">Ya, Keluar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DATA LOAD ---
+        const DEFAULT_AVATAR = '../assets/pp.jpg';
+        let currentProfilePic = DEFAULT_AVATAR;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProfileData();
+        });
+
+        function loadProfileData() {
+            try {
+                // Diubah default email ke Admin
+                const userEmail = localStorage.getItem('userEmail') || 'admin@titikhukum.com';
+                const baseName = userEmail.includes('@') ? userEmail.split('@')[0] : userEmail;
+                
+                const defaultUsername = baseName.toLowerCase().replace(/[^a-z0-9_.]/g, '');
+                const defaultName = baseName.replace(/[0-9]/g, '').split(/[._-]/).filter(Boolean).map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') || "Admin Titik Hukum";
+
+                // LocalStorage diarahkan ke titikhukum_admin_profile
+                let savedProfile = JSON.parse(localStorage.getItem('titikhukum_admin_profile') || '{}');
+
+                if (savedProfile.email && savedProfile.email !== userEmail) {
+                    savedProfile = {}; 
+                }
+
+                const finalName = savedProfile.name || defaultName;
+                const finalUsername = savedProfile.username || defaultUsername;
+                const finalEmail = userEmail; 
+                const finalLocation = savedProfile.location || 'Indonesia';
+                const finalWebsite = savedProfile.website !== undefined ? savedProfile.website : '';
+                const finalBio = savedProfile.bio !== undefined ? savedProfile.bio : '';
+                
+                if (savedProfile.profilePic !== undefined) {
+                    currentProfilePic = savedProfile.profilePic;
+                }
+
+                if(document.getElementById('name')) document.getElementById('name').value = finalName;
+                if(document.getElementById('username')) document.getElementById('username').value = finalUsername;
+                if(document.getElementById('email')) document.getElementById('email').value = finalEmail;
+                if(document.getElementById('location')) document.getElementById('location').value = finalLocation;
+                if(document.getElementById('website')) document.getElementById('website').value = finalWebsite;
+                if(document.getElementById('bio')) document.getElementById('bio').value = finalBio;
+                
+                if(document.getElementById('sidebar-name')) document.getElementById('sidebar-name').textContent = finalName;
+                if(document.getElementById('sidebar-handle')) document.getElementById('sidebar-handle').textContent = `@${finalUsername}`;
+                if(document.getElementById('sidebar-pic')) document.getElementById('sidebar-pic').src = currentProfilePic;
+            } catch(e) {
+                console.error("Gagal sinkronisasi data:", e);
+            }
+        }
+
+        // --- SIMPAN PROFIL ---
+        function showConfirmPopup(event) {
+            event.preventDefault();
+            document.getElementById('confirmPopup').classList.remove('hidden');
+        }
+
+        function closeConfirmPopup() {
+            document.getElementById('confirmPopup').classList.add('hidden');
+        }
+
+        function closeErrorPopup() {
+            document.getElementById('errorPopup').classList.add('hidden');
+        }
+
+        function executeSaveProfile() {
+            const profileData = {
+                name: document.getElementById('name').value,
+                username: document.getElementById('username').value,
+                email: document.getElementById('email').value,
+                location: document.getElementById('location').value,
+                website: document.getElementById('website').value,
+                bio: document.getElementById('bio').value,
+                profilePic: currentProfilePic
+            };
+
+            // LocalStorage diarahkan ke titikhukum_admin_profile
+            localStorage.setItem('titikhukum_admin_profile', JSON.stringify(profileData));
+            
+            document.getElementById('sidebar-name').textContent = profileData.name;
+            document.getElementById('sidebar-handle').textContent = `@${profileData.username}`;
+
+            closeConfirmPopup();
+            
+            setTimeout(() => {
+                window.location.href = 'profil.html';
+            }, 300);
+        }
+
+        // --- FOTO PROFIL ---
+        function openPhotoPopup() {
+            document.getElementById('photoPopup').classList.remove('hidden');
+        }
+
+        function closePhotoPopup() {
+            document.getElementById('photoPopup').classList.add('hidden');
+        }
+
+        function deletePhoto() {
+            currentProfilePic = DEFAULT_AVATAR;
+            document.getElementById('sidebar-pic').src = currentProfilePic;
+            
+            let savedProfile = JSON.parse(localStorage.getItem('titikhukum_admin_profile') || '{}');
+            savedProfile.profilePic = currentProfilePic;
+            savedProfile.email = document.getElementById('email').value; 
+            localStorage.setItem('titikhukum_admin_profile', JSON.stringify(savedProfile));
+
+            closePhotoPopup();
+        }
+
+        function previewPhoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+                if (!validTypes.includes(file.type)) {
+                    document.getElementById('errorPopup').classList.remove('hidden');
+                    event.target.value = ''; 
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    currentProfilePic = e.target.result;
+                    document.getElementById('sidebar-pic').src = currentProfilePic;
+                    
+                    let savedProfile = JSON.parse(localStorage.getItem('titikhukum_admin_profile') || '{}');
+                    savedProfile.profilePic = currentProfilePic;
+                    savedProfile.email = document.getElementById('email').value;
+                    localStorage.setItem('titikhukum_admin_profile', JSON.stringify(savedProfile));
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // --- NAVIGASI ---
+        function navigateTo(url) {
+            document.body.style.opacity = '0';
+            document.body.style.transform = 'translateY(-10px)';
+            document.body.style.transition = 'all 0.3s ease-in';
+            setTimeout(() => {
+                // Trik: Pastikan browser tahu kita sedang navigasi di folder /admin/
+                const currentPath = window.location.pathname;
+                if (!currentPath.includes('/admin/')) {
+                    window.location.href = 'admin/' + url;
+                } else {
+                    window.location.href = url; 
+                }
+            }, 300);
+        }
+
+        // --- POP-UP LOGOUT ---
+        function showLogoutPopup() {
+            document.getElementById('logoutPopup').classList.remove('hidden');
+        }
+
+        function closeLogoutPopup() {
+            document.getElementById('logoutPopup').classList.add('hidden');
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('titikhukum_auth');
+            localStorage.removeItem('userEmail');
+            sessionStorage.removeItem('redirect_after_login');
+            window.location.href = '../index.html';
+        }
+
+        // --- UTILITY NAVBAR ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            const icon = document.getElementById('mobileMenuIcon');
+            if (!menu) return;
+            menu.classList.toggle('hidden');
+            if (icon) {
+                if (menu.classList.contains('hidden')) {
+                    icon.classList.remove('fa-xmark');
+                    icon.classList.add('fa-bars');
+                } else {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-xmark');
+                }
+            }
+        }
+
+        let currentLang = 'EN';
+        function toggleNavLang() {
+            currentLang = currentLang === 'EN' ? 'ID' : 'EN';
+            const label = document.getElementById('navLangLabel');
+            if (label) label.textContent = currentLang;
+        }
+
+        let isDarkMode = false;
+        function toggleNavTheme() {
+            isDarkMode = !isDarkMode;
+            const container = document.getElementById('navThemeIconContainer');
+            if (!container) return;
+            if (isDarkMode) {
+                container.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>`;
+            } else {
+                container.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><circle cx="12" cy="12" r="4.5"></circle><line x1="12" y1="1.5" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22.5"></line><line x1="4.22" y1="4.22" x2="6" y2="6"></line><line x1="18" y1="18" x2="19.78" y2="19.78"></line><line x1="1.5" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22.5" y2="12"></line><line x1="4.22" y1="19.78" x2="6" y2="18"></line><line x1="18" y1="6" x2="19.78" y2="4.22"></line></svg>`;
+            }
+        }
+    </script>
+</body>
+</html>

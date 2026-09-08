@@ -52,12 +52,15 @@
             border-bottom: 1px solid rgba(85, 45, 25, 0.8);
         }
 
-        /* Checkbox Custom Brown Accent */
+        /* Checkbox Custom Brown Accent (Light) & Gold Accent (Dark) */
         input[type="checkbox"] {
             accent-color: #26150d;
             cursor: pointer;
             width: 1.05rem;
             height: 1.05rem;
+        }
+        html.dark input[type="checkbox"] {
+            accent-color: #E5A93C !important;
         }
 
         /* Category Filter Pills */
@@ -359,11 +362,11 @@
 
                 <!-- Kanan: Pagination Controls -->
                 <div class="flex items-center gap-2">
-                    <button type="button" onclick="prevPage()" id="prevPageBtn" class="px-3.5 py-1.5 rounded-full border border-gray-200 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-gray-700 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition">
+                    <button type="button" onclick="prevPage()" id="prevPageBtn" class="px-3.5 py-1.5 rounded-full border border-gray-200 dark:border-[#715A5A] hover:bg-[#f6eee7] dark:hover:bg-[#2B2A32] hover:border-[#cbb4a3] text-gray-700 dark:text-gray-300 dark:hover:text-[#E5A93C] font-medium disabled:opacity-40 disabled:cursor-not-allowed transition">
                         Sebelumnya
                     </button>
-                    <span id="pageIndicator" class="px-3 py-1 text-gray-800 font-bold">1 / 1</span>
-                    <button type="button" onclick="nextPage()" id="nextPageBtn" class="px-3.5 py-1.5 rounded-full border border-gray-200 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-gray-700 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition">
+                    <span id="pageIndicator" class="px-3 py-1 text-gray-800 dark:text-white font-bold">1 / 1</span>
+                    <button type="button" onclick="nextPage()" id="nextPageBtn" class="px-3.5 py-1.5 rounded-full border border-gray-200 dark:border-[#715A5A] hover:bg-[#f6eee7] dark:hover:bg-[#2B2A32] hover:border-[#cbb4a3] text-gray-700 dark:text-gray-300 dark:hover:text-[#E5A93C] font-medium disabled:opacity-40 disabled:cursor-not-allowed transition">
                         Berikutnya
                     </button>
                 </div>
@@ -2831,22 +2834,22 @@
             document.getElementById('colTindakPidanaCount').textContent = `${filteredTindakPidana.length} ringkasan`;
 
             if (filteredTindakPidana.length === 0) {
-                tindakPidanaContainer.innerHTML = `<div class="text-gray-400 text-center py-6 text-xs">Tidak ditemukan tindak pidana yang sesuai kata kunci.</div>`;
+                tindakPidanaContainer.innerHTML = `<div class="text-gray-400 dark:text-gray-400 text-center py-6 text-xs">Tidak ditemukan tindak pidana yang sesuai kata kunci.</div>`;
             } else {
                 filteredTindakPidana.forEach(item => {
                     const card = document.createElement('div');
-                    card.className = 'group p-3 bg-white hover:bg-rose-50/50 rounded-xl border border-gray-200 hover:border-rose-300 transition-all cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                    card.className = 'group p-3 bg-white dark:bg-[#2B2A32] hover:bg-rose-50/50 dark:hover:bg-[#34323D] rounded-xl border border-gray-200 dark:border-[#715A5A] hover:border-rose-300 dark:hover:border-rose-500/50 transition-all cursor-pointer shadow-2xs flex items-start justify-between gap-2';
                     card.onclick = () => openDetailItemModal('TINDAK PIDANA', item.title, item.pasal, item.desc, item.sanction);
                     card.innerHTML = `
                         <div class="space-y-1 pr-1">
-                            <div class="font-bold text-gray-900 group-hover:text-rose-700 text-xs leading-snug">
+                            <div class="font-bold text-gray-900 dark:text-white group-hover:text-rose-700 dark:group-hover:text-rose-300 text-xs leading-snug">
                                 ${item.title}
                             </div>
-                            <div class="text-[11px] text-gray-500 font-medium">
+                            <div class="text-[11px] text-gray-500 dark:text-gray-400 font-medium">
                                 ${item.pasal}
                             </div>
                         </div>
-                        <i class="fa-solid fa-chevron-right text-rose-400 group-hover:text-rose-600 text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+                        <i class="fa-solid fa-chevron-right text-rose-400 dark:text-rose-300 group-hover:text-rose-600 text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
                     `;
                     tindakPidanaContainer.appendChild(card);
                 });
@@ -2864,19 +2867,19 @@
             
             filteredPengadilan.forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'group p-2.5 bg-white hover:bg-[#f4f7f4] rounded-xl border border-[#dae6da] hover:border-[#b8d2b8] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.className = 'group p-2.5 bg-white dark:bg-[#37353E] hover:bg-[#f4f7f4] dark:hover:bg-[#43404B] rounded-xl border border-[#dae6da] dark:border-[#715A5A] hover:border-[#b8d2b8] dark:hover:border-emerald-500/50 transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
                 card.onclick = () => openDetailItemModal('PROSES PENGADILAN', item.name, item.pasal || doc.number, item.summary, item.detail);
                 card.innerHTML = `
                     <div class="space-y-0.5">
-                        <div class="flex items-center gap-1.5 font-bold text-gray-900 group-hover:text-[#1c3822] text-xs">
-                            <span class="w-1.5 h-1.5 rounded-full bg-[#2d5a37] shrink-0"></span>
+                        <div class="flex items-center gap-1.5 font-bold text-gray-900 dark:text-white group-hover:text-[#1c3822] dark:group-hover:text-emerald-300 text-xs">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#2d5a37] dark:bg-emerald-400 shrink-0"></span>
                             <span>${item.name}</span>
                         </div>
-                        <div class="text-[11px] text-gray-600 pl-3">
+                        <div class="text-[11px] text-gray-600 dark:text-gray-300 pl-3">
                             ${item.summary}
                         </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-[#2d5a37]/60 group-hover:text-[#2d5a37] text-[11px] mt-1 shrink-0"></i>
+                    <i class="fa-solid fa-chevron-right text-[#2d5a37]/60 dark:text-emerald-400 group-hover:text-[#2d5a37] text-[11px] mt-1 shrink-0"></i>
                 `;
                 pengadilanContainer.appendChild(card);
             });
@@ -2892,19 +2895,19 @@
 
             filteredMenangkap.forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'group p-2.5 bg-white hover:bg-[#f4f7f4] rounded-xl border border-[#dae6da] hover:border-[#b8d2b8] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.className = 'group p-2.5 bg-white dark:bg-[#37353E] hover:bg-[#f4f7f4] dark:hover:bg-[#43404B] rounded-xl border border-[#dae6da] dark:border-[#715A5A] hover:border-[#b8d2b8] dark:hover:border-emerald-500/50 transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
                 card.onclick = () => openDetailItemModal('KEWENANGAN PENINDAKAN', item.name, item.pasal || doc.number, item.summary, item.detail);
                 card.innerHTML = `
                     <div class="space-y-0.5">
-                        <div class="flex items-center gap-1.5 font-bold text-gray-900 group-hover:text-[#1c3822] text-xs">
-                            <span class="w-1.5 h-1.5 rounded-full bg-[#2d5a37] shrink-0"></span>
+                        <div class="flex items-center gap-1.5 font-bold text-gray-900 dark:text-white group-hover:text-[#1c3822] dark:group-hover:text-emerald-300 text-xs">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#2d5a37] dark:bg-emerald-400 shrink-0"></span>
                             <span>${item.name}</span>
                         </div>
-                        <div class="text-[11px] text-gray-600 pl-3">
+                        <div class="text-[11px] text-gray-600 dark:text-gray-300 pl-3">
                             ${item.summary}
                         </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-[#2d5a37]/60 group-hover:text-[#2d5a37] text-[11px] mt-1 shrink-0"></i>
+                    <i class="fa-solid fa-chevron-right text-[#2d5a37]/60 dark:text-emerald-400 group-hover:text-[#2d5a37] text-[11px] mt-1 shrink-0"></i>
                 `;
                 menangkapContainer.appendChild(card);
             });
@@ -2915,18 +2918,18 @@
             lautKepulauanContainer.innerHTML = '';
             (rezimData.lautKepulauan || []).forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'group p-2.5 bg-white hover:bg-[#f6eee7] rounded-xl border border-[#e4d7cd] hover:border-[#cbb4a3] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.className = 'group p-2.5 bg-white dark:bg-[#37353E] hover:bg-[#f6eee7] dark:hover:bg-[#43404B] rounded-xl border border-[#e4d7cd] dark:border-[#715A5A] hover:border-[#cbb4a3] dark:hover:border-[#E5A93C]/50 transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
                 card.onclick = () => openDetailItemModal('LAUT KEPULAUAN', item.entity, item.pasal || 'Yurisdiksi Laut Kepulauan', item.summary, item.detail);
                 card.innerHTML = `
                     <div class="space-y-0.5">
-                        <div class="font-bold text-[#26150d] group-hover:text-[#381d12] text-xs">
+                        <div class="font-bold text-[#26150d] dark:text-white group-hover:text-[#381d12] dark:group-hover:text-[#E5A93C] text-xs">
                             ${item.entity}
                         </div>
-                        <div class="text-[11px] text-stone-600">
+                        <div class="text-[11px] text-stone-600 dark:text-gray-300">
                             ${item.summary}
                         </div>
                     </div>
-                    <i class="fa-solid fa-arrow-right text-[#8c5835] group-hover:text-[#26150d] text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+                    <i class="fa-solid fa-arrow-right text-[#8c5835] dark:text-[#E5A93C] group-hover:text-[#26150d] dark:group-hover:text-white text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
                 `;
                 lautKepulauanContainer.appendChild(card);
             });
@@ -2936,18 +2939,18 @@
             lautTeritorialContainer.innerHTML = '';
             (rezimData.lautTeritorial || []).forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'group p-2.5 bg-white hover:bg-[#f6eee7] rounded-xl border border-[#e4d7cd] hover:border-[#cbb4a3] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.className = 'group p-2.5 bg-white dark:bg-[#37353E] hover:bg-[#f6eee7] dark:hover:bg-[#43404B] rounded-xl border border-[#e4d7cd] dark:border-[#715A5A] hover:border-[#cbb4a3] dark:hover:border-[#E5A93C]/50 transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
                 card.onclick = () => openDetailItemModal('LAUT TERITORIAL', item.entity, item.pasal || 'Yurisdiksi Laut Teritorial', item.summary, item.detail);
                 card.innerHTML = `
                     <div class="space-y-0.5">
-                        <div class="font-bold text-[#26150d] group-hover:text-[#381d12] text-xs">
+                        <div class="font-bold text-[#26150d] dark:text-white group-hover:text-[#381d12] dark:group-hover:text-[#E5A93C] text-xs">
                             ${item.entity}
                         </div>
-                        <div class="text-[11px] text-stone-600">
+                        <div class="text-[11px] text-stone-600 dark:text-gray-300">
                             ${item.summary}
                         </div>
                     </div>
-                    <i class="fa-solid fa-arrow-right text-[#8c5835] group-hover:text-[#26150d] text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+                    <i class="fa-solid fa-arrow-right text-[#8c5835] dark:text-[#E5A93C] group-hover:text-[#26150d] dark:group-hover:text-white text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
                 `;
                 lautTeritorialContainer.appendChild(card);
             });
@@ -2957,18 +2960,18 @@
             zeeContainer.innerHTML = '';
             (rezimData.zee || []).forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'group p-2.5 bg-white hover:bg-[#f6eee7] rounded-xl border border-[#e4d7cd] hover:border-[#cbb4a3] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.className = 'group p-2.5 bg-white dark:bg-[#37353E] hover:bg-[#f6eee7] dark:hover:bg-[#43404B] rounded-xl border border-[#e4d7cd] dark:border-[#715A5A] hover:border-[#cbb4a3] dark:hover:border-[#E5A93C]/50 transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
                 card.onclick = () => openDetailItemModal('ZONA EKONOMI EKSKLUSIF (ZEE)', item.entity, item.pasal || 'Yurisdiksi ZEE Indonesia', item.summary, item.detail);
                 card.innerHTML = `
                     <div class="space-y-0.5">
-                        <div class="font-bold text-[#26150d] group-hover:text-[#381d12] text-xs">
+                        <div class="font-bold text-[#26150d] dark:text-white group-hover:text-[#381d12] dark:group-hover:text-[#E5A93C] text-xs">
                             ${item.entity}
                         </div>
-                        <div class="text-[11px] text-stone-600">
+                        <div class="text-[11px] text-stone-600 dark:text-gray-300">
                             ${item.summary}
                         </div>
                     </div>
-                    <i class="fa-solid fa-arrow-right text-[#8c5835] group-hover:text-[#26150d] text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+                    <i class="fa-solid fa-arrow-right text-[#8c5835] dark:text-[#E5A93C] group-hover:text-[#26150d] dark:group-hover:text-white text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
                 `;
                 zeeContainer.appendChild(card);
             });

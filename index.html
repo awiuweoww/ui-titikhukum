@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Titik Hukum - Platform Analisis & Riset Hukum</title>
+    <script>
+        // Pre-render Dark Mode initialization to prevent FOUC
+        (function() {
+            try {
+                const theme = localStorage.getItem('titikhukum_theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (theme === 'dark' || (!theme && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch(e) {}
+        })();
+    </script>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Plus Jakarta Sans, The Seasons fallbacks (Playfair, Instrument Serif, Cormorant) -->
@@ -12,9 +26,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Instrument+Serif:ital@0;1&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/darkmode.css?v=20260908_28">
+    <script src="assets/theme.js?v=20260908_28" defer></script>
 
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -100,43 +117,207 @@
         .step-card {
             transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .step-card.step-active {
+        /* Light Mode Styles for 4-Step Card Animated Cycle (Identik saat bergerak otomatis & saat di-hover) */
+        html:not(.dark) .step-card:not(.step-active):not(:hover) {
+            background-color: #ffffff;
+            border-color: #e5e7eb;
+            transform: translateY(0);
+        }
+        html:not(.dark) .step-card:not(.step-active):not(:hover) .step-badge {
+            background-color: #f1f5f9;
+            color: #64748b;
+            border-color: #e2e8f0;
+            box-shadow: none !important;
+        }
+        html:not(.dark) .step-card:not(.step-active):not(:hover) .step-thumb {
+            background-color: #f8fafc;
+            border-color: #f1f5f9;
+        }
+        html:not(.dark) .step-card.step-active,
+        html:not(.dark) .step-card:hover {
             background-color: #f6eee7 !important; /* Soft elegant warm brownish hue */
             background: linear-gradient(180deg, #f8f1eb 0%, #eee2d7 100%) !important;
             border-color: #cbb4a3 !important;
             box-shadow: 0 16px 32px -8px rgba(43, 23, 13, 0.15), 0 0 0 1px rgba(180, 135, 110, 0.15) !important;
             transform: translateY(-4px);
         }
-        .step-card.step-active .step-badge {
+        html:not(.dark) .step-card.step-active .step-badge,
+        html:not(.dark) .step-card:hover .step-badge {
             background-color: #26150d !important; /* Elegant Courtroom Mahogany Brown */
             background: linear-gradient(135deg, #381d12 0%, #1f0f08 100%) !important;
             color: #ffffff !important;
             border-color: transparent !important;
             box-shadow: 0 4px 12px rgba(35, 19, 11, 0.25) !important;
         }
-        .step-card.step-active .step-thumb {
+        html:not(.dark) .step-card.step-active .step-thumb,
+        html:not(.dark) .step-card:hover .step-thumb {
             background-color: #ffffff !important;
             border-color: #dccec3 !important;
             box-shadow: 0 4px 14px -2px rgba(43, 23, 13, 0.08) !important;
         }
-        .step-card:not(.step-active) {
-            background-color: #ffffff;
-            border-color: #e5e7eb;
-            transform: translateY(0);
+
+        /* Dark Mode Styles for 4-Step Card Animated Cycle (PERSIS IDENTIK saat bergerak otomatis & saat di-hover) */
+        html.dark .step-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
-        .step-card:not(.step-active):hover {
-            border-color: #d6c4b7;
-            background-color: #fdfbf9;
-        }
-        .step-card:not(.step-active) .step-badge {
-            background-color: #f1f5f9;
-            color: #64748b;
-            border-color: #e2e8f0;
+        /* Standby (tidak aktif dan tidak di-hover): Solid #37353E */
+        html.dark .step-card:not(.step-active):not(:hover) {
+            background-color: #37353E !important;
+            background: #37353E !important;
+            background-image: none !important;
+            border-color: rgba(113, 90, 90, 0.45) !important;
+            transform: translateY(0) !important;
             box-shadow: none !important;
         }
-        .step-card:not(.step-active) .step-thumb {
-            background-color: #f8fafc;
-            border-color: #f1f5f9;
+        html.dark .step-card:not(.step-active):not(:hover) h3 {
+            color: #D1D5DB !important;
+        }
+        html.dark .step-card:not(.step-active):not(:hover) p {
+            color: #9CA3AF !important;
+        }
+        html.dark .step-card:not(.step-active):not(:hover) .step-badge {
+            background-color: #2B2A32 !important;
+            background: #2B2A32 !important;
+            background-image: none !important;
+            color: #9CA3AF !important;
+            border-color: #715A5A !important;
+            box-shadow: none !important;
+        }
+        html.dark .step-card:not(.step-active):not(:hover) .step-thumb {
+            background-color: #2B2A32 !important;
+            background: #2B2A32 !important;
+            background-image: none !important;
+            border-color: rgba(113, 90, 90, 0.4) !important;
+        }
+
+        /* Kondisi Aktif (Bergerak Otomatis) & Hover: PERSIS IDENTIK (#524E5D, Border Gold, Teks Putih) */
+        html.dark .step-card.step-active,
+        html.dark .step-card:hover {
+            background-color: #524E5D !important;
+            background: #524E5D !important;
+            background-image: none !important;
+            border-color: #E5A93C !important;
+            box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(229, 169, 60, 0.5) !important;
+            transform: translateY(-4px) !important;
+        }
+        html.dark .step-card.step-active h3,
+        html.dark .step-card:hover h3 {
+            color: #FFFFFF !important;
+        }
+        html.dark .step-card.step-active p,
+        html.dark .step-card:hover p {
+            color: #E5E7EB !important;
+        }
+        html.dark .step-card.step-active .step-badge,
+        html.dark .step-card:hover .step-badge {
+            background-color: #E5A93C !important;
+            background: #E5A93C !important;
+            background-image: none !important;
+            color: #1a1512 !important;
+            border-color: transparent !important;
+            font-weight: 800 !important;
+            box-shadow: 0 4px 12px rgba(229, 169, 60, 0.35) !important;
+        }
+        html.dark .step-card.step-active .step-thumb,
+        html.dark .step-card:hover .step-thumb {
+            background-color: #35333F !important;
+            background: #35333F !important;
+            background-image: none !important;
+            border-color: #715A5A !important;
+            box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.3) !important;
+        }
+
+        /* Tech Foundation Tabs - Hover Gold & Kontras Teks Dark Mode */
+        html.dark .tech-tab-content p {
+            color: #E2E8F0 !important;
+        }
+        html.dark .tech-tab-content strong,
+        html.dark .tech-tab-content b {
+            color: #FFFFFF !important;
+        }
+        html.dark .tech-tab-content ul,
+        html.dark .tech-tab-content li {
+            color: #CBD5E1 !important;
+        }
+        html.dark .tech-tab:hover .tech-tab-title,
+        html.dark .tech-tab:hover .tech-tab-icon,
+        html.dark .tech-tab:hover .tech-tab-icon svg {
+            color: #E5A93C !important;
+            stroke: #E5A93C !important;
+        }
+        html.dark .tech-tab:hover {
+            border-color: rgba(229, 169, 60, 0.4) !important;
+        }
+
+        /* FAQ Section Title - Gold */
+        html.dark #faq h2,
+        html.dark #faq h2 * {
+            color: #E5A93C !important;
+        }
+
+        /* Tech Visual Canvas - Samakan dengan Light Mode (Soft gradient warna, tidak polos ikut BG) */
+        html.dark #techVisualCanvas {
+            border-color: rgba(229, 231, 235, 0.9) !important;
+        }
+        html.dark #techVisualCanvas .bg-white\/40,
+        html.dark #techVisualCanvas [class*="bg-white/40"] {
+            background-color: rgba(255, 255, 255, 0.4) !important;
+            background: rgba(255, 255, 255, 0.4) !important;
+            backdrop-filter: blur(4px) !important;
+            -webkit-backdrop-filter: blur(4px) !important;
+        }
+        html.dark #techVisualCanvas .border-emerald-200\/90 {
+            border-color: rgba(167, 243, 208, 0.9) !important;
+        }
+        html.dark #techVisualCanvas .border-purple-200\/90 {
+            border-color: rgba(233, 213, 255, 0.9) !important;
+        }
+        html.dark #techVisualCanvas .border-blue-200\/90 {
+            border-color: rgba(191, 219, 254, 0.9) !important;
+        }
+
+        /* Footer - Samakan 100% dengan Light Mode */
+        html.dark footer div.bg-\[\#23130b\],
+        html.dark footer .max-w-7xl.bg-\[\#23130b\] {
+            background-color: #23130b !important;
+            background: #23130b !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            color: #ffffff !important;
+        }
+        html.dark footer h3 {
+            color: #ffffff !important;
+        }
+        html.dark footer ul a,
+        html.dark footer .text-stone-300,
+        html.dark footer a.text-stone-300 {
+            color: #d6d3d1 !important;
+        }
+        html.dark footer ul a:hover,
+        html.dark footer a.text-stone-300:hover,
+        html.dark footer a:hover i,
+        html.dark footer .hover\:text-white:hover {
+            color: #ffffff !important;
+        }
+        html.dark footer .grid.grid-cols-2 a,
+        html.dark footer a.group {
+            background-color: rgba(255, 255, 255, 0.04) !important;
+            background: rgba(255, 255, 255, 0.04) !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            color: #ffffff !important;
+        }
+        html.dark footer .grid.grid-cols-2 a:hover,
+        html.dark footer a.group:hover {
+            background-color: rgba(255, 255, 255, 0.08) !important;
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: rgba(255, 255, 255, 0.2) !important;
+            color: #ffffff !important;
+        }
+        html.dark footer a.group span,
+        html.dark footer a.group i {
+            color: #ffffff !important;
+        }
+        html.dark footer .font-black {
+            color: rgba(255, 255, 255, 0.95) !important;
         }
 
         /* Smooth Wipe / Slide from Left to Right Animation for Video Showcase */
@@ -217,8 +398,8 @@
                         </span>
                     </button>
 
-                    <!-- Masuk & Daftar Button (Kotak Transparan, Hover Terisi Putih) -->
-                    <a href="login.html" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg border border-white/50 bg-transparent text-white hover:bg-white hover:text-gray-900 hover:border-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1">
+                    <!-- Masuk & Daftar Button (Kotak Transparan, Garis Putih di Standby, Hover Kuning di Dark Mode) -->
+                    <a href="login.html" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg border border-white/50 bg-transparent text-white hover:bg-white hover:text-gray-900 hover:border-white dark:hover:bg-[#E5A93C] dark:hover:text-[#1a1512] dark:hover:border-[#E5A93C] text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1">
                         <span>Masuk & Daftar</span>
                         <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                     </a>
@@ -375,7 +556,7 @@
             <!-- Left Column: Tentang Kami Header, law1.png (Mahkamah Agung), & Caption -->
             <div class="md:col-span-3 space-y-6 flex flex-col items-start">
                 <!-- Underlined About Us Title -->
-                <a href="#tentang-kami" class="text-sm sm:text-base font-bold text-gray-900 underline underline-offset-8 decoration-gray-900 hover:text-brand-red transition">
+                <a href="#tentang-kami" class="text-sm sm:text-base font-bold text-gray-900 dark:text-[#E5A93C] underline underline-offset-8 decoration-gray-900 dark:decoration-[#E5A93C] hover:text-brand-red transition">
                     Tentang Kami.
                 </a>
 
@@ -392,15 +573,15 @@
 
             <!-- Middle Column: Large Editorial Statement & Action Bar -->
             <div class="md:col-span-6 space-y-8">
-                <p class="text-2xl sm:text-3xl md:text-[32px] font-medium text-gray-900 leading-[1.35] tracking-tight">
+                <p class="about-statement-text text-2xl sm:text-3xl md:text-[32px] font-medium text-gray-900 dark:text-white leading-[1.35] tracking-tight">
                     Membaca dokumen hukum kini tidak lagi merepotkan. TitikHukum membantu Anda merangkum, menganalisis, dan AI kami akan langsung menyorot jawaban tepat pada pasal aslinya.
                 </p>
 
                 <!-- Bottom Line & Learn More Button -->
                 <div class="flex items-center justify-between gap-6 pt-4">
-                    <div class="w-full max-w-[220px] h-[1px] bg-gray-300"></div>
+                    <div class="w-full max-w-[220px] h-[1px] bg-gray-300 dark:bg-[#E5A93C]"></div>
 
-                    <a href="#teknologi" class="shrink-0 inline-flex items-center gap-2.5 px-5 py-2.5 rounded-sm border border-gray-900 bg-transparent hover:bg-[#26150d] hover:border-[#26150d] hover:text-white text-xs font-bold text-gray-900 transition-all duration-300 shadow-xs active:scale-95">
+                    <a href="#teknologi" class="shrink-0 inline-flex items-center gap-2.5 px-5 py-2.5 rounded-sm border border-gray-900 dark:border-[#E5A93C] bg-transparent hover:bg-[#26150d] dark:hover:bg-[#E5A93C] hover:border-[#26150d] dark:hover:border-[#E5A93C] hover:text-white dark:hover:text-[#1a1512] text-xs font-bold text-gray-900 dark:text-[#E5A93C] transition-all duration-300 shadow-xs active:scale-95">
                         <span>Pelajari Teknologi Kami</span>
                         <i class="fa-solid fa-arrow-right text-[10px]"></i>
                     </a>
@@ -607,11 +788,11 @@
         
         <!-- Header: Headline & Sub-headline -->
         <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900 leading-[1.15]">
-                Fitur Utama & Kemampuan AI di <span class="font-seasons font-normal italic text-gray-400">Titik Hukum</span>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-gray-900 dark:text-white leading-[1.15]">
+                Fitur Utama & Kemampuan AI di <span class="font-seasons font-normal italic text-gray-400 dark:text-amber-400">Titik Hukum</span>
             </h2>
             
-            <p class="text-sm sm:text-base text-gray-500 font-normal max-w-2xl mx-auto leading-relaxed">
+            <p class="text-sm sm:text-base text-gray-500 dark:text-gray-300 font-normal max-w-2xl mx-auto leading-relaxed">
                 Eksplorasi ragam fitur cerdas mulai dari Bedah Dokumen (Parse), Segmentasi Pintar (Split), Ekstraksi Entitas & Pasal (Extract), hingga Asisten Tanya Jawab dengan validasi visual presisi.
             </p>
         </div>
@@ -623,10 +804,10 @@
             <div class="lg:col-span-5 space-y-4">
                 
                 <!-- Tab 1: Bedah Dokumen (Parse) -->
-                <div id="techTabParse" onclick="switchTechTab('parse')" class="tech-tab group border-b border-gray-200 pb-6 pt-2 cursor-pointer transition-all duration-300">
+                <div id="techTabParse" onclick="switchTechTab('parse')" class="tech-tab group border-b border-gray-200 pb-6 pt-2 cursor-pointer transition-all duration-300 hover:opacity-100">
                     <div class="flex items-center gap-3.5">
-                        <span class="tech-tab-icon text-gray-900 transition-colors">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <span class="tech-tab-icon text-gray-900 dark:text-white group-hover:text-gray-900 dark:group-hover:text-[#E5A93C] transition-colors">
+                            <svg class="w-5 h-5 text-gray-900 dark:text-white group-hover:text-gray-900 dark:group-hover:text-[#E5A93C] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M3 7V5a2 2 0 0 1 2-2h2"></path>
                                 <path d="M17 3h2a2 2 0 0 1 2 2v2"></path>
                                 <path d="M21 17v2a2 2 0 0 1-2 2h-2"></path>
@@ -634,20 +815,20 @@
                                 <line x1="7" y1="12" x2="17" y2="12"></line>
                             </svg>
                         </span>
-                        <h3 class="tech-tab-title text-xl font-bold text-gray-900 transition-colors">
+                        <h3 class="tech-tab-title text-xl font-bold text-gray-900 dark:text-white group-hover:text-gray-900 dark:group-hover:text-[#E5A93C] transition-colors">
                             Bedah Dokumen (Parse)
                         </h3>
                     </div>
 
                     <!-- Tab 1 Detailed Content -->
-                    <div class="tech-tab-content pt-4 space-y-3.5 text-xs text-gray-600 leading-relaxed pl-8">
-                        <p class="text-gray-700 font-medium leading-relaxed">
+                    <div class="tech-tab-content pt-4 space-y-3.5 text-xs text-gray-600 dark:text-gray-300 leading-relaxed pl-8">
+                        <p class="text-gray-700 dark:text-gray-200 font-medium leading-relaxed">
                             Mengubah format dokumen PDF yang padat menjadi data terstruktur yang akurat dan dapat diaudit.
                         </p>
-                        <ul class="space-y-2.5 list-disc pl-4 text-gray-600 marker:text-gray-400">
-                            <li><strong class="text-gray-900">Struktur Siap-LLM:</strong> Mengonversi tata letak dokumen legal ke dalam format Markdown yang sepenuhnya siap dipahami oleh AI.</li>
-                            <li><strong class="text-gray-900">Pelestarian Hierarki:</strong> Membaca dan mempertahankan hierarki blok konten secara utuh (seperti Bab, Bagian, Pasal, Ayat, hingga Tabel).</li>
-                            <li><strong class="text-gray-900">Koordinat Presisi:</strong> Mengunci data titik koordinat halaman secara akurat pada setiap blok teks untuk mendasari fitur bounding-box.</li>
+                        <ul class="space-y-2.5 list-disc pl-4 text-gray-600 dark:text-gray-400 marker:text-gray-400 dark:marker:text-[#E5A93C]">
+                            <li><strong class="text-gray-900 dark:text-white">Struktur Siap-LLM:</strong> Mengonversi tata letak dokumen legal ke dalam format Markdown yang sepenuhnya siap dipahami oleh AI.</li>
+                            <li><strong class="text-gray-900 dark:text-white">Pelestarian Hierarki:</strong> Membaca dan mempertahankan hierarki blok konten secara utuh (seperti Bab, Bagian, Pasal, Ayat, hingga Tabel).</li>
+                            <li><strong class="text-gray-900 dark:text-white">Koordinat Presisi:</strong> Mengunci data titik koordinat halaman secara akurat pada setiap blok teks untuk mendasari fitur bounding-box.</li>
                         </ul>
                     </div>
                 </div>
@@ -655,26 +836,26 @@
                 <!-- Tab 2: Segmentasi Pintar (Split) -->
                 <div id="techTabSplit" onclick="switchTechTab('split')" class="tech-tab group border-b border-gray-200 pb-6 pt-4 cursor-pointer transition-all duration-300 opacity-60 hover:opacity-100">
                     <div class="flex items-center gap-3.5">
-                        <span class="tech-tab-icon text-gray-400 group-hover:text-gray-900 transition-colors">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <span class="tech-tab-icon text-gray-400 dark:text-white group-hover:text-gray-900 dark:group-hover:text-[#E5A93C] transition-colors">
+                            <svg class="w-5 h-5 text-gray-400 dark:text-white group-hover:text-gray-900 dark:group-hover:text-[#E5A93C] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <rect x="3" y="3" width="7" height="18" rx="1"></rect>
                                 <rect x="14" y="3" width="7" height="18" rx="1"></rect>
                             </svg>
                         </span>
-                        <h3 class="tech-tab-title text-xl font-bold text-gray-600 group-hover:text-gray-900 transition-colors">
+                        <h3 class="tech-tab-title text-xl font-bold text-gray-600 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-[#E5A93C] transition-colors">
                             Segmentasi Pintar (Split)
                         </h3>
                     </div>
 
                     <!-- Tab 2 Detailed Content (Hidden by default) -->
-                    <div class="tech-tab-content hidden pt-4 space-y-3.5 text-xs text-gray-600 leading-relaxed pl-8">
-                        <p class="text-gray-700 font-medium leading-relaxed">
+                    <div class="tech-tab-content hidden pt-4 space-y-3.5 text-xs text-gray-600 dark:text-gray-300 leading-relaxed pl-8">
+                        <p class="text-gray-700 dark:text-gray-200 font-medium leading-relaxed">
                             Memecah fail berukuran besar secara otomatis menjadi sub-dokumen yang bersih dan terklasifikasi.
                         </p>
-                        <ul class="space-y-2.5 list-disc pl-4 text-gray-600 marker:text-gray-400">
-                            <li><strong class="text-gray-900">Pemecahan Dokumen Masif:</strong> Melakukan segmentasi pada dokumen perundang-undangan yang panjang (ratusan halaman) tanpa menghilangkan konteks antar pasal.</li>
-                            <li><strong class="text-gray-900">Klasifikasi Multi-Tipe:</strong> Mampu mendeteksi dan mengklasifikasikan tipe dokumen campuran dalam satu fail (misalnya memisahkan batang tubuh undang-undang dengan lampirannya).</li>
-                            <li><strong class="text-gray-900">Deteksi Pola Identifikasi:</strong> Mengenali pola berulang secara instan (seperti nomor putusan, tanggal penetapan, atau format pasal) untuk pengelompokan semantik.</li>
+                        <ul class="space-y-2.5 list-disc pl-4 text-gray-600 dark:text-gray-400 marker:text-gray-400 dark:marker:text-[#E5A93C]">
+                            <li><strong class="text-gray-900 dark:text-white">Pemecahan Dokumen Masif:</strong> Melakukan segmentasi pada dokumen perundang-undangan yang panjang (ratusan halaman) tanpa menghilangkan konteks antar pasal.</li>
+                            <li><strong class="text-gray-900 dark:text-white">Klasifikasi Multi-Tipe:</strong> Mampu mendeteksi dan mengklasifikasikan tipe dokumen campuran dalam satu fail (misalnya memisahkan batang tubuh undang-undang dengan lampirannya).</li>
+                            <li><strong class="text-gray-900 dark:text-white">Deteksi Pola Identifikasi:</strong> Mengenali pola berulang secara instan (seperti nomor putusan, tanggal penetapan, atau format pasal) untuk pengelompokan semantik.</li>
                         </ul>
                     </div>
                 </div>
@@ -682,28 +863,28 @@
                 <!-- Tab 3: Ekstraksi Entitas (Extract) -->
                 <div id="techTabExtract" onclick="switchTechTab('extract')" class="tech-tab group border-b border-gray-200 pb-6 pt-4 cursor-pointer transition-all duration-300 opacity-60 hover:opacity-100">
                     <div class="flex items-center gap-3.5">
-                        <span class="tech-tab-icon text-gray-400 group-hover:text-gray-900 transition-colors">
-                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <span class="tech-tab-icon text-gray-400 dark:text-white group-hover:text-gray-900 dark:group-hover:text-[#E5A93C] transition-colors">
+                            <svg class="w-5 h-5 text-gray-400 dark:text-white group-hover:text-gray-900 dark:group-hover:text-[#E5A93C] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                 <circle cx="11" cy="11" r="8"></circle>
                                 <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
                                 <line x1="11" y1="8" x2="11" y2="14"></line>
                                 <line x1="8" y1="11" x2="14" y2="11"></line>
                             </svg>
                         </span>
-                        <h3 class="tech-tab-title text-xl font-bold text-gray-600 group-hover:text-gray-900 transition-colors">
+                        <h3 class="tech-tab-title text-xl font-bold text-gray-600 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-[#E5A93C] transition-colors">
                             Ekstraksi Entitas (Extract)
                         </h3>
                     </div>
 
                     <!-- Tab 3 Detailed Content (Hidden by default) -->
-                    <div class="tech-tab-content hidden pt-4 space-y-3.5 text-xs text-gray-600 leading-relaxed pl-8">
-                        <p class="text-gray-700 font-medium leading-relaxed">
+                    <div class="tech-tab-content hidden pt-4 space-y-3.5 text-xs text-gray-600 dark:text-gray-300 leading-relaxed pl-8">
+                        <p class="text-gray-700 dark:text-gray-200 font-medium leading-relaxed">
                             Menarik informasi hukum spesifik berdasarkan skema parameter yang Anda butuhkan.
                         </p>
-                        <ul class="space-y-2.5 list-disc pl-4 text-gray-600 marker:text-gray-400">
-                            <li><strong class="text-gray-900">Ekstraksi Berbasis Skema:</strong> Secara otomatis mengidentifikasi dan menarik entitas krusial seperti subjek hukum, sanksi pidana, atau kewenangan lembaga.</li>
-                            <li><strong class="text-gray-900">Transparansi Bawaan:</strong> Setiap nilai yang diekstrak langsung terhubung dengan kutipan bounding-box pada dokumen asli (auditability by default).</li>
-                            <li><strong class="text-gray-900">Pembacaan Tabel Skala Besar:</strong> Mampu mengekstrak ribuan baris data dari tabel lampiran perundang-undangan yang melintasi banyak halaman.</li>
+                        <ul class="space-y-2.5 list-disc pl-4 text-gray-600 dark:text-gray-400 marker:text-gray-400 dark:marker:text-[#E5A93C]">
+                            <li><strong class="text-gray-900 dark:text-white">Ekstraksi Berbasis Skema:</strong> Secara otomatis mengidentifikasi dan menarik entitas krusial seperti subjek hukum, sanksi pidana, atau kewenangan lembaga.</li>
+                            <li><strong class="text-gray-900 dark:text-white">Transparansi Bawaan:</strong> Setiap nilai yang diekstrak langsung terhubung dengan kutipan bounding-box pada dokumen asli (auditability by default).</li>
+                            <li><strong class="text-gray-900 dark:text-white">Pembacaan Tabel Skala Besar:</strong> Mampu mengekstrak ribuan baris data dari tabel lampiran perundang-undangan yang melintasi banyak halaman.</li>
                         </ul>
                     </div>
                 </div>
@@ -756,76 +937,76 @@
             
             <!-- Left Column: Title, Subtitle, and FAQ Link -->
             <div class="lg:col-span-5 space-y-6">
-                <h2 class="text-4xl sm:text-5xl lg:text-[54px] font-extrabold text-gray-900 tracking-tight leading-[1.1]">
+                <h2 class="text-4xl sm:text-5xl lg:text-[54px] font-extrabold text-gray-900 dark:text-[#E5A93C] tracking-tight leading-[1.1]">
                     Ada Pertanyaan?<br />
-                    <span class="text-gray-900">Kami Siap Membantu.</span>
+                    <span class="text-gray-900 dark:text-[#E5A93C]">Kami Siap Membantu.</span>
                 </h2>
                 
-                <p class="text-xs sm:text-sm text-gray-500 font-normal leading-relaxed max-w-md">
+                <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-300 font-normal leading-relaxed max-w-md">
                     Temukan jawaban atas pertanyaan umum mengenai cara kerja AI, validasi pasal, keamanan data, dan akurasi riset hukum di TitikHukum.
                 </p>
             </div>
 
             <!-- Right Column: Interactive FAQ Accordion List -->
-            <div class="lg:col-span-7 divide-y divide-gray-300">
+            <div class="lg:col-span-7 divide-y divide-gray-300 dark:divide-[#715A5A]">
                 
                 <!-- FAQ Item 1 (Default Open) -->
                 <div class="faq-item py-6 first:pt-0">
                     <button type="button" onclick="toggleFaq(this)" class="w-full flex items-center justify-between gap-4 text-left group focus:outline-none cursor-pointer">
-                        <span class="text-base sm:text-lg font-bold text-gray-900 group-hover:text-gray-700 transition-colors">
+                        <span class="text-base sm:text-lg font-bold text-gray-900 dark:text-gray-100 group-hover:text-gray-700 dark:group-hover:text-amber-400 transition-colors">
                             Bagaimana cara kerja analisis AI di TitikHukum?
                         </span>
-                        <span class="faq-icon text-xl font-light text-gray-800 transition-transform duration-300 shrink-0 select-none">
+                        <span class="faq-icon text-xl font-light text-gray-800 dark:text-amber-400 transition-transform duration-300 shrink-0 select-none">
                             −
                         </span>
                     </button>
-                    <div class="faq-answer pt-3 text-xs sm:text-sm text-gray-600 font-normal leading-relaxed">
-                        <strong class="text-gray-900 font-bold">TitikHukum</strong> menggunakan arsitektur AI dan RAG (<em class="italic">Retrieval-Augmented Generation</em>) terdedikasi yang membedah hierarki pasal, mengindeks koordinat halaman, dan langsung menyorot bukti teks pada naskah hukum asli untuk mencegah halusinasi data secara <strong class="text-gray-900 font-bold">100%</strong>.
+                    <div class="faq-answer pt-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-normal leading-relaxed">
+                        <strong class="text-gray-900 dark:text-white font-bold">TitikHukum</strong> menggunakan arsitektur AI dan RAG (<em class="italic">Retrieval-Augmented Generation</em>) terdedikasi yang membedah hierarki pasal, mengindeks koordinat halaman, dan langsung menyorot bukti teks pada naskah hukum asli untuk mencegah halusinasi data secara <strong class="text-gray-900 dark:text-white font-bold">100%</strong>.
                     </div>
                 </div>
 
                 <!-- FAQ Item 2 -->
                 <div class="faq-item py-6">
                     <button type="button" onclick="toggleFaq(this)" class="w-full flex items-center justify-between gap-4 text-left group focus:outline-none cursor-pointer">
-                        <span class="text-base sm:text-lg font-bold text-gray-900 group-hover:text-gray-700 transition-colors">
+                        <span class="text-base sm:text-lg font-bold text-gray-900 dark:text-gray-100 group-hover:text-gray-700 dark:group-hover:text-amber-400 transition-colors">
                             Apakah dokumen yang saya unggah aman dan rahasia?
                         </span>
-                        <span class="faq-icon text-xl font-light text-gray-800 transition-transform duration-300 shrink-0 select-none">
+                        <span class="faq-icon text-xl font-light text-gray-800 dark:text-amber-400 transition-transform duration-300 shrink-0 select-none">
                             +
                         </span>
                     </button>
-                    <div class="faq-answer hidden pt-3 text-xs sm:text-sm text-gray-600 font-normal leading-relaxed">
-                        <strong class="text-gray-900 font-bold">Sangat aman.</strong> Setiap dokumen yang Anda unggah diproses melalui enkripsi tingkat perbankan (<em class="italic">enterprise-grade encryption</em>) dan tidak pernah digunakan untuk melatih model AI publik tanpa izin Anda.
+                    <div class="faq-answer hidden pt-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-normal leading-relaxed">
+                        <strong class="text-gray-900 dark:text-white font-bold">Sangat aman.</strong> Setiap dokumen yang Anda unggah diproses melalui enkripsi tingkat perbankan (<em class="italic">enterprise-grade encryption</em>) dan tidak pernah digunakan untuk melatih model AI publik tanpa izin Anda.
                     </div>
                 </div>
 
                 <!-- FAQ Item 3 -->
                 <div class="faq-item py-6">
                     <button type="button" onclick="toggleFaq(this)" class="w-full flex items-center justify-between gap-4 text-left group focus:outline-none cursor-pointer">
-                        <span class="text-base sm:text-lg font-bold text-gray-900 group-hover:text-gray-700 transition-colors">
+                        <span class="text-base sm:text-lg font-bold text-gray-900 dark:text-gray-100 group-hover:text-gray-700 dark:group-hover:text-amber-400 transition-colors">
                             Format dokumen apa saja yang didukung?
                         </span>
-                        <span class="faq-icon text-xl font-light text-gray-800 transition-transform duration-300 shrink-0 select-none">
+                        <span class="faq-icon text-xl font-light text-gray-800 dark:text-amber-400 transition-transform duration-300 shrink-0 select-none">
                             +
                         </span>
                     </button>
-                    <div class="faq-answer hidden pt-3 text-xs sm:text-sm text-gray-600 font-normal leading-relaxed">
-                        <strong class="text-gray-900 font-bold">TitikHukum</strong> mendukung dokumen PDF hasil pemindaian (<em class="italic">scanned PDF</em>), berkas digital undang-undang, PP, Perpres, rancangan regulasi, draf perjanjian kontrak bisnis, hingga bundel berkas perkara pengadilan ratusan halaman.
+                    <div class="faq-answer hidden pt-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-normal leading-relaxed">
+                        <strong class="text-gray-900 dark:text-white font-bold">TitikHukum</strong> mendukung dokumen PDF hasil pemindaian (<em class="italic">scanned PDF</em>), berkas digital undang-undang, PP, Perpres, rancangan regulasi, draf perjanjian kontrak bisnis, hingga bundel berkas perkara pengadilan ratusan halaman.
                     </div>
                 </div>
 
                 <!-- FAQ Item 4 -->
                 <div class="faq-item py-6">
                     <button type="button" onclick="toggleFaq(this)" class="w-full flex items-center justify-between gap-4 text-left group focus:outline-none cursor-pointer">
-                        <span class="text-base sm:text-lg font-bold text-gray-900 group-hover:text-gray-700 transition-colors">
+                        <span class="text-base sm:text-lg font-bold text-gray-900 dark:text-gray-100 group-hover:text-gray-700 dark:group-hover:text-amber-400 transition-colors">
                             Apa yang membedakan TitikHukum dengan AI generatif biasa?
                         </span>
-                        <span class="faq-icon text-xl font-light text-gray-800 transition-transform duration-300 shrink-0 select-none">
+                        <span class="faq-icon text-xl font-light text-gray-800 dark:text-amber-400 transition-transform duration-300 shrink-0 select-none">
                             +
                         </span>
                     </button>
-                    <div class="faq-answer hidden pt-3 text-xs sm:text-sm text-gray-600 font-normal leading-relaxed">
-                        AI generatif konvensional sering mengalami halusinasi dan salah mengutip pasal hukum. <strong class="text-gray-900 font-bold">TitikHukum</strong> menerapkan sistem <strong class="text-gray-900 font-bold"><em class="italic">visual grounding</em></strong> di mana setiap jawaban langsung ditautkan ke titik koordinat dokumen asli dengan transparansi dan validasi <strong class="text-gray-900 font-bold">100%</strong>.
+                    <div class="faq-answer hidden pt-3 text-xs sm:text-sm text-gray-600 dark:text-gray-300 font-normal leading-relaxed">
+                        AI generatif konvensional sering mengalami halusinasi dan salah mengutip pasal hukum. <strong class="text-gray-900 dark:text-white font-bold">TitikHukum</strong> menerapkan sistem <strong class="text-gray-900 dark:text-white font-bold"><em class="italic">visual grounding</em></strong> di mana setiap jawaban langsung ditautkan ke titik koordinat dokumen asli dengan transparansi dan validasi <strong class="text-gray-900 dark:text-white font-bold">100%</strong>.
                     </div>
                 </div>
 
@@ -974,19 +1155,7 @@
             </svg>
         `;
 
-        function toggleNavTheme() {
-            isDarkMode = !isDarkMode;
-            const container = document.getElementById('navThemeIconContainer');
-            const containerMobile = document.getElementById('navThemeIconContainerMobile');
-            
-            if (container) {
-                container.innerHTML = isDarkMode ? sunSvgHtml : moonSvgHtml;
-                container.style.transform = isDarkMode ? 'rotate(0deg)' : 'rotate(360deg)';
-            }
-            if (containerMobile) {
-                containerMobile.innerHTML = isDarkMode ? sunSvgHtml : moonSvgHtml;
-            }
-        }
+        // Toggle Tema dihandle secara terpusat oleh assets/theme.js
             
         // Sticky Navbar Background Scroll Handler (Transparan di atas, Coklat saat scroll)
         const navbar = document.getElementById('mainNavbar');

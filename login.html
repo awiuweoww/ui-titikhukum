@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Titik Hukum - Login</title>
+    <script>
+        // Pre-render Dark Mode initialization to prevent FOUC
+        (function() {
+            try {
+                const theme = localStorage.getItem('titikhukum_theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (theme === 'dark' || (!theme && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch(e) {}
+        })();
+    </script>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Plus Jakarta Sans -->
@@ -12,9 +26,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/darkmode.css?v=20260908_28">
+    <script src="assets/theme.js?v=20260908_28" defer></script>
 
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -164,7 +181,8 @@
             <!-- Top Row: Brand Header & Language Selector -->
             <div class="flex items-center justify-between mb-4 md:mb-2">
                 <a href="index.html" class="inline-flex items-center">
-                    <img src="assets/logo.png" alt="Titik Hukum Logo" class="h-6 sm:h-7 md:h-7.5 object-contain" />
+                    <img src="assets/logo.png" alt="Titik Hukum Logo" class="h-6 sm:h-7 md:h-7.5 object-contain dark:hidden" />
+                    <img src="assets/logo-white.png" alt="Titik Hukum Logo" class="h-6 sm:h-7 md:h-7.5 object-contain hidden dark:block" />
                 </a>
 
                 <div class="relative">
@@ -316,7 +334,8 @@
             <!-- Top Row: Brand Header & Language Selector -->
             <div class="flex items-center justify-between mb-3 md:mb-1">
                 <a href="index.html" class="inline-flex items-center">
-                    <img src="assets/logo.png" alt="Titik Hukum Logo" class="h-6 sm:h-7 md:h-7.5 object-contain" />
+                    <img src="assets/logo.png" alt="Titik Hukum Logo" class="h-6 sm:h-7 md:h-7.5 object-contain dark:hidden" />
+                    <img src="assets/logo-white.png" alt="Titik Hukum Logo" class="h-6 sm:h-7 md:h-7.5 object-contain hidden dark:block" />
                 </a>
 
                 <div class="relative">

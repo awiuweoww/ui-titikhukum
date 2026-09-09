@@ -4,14 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profil Ahli Hukum - Titik Hukum</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Plus Jakarta Sans -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Flaticon Uicons & Font Awesome -->
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css'>
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css'>
@@ -49,24 +46,27 @@
             box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5) !important;
             border-bottom: 1px solid rgba(85, 45, 25, 0.8) !important;
         }
+
+        /* Modal transitions */
+        .modal-backdrop {
+            animation: fadeIn 0.2s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body class="bg-[#fafaf9] text-gray-800 font-sans min-h-screen flex flex-col antialiased">
 
-    <!-- ======================================================== -->
-    <!-- 1. FIXED TOP NAVBAR                                      -->
-    <!-- ======================================================== -->
-    <header class="fixed top-0 left-0 right-0 z-50 w-full py-4 navbar-brown">
+    <header class="fixed top-0 left-0 right-0 z-40 w-full py-4 navbar-brown">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between">
-                
-                <!-- Left Logo -->
                 <a href="index.html" class="flex items-center gap-2.5 group cursor-pointer" title="Titik Hukum">
                     <img src="../assets/logo-white.png" alt="Titik Hukum Logo" class="h-8 sm:h-9 object-contain transition-transform duration-300 group-hover:scale-105" />
                     <span class="px-2 py-0.5 rounded-md text-[9px] font-extrabold tracking-wider uppercase bg-rose-500/20 text-rose-300 border border-rose-500/40">AHLI HUKUM</span>
                 </a>
 
-                <!-- Center Nav -->
                 <nav class="hidden md:flex items-center gap-7 lg:gap-9 text-[13px]">
                     <a href="index.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">Beranda</a>
                     <a href="pustaka.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">Pustaka Dokumen</a>
@@ -74,66 +74,61 @@
                         <span>Asisten Hukum</span>
                         <span class="px-1.5 py-0.5 rounded-full text-[9px] font-extrabold bg-white/20 text-white backdrop-blur-xs">AI</span>
                     </a>
-                    <a href="evaluasi.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">
-                        Evaluasi AI
-                    </a>
+                    <a href="evaluasi.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm">Evaluasi AI</a>
                     <a href="profil.html" class="text-white font-bold transition-all duration-300 transform hover:scale-110 hover:text-white py-1 inline-block drop-shadow-sm relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white/80">Profil Saya</a>
                 </nav>
 
-                <!-- Right Actions -->
-                <div class="flex items-center gap-3 sm:gap-4">
-                    <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1 text-white/80 hover:text-white text-xs font-semibold transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1" title="Ganti Bahasa (EN / ID)">
-                        <svg class="w-4 h-4 fill-current text-white shrink-0" viewBox="0 0 24 24"><path d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>
-                        <span id="navLangLabel" class="font-bold text-xs tracking-wide">EN</span>
+                <div class="flex items-center gap-2 sm:gap-3">
+                    
+                    <button type="button" onclick="toggleNavLang()" id="navLangBtn" class="flex items-center gap-1.5 px-2 py-1.5 rounded-lg border border-transparent hover:border-white/20 text-white/80 hover:text-white transition-colors cursor-pointer focus:outline-none">
+                        <svg class="w-[18px] h-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 8l6 6" />
+                            <path d="M4 14l6-6 2-3" />
+                            <path d="M2 5h12" />
+                            <path d="M7 2h1" />
+                            <path d="M22 22l-5-10-5 10" />
+                            <path d="M14 18h6" />
+                        </svg>
+                        <span id="navLangLabel" class="font-bold text-[13px] tracking-wide mt-0.5">EN</span>
                     </button>
 
-                    <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-white/90 hover:text-white transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer py-1 shrink-0" title="Ganti Mode Tema (Terang / Gelap)">
-                        <span id="navThemeIconContainer" class="inline-flex items-center justify-center w-5 h-5 shrink-0">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="block"><circle cx="12" cy="12" r="4.5"></circle><line x1="12" y1="1.5" x2="12" y2="4"></line><line x1="12" y1="20" x2="12" y2="22.5"></line><line x1="4.22" y1="4.22" x2="6" y2="6"></line><line x1="18" y1="18" x2="19.78" y2="19.78"></line><line x1="1.5" y1="12" x2="4" y2="12"></line><line x1="20" y1="12" x2="22.5" y2="12"></line><line x1="4.22" y1="19.78" x2="6" y2="18"></line><line x1="18" y1="6" x2="19.78" y2="4.22"></line></svg>
-                        </span>
+                    <button type="button" onclick="toggleNavTheme()" class="relative w-8 h-8 flex items-center justify-center rounded-lg border border-transparent hover:border-white/20 text-white/80 hover:text-white transition-colors cursor-pointer focus:outline-none overflow-hidden">
+                        
+                        <svg id="icon-sun" class="absolute w-[18px] h-[18px] transition-all duration-500 ease-in-out transform scale-100 rotate-0 opacity-100" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="4.5"></circle>
+                            <line x1="12" y1="2" x2="12" y2="4"></line>
+                            <line x1="12" y1="20" x2="12" y2="22"></line>
+                            <line x1="4.93" y1="4.93" x2="6.34" y2="6.34"></line>
+                            <line x1="17.66" y1="17.66" x2="19.07" y2="19.07"></line>
+                            <line x1="2" y1="12" x2="4" y2="12"></line>
+                            <line x1="20" y1="12" x2="22" y2="12"></line>
+                            <line x1="4.93" y1="19.07" x2="6.34" y2="17.66"></line>
+                            <line x1="17.66" y1="6.34" x2="19.07" y2="4.93"></line>
+                        </svg>
+
+                        <svg id="icon-moon" class="absolute w-[18px] h-[18px] transition-all duration-500 ease-in-out transform scale-0 -rotate-90 opacity-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path>
+                        </svg>
                     </button>
 
-                    <a href="../login.html" onclick="handleLogout()" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg border border-white/40 bg-white/10 text-white hover:bg-rose-600 hover:border-rose-600 hover:text-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1" title="Keluar dari akun ahli hukum">
+                    <button type="button" onclick="openLogoutConfirmModal()" class="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-lg border border-white/40 bg-white/10 text-white hover:bg-rose-600 hover:border-rose-600 hover:text-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-2" title="Keluar dari akun ahli hukum">
                         <i class="fa-solid fa-graduation-cap text-rose-400 text-xs"></i>
                         <span>Hukum (Keluar)</span>
-                    </a>
-
-                    <button type="button" onclick="toggleMobileMenu()" class="md:hidden w-8.5 h-8.5 flex items-center justify-center rounded-lg border border-white/40 bg-white/10 text-white hover:bg-white hover:text-gray-900 transition ml-1">
-                        <i id="mobileMenuIcon" class="fa-solid fa-bars text-sm"></i>
                     </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Mobile Navigation Overlay Dropdown -->
-        <div id="mobileMenu" class="hidden md:hidden max-w-7xl mx-auto px-4 mt-3">
-            <div class="bg-[#24140e]/95 backdrop-blur-xl border border-white/15 rounded-2xl p-5 space-y-3 text-sm font-semibold text-white shadow-2xl">
-                <a href="index.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Beranda</a>
-                <a href="pustaka.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Pustaka Dokumen</a>
-                <a href="chat.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Asisten Hukum AI</a>
-                <a href="evaluasi.html" onclick="toggleMobileMenu()" class="block py-2 text-white/80 hover:text-white border-b border-white/10">Evaluasi AI</a>
-                <a href="profil.html" onclick="toggleMobileMenu()" class="block py-2 text-white font-bold border-b border-white/10">Profil Saya</a>
-                
-                <div class="pt-2">
-                    <a href="../login.html" onclick="handleLogout()" class="w-full py-2.5 rounded-lg border border-rose-500 bg-rose-600 text-white text-xs font-semibold flex items-center justify-center gap-2">
-                        <i class="fi fi-rr-sign-out-alt text-xs"></i>
-                        <span>Hukum (Keluar)</span>
-                    </a>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- ======================================================== -->
-    <!-- 2. CONTENT WRAPPER                                       -->
-    <!-- ======================================================== -->
     <main class="flex-1 flex justify-center items-start pt-28 pb-8 px-4 sm:px-6 md:pt-32 md:pb-12">
         <div class="w-full max-w-4xl bg-white rounded-2xl border border-zinc-200 shadow-sm flex flex-col md:flex-row overflow-hidden min-h-[620px]">
             
-            <!-- SIDEBAR -->
             <aside class="w-full md:w-[270px] p-6 sm:p-8 md:border-r border-b md:border-b-0 border-zinc-200 shrink-0 bg-white flex flex-col">
-                <div class="w-20 h-20 mx-auto rounded-full overflow-hidden mb-3 border-2 border-rose-500/60 p-0.5 bg-zinc-100 shrink-0 shadow-sm">
-                    <img src="../assets/pp.jpg" alt="Profile Picture" class="w-full h-full object-cover rounded-full" onerror="this.src='https://via.placeholder.com/90'">
+                <div onclick="openPhotoMenu()" class="w-20 h-20 mx-auto rounded-full overflow-hidden mb-3 border-2 border-rose-500/60 p-[3px] bg-zinc-100 shrink-0 shadow-sm relative group cursor-pointer">
+                    <img id="sidebar-pic" src="../assets/pp.jpg" alt="Profile Picture" class="w-full h-full object-cover rounded-full transition duration-300 group-hover:brightness-75" onerror="this.src='../assets/pp.jpg'">
+                    <div class="absolute inset-0 hidden group-hover:flex items-center justify-center transition-all rounded-full m-[3px]">
+                        <i class="fi fi-rr-pencil text-white text-xl drop-shadow-md"></i>
+                    </div>
                 </div>
                 
                 <p id="sidebar-handle" class="text-xs text-center text-zinc-500 mb-0.5 tracking-wide break-all px-2">@hukum1</p>
@@ -150,16 +145,16 @@
                         <span>Riwayat Evaluasi AI</span>
                         <span class="px-2 py-0.5 rounded-md bg-zinc-100 text-zinc-600 font-bold text-[10px]">5 Uji</span>
                     </a>
-                    <li class="px-3.5 py-2.5 text-zinc-700 rounded-xl cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1">
-                        Keamanan & Sandi
+                    <li onclick="openSecurityModal()" class="px-3.5 py-2.5 text-zinc-700 rounded-xl cursor-pointer transition-all duration-200 hover:bg-brand-lightBrown/60 hover:text-brand-brown hover:translate-x-1 flex items-center justify-between group">
+                        <span>Keamanan & Sandi</span>
+                        <i class="fi fi-rr-shield-keyhole text-[10px] text-zinc-400 group-hover:text-brand-brown"></i>
                     </li>
-                    <li onclick="handleLogout()" class="px-3.5 py-2.5 font-semibold text-rose-600 rounded-xl cursor-pointer transition-all duration-200 hover:bg-rose-50 hover:text-rose-700 hover:translate-x-1">
+                    <li onclick="openLogoutConfirmModal()" class="px-3.5 py-2.5 font-semibold text-rose-600 rounded-xl cursor-pointer transition-all duration-200 hover:bg-rose-50 hover:text-rose-700 hover:translate-x-1">
                         Keluar
                     </li>
                 </ul>
             </aside>
             
-            <!-- MAIN PANEL -->
             <section class="flex-1 p-6 sm:p-10 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center justify-between pb-4 mb-6 border-b border-zinc-100">
@@ -174,7 +169,6 @@
                     </div>
 
                     <form class="flex flex-col gap-4 text-xs" onsubmit="event.preventDefault();">
-                        
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div class="flex flex-col gap-1.5">
                                 <label class="font-bold text-zinc-700 uppercase tracking-wider text-[10px]">Nama Lengkap & Gelar</label>
@@ -199,12 +193,12 @@
 
                         <div class="flex flex-col gap-1.5">
                             <label class="font-bold text-zinc-700 uppercase tracking-wider text-[10px]">Lembaga / Institusi Afiliasi</label>
-                            <input type="text" class="w-full px-3.5 py-2.5 border border-zinc-200 rounded-xl text-xs text-zinc-700 bg-zinc-50 cursor-not-allowed focus:outline-none" value="BRIN (Badan Riset & Inovasi Nasional)" readonly>
+                            <input type="text" id="institusi" class="w-full px-3.5 py-2.5 border border-zinc-200 rounded-xl text-xs text-zinc-700 bg-zinc-50 cursor-not-allowed focus:outline-none" value="BRIN (Badan Riset & Inovasi Nasional)" readonly>
                         </div>
 
                         <div class="flex flex-col gap-1.5">
                             <label class="font-bold text-zinc-700 uppercase tracking-wider text-[10px]">Bidang Kepakaran Hukum</label>
-                            <input type="text" class="w-full px-3.5 py-2.5 border border-zinc-200 rounded-xl text-xs text-zinc-700 bg-zinc-50 cursor-not-allowed focus:outline-none" value="Hukum Siber, ITE, & Audit Penalaran AI Yuridis" readonly>
+                            <input type="text" id="kepakaran" class="w-full px-3.5 py-2.5 border border-zinc-200 rounded-xl text-xs text-zinc-700 bg-zinc-50 cursor-not-allowed focus:outline-none" value="Hukum Siber, ITE, & Audit Penalaran AI Yuridis" readonly>
                         </div>
 
                         <div class="flex flex-col gap-1.5">
@@ -214,13 +208,282 @@
                             </div>
                         </div>
 
+                        <div class="mt-6 flex justify-end pt-5 border-t border-zinc-100">
+                            <button type="button" onclick="openEditProfileModal()" class="px-5 py-2.5 rounded-xl bg-brand-brown hover:bg-black text-white text-[11px] font-bold transition shadow-md active:scale-95 flex items-center gap-2">
+                                <i class="fi fi-rr-edit text-xs"></i> <span>Edit Profil</span>
+                            </button>
+                        </div>
+
                     </form>
                 </div>
             </section>
         </div>
     </main>
 
+    <div id="editProfileModal" class="hidden fixed inset-0 z-50 overflow-y-auto bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden modal-backdrop">
+            <div class="p-5 border-b border-zinc-100 flex justify-between items-center bg-zinc-50">
+                <h3 class="font-bold text-zinc-900 flex items-center gap-2"><i class="fi fi-rr-user-pen text-brand-brown"></i> Edit Profil & Biodata</h3>
+                <button onclick="confirmCancelEdit()" class="text-zinc-400 hover:text-zinc-600"><i class="fi fi-rr-cross"></i></button>
+            </div>
+            <form id="editProfileForm" onsubmit="handleEditProfileSubmit(event)" class="p-6 space-y-4">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-zinc-700 uppercase">Nama Lengkap & Gelar <span class="text-rose-500">*</span></label>
+                        <input type="text" id="editName" required class="w-full p-2 border border-zinc-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-brown/20 focus:border-brand-brown transition-colors" value="Dr. Fabian Bimo, S.H., M.H." oninput="checkProfileFormState()">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-zinc-700 uppercase">NIP / Identitas <span class="text-rose-500">*</span></label>
+                        <input type="text" id="editNip" required class="w-full p-2 border border-zinc-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-brown/20 focus:border-brand-brown transition-colors" value="198701012015011001" oninput="checkProfileFormState()">
+                    </div>
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-zinc-700 uppercase">Nama Pengguna (Username) <span class="text-rose-500">*</span></label>
+                    <input type="text" id="editUsername" required class="w-full p-2 border border-zinc-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-brown/20 focus:border-brand-brown transition-colors" value="hukum1" oninput="checkProfileFormState()">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-zinc-700 uppercase">Lembaga Afiliasi <span class="text-rose-500">*</span></label>
+                    <input type="text" id="editInstitusi" required class="w-full p-2 border border-zinc-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-brown/20 focus:border-brand-brown transition-colors" value="BRIN (Badan Riset & Inovasi Nasional)" oninput="checkProfileFormState()">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-zinc-700 uppercase">Bidang Kepakaran <span class="text-rose-500">*</span></label>
+                    <input type="text" id="editKepakaran" required class="w-full p-2 border border-zinc-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-brown/20 focus:border-brand-brown transition-colors" value="Hukum Siber, ITE, & Audit Penalaran AI Yuridis" oninput="checkProfileFormState()">
+                </div>
+                
+                <div class="pt-4 flex justify-end gap-3 border-t border-zinc-100 mt-6">
+                    <button type="button" onclick="confirmCancelEdit()" class="px-5 py-2 rounded-xl border border-zinc-300 bg-white text-zinc-700 text-xs font-bold hover:bg-zinc-50 transition">Batal</button>
+                    <button type="submit" id="saveProfileBtn" disabled class="px-5 py-2 rounded-xl text-xs font-bold transition shadow-md bg-brand-brown text-white hover:bg-black disabled:bg-zinc-300 disabled:text-zinc-500 disabled:shadow-none disabled:cursor-not-allowed">Simpan Perubahan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="cancelConfirmModal" class="hidden fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center modal-backdrop">
+            <div class="w-12 h-12 rounded-full bg-amber-50 text-amber-500 flex items-center justify-center mx-auto mb-1">
+                <i class="fi fi-rr-triangle-warning text-xl"></i>
+            </div>
+            <h3 class="font-bold text-zinc-900 text-lg">Batalkan Perubahan?</h3>
+            <p class="text-[0.8rem] text-zinc-500">Seluruh perubahan yang belum Anda simpan akan dihapus. Apakah Anda yakin ingin membatalkan?</p>
+            <div class="flex gap-3 mt-3">
+                <button onclick="closeCancelConfirmModal()" class="flex-1 py-2.5 text-zinc-600 font-bold rounded-lg border border-zinc-200 hover:bg-zinc-50 transition text-xs">Lanjutkan Edit</button>
+                <button onclick="forceCloseEditModal()" class="flex-1 py-2.5 text-white font-bold rounded-lg bg-rose-600 hover:bg-rose-700 transition shadow-sm text-xs">Ya, Batalkan</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="securityMenuModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-sm rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden modal-backdrop p-6 text-center">
+            <div class="w-12 h-12 rounded-full bg-zinc-100 text-zinc-600 flex items-center justify-center mx-auto mb-4">
+                <i class="fi fi-rr-shield-keyhole text-xl"></i>
+            </div>
+            <h3 class="font-bold text-zinc-900 text-lg mb-1">Keamanan & Sandi</h3>
+            <p class="text-[0.8rem] text-zinc-500 mb-6">Silakan pilih pengaturan keamanan yang ingin Anda perbarui.</p>
+            
+            <div class="space-y-3">
+                <button onclick="openChangeEmailModal()" class="w-full flex items-center justify-between p-3.5 border border-zinc-200 rounded-xl hover:bg-brand-lightBrown/50 hover:border-brand-brown transition group">
+                    <div class="flex items-center gap-3">
+                        <i class="fi fi-rr-envelope text-zinc-400 group-hover:text-brand-brown"></i>
+                        <span class="text-sm font-semibold text-zinc-700 group-hover:text-brand-brown">Ganti Email Resmi</span>
+                    </div>
+                    <i class="fi fi-rr-angle-small-right text-zinc-300"></i>
+                </button>
+                <button onclick="openChangePasswordModal()" class="w-full flex items-center justify-between p-3.5 border border-zinc-200 rounded-xl hover:bg-brand-lightBrown/50 hover:border-brand-brown transition group">
+                    <div class="flex items-center gap-3">
+                        <i class="fi fi-rr-lock text-zinc-400 group-hover:text-brand-brown"></i>
+                        <span class="text-sm font-semibold text-zinc-700 group-hover:text-brand-brown">Ganti Kata Sandi</span>
+                    </div>
+                    <i class="fi fi-rr-angle-small-right text-zinc-300"></i>
+                </button>
+            </div>
+            <button onclick="closeSecurityMenuModal()" class="mt-5 text-xs text-zinc-400 font-bold hover:text-zinc-600 underline">Tutup Menu</button>
+        </div>
+    </div>
+
+    <div id="changeEmailModal" class="hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden modal-backdrop">
+            <div class="p-5 border-b border-zinc-100 flex justify-between items-center">
+                <h3 class="font-bold text-zinc-900">Pembaruan Alamat Surel</h3>
+                <button onclick="closeChangeEmailModal()" class="text-zinc-400 hover:text-zinc-600"><i class="fi fi-rr-cross"></i></button>
+            </div>
+            <form id="changeEmailForm" onsubmit="handleChangeEmail(event)" class="p-6 space-y-4">
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-zinc-700 uppercase">Surel Saat Ini</label>
+                    <input type="email" required class="w-full p-2 border border-zinc-300 rounded-lg text-xs bg-zinc-50 cursor-not-allowed" value="hukum1@titikhukum.id" readonly>
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-zinc-700 uppercase">Kata Sandi Konfirmasi <span class="text-rose-500">*</span></label>
+                    <input type="password" required class="w-full p-2 border border-zinc-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-brown/20 focus:border-brand-brown transition-colors" placeholder="Masukkan kata sandi akun Anda saat ini" oninput="checkEmailFormState()">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-zinc-700 uppercase">Alamat Surel Baru <span class="text-rose-500">*</span></label>
+                    <input type="email" required class="w-full p-2 border border-zinc-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-brown/20 focus:border-brand-brown transition-colors" placeholder="Contoh: hukum_baru@titikhukum.id" oninput="checkEmailFormState()">
+                </div>
+                <button type="submit" id="saveEmailBtn" disabled class="w-full mt-4 py-2.5 rounded-xl text-xs font-bold transition shadow-md bg-brand-brown text-white hover:bg-black disabled:bg-zinc-300 disabled:text-zinc-500 disabled:shadow-none disabled:cursor-not-allowed">Kirim Permohonan Pelepasan Tautan</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="changePasswordModal" class="hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white w-full max-w-md rounded-2xl shadow-2xl border border-zinc-200 overflow-hidden modal-backdrop">
+            <div class="p-5 border-b border-zinc-100 flex justify-between items-center">
+                <h3 class="font-bold text-zinc-900">Pembaruan Kata Sandi</h3>
+                <button onclick="closeChangePasswordModal()" class="text-zinc-400 hover:text-zinc-600"><i class="fi fi-rr-cross"></i></button>
+            </div>
+            <form id="changePasswordForm" onsubmit="handleChangePassword(event)" class="p-6 space-y-4">
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-zinc-700 uppercase">Kata Sandi Saat Ini <span class="text-rose-500">*</span></label>
+                    <input type="password" required class="w-full p-2 border border-zinc-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-brown/20 focus:border-brand-brown transition-colors" placeholder="Masukkan kata sandi yang digunakan saat ini" oninput="checkPasswordFormState()">
+                </div>
+                <div class="p-3 bg-blue-50 text-blue-800 text-[11px] rounded-lg flex items-start gap-2 border border-blue-100">
+                    <i class="fi fi-rr-info mt-0.5"></i>
+                    <span>Untuk menjaga keamanan akses, kami akan mengirimkan tautan verifikasi ke alamat surel Anda untuk mengatur ulang kata sandi.</span>
+                </div>
+                <button type="submit" id="savePasswordBtn" disabled class="w-full mt-2 py-2.5 rounded-xl text-xs font-bold transition shadow-md bg-brand-brown text-white hover:bg-black disabled:bg-zinc-300 disabled:text-zinc-500 disabled:shadow-none disabled:cursor-not-allowed">Kirim Tautan Pembaruan Sandi</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="logoutConfirmModal" class="hidden fixed inset-0 z-[60] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center modal-backdrop">
+            <div class="w-12 h-12 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mx-auto mb-1">
+                <i class="fi fi-rr-sign-out-alt text-xl"></i>
+            </div>
+            <h3 class="font-bold text-zinc-900 text-lg">Konfirmasi Keluar</h3>
+            <p class="text-[0.8rem] text-zinc-500">Apakah Anda yakin ingin mengakhiri sesi pada akun Ahli Hukum?</p>
+            <div class="flex gap-3 mt-3">
+                <button onclick="closeLogoutConfirmModal()" class="flex-1 py-2.5 text-zinc-600 font-bold rounded-lg border border-zinc-200 hover:bg-zinc-50 transition text-xs">Batal</button>
+                <button onclick="handleLogout()" class="flex-1 py-2.5 text-white font-bold rounded-lg bg-rose-600 hover:bg-rose-700 transition shadow-sm text-xs">Ya, Keluar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="feedbackModal" class="hidden fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center modal-backdrop">
+            <div id="feedbackIconBox" class="w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-1">
+                <i id="feedbackIcon" class="text-2xl"></i>
+            </div>
+            <h3 id="feedbackTitle" class="font-bold text-zinc-900 text-lg">Judul</h3>
+            <p id="feedbackDesc" class="text-[0.8rem] text-zinc-500">Pesan deskripsi</p>
+            <button onclick="closeFeedbackModal()" class="mt-3 w-full py-2.5 bg-zinc-900 text-white font-bold rounded-xl hover:bg-black transition shadow-sm text-xs">Tutup Notifikasi</button>
+        </div>
+    </div>
+
+    <div id="photoMenuPopup" class="hidden fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-3 modal-backdrop text-center">
+            <h3 class="font-bold text-zinc-900 mb-2 text-lg">Ubah Foto Profil</h3>
+            <button onclick="document.getElementById('fileUpload').click(); closePhotoMenu();" class="w-full py-2.5 bg-brand-brown text-white text-xs font-bold rounded-xl hover:bg-black transition shadow-sm">
+                Unggah Foto Baru
+            </button>
+            <button onclick="confirmDeletePhoto()" class="w-full py-2.5 bg-rose-50 text-rose-600 text-xs font-bold rounded-xl hover:bg-rose-100 transition border border-rose-100">
+                Hapus Foto
+            </button>
+            <button onclick="closePhotoMenu()" class="w-full py-2 text-zinc-400 font-bold hover:text-zinc-600 transition mt-2 text-xs underline">
+                Batal
+            </button>
+            <input type="file" id="fileUpload" accept=".jpg, .jpeg, .png" class="hidden" onchange="handleFileUpload(event)">
+        </div>
+    </div>
+
+    <div id="deletePhotoConfirmModal" class="hidden fixed inset-0 z-[70] bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center modal-backdrop">
+            <div class="w-12 h-12 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mx-auto mb-1">
+                <i class="fi fi-rr-trash text-xl"></i>
+            </div>
+            <h3 class="font-bold text-zinc-900 text-lg">Hapus Foto?</h3>
+            <p class="text-[0.8rem] text-zinc-500">Apa Anda yakin ingin menghapus foto profil saat ini?</p>
+            <div class="flex gap-3 mt-3">
+                <button onclick="closeDeletePhotoConfirm()" class="flex-1 py-2.5 text-zinc-600 font-bold rounded-xl border border-zinc-200 hover:bg-zinc-50 transition text-xs">Batal</button>
+                <button onclick="executeDeletePhoto()" class="flex-1 py-2.5 text-white font-bold rounded-xl bg-rose-600 hover:bg-rose-700 transition shadow-sm text-xs">Ya, Hapus</button>
+            </div>
+        </div>
+    </div>
+
     <script>
+
+        // ===============================================
+        // LOGIKA GANTI & HAPUS FOTO PROFIL
+        // ===============================================
+        
+        // Panggil fungsi ini saat halaman dimuat (taruh di dalam DOMContentLoaded yang udah ada)
+        document.addEventListener('DOMContentLoaded', () => {
+            loadAvatar(); 
+        });
+
+        function loadAvatar() {
+            let savedProfile = JSON.parse(localStorage.getItem('titikhukum_ahli_profile') || '{}');
+            if (savedProfile.avatarUrl) {
+                document.getElementById('sidebar-pic').src = savedProfile.avatarUrl;
+            }
+        }
+
+        function openPhotoMenu() { document.getElementById('photoMenuPopup').classList.remove('hidden'); }
+        function closePhotoMenu() { document.getElementById('photoMenuPopup').classList.add('hidden'); }
+        
+        function confirmDeletePhoto() {
+            closePhotoMenu();
+            document.getElementById('deletePhotoConfirmModal').classList.remove('hidden');
+        }
+        function closeDeletePhotoConfirm() { 
+            document.getElementById('deletePhotoConfirmModal').classList.add('hidden'); 
+        }
+
+        function executeDeletePhoto() {
+            closeDeletePhotoConfirm();
+            
+            // Set ke gambar bawaan
+            const defaultAvatar = '../assets/pp.jpg';
+            document.getElementById('sidebar-pic').src = defaultAvatar;
+            
+            // Simpan ke local storage
+            let savedProfile = JSON.parse(localStorage.getItem('titikhukum_ahli_profile') || '{}');
+            savedProfile.avatarUrl = defaultAvatar;
+            localStorage.setItem('titikhukum_ahli_profile', JSON.stringify(savedProfile));
+            
+            // Panggil popup success yang udah kita buat sebelumnya
+            showFeedback('success', 'Foto Telah Dihapus', 'Foto profil telah berhasil dihapus.');
+        }
+
+        function handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Validasi Format JPG / PNG
+            const validTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+            if (!validTypes.includes(file.type)) {
+                showFeedback('error', 'Format Tidak Didukung', 'Format file tidak didukung, pastikan file yang diunggah berekstensi .JPG atau .PNG ya.');
+                event.target.value = ''; // Reset input file
+                return;
+            }
+
+            // Ubah gambar jadi base64 biar bisa disimpen di localStorage
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Image = e.target.result;
+                
+                // Terapkan ke tampilan
+                document.getElementById('sidebar-pic').src = base64Image;
+                
+                // Simpan permanen di sesi browser
+                let savedProfile = JSON.parse(localStorage.getItem('titikhukum_ahli_profile') || '{}');
+                savedProfile.avatarUrl = base64Image;
+                localStorage.setItem('titikhukum_ahli_profile', JSON.stringify(savedProfile));
+                
+                showFeedback('success', 'Foto Berhasil Diubah', 'Foto profil telah berhasil diperbarui dan tersimpan.');
+            };
+            reader.readAsDataURL(file);
+        }
+
+
+        // === LOGIKA LOGOUT ===
+        function openLogoutConfirmModal() {
+            document.getElementById('logoutConfirmModal').classList.remove('hidden');
+        }
+
+        function closeLogoutConfirmModal() {
+            document.getElementById('logoutConfirmModal').classList.add('hidden');
+        }
+
         function handleLogout() {
             localStorage.removeItem('titikhukum_auth');
             localStorage.removeItem('userEmail');
@@ -228,9 +491,28 @@
             window.location.href = '../login.html';
         }
 
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobileMenu');
-            if (menu) menu.classList.toggle('hidden');
+        // === LOGIKA NAVBAR (TEMA & BAHASA) ===
+        let isDarkMode = false;
+        function toggleNavTheme() {
+            isDarkMode = !isDarkMode;
+            const sunIcon = document.getElementById('icon-sun');
+            const moonIcon = document.getElementById('icon-moon');
+            
+            if (!sunIcon || !moonIcon) return;
+
+            if (isDarkMode) {
+                sunIcon.classList.remove('scale-100', 'rotate-0', 'opacity-100');
+                sunIcon.classList.add('scale-0', 'rotate-90', 'opacity-0');
+                
+                moonIcon.classList.remove('scale-0', '-rotate-90', 'opacity-0');
+                moonIcon.classList.add('scale-100', 'rotate-0', 'opacity-100');
+            } else {
+                moonIcon.classList.remove('scale-100', 'rotate-0', 'opacity-100');
+                moonIcon.classList.add('scale-0', '-rotate-90', 'opacity-0');
+                
+                sunIcon.classList.remove('scale-0', 'rotate-90', 'opacity-0');
+                sunIcon.classList.add('scale-100', 'rotate-0', 'opacity-100');
+            }
         }
 
         let currentLang = 'EN';
@@ -240,9 +522,175 @@
             if (label) label.textContent = currentLang;
         }
 
-        let isDarkMode = false;
-        function toggleNavTheme() {
-            isDarkMode = !isDarkMode;
+        // === LOGIKA VALIDASI & UPDATE EDIT PROFIL ===
+        let initialProfileState = {};
+
+        function captureInitialProfileState() {
+            const form = document.getElementById('editProfileForm');
+            initialProfileState = {
+                name: form.querySelector('#editName').value,
+                nip: form.querySelector('#editNip').value,
+                username: form.querySelector('#editUsername').value,
+                institusi: form.querySelector('#editInstitusi').value,
+                kepakaran: form.querySelector('#editKepakaran').value
+            };
+        }
+
+        function checkProfileFormState() {
+            const form = document.getElementById('editProfileForm');
+            const btn = document.getElementById('saveProfileBtn');
+            
+            const currentState = {
+                name: form.querySelector('#editName').value,
+                nip: form.querySelector('#editNip').value,
+                username: form.querySelector('#editUsername').value,
+                institusi: form.querySelector('#editInstitusi').value,
+                kepakaran: form.querySelector('#editKepakaran').value
+            };
+
+            const isChanged = JSON.stringify(initialProfileState) !== JSON.stringify(currentState);
+            const isValid = form.checkValidity();
+
+            btn.disabled = !(isChanged && isValid);
+        }
+
+        function openEditProfileModal() {
+            captureInitialProfileState();
+            checkProfileFormState();
+            document.getElementById('editProfileModal').classList.remove('hidden');
+        }
+
+        function closeEditProfileModal() {
+            document.getElementById('editProfileModal').classList.add('hidden');
+        }
+
+        function confirmCancelEdit() {
+            document.getElementById('cancelConfirmModal').classList.remove('hidden');
+        }
+
+        function closeCancelConfirmModal() {
+            document.getElementById('cancelConfirmModal').classList.add('hidden');
+        }
+
+        function forceCloseEditModal() {
+            closeCancelConfirmModal();
+            closeEditProfileModal();
+            const form = document.getElementById('editProfileForm');
+            form.querySelector('#editName').value = initialProfileState.name;
+            form.querySelector('#editNip').value = initialProfileState.nip;
+            form.querySelector('#editUsername').value = initialProfileState.username;
+            form.querySelector('#editInstitusi').value = initialProfileState.institusi;
+            form.querySelector('#editKepakaran').value = initialProfileState.kepakaran;
+        }
+
+        function handleEditProfileSubmit(e) {
+            e.preventDefault();
+            const form = document.getElementById('editProfileForm');
+            
+            if (!form.checkValidity()) {
+                showFeedback('error', 'Gagal Menyimpan', 'Mohon lengkapi seluruh kolom yang diwajibkan dengan format yang sesuai sebelum menyimpan data.');
+                return;
+            }
+
+            const newName = document.getElementById('editName').value;
+            const newNip = document.getElementById('editNip').value;
+            const newUsername = document.getElementById('editUsername').value;
+            const newInstitusi = document.getElementById('editInstitusi').value;
+            const newKepakaran = document.getElementById('editKepakaran').value;
+
+            document.getElementById('name').value = newName;
+            document.getElementById('nip').value = newNip;
+            document.getElementById('username').value = newUsername;
+            document.getElementById('institusi').value = newInstitusi;
+            document.getElementById('kepakaran').value = newKepakaran;
+
+            document.getElementById('sidebar-name').textContent = newName;
+            document.getElementById('sidebar-handle').textContent = '@' + newUsername;
+
+            captureInitialProfileState(); 
+
+            closeEditProfileModal();
+            showFeedback('success', 'Berhasil Disimpan', 'Data profil Anda telah berhasil diperbarui di dalam sistem.');
+        }
+
+        // === LOGIKA VALIDASI BUTTON KEAMANAN & SANDI ===
+        function checkEmailFormState() {
+            const form = document.getElementById('changeEmailForm');
+            const btn = document.getElementById('saveEmailBtn');
+            btn.disabled = !form.checkValidity();
+        }
+
+        function checkPasswordFormState() {
+            const form = document.getElementById('changePasswordForm');
+            const btn = document.getElementById('savePasswordBtn');
+            btn.disabled = !form.checkValidity();
+        }
+
+        // === LOGIKA NAVIGASI KEAMANAN & SANDI ===
+        function openSecurityModal() {
+            document.getElementById('securityMenuModal').classList.remove('hidden');
+        }
+
+        function closeSecurityMenuModal() {
+            document.getElementById('securityMenuModal').classList.add('hidden');
+        }
+
+        function openChangeEmailModal() {
+            closeSecurityMenuModal();
+            const form = document.getElementById('changeEmailForm');
+            form.reset();
+            checkEmailFormState();
+            document.getElementById('changeEmailModal').classList.remove('hidden');
+        }
+
+        function closeChangeEmailModal() {
+            document.getElementById('changeEmailModal').classList.add('hidden');
+        }
+
+        function handleChangeEmail(e) {
+            e.preventDefault();
+            closeChangeEmailModal();
+            showFeedback('success', 'Permohonan Terkirim', 'Instruksi pelepasan tautan (unbind) telah dikirimkan ke alamat surel Anda. Mohon periksa kotak masuk Anda.');
+        }
+
+        function openChangePasswordModal() {
+            closeSecurityMenuModal();
+            const form = document.getElementById('changePasswordForm');
+            form.reset();
+            checkPasswordFormState();
+            document.getElementById('changePasswordModal').classList.remove('hidden');
+        }
+
+        function closeChangePasswordModal() {
+            document.getElementById('changePasswordModal').classList.add('hidden');
+        }
+
+        function handleChangePassword(e) {
+            e.preventDefault();
+            closeChangePasswordModal();
+            showFeedback('success', 'Tautan Terkirim', 'Tautan untuk mengatur ulang kata sandi telah dikirimkan. Silakan periksa alamat surel Anda untuk melanjutkan proses pembaruan kata sandi.');
+        }
+
+        // === FUNGSI BANTUAN FEEDBACK MODAL ===
+        function showFeedback(type, title, desc) {
+            const box = document.getElementById('feedbackIconBox');
+            const icon = document.getElementById('feedbackIcon');
+            
+            if (type === 'success') {
+                box.className = 'w-12 h-12 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center mx-auto mb-1';
+                icon.className = 'fa-solid fa-circle-check text-2xl';
+            } else {
+                box.className = 'w-12 h-12 rounded-full bg-rose-50 text-rose-500 flex items-center justify-center mx-auto mb-1';
+                icon.className = 'fa-solid fa-triangle-exclamation text-2xl';
+            }
+
+            document.getElementById('feedbackTitle').textContent = title;
+            document.getElementById('feedbackDesc').textContent = desc;
+            document.getElementById('feedbackModal').classList.remove('hidden');
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById('feedbackModal').classList.add('hidden');
         }
     </script>
 </body>

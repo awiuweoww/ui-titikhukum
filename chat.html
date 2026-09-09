@@ -5,6 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asisten Chatbot AI & Grounding PDF Referensi | TitikHukum - BRIN</title>
     
+    <script>
+        // Pre-render Dark Mode initialization to prevent FOUC
+        (function() {
+            try {
+                const theme = localStorage.getItem('titikhukum_theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (theme === 'dark' || (!theme && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch(e) {}
+        })();
+    </script>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,6 +29,8 @@
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/darkmode.css?v=20260908_28">
+    <script src="assets/theme.js?v=20260908_28" defer></script>
 
     <style>
         body {
@@ -152,7 +168,8 @@
 
             <!-- Brand Logo -->
             <a href="index.html" class="flex items-center gap-2 group">
-                <img src="assets/logo.png" alt="Titik Hukum Logo" class="h-7 sm:h-8 object-contain transition-transform duration-300 group-hover:scale-105" />
+                <img src="assets/logo.png" alt="Titik Hukum Logo" class="h-7 sm:h-8 object-contain transition-transform duration-300 group-hover:scale-105 dark:hidden" />
+                <img src="assets/logo-white.png" alt="Titik Hukum Logo" class="h-7 sm:h-8 object-contain transition-transform duration-300 group-hover:scale-105 hidden dark:block" />
             </a>
         </div>
 
@@ -188,6 +205,10 @@
         </div>
 
         <div class="flex items-center gap-2 sm:gap-3">
+            <button type="button" onclick="toggleNavTheme()" id="navThemeBtn" class="flex items-center justify-center text-stone-600 hover:text-stone-900 transition-all duration-300 transform hover:scale-110 active:scale-95 cursor-pointer p-1.5 rounded-lg border border-transparent hover:bg-stone-100" title="Ganti Mode Tema (Terang / Gelap)">
+                <span id="navThemeIconContainer" class="inline-flex items-center justify-center w-5 h-5 shrink-0"></span>
+            </button>
+
             <a href="pustaka.html" class="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-xs font-semibold text-gray-700 transition flex items-center gap-1.5">
                 <i class="fa-solid fa-book-bookmark text-xs text-[#8c5835]"></i>
                 <span class="hidden sm:inline">Pustaka Dokumen</span>
@@ -432,7 +453,7 @@
             <!-- ================================================ -->
             <!-- A. CHATBOT INTERACTIVE AREA (SAMPING KIRI/UTAMA) -->
             <!-- ================================================ -->
-            <main id="chatMainArea" class="flex-1 flex flex-col h-full bg-[#f7f6f2] relative overflow-hidden min-w-[300px]">
+            <main id="chatMainArea" class="flex-1 flex flex-col h-full bg-[#f7f6f2] dark:bg-[#26252C] relative overflow-hidden min-w-[300px]">
                 
                 <!-- 1. EMPTY / WELCOME STATE (Inspired by Grok Clean UI) -->
                 <div id="welcomeState" class="flex-1 flex flex-col items-center justify-center p-6 text-center max-w-2xl mx-auto overflow-y-auto">
@@ -440,21 +461,21 @@
                     <!-- Center Brand Emblem (Direct Rounded Image) -->
                     <img src="assets/iconchat.png" alt="TitikHukum AI Assistant" class="w-16 h-16 rounded-2xl object-cover mb-5 animate-in zoom-in-90 duration-300 shadow-md" />
 
-                    <h2 class="font-serif text-2xl sm:text-3xl text-[#26150d] font-normal tracking-tight">
+                    <h2 class="font-serif text-2xl sm:text-3xl text-[#26150d] dark:text-gray-100 font-normal tracking-tight">
                         Apa yang ingin Anda teliti hari ini?
                     </h2>
 
                     <!-- Initial Floating Input Card (Grok-Style with File Attachment) -->
-                    <div class="w-full mt-8 p-3 rounded-2xl bg-white border border-[#d6c4b7] shadow-md focus-within:border-[#26150d] focus-within:ring-2 focus-within:ring-[#26150d]/10 transition-all text-left">
+                    <div class="w-full mt-8 p-3 rounded-2xl bg-white dark:bg-[#37353E] border border-[#d6c4b7] dark:border-[#715A5A] shadow-md focus-within:border-[#26150d] dark:focus-within:border-[#E5A93C] focus-within:ring-2 focus-within:ring-[#26150d]/10 dark:focus-within:ring-[#E5A93C]/20 transition-all text-left">
                         
                         <!-- Hidden File Input -->
                         <input type="file" id="welcomeFileInput" accept="application/pdf" class="hidden" onchange="handleFileAttachment(this)" />
 
                         <!-- Attached Document Preview Chip (Hidden by default) -->
-                        <div id="welcomeAttachedDocChip" class="hidden items-center gap-2 mb-2 p-1.5 px-3 rounded-xl bg-[#f6eee7] border border-[#d6c4b7] text-xs text-[#26150d] w-fit animate-in fade-in">
+                        <div id="welcomeAttachedDocChip" class="hidden items-center gap-2 mb-2 p-1.5 px-3 rounded-xl bg-[#f6eee7] dark:bg-[#2B2A32] border border-[#d6c4b7] dark:border-[#715A5A] text-xs text-[#26150d] dark:text-[#E5A93C] w-fit animate-in fade-in">
                             <i class="fa-solid fa-file-pdf text-rose-600"></i>
-                            <span class="font-bold truncate max-w-[220px]" id="welcomeAttachedDocName">Dokumen.pdf</span>
-                            <span class="text-[10px] text-stone-500" id="welcomeAttachedDocSize">(2.4 MB)</span>
+                            <span class="font-bold truncate max-w-[220px] dark:text-white" id="welcomeAttachedDocName">Dokumen.pdf</span>
+                            <span class="text-[10px] text-stone-500 dark:text-gray-400" id="welcomeAttachedDocSize">(2.4 MB)</span>
                             <button type="button" onclick="detachCurrentDoc()" class="text-stone-400 hover:text-rose-600 ml-1 text-xs" title="Hapus lampiran">
                                 <i class="fa-solid fa-xmark"></i>
                             </button>
@@ -464,20 +485,20 @@
                             id="welcomeInput"
                             rows="2"
                             placeholder="Tanyakan analisis tindak pidana, kewenangan lembaga, atau lampirkan dokumen PDF..." 
-                            class="w-full resize-none border-0 focus:outline-none text-xs sm:text-sm text-gray-800 placeholder-gray-400 bg-transparent px-1 py-1"
+                            class="w-full resize-none border-0 focus:outline-none text-xs sm:text-sm text-gray-800 dark:text-gray-200 placeholder-gray-400 dark:placeholder-gray-500 bg-transparent px-1 py-1"
                             oninput="updateWelcomeSendButtonState()"
                             onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); sendWelcomeQuery(); }"
                         ></textarea>
 
-                        <div class="flex items-center justify-between pt-2 border-t border-gray-100 mt-1">
+                        <div class="flex items-center justify-between pt-2 border-t border-gray-100 dark:border-[#715A5A]/50 mt-1">
                             <div class="flex items-center gap-2">
                                 <!-- Tombol Lampirkan Dokumen PDF -->
-                                <button type="button" onclick="document.getElementById('welcomeFileInput').click()" class="px-2.5 py-1.5 rounded-xl border border-gray-200 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-gray-700 text-xs font-semibold flex items-center gap-1.5 transition shadow-2xs active:scale-95">
-                                    <i class="fa-solid fa-paperclip text-stone-600 text-xs"></i>
+                                <button type="button" onclick="document.getElementById('welcomeFileInput').click()" class="px-2.5 py-1.5 rounded-xl border border-gray-200 dark:border-[#715A5A] hover:bg-[#f6eee7] dark:hover:bg-[#2B2A32] hover:border-[#cbb4a3] dark:hover:border-gray-500 text-gray-700 dark:text-gray-300 text-xs font-semibold flex items-center gap-1.5 transition shadow-2xs active:scale-95">
+                                    <i class="fa-solid fa-paperclip text-stone-600 dark:text-gray-400 text-xs"></i>
                                     <span>Lampirkan PDF</span>
                                 </button>
                                 <span class="text-[11px] text-gray-400 hidden sm:inline">
-                                    Tekan <kbd class="px-1.5 py-0.5 rounded bg-gray-100 text-gray-600 font-mono text-[10px]">Enter ↵</kbd>
+                                    Tekan <kbd class="px-1.5 py-0.5 rounded bg-gray-100 dark:bg-[#2B2A32] text-gray-600 dark:text-gray-400 font-mono text-[10px]">Enter ↵</kbd>
                                 </span>
                             </div>
 
@@ -486,7 +507,7 @@
                                 id="welcomeSendBtn"
                                 onclick="sendWelcomeQuery()" 
                                 disabled
-                                class="w-9 h-9 rounded-xl bg-stone-200 text-stone-400 flex items-center justify-center transition shadow-none cursor-not-allowed opacity-70"
+                                class="w-9 h-9 rounded-xl bg-stone-200 dark:bg-[#2B2A32] text-stone-400 dark:text-gray-500 flex items-center justify-center transition shadow-none cursor-not-allowed opacity-70"
                                 title="Kirim pesan"
                             >
                                 <i class="fa-solid fa-arrow-up text-xs"></i>
@@ -496,46 +517,46 @@
 
                     <!-- Quick Prompt Suggestions -->
                     <div class="w-full mt-6 grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-left">
-                        <button type="button" onclick="startQueryWithPrompt('Apa saja sanksi pidana jika kapal berlayar tanpa SIPI di WPPNRI menurut UU 45/2009?')" class="p-3 rounded-xl bg-white hover:bg-[#f6eee7] border border-[#e4d7cd] hover:border-[#cbb4a3] transition text-xs space-y-1 shadow-2xs group">
-                            <div class="font-bold text-[#26150d] group-hover:text-amber-900 flex items-center gap-2">
-                                <i class="fa-solid fa-gavel text-stone-600 text-xs"></i>
+                        <button type="button" onclick="startQueryWithPrompt('Apa saja sanksi pidana jika kapal berlayar tanpa SIPI di WPPNRI menurut UU 45/2009?')" class="p-3 rounded-xl bg-white dark:bg-[#37353E] hover:bg-[#f6eee7] dark:hover:bg-[#403E49] border border-[#e4d7cd] dark:border-[#715A5A] hover:border-[#cbb4a3] transition text-xs space-y-1 shadow-2xs group">
+                            <div class="font-bold text-[#26150d] dark:text-gray-100 group-hover:text-amber-900 flex items-center gap-2">
+                                <i class="fa-solid fa-gavel text-stone-600 dark:text-gray-400 text-xs"></i>
                                 <span>Tindak Pidana Perikanan</span>
                                 <i class="fa-solid fa-arrow-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity ml-auto"></i>
                             </div>
-                            <div class="text-[11px] text-gray-500 line-clamp-1">
+                            <div class="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-1">
                                 Sanksi kapal tanpa SIPI dan alat tangkap destruktif.
                             </div>
                         </button>
 
-                        <button type="button" onclick="startQueryWithPrompt('Siapa saja yang berwenang melakukan penangkapan kapal di ZEE Indonesia?')" class="p-3 rounded-xl bg-white hover:bg-[#f6eee7] border border-[#e4d7cd] hover:border-[#cbb4a3] transition text-xs space-y-1 shadow-2xs group">
-                            <div class="font-bold text-[#26150d] group-hover:text-amber-900 flex items-center gap-2">
-                                <i class="fa-solid fa-building-columns text-stone-600 text-xs"></i>
+                        <button type="button" onclick="startQueryWithPrompt('Siapa saja yang berwenang melakukan penangkapan kapal di ZEE Indonesia?')" class="p-3 rounded-xl bg-white dark:bg-[#37353E] hover:bg-[#f6eee7] dark:hover:bg-[#403E49] border border-[#e4d7cd] dark:border-[#715A5A] hover:border-[#cbb4a3] transition text-xs space-y-1 shadow-2xs group">
+                            <div class="font-bold text-[#26150d] dark:text-gray-100 group-hover:text-amber-900 flex items-center gap-2">
+                                <i class="fa-solid fa-building-columns text-stone-600 dark:text-gray-400 text-xs"></i>
                                 <span>Kewenangan Lembaga</span>
                                 <i class="fa-solid fa-arrow-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity ml-auto"></i>
                             </div>
-                            <div class="text-[11px] text-gray-500 line-clamp-1">
+                            <div class="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-1">
                                 Yurisdiksi PPNS KKP, TNI AL, dan Bakamla.
                             </div>
                         </button>
 
-                        <button type="button" onclick="startQueryWithPrompt('Jelaskan penegakan hukum di Laut Kepulauan vs Laut Teritorial')" class="p-3 rounded-xl bg-white hover:bg-[#f6eee7] border border-[#e4d7cd] hover:border-[#cbb4a3] transition text-xs space-y-1 shadow-2xs group">
-                            <div class="font-bold text-[#26150d] group-hover:text-amber-900 flex items-center gap-2">
-                                <i class="fa-solid fa-water text-stone-600 text-xs"></i>
+                        <button type="button" onclick="startQueryWithPrompt('Jelaskan penegakan hukum di Laut Kepulauan vs Laut Teritorial')" class="p-3 rounded-xl bg-white dark:bg-[#37353E] hover:bg-[#f6eee7] dark:hover:bg-[#403E49] border border-[#e4d7cd] dark:border-[#715A5A] hover:border-[#cbb4a3] transition text-xs space-y-1 shadow-2xs group">
+                            <div class="font-bold text-[#26150d] dark:text-gray-100 group-hover:text-amber-900 flex items-center gap-2">
+                                <i class="fa-solid fa-water text-stone-600 dark:text-gray-400 text-xs"></i>
                                 <span>Uji Rezim Laut</span>
                                 <i class="fa-solid fa-arrow-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity ml-auto"></i>
                             </div>
-                            <div class="text-[11px] text-gray-500 line-clamp-1">
+                            <div class="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-1">
                                 Kedaulatan teritorial vs hak berdaulat ZEE.
                             </div>
                         </button>
 
-                        <button type="button" onclick="startQueryWithPrompt('Apa isi dan rujukan Pasal 85 UU Nomor 45 Tahun 2009?')" class="p-3 rounded-xl bg-white hover:bg-[#f6eee7] border border-[#e4d7cd] hover:border-[#cbb4a3] transition text-xs space-y-1 shadow-2xs group">
-                            <div class="font-bold text-[#26150d] group-hover:text-amber-900 flex items-center gap-2">
-                                <i class="fa-solid fa-file-contract text-stone-600 text-xs"></i>
+                        <button type="button" onclick="startQueryWithPrompt('Apa isi dan rujukan Pasal 85 UU Nomor 45 Tahun 2009?')" class="p-3 rounded-xl bg-white dark:bg-[#37353E] hover:bg-[#f6eee7] dark:hover:bg-[#403E49] border border-[#e4d7cd] dark:border-[#715A5A] hover:border-[#cbb4a3] transition text-xs space-y-1 shadow-2xs group">
+                            <div class="font-bold text-[#26150d] dark:text-gray-100 group-hover:text-amber-900 flex items-center gap-2">
+                                <i class="fa-solid fa-file-contract text-stone-600 dark:text-gray-400 text-xs"></i>
                                 <span>Rujukan Pasal 85 Lengkap</span>
                                 <i class="fa-solid fa-arrow-right text-[10px] opacity-0 group-hover:opacity-100 transition-opacity ml-auto"></i>
                             </div>
-                            <div class="text-[11px] text-gray-500 line-clamp-1">
+                            <div class="text-[11px] text-gray-500 dark:text-gray-400 line-clamp-1">
                                 Ekstraksi visual langsung ke dokumen PDF Halaman 29.
                             </div>
                         </button>
@@ -544,12 +565,12 @@
                 </div>
 
                 <!-- 2. ACTIVE CHAT STREAM (Message stream populated dynamically) -->
-                <div id="chatMessagesContainer" class="hidden flex-1 overflow-y-auto p-4 sm:p-6 space-y-5">
+                <div id="chatMessagesContainer" class="hidden flex-1 overflow-y-auto p-4 sm:p-6 space-y-5 bg-[#f7f6f2] dark:bg-[#26252C]">
                     <!-- Populated dynamically by JavaScript -->
                 </div>
 
                 <!-- 3. BOTTOM CHAT WORKSPACE COMPOSER (Premium Bespoke Floating Card) -->
-                <div id="bottomChatInputContainer" class="hidden px-4 pt-2 pb-4 bg-gradient-to-t from-[#f7f6f2] via-[#f7f6f2]/95 to-transparent shrink-0">
+                <div id="bottomChatInputContainer" class="hidden px-4 pt-2 pb-4 bg-gradient-to-t from-[#f7f6f2] via-[#f7f6f2]/95 to-transparent dark:from-[#26252C] dark:via-[#26252C]/95 dark:to-transparent shrink-0">
                     
                     <!-- Hidden File Input for Bottom Chat -->
                     <input type="file" id="chatFileInput" accept="application/pdf" class="hidden" onchange="handleFileAttachment(this)" />
@@ -557,13 +578,13 @@
                     <div class="max-w-3xl mx-auto space-y-2">
                         
                         <!-- Floating Composer Card -->
-                        <div class="bg-white rounded-2xl border border-[#d6c4b7] shadow-lg shadow-stone-900/5 transition-all focus-within:border-[#26150d] focus-within:ring-2 focus-within:ring-[#26150d]/10 focus-within:shadow-xl overflow-hidden p-2 sm:p-2.5">
+                        <div class="bg-white dark:bg-[#37353E] rounded-2xl border border-[#d6c4b7] dark:border-[#715A5A] shadow-lg shadow-stone-900/5 transition-all focus-within:border-[#26150d] dark:focus-within:border-[#E5A93C] focus-within:ring-2 focus-within:ring-[#26150d]/10 dark:focus-within:ring-[#E5A93C]/20 focus-within:shadow-xl overflow-hidden p-2 sm:p-2.5">
                             
                             <!-- Attached Document Chip in Active Chat (Shown when attached) -->
-                            <div id="chatAttachedDocChip" class="hidden items-center gap-2 mb-2 p-1.5 px-3 rounded-xl bg-[#f6eee7] border border-[#d6c4b7] text-xs text-[#26150d] w-fit animate-in fade-in">
+                            <div id="chatAttachedDocChip" class="hidden items-center gap-2 mb-2 p-1.5 px-3 rounded-xl bg-[#f6eee7] dark:bg-[#2B2A32] border border-[#d6c4b7] dark:border-[#715A5A] text-xs text-[#26150d] dark:text-[#E5A93C] w-fit animate-in fade-in">
                                 <i class="fa-solid fa-file-pdf text-rose-600"></i>
-                                <span class="font-bold truncate max-w-[220px]" id="chatAttachedDocName">Dokumen.pdf</span>
-                                <span class="text-[10px] text-stone-500" id="chatAttachedDocSize">(2.4 MB)</span>
+                                <span class="font-bold truncate max-w-[220px] dark:text-white" id="chatAttachedDocName">Dokumen.pdf</span>
+                                <span class="text-[10px] text-stone-500 dark:text-gray-400" id="chatAttachedDocSize">(2.4 MB)</span>
                                 <button type="button" onclick="detachCurrentDoc()" class="text-stone-400 hover:text-rose-600 ml-1 text-xs cursor-pointer" title="Hapus lampiran">
                                     <i class="fa-solid fa-xmark"></i>
                                 </button>
@@ -574,37 +595,37 @@
                                 id="chatInput" 
                                 rows="2" 
                                 placeholder="Ajukan pertanyaan hukum atau minta analisis perbandingan pasal..." 
-                                class="w-full px-2.5 py-1 text-xs sm:text-[13px] bg-transparent border-0 focus:outline-none text-stone-800 placeholder-stone-400 resize-none leading-relaxed font-sans"
+                                class="w-full px-2.5 py-1 text-xs sm:text-[13px] bg-transparent border-0 focus:outline-none text-stone-800 dark:text-white placeholder-stone-400 dark:placeholder-gray-400 resize-none leading-relaxed font-sans"
                                 oninput="updateChatSendButtonState()"
                                 onkeydown="handleInputKeyDown(event)"
                             ></textarea>
 
                             <!-- Bottom Toolbar inside Composer Card -->
-                            <div class="flex items-center justify-between pt-2 border-t border-[#f0e8e0] px-1">
+                            <div class="flex items-center justify-between pt-2 border-t border-[#f0e8e0] dark:border-[#715A5A]/50 px-1">
                                 
                                 <!-- Left Actions: Attachment & Grounding Indicator -->
                                 <div class="flex items-center gap-1.5">
                                     <button 
                                         type="button" 
                                         onclick="document.getElementById('chatFileInput').click()" 
-                                        class="h-8 px-2.5 rounded-xl hover:bg-[#f6eee7] text-stone-600 hover:text-[#26150d] border border-transparent hover:border-[#d6c4b7] flex items-center gap-1.5 text-xs font-semibold transition active:scale-95 cursor-pointer shadow-2xs" 
+                                        class="h-8 px-2.5 rounded-xl hover:bg-[#f6eee7] dark:hover:bg-[#2B2A32] text-stone-600 dark:text-gray-300 hover:text-[#26150d] dark:hover:text-[#E5A93C] border border-transparent hover:border-[#d6c4b7] dark:hover:border-[#715A5A] flex items-center gap-1.5 text-xs font-semibold transition active:scale-95 cursor-pointer shadow-2xs" 
                                         title="Lampirkan Dokumen PDF"
                                     >
-                                        <i class="fa-solid fa-paperclip text-stone-500 text-xs"></i>
+                                        <i class="fa-solid fa-paperclip text-stone-500 dark:text-gray-400 text-xs"></i>
                                         <span class="hidden sm:inline">Lampirkan PDF</span>
                                     </button>
 
-                                    <div class="h-4 w-px bg-stone-200 hidden sm:block"></div>
+                                    <div class="h-4 w-px bg-stone-200 dark:bg-stone-700 hidden sm:block"></div>
 
                                     <!-- Quick Topic Filter Chips Inside Composer Toolbar -->
                                     <div class="hidden md:flex items-center gap-1">
-                                        <button type="button" onclick="filterByTopic('Sanksi Pidana')" class="px-2 py-0.8 rounded-lg bg-[#faf8f5] hover:bg-[#f6eee7] text-stone-600 hover:text-[#26150d] border border-[#ede5dd] text-[11px] font-medium transition cursor-pointer">
+                                        <button type="button" onclick="filterByTopic('Sanksi Pidana')" class="px-2 py-0.8 rounded-lg bg-[#faf8f5] dark:bg-[#2B2A32] hover:bg-[#f6eee7] dark:hover:bg-[#34323D] text-stone-600 dark:text-gray-300 hover:text-[#26150d] dark:hover:text-[#E5A93C] border border-[#ede5dd] dark:border-[#715A5A] text-[11px] font-medium transition cursor-pointer">
                                             <span>Sanksi</span>
                                         </button>
-                                        <button type="button" onclick="filterByTopic('Kewenangan')" class="px-2 py-0.8 rounded-lg bg-[#faf8f5] hover:bg-[#f6eee7] text-stone-600 hover:text-[#26150d] border border-[#ede5dd] text-[11px] font-medium transition cursor-pointer">
+                                        <button type="button" onclick="filterByTopic('Kewenangan')" class="px-2 py-0.8 rounded-lg bg-[#faf8f5] dark:bg-[#2B2A32] hover:bg-[#f6eee7] dark:hover:bg-[#34323D] text-stone-600 dark:text-gray-300 hover:text-[#26150d] dark:hover:text-[#E5A93C] border border-[#ede5dd] dark:border-[#715A5A] text-[11px] font-medium transition cursor-pointer">
                                             <span>Kewenangan</span>
                                         </button>
-                                        <button type="button" onclick="filterByTopic('Hierarki Norma')" class="px-2 py-0.8 rounded-lg bg-[#faf8f5] hover:bg-[#f6eee7] text-stone-600 hover:text-[#26150d] border border-[#ede5dd] text-[11px] font-medium transition cursor-pointer">
+                                        <button type="button" onclick="filterByTopic('Hierarki Norma')" class="px-2 py-0.8 rounded-lg bg-[#faf8f5] dark:bg-[#2B2A32] hover:bg-[#f6eee7] dark:hover:bg-[#34323D] text-stone-600 dark:text-gray-300 hover:text-[#26150d] dark:hover:text-[#E5A93C] border border-[#ede5dd] dark:border-[#715A5A] text-[11px] font-medium transition cursor-pointer">
                                             <span>Hierarki</span>
                                         </button>
                                     </div>
@@ -616,7 +637,7 @@
                                     id="chatSendBtn"
                                     onclick="handleSendMessage()" 
                                     disabled
-                                    class="w-8 h-8 rounded-xl bg-stone-200 text-stone-400 flex items-center justify-center transition shadow-none cursor-not-allowed opacity-70"
+                                    class="w-8 h-8 rounded-xl bg-stone-200 dark:bg-[#2B2A32] text-stone-400 dark:text-gray-500 flex items-center justify-center transition shadow-none cursor-not-allowed opacity-70"
                                     title="Kirim pesan"
                                 >
                                     <i class="fa-solid fa-arrow-up text-xs"></i>
@@ -627,7 +648,7 @@
                         </div>
 
                         <!-- Footer Legal Verification Disclaimer -->
-                        <div class="text-[10px] text-center text-stone-500 font-medium">
+                        <div class="text-[10px] text-center text-stone-500 dark:text-gray-400 font-medium">
                             TitikHukum AI mereferensikan naskah resmi Lembaran Negara RI. Verifikasi dokumen sebelum pertimbangan yuridis formal.
                         </div>
 
@@ -1078,22 +1099,22 @@
             let docHtml = '';
             if (doc) {
                 docHtml = `
-                    <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/10 border border-white/15 text-white mb-2 text-left">
+                    <div class="flex items-center gap-2.5 p-2.5 rounded-xl bg-white/10 dark:bg-black/15 border border-white/15 dark:border-black/20 text-white dark:text-[#181513] mb-2 text-left">
                         <div class="w-8 h-8 rounded-lg bg-rose-500/20 border border-rose-400/30 flex items-center justify-center shrink-0">
-                            <i class="fa-solid fa-file-pdf text-rose-400 text-sm"></i>
+                            <i class="fa-solid fa-file-pdf text-rose-400 dark:text-rose-700 text-sm"></i>
                         </div>
                         <div class="min-w-0 flex-1">
-                            <div class="font-semibold truncate text-xs sm:text-[13px] text-white">${escapeHtml(doc.name)}</div>
-                            <div class="text-[10px] text-stone-300 font-mono">${escapeHtml(doc.size || 'PDF Dokumen')}</div>
+                            <div class="font-semibold truncate text-xs sm:text-[13px] text-white dark:text-[#181513]">${escapeHtml(doc.name)}</div>
+                            <div class="text-[10px] text-stone-300 dark:text-[#42382f] font-mono">${escapeHtml(doc.size || 'PDF Dokumen')}</div>
                         </div>
                     </div>
                 `;
             }
 
             userDiv.innerHTML = `
-                <div class="max-w-xl bg-[#26150d] text-white rounded-2xl rounded-tr-xs p-4 text-xs sm:text-[13px] shadow-sm leading-relaxed">
+                <div class="max-w-xl bg-[#26150d] dark:bg-[#E5A93C] text-white dark:text-[#181513] font-medium rounded-2xl rounded-tr-xs p-4 text-xs sm:text-[13px] shadow-sm leading-relaxed">
                     ${docHtml}
-                    ${text ? `<div>${escapeHtml(text)}</div>` : ''}
+                    ${text ? `<div class="dark:text-[#181513]">${escapeHtml(text)}</div>` : ''}
                 </div>
             `;
             container.appendChild(userDiv);
@@ -1118,73 +1139,73 @@
                         <div class="flex-1 space-y-3 text-xs sm:text-[13px]">
                             
                             <!-- Document Context Badge -->
-                            <div class="p-2.5 px-3 rounded-xl bg-[#f6eee7] border border-[#d6c4b7] flex items-center justify-between text-xs text-[#26150d]">
+                            <div class="p-2.5 px-3 rounded-xl bg-[#f6eee7] dark:bg-[#2B2A32] border border-[#d6c4b7] dark:border-[#715A5A] flex items-center justify-between text-xs text-[#26150d] dark:text-white">
                                 <div class="flex items-center gap-2">
-                                    <i class="fa-solid fa-file-circle-check text-[#8c5835] text-xs"></i>
-                                    <span>Naskah Rujukan: <strong>${escapeHtml(targetDoc)}</strong></span>
+                                    <i class="fa-solid fa-file-circle-check text-[#8c5835] dark:text-[#E5A93C] text-xs"></i>
+                                    <span>Naskah Rujukan: <strong class="dark:text-[#E5A93C]">${escapeHtml(targetDoc)}</strong></span>
                                 </div>
-                                <span class="text-[10px] bg-white px-2 py-0.5 rounded-md border border-[#cbb4a3] text-stone-600 font-semibold">Visual Grounding Aktif</span>
+                                <span class="text-[10px] bg-white dark:bg-[#37353E] px-2 py-0.5 rounded-md border border-[#cbb4a3] dark:border-[#715A5A] text-stone-600 dark:text-[#E5A93C] font-semibold">Visual Grounding Aktif</span>
                             </div>
 
                             <!-- Executive Legal Dossier Card -->
-                            <div class="p-4 sm:p-5 rounded-2xl bg-white border border-[#e8dfd8] shadow-xs space-y-4 leading-relaxed text-gray-800">
+                            <div class="p-4 sm:p-5 rounded-2xl bg-white dark:bg-[#37353E] border border-[#e8dfd8] dark:border-[#715A5A] shadow-xs space-y-4 leading-relaxed text-gray-800 dark:text-gray-100">
                                 
                                 <div>
-                                    <h4 class="font-bold text-[#26150d] text-sm mb-1">Ringkasan Analisis Yuridis</h4>
-                                    <p class="text-stone-600 text-xs sm:text-[13px] leading-relaxed">
-                                        Berdasarkan penelusuran naskah regulasi <strong>${escapeHtml(targetDoc)}</strong>, berikut konstruksi norma hukum, kualifikasi tindak pidana, serta pasal rujukan yang berlaku:
+                                    <h4 class="font-bold text-[#26150d] dark:text-white text-sm mb-1">Ringkasan Analisis Yuridis</h4>
+                                    <p class="text-stone-600 dark:text-[#CBD5E1] text-xs sm:text-[13px] leading-relaxed">
+                                        Berdasarkan penelusuran naskah regulasi <strong class="dark:text-white">${escapeHtml(targetDoc)}</strong>, berikut konstruksi norma hukum, kualifikasi tindak pidana, serta pasal rujukan yang berlaku:
                                     </p>
                                 </div>
 
                                 <!-- Interactive Clause Table (Clean Matrix Format) -->
-                                <div class="rounded-xl border border-[#e8dfd8] divide-y divide-[#f0e8e2] overflow-hidden bg-white">
+                                <div class="rounded-xl border border-[#e8dfd8] dark:border-[#715A5A] divide-y divide-[#f0e8e2] dark:divide-[#715A5A]/50 overflow-hidden bg-white dark:bg-[#2B2A32]">
                                     
                                     <!-- Row 1: Pasal 85 (Primary Sanction) -->
-                                    <div onclick="openPdfViewerAtCitation('pasal85', '${targetDoc}', 29, 'Pasal 85')" class="group p-3 sm:p-3.5 hover:bg-[#faf7f4] transition cursor-pointer flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                                    <div onclick="openPdfViewerAtCitation('pasal85', '${targetDoc}', 29, 'Pasal 85')" class="group p-3 sm:p-3.5 hover:bg-[#faf7f4] dark:hover:bg-[#34323D] transition cursor-pointer flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                                         <div class="space-y-1 flex-1">
                                             <div class="flex items-center gap-2">
-                                                <span class="font-bold text-[#26150d] text-xs sm:text-[13px] group-hover:text-[#8c5835] transition">Pasal 85</span>
-                                                <span class="text-[10px] font-semibold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">Sanksi Pidana Utama</span>
+                                                <span class="font-bold text-[#26150d] dark:text-white text-xs sm:text-[13px] group-hover:text-[#8c5835] dark:group-hover:text-[#E5A93C] transition">Pasal 85</span>
+                                                <span class="text-[10px] font-semibold text-rose-700 bg-rose-50 dark:bg-rose-950/40 dark:text-rose-400 px-2 py-0.5 rounded border border-rose-200 dark:border-rose-800/40">Sanksi Pidana Utama</span>
                                             </div>
-                                            <p class="text-xs text-stone-700 leading-relaxed">
-                                                Kepemilikan atau penggunaan alat penangkap ikan perusak keberlanjutan sumber daya di WPPNRI dipidana penjara maks. <strong>5 tahun</strong> dan denda maks. <strong>Rp 2 Miliar</strong>.
+                                            <p class="text-xs text-stone-700 dark:text-[#CBD5E1] leading-relaxed">
+                                                Kepemilikan atau penggunaan alat penangkap ikan perusak keberlanjutan sumber daya di WPPNRI dipidana penjara maks. <strong class="dark:text-white">5 tahun</strong> dan denda maks. <strong class="dark:text-[#E5A93C]">Rp 2 Miliar</strong>.
                                             </p>
                                         </div>
-                                        <button type="button" class="self-start sm:self-center px-2.5 py-1 rounded-lg bg-[#f6eee7] group-hover:bg-[#26150d] text-[#26150d] group-hover:text-white border border-[#d6c4b7] group-hover:border-[#26150d] text-[11px] font-mono font-medium transition flex items-center gap-1.5 shrink-0 cursor-pointer">
+                                        <button type="button" class="self-start sm:self-center px-2.5 py-1 rounded-lg bg-[#f6eee7] dark:bg-[#37353E] group-hover:bg-[#26150d] dark:group-hover:bg-[#E5A93C] text-[#26150d] dark:text-[#E5A93C] group-hover:text-white dark:group-hover:text-[#181513] border border-[#d6c4b7] dark:border-[#715A5A] group-hover:border-[#26150d] dark:group-hover:border-[#E5A93C] text-[11px] font-mono font-medium transition flex items-center gap-1.5 shrink-0 cursor-pointer">
                                             <span>Hal. 29</span>
                                             <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                                         </button>
                                     </div>
 
                                     <!-- Row 2: Pasal 84 (Jurisdiction) -->
-                                    <div onclick="openPdfViewerAtCitation('pasal84', '${targetDoc}', 28, 'Pasal 84')" class="group p-3 sm:p-3.5 hover:bg-[#faf7f4] transition cursor-pointer flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                                    <div onclick="openPdfViewerAtCitation('pasal84', '${targetDoc}', 28, 'Pasal 84')" class="group p-3 sm:p-3.5 hover:bg-[#faf7f4] dark:hover:bg-[#34323D] transition cursor-pointer flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                                         <div class="space-y-1 flex-1">
                                             <div class="flex items-center gap-2">
-                                                <span class="font-bold text-[#26150d] text-xs sm:text-[13px] group-hover:text-[#8c5835] transition">Pasal 84</span>
-                                                <span class="text-[10px] font-semibold text-stone-600 bg-stone-100 px-2 py-0.5 rounded border border-stone-200">Yurisdiksi Peradilan</span>
+                                                <span class="font-bold text-[#26150d] dark:text-white text-xs sm:text-[13px] group-hover:text-[#8c5835] dark:group-hover:text-[#E5A93C] transition">Pasal 84</span>
+                                                <span class="text-[10px] font-semibold text-stone-600 dark:text-gray-300 bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded border border-stone-200 dark:border-stone-700">Yurisdiksi Peradilan</span>
                                             </div>
-                                            <p class="text-xs text-stone-700 leading-relaxed">
+                                            <p class="text-xs text-stone-700 dark:text-[#CBD5E1] leading-relaxed">
                                                 Tindak pidana perikanan di wilayah WPPNRI merupakan kewenangan absolut Pengadilan Perikanan untuk memeriksa, mengadili, dan memutus perkara.
                                             </p>
                                         </div>
-                                        <button type="button" class="self-start sm:self-center px-2.5 py-1 rounded-lg bg-[#f6eee7] group-hover:bg-[#26150d] text-[#26150d] group-hover:text-white border border-[#d6c4b7] group-hover:border-[#26150d] text-[11px] font-mono font-medium transition flex items-center gap-1.5 shrink-0 cursor-pointer">
+                                        <button type="button" class="self-start sm:self-center px-2.5 py-1 rounded-lg bg-[#f6eee7] dark:bg-[#37353E] group-hover:bg-[#26150d] dark:group-hover:bg-[#E5A93C] text-[#26150d] dark:text-[#E5A93C] group-hover:text-white dark:group-hover:text-[#181513] border border-[#d6c4b7] dark:border-[#715A5A] group-hover:border-[#26150d] dark:group-hover:border-[#E5A93C] text-[11px] font-mono font-medium transition flex items-center gap-1.5 shrink-0 cursor-pointer">
                                             <span>Hal. 28</span>
                                             <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                                         </button>
                                     </div>
 
                                     <!-- Row 3: Pasal 93 (Permits & SIPI) -->
-                                    <div onclick="openPdfViewerAtCitation('pasal93', '${targetDoc}', 30, 'Pasal 93')" class="group p-3 sm:p-3.5 hover:bg-[#faf7f4] transition cursor-pointer flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                                    <div onclick="openPdfViewerAtCitation('pasal93', '${targetDoc}', 30, 'Pasal 93')" class="group p-3 sm:p-3.5 hover:bg-[#faf7f4] dark:hover:bg-[#34323D] transition cursor-pointer flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                                         <div class="space-y-1 flex-1">
                                             <div class="flex items-center gap-2">
-                                                <span class="font-bold text-[#26150d] text-xs sm:text-[13px] group-hover:text-[#8c5835] transition">Pasal 93</span>
-                                                <span class="text-[10px] font-semibold text-stone-600 bg-stone-100 px-2 py-0.5 rounded border border-stone-200">Pelanggaran SIPI</span>
+                                                <span class="font-bold text-[#26150d] dark:text-white text-xs sm:text-[13px] group-hover:text-[#8c5835] dark:group-hover:text-[#E5A93C] transition">Pasal 93</span>
+                                                <span class="text-[10px] font-semibold text-stone-600 dark:text-gray-300 bg-stone-100 dark:bg-stone-800 px-2 py-0.5 rounded border border-stone-200 dark:border-stone-700">Pelanggaran SIPI</span>
                                             </div>
-                                            <p class="text-xs text-stone-700 leading-relaxed">
-                                                Pengoperasian kapal penangkap ikan tanpa izin (SIPI) resmi dipidana penjara maks. <strong>6 tahun</strong> dan denda maks. <strong>Rp 20 Miliar</strong>.
+                                            <p class="text-xs text-stone-700 dark:text-[#CBD5E1] leading-relaxed">
+                                                Pengoperasian kapal penangkap ikan tanpa izin (SIPI) resmi dipidana penjara maks. <strong class="dark:text-white">6 tahun</strong> dan denda maks. <strong class="dark:text-[#E5A93C]">Rp 20 Miliar</strong>.
                                             </p>
                                         </div>
-                                        <button type="button" class="self-start sm:self-center px-2.5 py-1 rounded-lg bg-[#f6eee7] group-hover:bg-[#26150d] text-[#26150d] group-hover:text-white border border-[#d6c4b7] group-hover:border-[#26150d] text-[11px] font-mono font-medium transition flex items-center gap-1.5 shrink-0 cursor-pointer">
+                                        <button type="button" class="self-start sm:self-center px-2.5 py-1 rounded-lg bg-[#f6eee7] dark:bg-[#37353E] group-hover:bg-[#26150d] dark:group-hover:bg-[#E5A93C] text-[#26150d] dark:text-[#E5A93C] group-hover:text-white dark:group-hover:text-[#181513] border border-[#d6c4b7] dark:border-[#715A5A] group-hover:border-[#26150d] dark:group-hover:border-[#E5A93C] text-[11px] font-mono font-medium transition flex items-center gap-1.5 shrink-0 cursor-pointer">
                                             <span>Hal. 30</span>
                                             <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                                         </button>
@@ -1193,12 +1214,12 @@
                                 </div>
 
                                 <!-- Dossier Actions & Verification Footer -->
-                                <div class="pt-2 flex items-center justify-between border-t border-stone-100 text-[11px] text-stone-500">
+                                <div class="pt-2 flex items-center justify-between border-t border-stone-100 dark:border-[#715A5A]/50 text-[11px] text-stone-500 dark:text-gray-300">
                                     <div class="flex items-center gap-1.5">
-                                        <i class="fa-solid fa-circle-check text-emerald-600 text-xs"></i>
-                                        <span>Terverifikasi Naskah Resmi Lembaran Negara RI</span>
+                                        <i class="fa-solid fa-circle-check text-emerald-600 dark:text-emerald-400 text-xs"></i>
+                                        <span class="dark:text-gray-200">Terverifikasi Naskah Resmi Lembaran Negara RI</span>
                                     </div>
-                                    <button type="button" onclick="copyCitationSummary(this)" class="px-2 py-1 rounded-lg hover:bg-[#f6eee7] hover:text-[#26150d] transition flex items-center gap-1 text-[11px] font-medium cursor-pointer">
+                                    <button type="button" onclick="copyCitationSummary(this)" class="px-2 py-1 rounded-lg hover:bg-[#f6eee7] dark:hover:bg-[#2B2A32] hover:text-[#26150d] dark:hover:text-[#E5A93C] dark:text-gray-300 transition flex items-center gap-1 text-[11px] font-medium cursor-pointer">
                                         <i class="fa-regular fa-copy text-[10px]"></i>
                                         <span>Salin Rujukan</span>
                                     </button>
@@ -1218,7 +1239,7 @@
                     if (isGreeting) {
                         responseHtml = `
                             <p>
-                                Halo! Selamat datang di <strong>TitikHukum AI</strong>. Saya adalah asisten riset hukum terpadu BRIN yang siap membantu Anda dalam analisis regulasi, penelusuran hierarki perundang-undangan, dan penalaran yuridis.
+                                Halo! Selamat datang di <strong class="dark:text-[#E5A93C]">TitikHukum AI</strong>. Saya adalah asisten riset hukum terpadu BRIN yang siap membantu Anda dalam analisis regulasi, penelusuran hierarki perundang-undangan, dan penalaran yuridis.
                             </p>
                             <p>
                                 Ada topik hukum atau pertanyaan regulasi tertentu yang ingin Anda diskusikan hari ini?
@@ -1227,7 +1248,7 @@
                     } else {
                         responseHtml = `
                             <p>
-                                Mengenai pertanyaan Anda tentang <strong>"${escapeHtml(query)}"</strong>:
+                                Mengenai pertanyaan Anda tentang <strong class="dark:text-[#E5A93C]">"${escapeHtml(query)}"</strong>:
                             </p>
                             <p>
                                 Dalam konteks perundang-undangan Republik Indonesia, setiap substansi norma hukum diatur berdasarkan hierarki peraturan (UU, PP, Perpres, hingga Permen). Anda dapat menanyakan asas-asas hukum, batasan kewenangan instansi, maupun sanksi pidana dan administratif.
@@ -1238,14 +1259,14 @@
                     aiDiv.innerHTML = `
                         <img src="assets/iconchat.png" alt="TitikHukum AI" class="w-8 h-8 rounded-xl object-cover shrink-0 mt-1 shadow-2xs" />
                         <div class="flex-1 space-y-3 text-xs sm:text-[13px]">
-                            <div class="p-4 rounded-2xl bg-white border border-[#e8dfd8] shadow-2xs space-y-3 leading-relaxed text-gray-800">
+                            <div class="p-4 rounded-2xl bg-white dark:bg-[#37353E] border border-[#e8dfd8] dark:border-[#715A5A] shadow-2xs space-y-3 leading-relaxed text-gray-800 dark:text-gray-100">
                                 ${responseHtml}
 
                                 <!-- Subtle Hint to Attach PDF if needed -->
-                                <div class="mt-3 pt-2.5 border-t border-stone-100 flex items-start gap-2 text-xs text-stone-500 bg-[#faf8f5] p-2.5 rounded-xl border border-[#ede5dd]">
-                                    <i class="fa-solid fa-paperclip text-stone-600 text-xs mt-0.5 shrink-0"></i>
+                                <div class="mt-3 pt-2.5 border-t border-stone-100 dark:border-[#715A5A]/50 flex items-start gap-2 text-xs text-stone-500 dark:text-gray-300 bg-[#faf8f5] dark:bg-[#2B2A32] p-2.5 rounded-xl border border-[#ede5dd] dark:border-[#715A5A]">
+                                    <i class="fa-solid fa-paperclip text-stone-600 dark:text-[#E5A93C] text-xs mt-0.5 shrink-0"></i>
                                     <div>
-                                        <strong>Tips Riset:</strong> Untuk menguji pasal spesifik dengan fitur <em>visual grounding</em> langsung pada naskah PDF asli di panel kiri, Anda dapat melampirkan berkas melalui tombol <strong>📎</strong> di bawah.
+                                        <strong class="dark:text-[#E5A93C]">Tips Riset:</strong> Untuk menguji pasal spesifik dengan fitur <em>visual grounding</em> langsung pada naskah PDF asli di panel kiri, Anda dapat melampirkan berkas melalui tombol <strong class="dark:text-white">📎</strong> di bawah.
                                     </div>
                                 </div>
                             </div>

@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pustaka Dokumen Hukum - Titik Hukum</title>
+    <script>
+        // Pre-render Dark Mode initialization to prevent FOUC
+        (function() {
+            try {
+                const theme = localStorage.getItem('titikhukum_theme');
+                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                if (theme === 'dark' || (!theme && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            } catch(e) {}
+        })();
+    </script>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Plus Jakarta Sans -->
@@ -12,9 +26,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="assets/darkmode.css?v=20260908_28">
+    <script src="assets/theme.js?v=20260908_28" defer></script>
 
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     fontFamily: {
@@ -52,12 +69,46 @@
             border-bottom: 1px solid rgba(85, 45, 25, 0.8);
         }
 
-        /* Checkbox Custom Brown Accent */
+        /* Checkbox Custom Appearance: Dark (#2B2A32) saat tidak dipilih, Gold (#E5A93C) saat dipilih */
         input[type="checkbox"] {
-            accent-color: #26150d;
+            appearance: none;
+            -webkit-appearance: none;
+            width: 1.1rem;
+            height: 1.1rem;
+            border-radius: 0.25rem;
+            border: 1.5px solid #d1d5db;
+            background-color: #ffffff;
             cursor: pointer;
-            width: 1.05rem;
-            height: 1.05rem;
+            display: inline-grid;
+            place-content: center;
+            vertical-align: middle;
+            transition: all 0.15s ease-in-out;
+            margin: 0;
+            padding: 0;
+        }
+        input[type="checkbox"]:hover {
+            border-color: #26150d;
+        }
+        input[type="checkbox"]:checked {
+            background-color: #26150d;
+            border-color: #26150d;
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+            background-size: 100% 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        html.dark input[type="checkbox"] {
+            background-color: #2B2A32 !important;
+            border-color: #715A5A !important;
+            accent-color: #E5A93C !important;
+        }
+        html.dark input[type="checkbox"]:hover {
+            border-color: #E5A93C !important;
+        }
+        html.dark input[type="checkbox"]:checked {
+            background-color: #E5A93C !important;
+            border-color: #E5A93C !important;
+            background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%231a1512' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e") !important;
         }
 
         /* Category Filter Pills */
@@ -137,7 +188,7 @@
                         Beranda
                     </a>
                     <!-- Active Bold Indicator on Pustaka Dokumen -->
-                    <a href="pustaka.html" class="text-white font-bold transition-all duration-300 transform hover:scale-110 hover:text-white py-1 inline-block drop-shadow-sm relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white/80">
+                    <a href="pustaka.html" class="!bg-transparent text-white font-bold transition-all duration-300 transform hover:scale-110 hover:text-white py-1 inline-block drop-shadow-sm relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-white/80">
                         Pustaka Dokumen
                     </a>
                     <a href="chat.html" class="text-white/80 transition-all duration-300 transform hover:scale-110 hover:font-bold hover:text-white py-1 inline-block drop-shadow-sm flex items-center gap-1.5">
@@ -178,7 +229,7 @@
                     </button>
 
                     <!-- Masuk & Daftar Button -->
-                    <a href="login.html" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg border border-white/50 bg-transparent text-white hover:bg-white hover:text-gray-900 hover:border-white text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1">
+                    <a href="login.html" class="inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-lg border border-white/50 bg-transparent text-white hover:bg-white hover:text-gray-900 hover:border-white dark:hover:bg-[#E5A93C] dark:hover:text-[#1a1512] dark:hover:border-[#E5A93C] text-xs font-normal tracking-wide transition-all duration-300 shadow-sm active:scale-95 ml-1">
                         <span>Masuk & Daftar</span>
                         <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
                     </a>
@@ -313,31 +364,31 @@
                 <table class="w-full text-left text-xs sm:text-[13px] border-collapse table-auto" id="docTable">
                     
                     <!-- Table Header with Balanced Column Proportions & Sticky Top -->
-                    <thead class="sticky top-0 z-10 border-b border-gray-200 text-gray-400 font-semibold uppercase tracking-wider text-[11px] select-none bg-stone-50 shadow-2xs">
+                    <thead class="sticky top-0 z-10 border-b border-gray-200 dark:border-[#715A5A] text-gray-400 font-semibold uppercase tracking-wider text-[11px] select-none bg-stone-50 dark:bg-[#37353E] shadow-2xs">
                         <tr>
-                            <th scope="col" class="py-4 pl-6 pr-3 w-12 text-center bg-stone-50">
-                                <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this.checked)" class="rounded border-gray-300 text-[#26150d] focus:ring-0 cursor-pointer">
+                            <th scope="col" class="py-4 pl-6 pr-3 w-12 text-center bg-stone-50 dark:bg-[#37353E]">
+                                <input type="checkbox" id="selectAllCheckbox" onchange="toggleSelectAll(this.checked)" class="rounded border-gray-300 dark:border-[#715A5A] dark:bg-[#2B2A32] text-[#26150d] dark:text-[#E5A93C] accent-[#26150d] dark:accent-[#E5A93C] focus:ring-0 cursor-pointer">
                             </th>
-                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[340px] w-[46%] bg-stone-50 select-none hover:bg-stone-100 transition" onclick="sortTable('title')">
-                                <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
+                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[340px] w-[46%] bg-stone-50 dark:bg-[#37353E] select-none hover:bg-stone-100 dark:hover:bg-white/[0.04] transition" onclick="sortTable('title')">
+                                <div class="flex items-center gap-1.5 text-gray-500 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-[#E5A93C] transition">
                                     <span>Nama & Berkas Dokumen</span>
-                                    <span id="sortIcon_title" class="text-gray-400 group-hover:text-gray-700 text-[10px]"><i class="fa-solid fa-sort"></i></span>
+                                    <span id="sortIcon_title" class="text-gray-400 dark:text-stone-400 group-hover:text-gray-700 dark:group-hover:text-[#E5A93C] text-[10px]"><i class="fa-solid fa-sort"></i></span>
                                 </div>
                             </th>
-                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[200px] w-[26%] bg-stone-50 select-none hover:bg-stone-100 transition" onclick="sortTable('category')">
-                                <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
+                            <th scope="col" class="py-4 px-4 cursor-pointer group min-w-[200px] w-[26%] bg-stone-50 dark:bg-[#37353E] select-none hover:bg-stone-100 dark:hover:bg-white/[0.04] transition" onclick="sortTable('category')">
+                                <div class="flex items-center gap-1.5 text-gray-500 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-[#E5A93C] transition">
                                     <span>Jenis / Bidang Aturan</span>
-                                    <span id="sortIcon_category" class="text-gray-400 group-hover:text-gray-700 text-[10px]"><i class="fa-solid fa-sort"></i></span>
+                                    <span id="sortIcon_category" class="text-gray-400 dark:text-stone-400 group-hover:text-gray-700 dark:group-hover:text-[#E5A93C] text-[10px]"><i class="fa-solid fa-sort"></i></span>
                                 </div>
                             </th>
-                            <th scope="col" class="py-4 px-3 cursor-pointer group min-w-[150px] w-[16%] bg-stone-50 select-none hover:bg-stone-100 transition" onclick="sortTable('year')">
-                                <div class="flex items-center gap-1.5 text-gray-500 group-hover:text-gray-900 transition">
+                            <th scope="col" class="py-4 px-3 cursor-pointer group min-w-[150px] w-[16%] bg-stone-50 dark:bg-[#37353E] select-none hover:bg-stone-100 dark:hover:bg-white/[0.04] transition" onclick="sortTable('year')">
+                                <div class="flex items-center gap-1.5 text-gray-500 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-[#E5A93C] transition">
                                     <span>Metadata Regulasi</span>
-                                    <span id="sortIcon_year" class="text-gray-400 group-hover:text-gray-700 text-[10px]"><i class="fa-solid fa-sort"></i></span>
+                                    <span id="sortIcon_year" class="text-gray-400 dark:text-stone-400 group-hover:text-gray-700 dark:group-hover:text-[#E5A93C] text-[10px]"><i class="fa-solid fa-sort"></i></span>
                                 </div>
                             </th>
-                            <th scope="col" class="py-4 pr-6 pl-2 text-right min-w-[130px] w-[12%] bg-stone-50">
-                                <span class="text-gray-400 font-semibold uppercase tracking-wider text-[11px]">Aksi</span>
+                            <th scope="col" class="py-4 pr-6 pl-2 text-right min-w-[130px] w-[12%] bg-stone-50 dark:bg-[#37353E]">
+                                <span class="text-gray-400 dark:text-gray-400 font-semibold uppercase tracking-wider text-[11px]">Aksi</span>
                             </th>
                         </tr>
                     </thead>
@@ -374,11 +425,11 @@
 
                 <!-- Kanan: Pagination Controls -->
                 <div class="flex items-center gap-2">
-                    <button type="button" onclick="prevPage()" id="prevPageBtn" class="px-3.5 py-1.5 rounded-full border border-gray-200 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-gray-700 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition">
+                    <button type="button" onclick="prevPage()" id="prevPageBtn" class="px-3.5 py-1.5 rounded-full border border-gray-200 dark:border-[#715A5A] hover:bg-[#f6eee7] dark:hover:bg-[#2B2A32] hover:border-[#cbb4a3] text-gray-700 dark:text-gray-300 dark:hover:text-[#E5A93C] font-medium disabled:opacity-40 disabled:cursor-not-allowed transition">
                         Sebelumnya
                     </button>
-                    <span id="pageIndicator" class="px-3 py-1 text-gray-800 font-bold">1 / 1</span>
-                    <button type="button" onclick="nextPage()" id="nextPageBtn" class="px-3.5 py-1.5 rounded-full border border-gray-200 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-gray-700 font-medium disabled:opacity-40 disabled:cursor-not-allowed transition">
+                    <span id="pageIndicator" class="px-3 py-1 text-gray-800 dark:text-white font-bold">1 / 1</span>
+                    <button type="button" onclick="nextPage()" id="nextPageBtn" class="px-3.5 py-1.5 rounded-full border border-gray-200 dark:border-[#715A5A] hover:bg-[#f6eee7] dark:hover:bg-[#2B2A32] hover:border-[#cbb4a3] text-gray-700 dark:text-gray-300 dark:hover:text-[#E5A93C] font-medium disabled:opacity-40 disabled:cursor-not-allowed transition">
                         Berikutnya
                     </button>
                 </div>
@@ -604,14 +655,14 @@
                         </div>
 
                         <!-- Active Document File Card -->
-                        <div class="p-3 bg-[#f6eee7]/60 rounded-xl border border-[#cbb4a3]/60 space-y-2">
-                            <div class="font-bold text-[#26150d] text-xs font-mono break-all leading-tight" id="colDocFileName">
+                        <div class="p-3 bg-[#f6eee7]/60 dark:bg-[#2B2A32] rounded-xl border border-[#cbb4a3]/60 dark:border-[#715A5A] space-y-2">
+                            <div class="font-bold text-[#26150d] dark:text-[#E5A93C] text-xs font-mono break-all leading-tight" id="colDocFileName">
                                 UU_Nomor_45_Tahun_2009.pdf
                             </div>
-                            <div class="text-[11px] text-gray-600" id="colDocTitle">
+                            <div class="text-[11px] text-gray-600 dark:text-gray-300" id="colDocTitle">
                                 UU No. 45 Tahun 2009 tentang Perikanan
                             </div>
-                            <div class="text-[10px] text-gray-400 font-mono" id="colDocMetaSize">
+                            <div class="text-[10px] text-gray-400 dark:text-stone-400 font-mono" id="colDocMetaSize">
                                 4.8 MB • 110 Pasal
                             </div>
                         </div>
@@ -1018,14 +1069,7 @@
             </svg>
         `;
 
-        function toggleNavTheme() {
-            isDarkMode = !isDarkMode;
-            const container = document.getElementById('navThemeIconContainer');
-            if (container) {
-                container.innerHTML = isDarkMode ? sunSvgHtml : moonSvgHtml;
-                container.style.transform = isDarkMode ? 'rotate(0deg)' : 'rotate(360deg)';
-            }
-        }
+        // Toggle Tema dihandle secara terpusat oleh assets/theme.js
 
         // Seed Initial Legal Documents Data with Full AI Extraction Payloads
         const initialDocs = [
@@ -1888,19 +1932,19 @@
             paginatedDocs.forEach(({ doc, relevance }) => {
                 const isSelected = selectedDocIds.has(doc.id);
                 const tr = document.createElement('tr');
-                tr.className = `group hover:bg-[#fbf9f7] transition-colors border-b border-gray-100 ${isSelected ? 'bg-[#f6eee7]/60' : ''}`;
+                tr.className = `group hover:bg-[#fbf9f7] dark:hover:bg-[#2B2A32] transition-colors border-b border-gray-100 dark:border-[#715A5A] ${isSelected ? 'bg-[#f6eee7]/60 dark:bg-[#2B2A32]' : ''}`;
                 
                 // Relevance Badge
                 let relevanceBadgeHtml = '';
                 let relevanceExcerptHtml = '';
                 if (isSearching && relevance.score > 0) {
-                    let badgeClass = 'bg-emerald-50 text-emerald-700 border-emerald-200';
+                    let badgeClass = 'bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-800/50';
                     let dotColor = 'bg-emerald-500';
                     if (relevance.percentage < 70) {
-                        badgeClass = 'bg-amber-50 text-amber-700 border-amber-200';
+                        badgeClass = 'bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-[#E5A93C] dark:border-amber-800/50';
                         dotColor = 'bg-amber-500';
                     } else if (relevance.percentage < 85) {
-                        badgeClass = 'bg-blue-50 text-blue-700 border-blue-200';
+                        badgeClass = 'bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-800/50';
                         dotColor = 'bg-blue-500';
                     }
 
@@ -1912,8 +1956,8 @@
                     `;
 
                     relevanceExcerptHtml = `
-                        <div class="text-[11px] text-gray-500 bg-amber-50/50 rounded-lg px-2 py-1 border border-amber-200/50 mt-1 flex items-center gap-1.5">
-                            <i class="fa-solid fa-sparkles text-[10px] text-amber-600 shrink-0"></i>
+                        <div class="text-[11px] text-gray-500 dark:text-gray-300 bg-amber-50/50 dark:bg-amber-950/30 rounded-lg px-2 py-1 border border-amber-200/50 dark:border-amber-800/50 mt-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-sparkles text-[10px] text-amber-600 dark:text-[#E5A93C] shrink-0"></i>
                             <span class="truncate">${relevance.matchedReason}</span>
                         </div>
                     `;
@@ -1921,18 +1965,18 @@
 
                 tr.innerHTML = `
                     <td class="py-4 pl-6 pr-3 text-center align-middle">
-                        <input type="checkbox" onchange="toggleSelectDoc('${doc.id}', this.checked)" ${isSelected ? 'checked' : ''} class="rounded border-gray-300 text-[#26150d] focus:ring-0 cursor-pointer">
+                        <input type="checkbox" onchange="toggleSelectDoc('${doc.id}', this.checked)" ${isSelected ? 'checked' : ''} class="rounded border-gray-300 dark:border-[#715A5A] dark:bg-[#2B2A32] text-[#26150d] dark:text-[#E5A93C] accent-[#26150d] dark:accent-[#E5A93C] focus:ring-0 cursor-pointer">
                     </td>
                     
                     <!-- Col 1: Name & File Details with Expand Chevron -->
                     <td class="py-4 px-4 align-top">
                         <div class="flex items-start gap-2.5">
-                            <button type="button" onclick="toggleRowDetails('${doc.id}')" class="text-gray-400 hover:text-[#26150d] transition mt-0.5" title="Lihat detail metadata">
+                            <button type="button" onclick="toggleRowDetails('${doc.id}')" class="text-gray-400 dark:text-stone-400 hover:text-[#26150d] dark:hover:text-[#E5A93C] transition mt-0.5" title="Lihat detail metadata">
                                 <i class="fa-solid fa-chevron-down text-[10px] transform transition-transform" id="chev-${doc.id}"></i>
                             </button>
                             <div class="space-y-1 pr-2">
                                 <div class="flex items-center gap-2 flex-wrap">
-                                    <span class="font-bold text-gray-900 text-xs sm:text-[13px] leading-snug">
+                                    <span class="font-bold text-gray-900 dark:text-white text-xs sm:text-[13px] leading-snug">
                                         ${doc.title}
                                     </span>
                                     ${relevanceBadgeHtml}
@@ -1940,8 +1984,8 @@
                                 
                                 ${relevanceExcerptHtml}
 
-                                <div class="text-[11px] text-gray-400 font-mono flex items-center gap-2">
-                                    <span class="inline-flex items-center gap-1 text-gray-500 font-medium">
+                                <div class="text-[11px] text-gray-400 dark:text-stone-400 font-mono flex items-center gap-2">
+                                    <span class="inline-flex items-center gap-1 text-gray-500 dark:text-stone-200 font-medium">
                                         <i class="fa-regular fa-file-pdf text-rose-500 text-[11px]"></i> 
                                         ${doc.fileName}
                                     </span>
@@ -1952,10 +1996,10 @@
                         </div>
 
                         <!-- Expandable Details Row Drawer -->
-                        <div id="details-${doc.id}" class="hidden pt-3 text-[11px] text-gray-600 space-y-1">
-                            <div class="p-3 bg-[#f6eee7]/50 rounded-xl border border-[#cbb4a3]/60">
-                                <span class="font-bold text-[#26150d]">Catatan/Abstrak:</span> ${doc.notes || 'Tidak ada catatan khusus.'}
-                                <div class="mt-1 text-gray-600">Jumlah: <strong class="text-[#26150d]">${doc.articles}</strong> • Diunggah: <strong class="text-[#26150d]">${doc.dateUploaded}</strong></div>
+                        <div id="details-${doc.id}" class="hidden pt-3 text-[11px] text-gray-600 dark:text-gray-300 space-y-1">
+                            <div class="p-3 bg-[#f6eee7]/50 dark:bg-[#2B2A32] rounded-xl border border-[#cbb4a3]/60 dark:border-[#715A5A]">
+                                <span class="font-bold text-[#26150d] dark:text-[#E5A93C]">Catatan/Abstrak:</span> ${doc.notes || 'Tidak ada catatan khusus.'}
+                                <div class="mt-1 text-gray-600 dark:text-gray-300">Jumlah: <strong class="text-[#26150d] dark:text-[#E5A93C]">${doc.articles}</strong> • Diunggah: <strong class="text-[#26150d] dark:text-[#E5A93C]">${doc.dateUploaded}</strong></div>
                             </div>
                         </div>
                     </td>
@@ -1963,18 +2007,18 @@
                     <!-- Col 2: Category & Agency -->
                     <td class="py-4 px-4 align-top whitespace-normal">
                         <div class="space-y-1.5">
-                            <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#f6eee7] text-[#26150d] border border-[#cbb4a3]/60">
+                            <span class="inline-block px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-[#f6eee7] dark:bg-[#2B2A32] text-[#26150d] dark:text-[#E5A93C] border border-[#cbb4a3]/60 dark:border-[#715A5A]">
                                 ${doc.category}
                             </span>
-                            <div class="text-[11px] text-gray-500 font-normal leading-relaxed">${doc.agency}</div>
+                            <div class="text-[11px] text-gray-500 dark:text-gray-300 font-normal leading-relaxed">${doc.agency}</div>
                         </div>
                     </td>
 
                     <!-- Col 3: Metadata (Number, Year, Source) -->
                     <td class="py-4 px-3 align-top whitespace-normal">
                         <div class="space-y-1">
-                            <div class="font-semibold text-gray-800">${doc.number} • Th. ${doc.year}</div>
-                            <div class="text-[11px] text-gray-400 leading-tight">${doc.source}</div>
+                            <div class="font-semibold text-gray-800 dark:text-gray-100">${doc.number} • Th. ${doc.year}</div>
+                            <div class="text-[11px] text-gray-400 dark:text-stone-400 leading-tight">${doc.source}</div>
                         </div>
                     </td>
 
@@ -1982,8 +2026,8 @@
                     <td class="py-4 pr-6 pl-2 text-right align-top whitespace-nowrap">
                         <div class="flex items-center justify-end">
                             <!-- Analisis Brown Pill Button -->
-                            <button type="button" onclick="openAnalyzeModal('${doc.id}')" class="px-3.5 py-1.5 rounded-full border border-[#26150d] text-[#26150d] hover:bg-[#26150d] hover:text-white font-semibold text-xs transition-all active:scale-95 shadow-2xs flex items-center gap-1.5">
-                                <i class="fa-solid fa-magnifying-glass text-[11px] text-amber-500 group-hover:text-amber-300"></i>
+                            <button type="button" onclick="openAnalyzeModal('${doc.id}')" class="px-3.5 py-1.5 rounded-full border border-[#26150d] dark:border-[#E5A93C] text-[#26150d] dark:text-[#E5A93C] hover:bg-[#26150d] dark:hover:bg-[#E5A93C] hover:text-white dark:hover:text-[#1a1512] font-semibold text-xs transition-all active:scale-95 shadow-2xs flex items-center gap-1.5">
+                                <i class="fa-solid fa-magnifying-glass text-[11px] text-amber-500 dark:text-[#E5A93C] group-hover:text-amber-300"></i>
                                 <span>Analisis</span>
                             </button>
                         </div>
@@ -2101,12 +2145,12 @@
                 const iconEl = document.getElementById(`sortIcon_${col}`);
                 if (!iconEl) return;
                 if (currentSort.column === col) {
-                    iconEl.className = 'text-zinc-900 font-bold text-[10px] transition';
+                    iconEl.className = 'text-zinc-900 dark:text-[#E5A93C] font-bold text-[10px] transition';
                     iconEl.innerHTML = currentSort.asc 
-                        ? '<i class="fa-solid fa-arrow-up-short-wide text-zinc-900"></i>' 
-                        : '<i class="fa-solid fa-arrow-down-wide-short text-zinc-900"></i>';
+                        ? '<i class="fa-solid fa-arrow-up-short-wide text-[#26150d] dark:text-[#E5A93C]"></i>' 
+                        : '<i class="fa-solid fa-arrow-down-wide-short text-[#26150d] dark:text-[#E5A93C]"></i>';
                 } else {
-                    iconEl.className = 'text-gray-400 group-hover:text-gray-700 text-[10px] transition';
+                    iconEl.className = 'text-gray-400 dark:text-stone-400 group-hover:text-gray-700 dark:group-hover:text-[#E5A93C] text-[10px] transition';
                     iconEl.innerHTML = '<i class="fa-solid fa-sort"></i>';
                 }
             });
@@ -2754,8 +2798,8 @@
                 btn.onclick = () => switchAnalysisDoc(d.id);
                 btn.className = `w-full text-left px-2.5 py-1.5 rounded-lg transition text-[11px] truncate flex items-center justify-between gap-1.5 ${
                     isActive 
-                        ? 'bg-[#26150d] text-white font-semibold shadow-2xs' 
-                        : 'text-gray-700 hover:bg-[#f6eee7] hover:text-[#26150d]'
+                        ? 'bg-[#26150d] dark:bg-[#E5A93C] text-white dark:text-[#1a1512] font-semibold shadow-2xs' 
+                        : 'text-gray-700 dark:text-gray-300 hover:bg-[#f6eee7] dark:hover:bg-[#2B2A32] hover:text-[#26150d] dark:hover:text-[#E5A93C]'
                 }`;
                 btn.innerHTML = `
                     <span class="truncate">${d.fileName}</span>
@@ -2834,22 +2878,22 @@
             document.getElementById('colTindakPidanaCount').textContent = `${filteredTindakPidana.length} ringkasan`;
 
             if (filteredTindakPidana.length === 0) {
-                tindakPidanaContainer.innerHTML = `<div class="text-gray-400 text-center py-6 text-xs">Tidak ditemukan tindak pidana yang sesuai kata kunci.</div>`;
+                tindakPidanaContainer.innerHTML = `<div class="text-gray-400 dark:text-gray-400 text-center py-6 text-xs">Tidak ditemukan tindak pidana yang sesuai kata kunci.</div>`;
             } else {
                 filteredTindakPidana.forEach(item => {
                     const card = document.createElement('div');
-                    card.className = 'group p-3 bg-white hover:bg-rose-50/50 rounded-xl border border-gray-200 hover:border-rose-300 transition-all cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                    card.className = 'group p-3 bg-white dark:bg-[#2B2A32] hover:bg-rose-50/50 dark:hover:bg-[#34323D] rounded-xl border border-gray-200 dark:border-[#715A5A] hover:border-rose-300 dark:hover:border-rose-500/50 transition-all cursor-pointer shadow-2xs flex items-start justify-between gap-2';
                     card.onclick = () => openDetailItemModal('TINDAK PIDANA', item.title, item.pasal, item.desc, item.sanction);
                     card.innerHTML = `
                         <div class="space-y-1 pr-1">
-                            <div class="font-bold text-gray-900 group-hover:text-rose-700 text-xs leading-snug">
+                            <div class="font-bold text-gray-900 dark:text-white group-hover:text-rose-700 dark:group-hover:text-rose-300 text-xs leading-snug">
                                 ${item.title}
                             </div>
-                            <div class="text-[11px] text-gray-500 font-medium">
+                            <div class="text-[11px] text-gray-500 dark:text-gray-400 font-medium">
                                 ${item.pasal}
                             </div>
                         </div>
-                        <i class="fa-solid fa-chevron-right text-rose-400 group-hover:text-rose-600 text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+                        <i class="fa-solid fa-chevron-right text-rose-400 dark:text-rose-300 group-hover:text-rose-600 text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
                     `;
                     tindakPidanaContainer.appendChild(card);
                 });
@@ -2867,19 +2911,19 @@
             
             filteredPengadilan.forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'group p-2.5 bg-white hover:bg-[#f4f7f4] rounded-xl border border-[#dae6da] hover:border-[#b8d2b8] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.className = 'group p-2.5 bg-white dark:bg-[#37353E] hover:bg-[#f4f7f4] dark:hover:bg-[#43404B] rounded-xl border border-[#dae6da] dark:border-[#715A5A] hover:border-[#b8d2b8] dark:hover:border-emerald-500/50 transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
                 card.onclick = () => openDetailItemModal('PROSES PENGADILAN', item.name, item.pasal || doc.number, item.summary, item.detail);
                 card.innerHTML = `
                     <div class="space-y-0.5">
-                        <div class="flex items-center gap-1.5 font-bold text-gray-900 group-hover:text-[#1c3822] text-xs">
-                            <span class="w-1.5 h-1.5 rounded-full bg-[#2d5a37] shrink-0"></span>
+                        <div class="flex items-center gap-1.5 font-bold text-gray-900 dark:text-white group-hover:text-[#1c3822] dark:group-hover:text-emerald-300 text-xs">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#2d5a37] dark:bg-emerald-400 shrink-0"></span>
                             <span>${item.name}</span>
                         </div>
-                        <div class="text-[11px] text-gray-600 pl-3">
+                        <div class="text-[11px] text-gray-600 dark:text-gray-300 pl-3">
                             ${item.summary}
                         </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-[#2d5a37]/60 group-hover:text-[#2d5a37] text-[11px] mt-1 shrink-0"></i>
+                    <i class="fa-solid fa-chevron-right text-[#2d5a37]/60 dark:text-emerald-400 group-hover:text-[#2d5a37] text-[11px] mt-1 shrink-0"></i>
                 `;
                 pengadilanContainer.appendChild(card);
             });
@@ -2895,19 +2939,19 @@
 
             filteredMenangkap.forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'group p-2.5 bg-white hover:bg-[#f4f7f4] rounded-xl border border-[#dae6da] hover:border-[#b8d2b8] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.className = 'group p-2.5 bg-white dark:bg-[#37353E] hover:bg-[#f4f7f4] dark:hover:bg-[#43404B] rounded-xl border border-[#dae6da] dark:border-[#715A5A] hover:border-[#b8d2b8] dark:hover:border-emerald-500/50 transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
                 card.onclick = () => openDetailItemModal('KEWENANGAN PENINDAKAN', item.name, item.pasal || doc.number, item.summary, item.detail);
                 card.innerHTML = `
                     <div class="space-y-0.5">
-                        <div class="flex items-center gap-1.5 font-bold text-gray-900 group-hover:text-[#1c3822] text-xs">
-                            <span class="w-1.5 h-1.5 rounded-full bg-[#2d5a37] shrink-0"></span>
+                        <div class="flex items-center gap-1.5 font-bold text-gray-900 dark:text-white group-hover:text-[#1c3822] dark:group-hover:text-emerald-300 text-xs">
+                            <span class="w-1.5 h-1.5 rounded-full bg-[#2d5a37] dark:bg-emerald-400 shrink-0"></span>
                             <span>${item.name}</span>
                         </div>
-                        <div class="text-[11px] text-gray-600 pl-3">
+                        <div class="text-[11px] text-gray-600 dark:text-gray-300 pl-3">
                             ${item.summary}
                         </div>
                     </div>
-                    <i class="fa-solid fa-chevron-right text-[#2d5a37]/60 group-hover:text-[#2d5a37] text-[11px] mt-1 shrink-0"></i>
+                    <i class="fa-solid fa-chevron-right text-[#2d5a37]/60 dark:text-emerald-400 group-hover:text-[#2d5a37] text-[11px] mt-1 shrink-0"></i>
                 `;
                 menangkapContainer.appendChild(card);
             });
@@ -2918,18 +2962,18 @@
             lautKepulauanContainer.innerHTML = '';
             (rezimData.lautKepulauan || []).forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'group p-2.5 bg-white hover:bg-[#f6eee7] rounded-xl border border-[#e4d7cd] hover:border-[#cbb4a3] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.className = 'group p-2.5 bg-white dark:bg-[#37353E] hover:bg-[#f6eee7] dark:hover:bg-[#43404B] rounded-xl border border-[#e4d7cd] dark:border-[#715A5A] hover:border-[#cbb4a3] dark:hover:border-[#E5A93C]/50 transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
                 card.onclick = () => openDetailItemModal('LAUT KEPULAUAN', item.entity, item.pasal || 'Yurisdiksi Laut Kepulauan', item.summary, item.detail);
                 card.innerHTML = `
                     <div class="space-y-0.5">
-                        <div class="font-bold text-[#26150d] group-hover:text-[#381d12] text-xs">
+                        <div class="font-bold text-[#26150d] dark:text-white group-hover:text-[#381d12] dark:group-hover:text-[#E5A93C] text-xs">
                             ${item.entity}
                         </div>
-                        <div class="text-[11px] text-stone-600">
+                        <div class="text-[11px] text-stone-600 dark:text-gray-300">
                             ${item.summary}
                         </div>
                     </div>
-                    <i class="fa-solid fa-arrow-right text-[#8c5835] group-hover:text-[#26150d] text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+                    <i class="fa-solid fa-arrow-right text-[#8c5835] dark:text-[#E5A93C] group-hover:text-[#26150d] dark:group-hover:text-white text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
                 `;
                 lautKepulauanContainer.appendChild(card);
             });
@@ -2939,18 +2983,18 @@
             lautTeritorialContainer.innerHTML = '';
             (rezimData.lautTeritorial || []).forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'group p-2.5 bg-white hover:bg-[#f6eee7] rounded-xl border border-[#e4d7cd] hover:border-[#cbb4a3] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.className = 'group p-2.5 bg-white dark:bg-[#37353E] hover:bg-[#f6eee7] dark:hover:bg-[#43404B] rounded-xl border border-[#e4d7cd] dark:border-[#715A5A] hover:border-[#cbb4a3] dark:hover:border-[#E5A93C]/50 transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
                 card.onclick = () => openDetailItemModal('LAUT TERITORIAL', item.entity, item.pasal || 'Yurisdiksi Laut Teritorial', item.summary, item.detail);
                 card.innerHTML = `
                     <div class="space-y-0.5">
-                        <div class="font-bold text-[#26150d] group-hover:text-[#381d12] text-xs">
+                        <div class="font-bold text-[#26150d] dark:text-white group-hover:text-[#381d12] dark:group-hover:text-[#E5A93C] text-xs">
                             ${item.entity}
                         </div>
-                        <div class="text-[11px] text-stone-600">
+                        <div class="text-[11px] text-stone-600 dark:text-gray-300">
                             ${item.summary}
                         </div>
                     </div>
-                    <i class="fa-solid fa-arrow-right text-[#8c5835] group-hover:text-[#26150d] text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+                    <i class="fa-solid fa-arrow-right text-[#8c5835] dark:text-[#E5A93C] group-hover:text-[#26150d] dark:group-hover:text-white text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
                 `;
                 lautTeritorialContainer.appendChild(card);
             });
@@ -2960,18 +3004,18 @@
             zeeContainer.innerHTML = '';
             (rezimData.zee || []).forEach(item => {
                 const card = document.createElement('div');
-                card.className = 'group p-2.5 bg-white hover:bg-[#f6eee7] rounded-xl border border-[#e4d7cd] hover:border-[#cbb4a3] transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
+                card.className = 'group p-2.5 bg-white dark:bg-[#37353E] hover:bg-[#f6eee7] dark:hover:bg-[#43404B] rounded-xl border border-[#e4d7cd] dark:border-[#715A5A] hover:border-[#cbb4a3] dark:hover:border-[#E5A93C]/50 transition cursor-pointer shadow-2xs flex items-start justify-between gap-2';
                 card.onclick = () => openDetailItemModal('ZONA EKONOMI EKSKLUSIF (ZEE)', item.entity, item.pasal || 'Yurisdiksi ZEE Indonesia', item.summary, item.detail);
                 card.innerHTML = `
                     <div class="space-y-0.5">
-                        <div class="font-bold text-[#26150d] group-hover:text-[#381d12] text-xs">
+                        <div class="font-bold text-[#26150d] dark:text-white group-hover:text-[#381d12] dark:group-hover:text-[#E5A93C] text-xs">
                             ${item.entity}
                         </div>
-                        <div class="text-[11px] text-stone-600">
+                        <div class="text-[11px] text-stone-600 dark:text-gray-300">
                             ${item.summary}
                         </div>
                     </div>
-                    <i class="fa-solid fa-arrow-right text-[#8c5835] group-hover:text-[#26150d] text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
+                    <i class="fa-solid fa-arrow-right text-[#8c5835] dark:text-[#E5A93C] group-hover:text-[#26150d] dark:group-hover:text-white text-xs mt-1 shrink-0 transition-transform group-hover:translate-x-0.5"></i>
                 `;
                 zeeContainer.appendChild(card);
             });

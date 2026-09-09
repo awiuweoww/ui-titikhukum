@@ -1,0 +1,2207 @@
+/* ==========================================================================
+   Titik Hukum - Complete Dark Mode Theme Stylesheet
+   Palette:
+     - Main Base Background: #37353E (Warna Dasar Utama)
+     - Surface / Card:       #37353E (Satu warna dasar terpadu)
+     - Surface Elevated:     rgba(255, 255, 255, 0.05)
+     - Input Background:     #2B2A32
+     - Border / Muted:       #715A5A
+     - Accent Gold:          #E5A93C / #F59E0B (Pengganti #D3DAD9)
+     - Text Primary:         #F3F4F6 (Putih Gading - Tidak Ada Teks Hitam)
+     - Text Secondary:       #D1D5DB (Abu Terang Kontras)
+     - Text Muted:           #9CA3AF (Abu Lembut)
+   ========================================================================== */
+
+:root {
+    --th-dark-bg: #37353E;
+    --th-dark-surface: #37353E;
+    --th-dark-surface-elevated: rgba(255, 255, 255, 0.05);
+    --th-dark-surface-hover: rgba(255, 255, 255, 0.08);
+    --th-dark-input: #2B2A32;
+    --th-dark-border: #715A5A;
+    --th-dark-border-subtle: rgba(113, 90, 90, 0.45);
+    --th-dark-accent: #E5A93C;
+    --th-dark-accent-hover: #F59E0B;
+    --th-dark-accent-light: #FDE68A;
+    --th-dark-text-primary: #F3F4F6;
+    --th-dark-text-secondary: #D1D5DB;
+    --th-dark-text-muted: #9CA3AF;
+}
+
+/* --------------------------------------------------------------------------
+   1. DASAR HALAMAN (BASE BACKGROUND: #37353E)
+   -------------------------------------------------------------------------- */
+html.dark,
+html.dark body {
+    background-color: var(--th-dark-bg) !important;
+    color: var(--th-dark-text-primary) !important;
+}
+
+html.dark main,
+html.dark section#beranda,
+html.dark .min-h-screen {
+    background-color: var(--th-dark-bg) !important;
+}
+
+/* --------------------------------------------------------------------------
+   2. HINDARI SEMUA TEKS HITAM / SAMAR DI DARK MODE (WCAG HIGH CONTRAST)
+   -------------------------------------------------------------------------- */
+html.dark,
+html.dark body {
+    color: var(--th-dark-text-primary) !important;
+}
+
+/* Headings dan semua child di dalamnya harus terang */
+html.dark h1, html.dark h1 *,
+html.dark h2, html.dark h2 *,
+html.dark h3, html.dark h3 *,
+html.dark h4, html.dark h4 *,
+html.dark h5, html.dark h5 *,
+html.dark h6, html.dark h6 * {
+    color: var(--th-dark-text-primary) !important;
+}
+
+/* Hilangkan semua warna teks hitam/gelap dari utility Tailwind */
+html.dark .text-black,
+html.dark .text-gray-900,
+html.dark .text-gray-800,
+html.dark .text-gray-700,
+html.dark .text-stone-900,
+html.dark .text-stone-800,
+html.dark .text-stone-700,
+html.dark .text-zinc-900,
+html.dark .text-zinc-800,
+html.dark .text-zinc-700,
+html.dark .text-neutral-900,
+html.dark .text-neutral-800,
+html.dark .text-slate-900,
+html.dark .text-slate-800,
+html.dark .text-[#18181b],
+html.dark .text-[#1a1512],
+html.dark .text-[#111827],
+html.dark .text-[#0f172a],
+html.dark span.text-gray-900,
+html.dark span.text-gray-800,
+html.dark span.text-gray-700,
+html.dark p.text-gray-900,
+html.dark div.text-gray-900 {
+    color: var(--th-dark-text-primary) !important;
+}
+
+/* Teks abu-abu menengah/redup diubah menjadi abu terang agar terbaca jelas */
+html.dark .text-gray-600,
+html.dark .text-gray-500,
+html.dark .text-stone-600,
+html.dark .text-stone-500,
+html.dark .text-zinc-600,
+html.dark .text-zinc-500,
+html.dark .text-gray-400 {
+    color: var(--th-dark-text-secondary) !important;
+}
+
+/* Teks brand coklat/amber di light mode dijadikan Aksen Gold terang */
+html.dark .text-brand-brown,
+html.dark .text-brand-darkBrown,
+html.dark .text-[#26150d],
+html.dark .text-[#2d1a11],
+html.dark .text-[#1f0f08],
+html.dark .text-[#381d12],
+html.dark .text-[#4a2717],
+html.dark .text-amber-950,
+html.dark .text-amber-900,
+html.dark .text-amber-800,
+html.dark .text-amber-700 {
+    color: var(--th-dark-accent) !important;
+}
+
+/* Bold & strong di dalam paragraf */
+html.dark strong,
+html.dark b {
+    color: var(--th-dark-text-primary) !important;
+}
+
+/* --------------------------------------------------------------------------
+   2.1 HINDARI HOVER / GROUP-HOVER BERWARNA GELAP (PENTING!)
+   Ketika elemen di-hover, teks harus berubah menjadi Gold Terang / Putih, BUKAN GELAP!
+   -------------------------------------------------------------------------- */
+html.dark [class*="hover:text-gray-"]:hover,
+html.dark [class*="hover:text-stone-"]:hover,
+html.dark [class*="hover:text-zinc-"]:hover,
+html.dark [class*="hover:text-black"]:hover,
+html.dark [class*="hover:text-[#"]:hover,
+html.dark [class*="hover:text-brand-"]:hover,
+html.dark .hover\:text-gray-900:hover,
+html.dark .hover\:text-gray-800:hover,
+html.dark .hover\:text-gray-700:hover,
+html.dark .hover\:text-gray-600:hover,
+html.dark .hover\:text-brand-brown:hover,
+html.dark .hover\:text-brand-red:hover,
+html.dark .hover\:text-\[\#26150d\]:hover,
+html.dark .hover\:text-\[\#1a1512\]:hover,
+html.dark .hover\:text-\[\#381d12\]:hover,
+html.dark .hover\:text-\[\#1c3822\]:hover,
+html.dark .group:hover [class*="group-hover:text-gray-"],
+html.dark .group:hover [class*="group-hover:text-stone-"],
+html.dark .group:hover [class*="group-hover:text-brand-"],
+html.dark .group:hover [class*="group-hover:text-[#"],
+html.dark .group:hover .group-hover\:text-gray-900,
+html.dark .group:hover .group-hover\:text-gray-800,
+html.dark .group:hover .group-hover\:text-gray-700,
+html.dark .group:hover .group-hover\:text-gray-600,
+html.dark .group:hover .group-hover\:text-brand-brown,
+html.dark .group:hover .group-hover\:text-\[\#26150d\],
+html.dark .group:hover .group-hover\:text-\[\#381d12\],
+html.dark .group:hover .group-hover\:text-\[\#1c3822\],
+html.dark .group:hover .group-hover\:text-\[\#2d5a37\] {
+    color: var(--th-dark-accent) !important;
+}
+
+/* FAQ Khusus: Pastikan pertanyaan FAQ selalu putih terang, dan saat di-hover jadi gold */
+html.dark .faq-item span.text-gray-900,
+html.dark .faq-item button span:first-child {
+    color: var(--th-dark-text-primary) !important;
+}
+
+html.dark .faq-item:hover button span:first-child,
+html.dark .faq-item button:hover span:first-child,
+html.dark .faq-item .group:hover .group-hover\:text-gray-700 {
+    color: var(--th-dark-accent) !important;
+}
+
+html.dark .faq-icon {
+    color: var(--th-dark-accent) !important;
+}
+
+/* --------------------------------------------------------------------------
+   2.2 HINDARI HOVER BACKGROUND PUTIH / TERANG (AGAR TETAP GELAP)
+   -------------------------------------------------------------------------- */
+html.dark .hover\:bg-white:hover,
+html.dark .hover\:bg-gray-50:hover,
+html.dark .hover\:bg-gray-100:hover,
+html.dark .hover\:bg-stone-50:hover,
+html.dark .hover\:bg-stone-100:hover,
+html.dark .hover\:bg-\[\#fdfbf9\]:hover,
+html.dark .hover\:bg-\[\#f6eee7\]:hover,
+html.dark .hover\:bg-amber-50:hover {
+    background-color: var(--th-dark-surface-elevated) !important;
+}
+
+html.dark .hover\:bg-red-50:hover {
+    background-color: rgba(239, 68, 68, 0.18) !important;
+}
+
+html.dark .hover\:bg-rose-50:hover {
+    background-color: rgba(244, 63, 94, 0.18) !important;
+}
+
+/* --------------------------------------------------------------------------
+   3. ELIMINASI SEMUA WARNA TERANG / PUTIH PADA LATAR BELAKANG (HARUS GELAP)
+   -------------------------------------------------------------------------- */
+/* Semua background putih, krem, abu-abu muda, dan amber muda diubah jadi gelap */
+html.dark .bg-white,
+html.dark .bg-gray-50,
+html.dark .bg-gray-100,
+html.dark .bg-gray-200,
+html.dark .bg-stone-50,
+html.dark .bg-stone-100,
+html.dark .bg-stone-200,
+html.dark .bg-zinc-50,
+html.dark .bg-zinc-100,
+html.dark .bg-slate-50,
+html.dark .bg-slate-100,
+html.dark .bg-brand-lightBrown,
+html.dark .bg-\[\#f7f5f2\],
+html.dark .bg-\[\#fdfbf9\],
+html.dark .bg-\[\#fafaf9\],
+html.dark .bg-\[\#f7f6f2\],
+html.dark .bg-\[\#f6eee7\],
+html.dark .bg-\[\#edebe6\],
+html.dark .bg-\[\#f5f5f4\],
+html.dark .bg-\[\#eedfd1\] {
+    background-color: var(--th-dark-surface) !important;
+    color: var(--th-dark-text-primary) !important;
+}
+
+/* NAVBAR LINKS: Selalu transparan murni, TANPA background kotak */
+header nav a,
+header nav a:hover,
+header nav a:focus,
+header nav a:active,
+nav a,
+nav a:hover,
+nav a:focus,
+nav a:active,
+#mainNavbar nav a,
+#mainNavbar nav a:hover,
+html.dark header nav a,
+html.dark header nav a:hover,
+html.dark header nav a:focus,
+html.dark header nav a:active,
+html.dark header nav a *,
+html.dark nav a,
+html.dark nav a:hover,
+html.dark nav a:focus,
+html.dark nav a:active,
+html.dark #mainNavbar nav a,
+html.dark #mainNavbar nav a:hover,
+html.dark .navbar-brown nav a,
+html.dark .navbar-brown nav a:hover,
+html.dark a[class*="after:bg-white"],
+html.dark header a,
+html.dark nav a.text-white {
+    background-color: transparent !important;
+    background: transparent !important;
+}
+
+/* Kontainer utama kartu (seperti pada profil, pengaturan, laporan) */
+html.dark div.max-w-\[1100px\] {
+    background-color: var(--th-dark-surface) !important;
+    border-color: var(--th-dark-border) !important;
+}
+
+/* Bagian Sidebar Profil & Pengaturan */
+html.dark aside.shrink-0 {
+    background-color: var(--th-dark-bg) !important;
+    border-color: var(--th-dark-border-subtle) !important;
+}
+
+/* Bagian Konten Section Profil & Pengaturan */
+html.dark section.flex-1 {
+    background-color: var(--th-dark-surface) !important;
+}
+
+/* Box Konten Dalam Pengaturan (Nested Card) */
+html.dark section.flex-1 > div.bg-white,
+html.dark section.flex-1 > div.rounded-xl {
+    background-color: var(--th-dark-bg) !important;
+    border-color: var(--th-dark-border-subtle) !important;
+}
+
+/* --------------------------------------------------------------------------
+   4. BORDER & GARIS PEMISAH (BORDER: #715A5A)
+   -------------------------------------------------------------------------- */
+html.dark .border,
+html.dark .border-t,
+html.dark .border-b,
+html.dark .border-l,
+html.dark .border-r,
+html.dark .border-gray-100,
+html.dark .border-gray-200,
+html.dark .border-gray-300,
+html.dark .border-stone-100,
+html.dark .border-stone-200,
+html.dark .border-stone-300,
+html.dark .border-brand-borderBrown,
+html.dark .border-\[\#e8ded8\],
+html.dark .border-\[\#e8dfd8\],
+html.dark .border-\[\#cbb4a3\],
+html.dark .border-\[\#d6c4b7\] {
+    border-color: var(--th-dark-border-subtle) !important;
+}
+
+html.dark hr {
+    border-color: var(--th-dark-border-subtle) !important;
+}
+
+/* --------------------------------------------------------------------------
+   5. FORM INPUT, SELECT, TEXTAREA, CHECKBOX
+   -------------------------------------------------------------------------- */
+html.dark input[type="text"]:not(.bg-transparent),
+html.dark input[type="email"]:not(.bg-transparent),
+html.dark input[type="password"]:not(.bg-transparent),
+html.dark input[type="search"]:not(.bg-transparent),
+html.dark input[type="url"]:not(.bg-transparent),
+html.dark select,
+html.dark textarea:not(.bg-transparent):not(.border-0) {
+    background-color: var(--th-dark-input) !important;
+    color: var(--th-dark-text-primary) !important;
+    border: 1px solid var(--th-dark-border) !important;
+}
+
+html.dark input[readonly] {
+    background-color: #24232B !important;
+    color: var(--th-dark-text-muted) !important;
+    cursor: not-allowed;
+}
+
+html.dark select option {
+    background-color: var(--th-dark-input) !important;
+    color: var(--th-dark-text-primary) !important;
+}
+
+/* Panah dropdown SVG agar berwarna putih terang di dark mode */
+html.dark select {
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23F3F4F6' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+    color: var(--th-dark-text-muted) !important;
+}
+
+html.dark input:not(.bg-transparent):focus,
+html.dark select:focus,
+html.dark textarea:not(.bg-transparent):not(.border-0):focus {
+    border-color: var(--th-dark-accent) !important;
+    box-shadow: 0 0 0 3px rgba(229, 169, 60, 0.25) !important;
+}
+
+/* Checkbox Styling Kustom: Latar Gelap (#2B2A32) saat TIDAK dipilih, Emas (#E5A93C) saat DIPILIH */
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 0.25rem;
+    border: 1.5px solid #d1d5db;
+    background-color: #ffffff;
+    cursor: pointer;
+    display: inline-grid;
+    place-content: center;
+    vertical-align: middle;
+    transition: all 0.15s ease-in-out;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+input[type="checkbox"]:hover {
+    border-color: #26150d;
+}
+
+input[type="checkbox"]:checked {
+    background-color: #26150d;
+    border-color: #26150d;
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* DARK MODE CHECKBOX: Latar Gelap (#2B2A32) saat TIDAK dipilih, Emas (#E5A93C) saat DIPILIH */
+html.dark input[type="checkbox"] {
+    background-color: #2B2A32 !important;
+    border-color: #715A5A !important;
+    accent-color: var(--th-dark-accent) !important;
+}
+
+html.dark input[type="checkbox"]:hover {
+    border-color: var(--th-dark-accent) !important;
+}
+
+html.dark input[type="checkbox"]:checked {
+    background-color: var(--th-dark-accent) !important;
+    border-color: var(--th-dark-accent) !important;
+    background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='%231a1512' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e") !important;
+}
+
+html.dark input[type="checkbox"]:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 2px rgba(229, 169, 60, 0.3) !important;
+}
+
+/* Toggle Switch Dark Mode di Pengaturan */
+html.dark .peer:checked ~ div {
+    background-color: var(--th-dark-accent) !important;
+}
+html.dark .peer:not(:checked) ~ div {
+    background-color: var(--th-dark-input) !important;
+    border: 1px solid var(--th-dark-border) !important;
+}
+
+/* --------------------------------------------------------------------------
+   6. PUSTAKA DOKUMEN & TABEL REGULASI
+   -------------------------------------------------------------------------- */
+html.dark #docTable,
+html.dark table {
+    background-color: var(--th-dark-surface) !important;
+    color: var(--th-dark-text-primary) !important;
+}
+
+html.dark thead,
+html.dark thead tr,
+html.dark thead th {
+    background-color: var(--th-dark-bg) !important;
+    color: var(--th-dark-accent) !important;
+    border-bottom: 1px solid var(--th-dark-border) !important;
+}
+
+html.dark tbody tr {
+    background-color: var(--th-dark-surface) !important;
+    border-bottom: 1px solid var(--th-dark-border-subtle) !important;
+    color: var(--th-dark-text-primary) !important;
+}
+
+html.dark tbody tr:hover {
+    background-color: var(--th-dark-surface-elevated) !important;
+}
+
+/* Pustaka Dokumen Table & Sort Icons */
+html.dark #docTable tbody tr td span.font-bold,
+html.dark #docTable tbody tr td div.font-bold {
+    color: #FFFFFF !important;
+}
+
+html.dark #docTable tbody tr td .font-mono,
+html.dark #docTable tbody tr td .font-mono span,
+html.dark #docTable tbody tr td span.font-medium {
+    color: #E2E8F0 !important;
+}
+
+html.dark #docTable tbody tr td .font-semibold {
+    color: #F3F4F6 !important;
+}
+
+html.dark [id^="sortIcon_"],
+html.dark [id^="sortIcon_"] i {
+    color: var(--th-dark-accent) !important;
+}
+
+html.dark thead th:hover [id^="sortIcon_"],
+html.dark thead th:hover [id^="sortIcon_"] i {
+    color: var(--th-dark-accent-light) !important;
+}
+
+html.dark thead th:hover div {
+    color: var(--th-dark-accent) !important;
+}
+
+/* Kategori Filter Pills */
+html.dark .cat-pill.active {
+    background-color: var(--th-dark-accent) !important;
+    color: #1a1512 !important;
+    font-weight: 700 !important;
+}
+
+html.dark .cat-pill:not(.active) {
+    color: var(--th-dark-text-secondary) !important;
+}
+
+html.dark .cat-pill:not(.active):hover {
+    background-color: var(--th-dark-surface-elevated) !important;
+    color: var(--th-dark-accent-light) !important;
+}
+
+/* Search Bar Input di Pustaka */
+html.dark #searchInput {
+    background-color: var(--th-dark-input) !important;
+    color: var(--th-dark-text-primary) !important;
+    border-color: var(--th-dark-border) !important;
+}
+
+/* Stat Total Berkas Badge */
+html.dark .rounded-2xl.bg-white.border {
+    background-color: var(--th-dark-surface) !important;
+    border-color: var(--th-dark-border) !important;
+}
+
+html.dark #statTotalDoc {
+    color: var(--th-dark-accent) !important;
+}
+
+/* Tanya AI Batch Button */
+html.dark #tanyaAiBatchBtn {
+    background-color: var(--th-dark-accent) !important;
+    color: #1a1512 !important;
+    border-color: var(--th-dark-accent-hover) !important;
+}
+
+html.dark #tanyaAiBatchBtn * {
+    color: #1a1512 !important;
+}
+
+/* Smart Search Banner di Pustaka */
+html.dark #smartSearchBanner {
+    background-color: rgba(229, 169, 60, 0.1) !important;
+    border-color: rgba(229, 169, 60, 0.3) !important;
+}
+
+html.dark #smartSearchBanner * {
+    color: var(--th-dark-text-primary) !important;
+}
+
+html.dark #smartSearchBanner #searchQueryBadge {
+    background-color: var(--th-dark-bg) !important;
+    color: var(--th-dark-accent) !important;
+    border-color: var(--th-dark-border) !important;
+}
+
+/* Drawer Detail Regulasi Expandable */
+html.dark [id^="details-"] > div {
+    background-color: var(--th-dark-bg) !important;
+    border-color: var(--th-dark-border) !important;
+    color: var(--th-dark-text-secondary) !important;
+}
+
+/* Table Footer & Pagination */
+html.dark .border-t.bg-white {
+    background-color: var(--th-dark-surface) !important;
+}
+
+html.dark #pageIndicator {
+    color: #FFFFFF !important;
+}
+
+html.dark #prevPageBtn,
+html.dark #nextPageBtn {
+    border-color: var(--th-dark-border) !important;
+    color: var(--th-dark-text-secondary) !important;
+    background-color: transparent !important;
+}
+
+html.dark #prevPageBtn:hover:not(:disabled),
+html.dark #nextPageBtn:hover:not(:disabled) {
+    background-color: var(--th-dark-surface-elevated) !important;
+    color: var(--th-dark-accent) !important;
+    border-color: var(--th-dark-accent) !important;
+}
+
+html.dark #pageSizeShortcutGroup {
+    background-color: var(--th-dark-input) !important;
+    border-color: var(--th-dark-border) !important;
+}
+
+html.dark #pageSizeShortcutGroup button:not(.bg-\[\#26150d\]) {
+    color: var(--th-dark-text-secondary) !important;
+}
+
+html.dark #pageSizeShortcutGroup button.bg-\[\#26150d\] {
+    background-color: var(--th-dark-accent) !important;
+    color: #1a1512 !important;
+}
+
+/* Empty State */
+html.dark #emptyState {
+    background-color: var(--th-dark-surface) !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. STATUS BADGE & PROGRESS (RIWAYAT LAPORAN & PUSTAKA)
+   -------------------------------------------------------------------------- */
+html.dark .bg-amber-50,
+html.dark .bg-amber-100 {
+    background-color: rgba(229, 169, 60, 0.15) !important;
+    color: var(--th-dark-accent-light) !important;
+    border-color: rgba(229, 169, 60, 0.35) !important;
+}
+
+html.dark .bg-blue-50 {
+    background-color: rgba(59, 130, 246, 0.15) !important;
+    color: #93C5FD !important;
+    border-color: rgba(59, 130, 246, 0.35) !important;
+}
+
+html.dark .bg-green-50 {
+    background-color: rgba(16, 185, 129, 0.15) !important;
+    color: #6EE7B7 !important;
+    border-color: rgba(16, 185, 129, 0.35) !important;
+}
+
+html.dark .bg-red-50 {
+    background-color: rgba(239, 68, 68, 0.15) !important;
+    color: #FCA5A5 !important;
+    border-color: rgba(239, 68, 68, 0.35) !important;
+}
+
+html.dark .bg-gray-100 {
+    background-color: var(--th-dark-input) !important;
+    color: var(--th-dark-text-secondary) !important;
+    border-color: var(--th-dark-border) !important;
+}
+
+/* --------------------------------------------------------------------------
+   8. CHATBOT ASISTEN AI (CHAT.HTML)
+   -------------------------------------------------------------------------- */
+html.dark #chatSidebar {
+    background-color: var(--th-dark-bg) !important;
+    border-right-color: var(--th-dark-border-subtle) !important;
+}
+
+html.dark header.h-14 {
+    background-color: var(--th-dark-surface) !important;
+    border-bottom-color: var(--th-dark-border) !important;
+}
+
+/* Bubble AI Chatbot */
+html.dark .chat-bubble-ai,
+html.dark [class*="chat-bubble-ai"] {
+    background-color: var(--th-dark-surface) !important;
+    border: 1px solid var(--th-dark-border-subtle) !important;
+    color: var(--th-dark-text-primary) !important;
+}
+
+/* Bubble User */
+html.dark .chat-bubble-user {
+    background-color: var(--th-dark-border) !important;
+    color: #FFFFFF !important;
+}
+
+/* Chat Input Container */
+html.dark #chatInputArea,
+html.dark .chat-input-container {
+    background-color: var(--th-dark-surface) !important;
+    border-color: var(--th-dark-border) !important;
+}
+
+html.dark #chatInputArea textarea {
+    background-color: transparent !important;
+    color: var(--th-dark-text-primary) !important;
+}
+
+/* Grounding / PDF Viewer Panel (Dipertahankan identik dengan lightmode) */
+/* Styling lengkap diatur di Section 17 */
+
+/* --------------------------------------------------------------------------
+   9. BERANDA (INDEX.HTML) - STEP CARDS & FITUR
+   -------------------------------------------------------------------------- */
+/* Kondisi Standby (Tidak Aktif & Tidak Di-hover): Warna dasar solid #37353E */
+html.dark .step-card:not(.step-active):not(:hover) {
+    background: #37353E !important;
+    background-image: none !important;
+    background-color: #37353E !important;
+    border-color: var(--th-dark-border-subtle) !important;
+    transform: translateY(0) !important;
+    box-shadow: none !important;
+}
+
+html.dark .step-card:not(.step-active):not(:hover) h3 {
+    color: #D1D5DB !important;
+}
+
+html.dark .step-card:not(.step-active):not(:hover) p {
+    color: #9CA3AF !important;
+}
+
+html.dark .step-card:not(.step-active):not(:hover) .step-badge {
+    background: #2B2A32 !important;
+    background-image: none !important;
+    background-color: #2B2A32 !important;
+    color: #9CA3AF !important;
+    border-color: var(--th-dark-border) !important;
+    box-shadow: none !important;
+}
+
+html.dark .step-card:not(.step-active):not(:hover) .step-thumb {
+    background: #2B2A32 !important;
+    background-image: none !important;
+    background-color: #2B2A32 !important;
+    border-color: var(--th-dark-border-subtle) !important;
+}
+
+/* Kondisi Aktif (Bergerak Otomatis) & Hover: PERSIS IDENTIK (#524E5D, Border Gold, Teks Putih) */
+html.dark .step-card.step-active,
+html.dark .step-card:hover {
+    background: #524E5D !important;
+    background-image: none !important;
+    background-color: #524E5D !important;
+    border-color: var(--th-dark-accent) !important;
+    box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(229, 169, 60, 0.5) !important;
+    transform: translateY(-4px) !important;
+}
+
+html.dark .step-card.step-active h3,
+html.dark .step-card:hover h3 {
+    color: #FFFFFF !important;
+}
+
+html.dark .step-card.step-active p,
+html.dark .step-card:hover p {
+    color: #E5E7EB !important;
+}
+
+html.dark .step-card.step-active .step-badge,
+html.dark .step-card:hover .step-badge {
+    background: var(--th-dark-accent) !important;
+    background-image: none !important;
+    background-color: var(--th-dark-accent) !important;
+    color: #1a1512 !important;
+    border-color: transparent !important;
+    font-weight: 800 !important;
+    box-shadow: 0 4px 12px rgba(229, 169, 60, 0.35) !important;
+}
+
+html.dark .step-card.step-active .step-thumb,
+html.dark .step-card:hover .step-thumb {
+    background: #35333F !important;
+    background-image: none !important;
+    background-color: #35333F !important;
+    border-color: var(--th-dark-border) !important;
+    box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.3) !important;
+}
+
+html.dark .step-thumb svg polygon[fill="#ffffff"] {
+    fill: #37353E !important;
+}
+html.dark .step-thumb svg polygon[fill="#f1f5f9"] {
+    fill: #2B2A32 !important;
+}
+
+/* Tech Visual Canvas - Samakan dengan Light Mode (Soft gradient warna, tidak polos ikut BG) */
+html.dark #techVisualCanvas {
+    border-color: rgba(229, 231, 235, 0.9) !important;
+}
+
+html.dark #techVisualCanvas .bg-white\/40,
+html.dark #techVisualCanvas [class*="bg-white/40"] {
+    background-color: rgba(255, 255, 255, 0.4) !important;
+    background: rgba(255, 255, 255, 0.4) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+}
+
+html.dark #techVisualCanvas .border-emerald-200\/90 {
+    border-color: rgba(167, 243, 208, 0.9) !important;
+}
+
+html.dark #techVisualCanvas .border-purple-200\/90 {
+    border-color: rgba(233, 213, 255, 0.9) !important;
+}
+
+html.dark #techVisualCanvas .border-blue-200\/90 {
+    border-color: rgba(191, 219, 254, 0.9) !important;
+}
+
+html.dark a.border-gray-900,
+html.dark button.border-gray-900 {
+    border-color: var(--th-dark-accent) !important;
+    color: var(--th-dark-accent) !important;
+}
+
+html.dark a.border-gray-900:hover,
+html.dark button.border-gray-900:hover {
+    background-color: var(--th-dark-accent) !important;
+    color: #1a1512 !important;
+}
+
+html.dark a.decoration-gray-900 {
+    text-decoration-color: var(--th-dark-accent) !important;
+}
+
+/* Section Tentang Kami (#tentang-kami):
+   - "Tentang Kami." & Garis dekoratif: GOLD (#E5A93C)
+   - Paragraf Pernyataan Editorial: PUTIH (#FFFFFF)
+   - Tombol "Pelajari Teknologi Kami": GOLD (#E5A93C) */
+html.dark #tentang-kami a[href="#tentang-kami"],
+html.dark #tentang-kami a[href*="tentang-kami"] {
+    color: var(--th-dark-accent) !important;
+    text-decoration-color: var(--th-dark-accent) !important;
+}
+
+html.dark #tentang-kami .about-statement-text,
+html.dark #tentang-kami .md\:col-span-6 > p.about-statement-text {
+    color: #FFFFFF !important;
+}
+
+html.dark #tentang-kami .w-full.max-w-\[220px\].h-\[1px\] {
+    background-color: var(--th-dark-accent) !important;
+    opacity: 0.85;
+}
+
+html.dark #tentang-kami a[href="#teknologi"] {
+    border-color: var(--th-dark-accent) !important;
+    color: var(--th-dark-accent) !important;
+}
+
+html.dark #tentang-kami a[href="#teknologi"]:hover {
+    background-color: var(--th-dark-accent) !important;
+    border-color: var(--th-dark-accent) !important;
+    color: #1a1512 !important;
+}
+
+html.dark .faq-icon {
+    color: var(--th-dark-accent) !important;
+}
+
+html.dark #faq h2,
+html.dark #faq h2 * {
+    color: var(--th-dark-accent) !important;
+}
+
+/* --------------------------------------------------------------------------
+   9.1 PONDASI TEKNOLOGI (TECH TABS: PARSE, SPLIT, EXTRACT)
+   - Ikon-ikon fitur selalu PUTIH (#FFFFFF) di mode gelap
+   - Teks deskripsi, paragraf, dan bullet point selalu terang (tidak hitam)
+   - Hover pada tab mana pun: Judul & Ikon berubah menjadi GOLD (#E5A93C)
+   -------------------------------------------------------------------------- */
+html.dark .tech-tab-icon,
+html.dark .tech-tab-icon svg,
+html.dark .tech-tab-icon svg path,
+html.dark .tech-tab-icon svg rect,
+html.dark .tech-tab-icon svg circle,
+html.dark .tech-tab-icon svg line {
+    color: #FFFFFF !important;
+    stroke: #FFFFFF !important;
+}
+
+html.dark .tech-tab-title {
+    color: #FFFFFF !important;
+}
+
+html.dark .tech-tab.opacity-60 .tech-tab-title {
+    color: #E2E8F0 !important;
+}
+
+html.dark .tech-tab.opacity-60 .tech-tab-icon,
+html.dark .tech-tab.opacity-60 .tech-tab-icon svg {
+    color: #FFFFFF !important;
+    stroke: #FFFFFF !important;
+}
+
+html.dark .tech-tab-content p {
+    color: #E2E8F0 !important;
+}
+
+html.dark .tech-tab-content strong,
+html.dark .tech-tab-content b {
+    color: #FFFFFF !important;
+}
+
+html.dark .tech-tab-content ul,
+html.dark .tech-tab-content li {
+    color: #CBD5E1 !important;
+}
+
+html.dark .tech-tab:hover .tech-tab-title,
+html.dark .tech-tab:hover .tech-tab-icon,
+html.dark .tech-tab:hover .tech-tab-icon svg,
+html.dark .tech-tab:hover .tech-tab-icon svg path,
+html.dark .tech-tab:hover .tech-tab-icon svg rect,
+html.dark .tech-tab:hover .tech-tab-icon svg circle,
+html.dark .tech-tab:hover .tech-tab-icon svg line {
+    color: var(--th-dark-accent) !important;
+    stroke: var(--th-dark-accent) !important;
+}
+
+html.dark .tech-tab:hover {
+    border-color: rgba(229, 169, 60, 0.4) !important;
+}
+
+/* --------------------------------------------------------------------------
+   10. TOMBOL & AKSI
+   -------------------------------------------------------------------------- */
+/* Tombol Coklat Utama -> Jadi Tombol Gold Berkelas */
+html.dark button.bg-brand-brown,
+html.dark a.bg-brand-brown,
+html.dark button.bg-\[\#26150d\],
+html.dark a.bg-\[\#26150d\] {
+    background-color: var(--th-dark-accent) !important;
+    color: #1a1512 !important;
+    font-weight: 700 !important;
+    border-color: var(--th-dark-accent) !important;
+}
+
+html.dark button.bg-brand-brown:hover,
+html.dark a.bg-brand-brown:hover,
+html.dark button.bg-\[\#26150d\]:hover,
+html.dark a.bg-\[\#26150d\]:hover {
+    background-color: var(--th-dark-accent-hover) !important;
+    color: #0f0d0a !important;
+}
+
+/* Tombol Putih pada Hero Banner -> Menjadi Tombol Gold Mewah */
+html.dark a[href="pustaka.html"].bg-white {
+    background-color: var(--th-dark-accent) !important;
+    color: #1a1512 !important;
+    font-weight: 700 !important;
+}
+
+/* Pill Button Outline (seperti Analisis) */
+html.dark button.border-\[\#26150d\],
+html.dark a.border-\[\#26150d\],
+html.dark button.border-brand-brown {
+    border-color: var(--th-dark-accent) !important;
+    color: var(--th-dark-accent) !important;
+}
+
+html.dark button.border-\[\#26150d\]:hover,
+html.dark a.border-\[\#26150d\]:hover {
+    background-color: var(--th-dark-accent) !important;
+    color: #1a1512 !important;
+}
+
+/* Tombol 'Masuk & Daftar' di Navbar:
+   - Standby (Light & Dark): Latar transparan, garis batas PUTIH (border-white/50), teks putih.
+   - Hover di Light Mode: background putih solid & teks gelap.
+   - Hover di Dark Mode: background KUNING/GOLD solid (#E5A93C), border kuning, & teks kontras (#1a1512). */
+html.dark header a[href="login.html"].inline-flex,
+html.dark nav a[href="login.html"].inline-flex,
+html.dark a[href="login.html"].inline-flex {
+    background-color: transparent !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+    color: var(--th-dark-text-primary) !important;
+    transition: all 0.3s ease !important;
+}
+
+html.dark header a[href="login.html"].inline-flex *,
+html.dark nav a[href="login.html"].inline-flex *,
+html.dark a[href="login.html"].inline-flex * {
+    color: var(--th-dark-text-primary) !important;
+    transition: color 0.2s ease !important;
+}
+
+html.dark header a[href="login.html"].inline-flex:hover,
+html.dark nav a[href="login.html"].inline-flex:hover,
+html.dark a[href="login.html"].inline-flex:hover,
+html.dark a[href="login.html"].hover\:bg-white:hover {
+    background-color: var(--th-dark-accent) !important;
+    border-color: var(--th-dark-accent) !important;
+    color: #1a1512 !important;
+    box-shadow: 0 4px 14px rgba(229, 169, 60, 0.35) !important;
+}
+
+html.dark header a[href="login.html"].inline-flex:hover *,
+html.dark nav a[href="login.html"].inline-flex:hover *,
+html.dark a[href="login.html"].inline-flex:hover *,
+html.dark a[href="login.html"].hover\:bg-white:hover * {
+    color: #1a1512 !important;
+}
+
+/* Tombol hamburger menu mobile di Navbar */
+html.dark header button[onclick="toggleMobileMenu()"] {
+    background-color: transparent !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+    color: var(--th-dark-text-primary) !important;
+}
+
+html.dark header button[onclick="toggleMobileMenu()"] * {
+    color: var(--th-dark-text-primary) !important;
+}
+
+html.dark header button[onclick="toggleMobileMenu()"]:hover {
+    background-color: var(--th-dark-accent) !important;
+    border-color: var(--th-dark-accent) !important;
+    color: #1a1512 !important;
+}
+
+html.dark header button[onclick="toggleMobileMenu()"]:hover * {
+    color: #1a1512 !important;
+}
+
+/* Tombol 'Masuk & Daftar' di dalam Mobile Menu dropdown */
+html.dark #mobileMenu a[href="login.html"] {
+    background-color: var(--th-dark-accent) !important;
+    border-color: var(--th-dark-accent) !important;
+    color: #1a1512 !important;
+    font-weight: 700 !important;
+}
+
+html.dark #mobileMenu a[href="login.html"] * {
+    color: #1a1512 !important;
+}
+
+html.dark #mobileMenu a[href="login.html"]:hover {
+    background-color: var(--th-dark-accent-hover) !important;
+}
+
+/* Item Menu Aktif di Sidebar Profil / Pengaturan */
+html.dark aside li.bg-white,
+html.dark aside li.text-brand-brown {
+    background-color: var(--th-dark-surface-elevated) !important;
+    color: var(--th-dark-accent) !important;
+    border-color: var(--th-dark-border) !important;
+}
+
+html.dark aside a:hover {
+    background-color: var(--th-dark-surface-elevated) !important;
+    color: var(--th-dark-accent) !important;
+}
+
+/* --------------------------------------------------------------------------
+   11. POPUP, MODAL, DIALOG
+   -------------------------------------------------------------------------- */
+html.dark #logoutPopup > div,
+html.dark #settingsSuccessPopup > div,
+html.dark #settingsErrorPopup > div,
+html.dark #reportPopup > div,
+html.dark #reportDetailPopup > div,
+html.dark #topActiveDocDropdownMenu,
+html.dark .modal-content-box {
+    background-color: var(--th-dark-surface) !important;
+    border: 1px solid var(--th-dark-border) !important;
+    color: var(--th-dark-text-primary) !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* --------------------------------------------------------------------------
+   12. ADAPTASI LOGO & SCROLLBAR
+   -------------------------------------------------------------------------- */
+html.dark img[src="assets/logo.png"],
+html.dark img[src*="assets/logo.png"] {
+    content: url("logo-white.png") !important;
+}
+
+html.dark ::-webkit-scrollbar-track {
+    background-color: var(--th-dark-bg) !important;
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+    background-color: var(--th-dark-border) !important;
+    border-radius: 9999px;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--th-dark-accent) !important;
+}
+
+/* --------------------------------------------------------------------------
+   13. FOOTER (PERSIS SAMA DENGAN LIGHT MODE)
+   - Latar deep courtroom mahogany brown #23130b
+   - Kartu aksi transparan putih halus (bg-white/[0.04] & hover bg-white/[0.08])
+   - Teks & ikon putih, link stone-300 ke putih, wordmark putih
+   -------------------------------------------------------------------------- */
+html.dark footer div.bg-\[\#23130b\],
+html.dark footer .max-w-7xl.bg-\[\#23130b\] {
+    background-color: #23130b !important;
+    background: #23130b !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+html.dark footer h3 {
+    color: #ffffff !important;
+}
+
+html.dark footer ul a,
+html.dark footer .text-stone-300,
+html.dark footer a.text-stone-300 {
+    color: #d6d3d1 !important;
+}
+
+html.dark footer ul a:hover,
+html.dark footer a.text-stone-300:hover,
+html.dark footer a:hover i,
+html.dark footer .hover\:text-white:hover {
+    color: #ffffff !important;
+}
+
+html.dark footer .grid.grid-cols-2 a,
+html.dark footer a.group {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+    background: rgba(255, 255, 255, 0.04) !important;
+    border-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+html.dark footer .grid.grid-cols-2 a:hover,
+html.dark footer a.group:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    color: #ffffff !important;
+}
+
+html.dark footer a.group span,
+html.dark footer a.group i {
+    color: #ffffff !important;
+}
+
+html.dark footer .font-black {
+    color: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* --------------------------------------------------------------------------
+   14. MODAL ANALISIS / EKSTRAKSI AI & DRILL-DOWN POPUP
+   (#analyzeDocModal, #analysisDetailItemModal, #editDocModal)
+   -------------------------------------------------------------------------- */
+/* 14.1 Kontainer Utama Modal */
+html.dark #analyzeDocModal > div,
+html.dark #analysisDetailItemModal > div,
+html.dark #editDocModal > div {
+    background-color: #37353E !important;
+    background: #37353E !important;
+    border-color: #715A5A !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* 14.2 Top Bar / Header Modal Analisis */
+html.dark #analyzeDocModal .border-b {
+    border-color: #715A5A !important;
+}
+html.dark #analyzeDocModal .p-4.sm\:p-5.border-b,
+html.dark #analyzeDocModal div[class*="bg-[#fafaf9]"] {
+    background-color: #2B2A32 !important;
+    background: #2B2A32 !important;
+}
+html.dark #analyzeDocModal .flex-1.bg-white,
+html.dark #analyzeDocModal div[class*="focus-within:ring-2"] {
+    background-color: #37353E !important;
+    background: #37353E !important;
+    border-color: #715A5A !important;
+}
+html.dark #analysisModalSearchInput {
+    color: #FFFFFF !important;
+}
+html.dark #analysisModalSearchInput::placeholder {
+    color: #9CA3AF !important;
+}
+html.dark #analyzeDocModal button.bg-\[\#26150d\],
+html.dark #analyzeDocModal button[class*="bg-[#26150d]"] {
+    background-color: #E5A93C !important;
+    background: #E5A93C !important;
+    color: #1a1512 !important;
+    font-weight: 700 !important;
+}
+html.dark #analyzeDocModal button.bg-\[\#26150d\]:hover,
+html.dark #analyzeDocModal button[class*="bg-[#26150d]"]:hover {
+    background-color: #d4982e !important;
+    background: #d4982e !important;
+}
+html.dark #analyzeDocModal button[title="Tutup Modal"],
+html.dark #analysisDetailItemModal button:has(.fa-xmark) {
+    background-color: #2B2A32 !important;
+    background: #2B2A32 !important;
+    border-color: #715A5A !important;
+    color: #D1D5DB !important;
+}
+html.dark #analyzeDocModal button[title="Tutup Modal"]:hover,
+html.dark #analysisDetailItemModal button:has(.fa-xmark):hover {
+    background-color: rgba(239, 68, 68, 0.2) !important;
+    color: #EF4444 !important;
+}
+
+/* 14.3 Canvas Utama Scrollable (Area Kotak-Kotak Kolom) */
+html.dark #analyzeDocModal .bg-\[\#fbf9f7\],
+html.dark #analyzeDocModal div[class*="bg-[#fbf9f7]"] {
+    background-color: #26252C !important;
+    background: #26252C !important;
+}
+
+/* 14.4 Kolom 1, 2, 3, 4 Card Box */
+html.dark #analyzeDocModal .lg\:col-span-2,
+html.dark #analyzeDocModal .lg\:col-span-3,
+html.dark #analyzeDocModal .lg\:col-span-4 {
+    background-color: #37353E !important;
+    background: #37353E !important;
+    border-color: #715A5A !important;
+}
+html.dark #analyzeDocModal .text-gray-500,
+html.dark #analyzeDocModal .text-gray-400 {
+    color: #9CA3AF !important;
+}
+html.dark #analyzeDocModal .border-gray-100,
+html.dark #analyzeDocModal .border-gray-200 {
+    border-color: #715A5A !important;
+}
+
+/* Kolom 1: Dokumen */
+html.dark #colDocFileName {
+    color: #E5A93C !important;
+}
+html.dark #colDocTitle {
+    color: #FFFFFF !important;
+}
+html.dark #colDocMetaSize {
+    color: #9CA3AF !important;
+}
+html.dark #colDocSwitcherList button:not(.bg-\[\#26150d\]):not(.bg-\[\#E5A93C\]) {
+    color: #D1D5DB !important;
+}
+html.dark #colDocSwitcherList button:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    color: #E5A93C !important;
+}
+
+/* Kolom 2: Tindak Pidana */
+html.dark #analyzeDocModal .bg-\[\#fef2f2\] {
+    background-color: rgba(239, 68, 68, 0.15) !important;
+    background: rgba(239, 68, 68, 0.15) !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+}
+html.dark #analyzeDocModal .text-rose-800,
+html.dark #analyzeDocModal .text-rose-700 {
+    color: #FCA5A5 !important;
+}
+html.dark #colTindakPidanaCount {
+    background-color: rgba(239, 68, 68, 0.25) !important;
+    background: rgba(239, 68, 68, 0.25) !important;
+    border-color: rgba(239, 68, 68, 0.5) !important;
+    color: #FECDD3 !important;
+}
+html.dark #colTindakPidanaList > div {
+    background-color: #2B2A32 !important;
+    background: #2B2A32 !important;
+    border-color: #715A5A !important;
+}
+html.dark #colTindakPidanaList > div:hover {
+    background-color: #34323D !important;
+    background: #34323D !important;
+    border-color: rgba(239, 68, 68, 0.5) !important;
+}
+html.dark #colTindakPidanaList .text-gray-900 {
+    color: #FFFFFF !important;
+}
+html.dark #colTindakPidanaList .text-gray-500 {
+    color: #9CA3AF !important;
+}
+html.dark #colTindakPidanaList .text-rose-400 {
+    color: #FCA5A5 !important;
+}
+
+/* Kolom 3: Kewenangan */
+html.dark #analyzeDocModal .bg-\[\#f4f7f4\] {
+    background-color: #2B2A32 !important;
+    background: #2B2A32 !important;
+    border-color: #715A5A !important;
+}
+html.dark #analyzeDocModal .text-\[\#1c3822\],
+html.dark #analyzeDocModal .text-\[\#2d5a37\] {
+    color: #86EFAC !important;
+}
+html.dark #analyzeDocModal .border-\[\#dae6da\],
+html.dark #analyzeDocModal .border-\[\#c8d8c8\] {
+    border-color: #715A5A !important;
+}
+html.dark #colPengadilanCount,
+html.dark #colMenangkapCount {
+    background-color: rgba(74, 222, 128, 0.15) !important;
+    background: rgba(74, 222, 128, 0.15) !important;
+    border-color: rgba(74, 222, 128, 0.3) !important;
+    color: #BBF7D0 !important;
+}
+html.dark #analyzeDocModal .bg-\[\#e8f1e8\] {
+    background-color: rgba(74, 222, 128, 0.08) !important;
+    background: rgba(74, 222, 128, 0.08) !important;
+    border-color: rgba(74, 222, 128, 0.25) !important;
+    color: #86EFAC !important;
+}
+html.dark #colPengadilanList > div,
+html.dark #colMenangkapList > div {
+    background-color: #37353E !important;
+    background: #37353E !important;
+    border-color: #715A5A !important;
+}
+html.dark #colPengadilanList > div:hover,
+html.dark #colMenangkapList > div:hover {
+    background-color: #43404B !important;
+    background: #43404B !important;
+    border-color: rgba(74, 222, 128, 0.5) !important;
+}
+html.dark #colPengadilanList .text-gray-900,
+html.dark #colMenangkapList .text-gray-900 {
+    color: #FFFFFF !important;
+}
+html.dark #colPengadilanList .text-gray-600,
+html.dark #colMenangkapList .text-gray-600 {
+    color: #CBD5E1 !important;
+}
+html.dark #colPengadilanList .bg-\[\#2d5a37\],
+html.dark #colMenangkapList .bg-\[\#2d5a37\] {
+    background-color: #4ADE80 !important;
+}
+html.dark #colPengadilanList .fa-chevron-right,
+html.dark #colMenangkapList .fa-chevron-right {
+    color: #86EFAC !important;
+}
+
+/* Kolom 4: Uji Rezim Laut */
+html.dark #analyzeDocModal .bg-\[\#faf6f2\] {
+    background-color: #2B2A32 !important;
+    background: #2B2A32 !important;
+    border-color: #715A5A !important;
+}
+html.dark #analyzeDocModal .text-\[\#26150d\],
+html.dark #analyzeDocModal .text-\[\#8c5835\],
+html.dark #analyzeDocModal .text-\[\#5c3822\] {
+    color: #E5A93C !important;
+}
+html.dark #analyzeDocModal .border-\[\#d6c4b7\],
+html.dark #analyzeDocModal .border-\[\#e8ded5\],
+html.dark #analyzeDocModal .border-\[\#e4d7cd\] {
+    border-color: #715A5A !important;
+}
+html.dark #analyzeDocModal .bg-\[\#f2e7de\]\/80,
+html.dark #analyzeDocModal div[class*="bg-[#f2e7de]"] {
+    background-color: rgba(229, 169, 60, 0.1) !important;
+    background: rgba(229, 169, 60, 0.1) !important;
+    border-color: rgba(229, 169, 60, 0.3) !important;
+    color: #E5A93C !important;
+}
+html.dark #colLautKepulauanList > div,
+html.dark #colLautTeritorialList > div,
+html.dark #colZeeList > div {
+    background-color: #37353E !important;
+    background: #37353E !important;
+    border-color: #715A5A !important;
+}
+html.dark #colLautKepulauanList > div:hover,
+html.dark #colLautTeritorialList > div:hover,
+html.dark #colZeeList > div:hover {
+    background-color: #43404B !important;
+    background: #43404B !important;
+    border-color: rgba(229, 169, 60, 0.5) !important;
+}
+html.dark #colLautKepulauanList .text-\[\#26150d\],
+html.dark #colLautTeritorialList .text-\[\#26150d\],
+html.dark #colZeeList .text-\[\#26150d\] {
+    color: #FFFFFF !important;
+}
+html.dark #colLautKepulauanList .text-stone-600,
+html.dark #colLautTeritorialList .text-stone-600,
+html.dark #colZeeList .text-stone-600 {
+    color: #CBD5E1 !important;
+}
+html.dark #colLautKepulauanList .fa-arrow-right,
+html.dark #colLautTeritorialList .fa-arrow-right,
+html.dark #colZeeList .fa-arrow-right {
+    color: #E5A93C !important;
+}
+
+/* 14.5 Bottom Action Bar */
+html.dark #analyzeDocModal .border-t {
+    border-color: #715A5A !important;
+}
+html.dark #analyzeDocModal .p-4.sm\:p-5.border-t.bg-white,
+html.dark #analyzeDocModal div:has(#modalReadFullDocBtn) {
+    background-color: #2B2A32 !important;
+    background: #2B2A32 !important;
+}
+html.dark #analyzeDocModal .p-4.sm\:p-5.border-t .text-gray-500 {
+    color: #D1D5DB !important;
+}
+html.dark #modalReadFullDocBtn {
+    background-color: transparent !important;
+    background: transparent !important;
+    border-color: #715A5A !important;
+    color: #FFFFFF !important;
+}
+html.dark #modalReadFullDocBtn:hover {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    border-color: #E5A93C !important;
+}
+html.dark #analyzeDocModal button:has(.fa-robot) {
+    background-color: #E5A93C !important;
+    background: #E5A93C !important;
+    border-color: #E5A93C !important;
+    color: #1a1512 !important;
+}
+html.dark #analyzeDocModal button:has(.fa-robot) * {
+    color: #1a1512 !important;
+}
+html.dark #analyzeDocModal button:has(.fa-robot):hover {
+    background-color: #d4982e !important;
+    background: #d4982e !important;
+}
+html.dark #analyzeDocModal .p-4.sm\:p-5.border-t button:last-child {
+    background-color: #524E5D !important;
+    background: #524E5D !important;
+    border: 1px solid #715A5A !important;
+    color: #FFFFFF !important;
+}
+html.dark #analyzeDocModal .p-4.sm\:p-5.border-t button:last-child:hover {
+    background-color: #625E6E !important;
+    border-color: #E5A93C !important;
+}
+
+/* 14.6 Drill-Down Item Modal (#analysisDetailItemModal) */
+html.dark #analysisDetailItemModal h4,
+html.dark #detailItemTitle {
+    color: #FFFFFF !important;
+}
+html.dark #analysisDetailItemModal .border-b,
+html.dark #analysisDetailItemModal .border-gray-100 {
+    border-color: #715A5A !important;
+}
+html.dark #analysisDetailItemModal .bg-\[\#fbf9f7\] {
+    background-color: #2B2A32 !important;
+    background: #2B2A32 !important;
+    border-color: #715A5A !important;
+}
+html.dark #analysisDetailItemModal .bg-\[\#fbf9f7\] .text-\[\#26150d\] {
+    color: #E5A93C !important;
+}
+html.dark #detailItemPasalRef {
+    color: #FFFFFF !important;
+}
+html.dark #analysisDetailItemModal .text-gray-900 {
+    color: #FFFFFF !important;
+}
+html.dark #analysisDetailItemModal .text-gray-700 {
+    color: #CBD5E1 !important;
+}
+html.dark #detailItemDescription {
+    background-color: #2B2A32 !important;
+    background: #2B2A32 !important;
+    border-color: #715A5A !important;
+    color: #CBD5E1 !important;
+}
+html.dark #detailItemSanctionBox {
+    background-color: rgba(239, 68, 68, 0.15) !important;
+    background: rgba(239, 68, 68, 0.15) !important;
+    border-color: rgba(239, 68, 68, 0.4) !important;
+}
+html.dark #detailItemSanctionBox .font-bold {
+    color: #FCA5A5 !important;
+}
+html.dark #detailItemSanction {
+    color: #FECDD3 !important;
+}
+html.dark #analysisDetailItemModal button[onclick="closeDetailItemModal()"]:last-child {
+    background-color: #E5A93C !important;
+    background: #E5A93C !important;
+    color: #1a1512 !important;
+    font-weight: 700 !important;
+}
+html.dark #analysisDetailItemModal button[onclick="closeDetailItemModal()"]:last-child:hover {
+    background-color: #d4982e !important;
+}
+
+/* 14.7 Edit Dokumen Modal (#editDocModal) */
+html.dark #editDocModal label {
+    color: #FFFFFF !important;
+}
+html.dark #editDocModal input,
+html.dark #editDocModal select,
+html.dark #editDocModal textarea {
+    background-color: #2B2A32 !important;
+    background: #2B2A32 !important;
+    border-color: #715A5A !important;
+    color: #FFFFFF !important;
+}
+html.dark #editDocModal button[onclick="closeEditModal()"] {
+    background-color: transparent !important;
+    border-color: #715A5A !important;
+    color: #D1D5DB !important;
+}
+html.dark #editDocModal button[type="submit"] {
+    background-color: #E5A93C !important;
+    background: #E5A93C !important;
+    color: #1a1512 !important;
+    font-weight: 700 !important;
+}
+
+/* --------------------------------------------------------------------------
+   15. CHAT COMPOSER & INPUT CARD (chat.html)
+   - Kartu input seamless tanpa kotak gelap terpisah di dalam textarea
+   - Teks input putih bersih dan placeholder abu-abu terang
+   - Tombol Lampirkan PDF, status kbd Enter, dan tombol Send diselaraskan
+   -------------------------------------------------------------------------- */
+html.dark textarea.bg-transparent,
+html.dark textarea.border-0,
+html.dark #welcomeInput,
+html.dark #chatInput {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    border-width: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+    color: #FFFFFF !important;
+}
+
+html.dark textarea.bg-transparent:focus,
+html.dark textarea.border-0:focus,
+html.dark #welcomeInput:focus,
+html.dark #chatInput:focus {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+    border-width: 0 !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+html.dark #welcomeInput::placeholder,
+html.dark #chatInput::placeholder {
+    color: #9CA3AF !important;
+}
+
+/* Kotak Pembungkus Input Composer (Satu Kesatuan Harmonis Seperti Light Mode) */
+html.dark div:has(> #welcomeInput),
+html.dark div:has(> #chatInput),
+html.dark #welcomeScreen .w-full.mt-8.p-3.rounded-2xl,
+html.dark div.bg-white.rounded-2xl.border:has(#chatInput) {
+    background-color: #37353E !important;
+    background: #37353E !important;
+    border: 1px solid #715A5A !important;
+}
+
+html.dark #welcomeScreen .w-full.mt-8.p-3.rounded-2xl:focus-within,
+html.dark div.bg-white.rounded-2xl.border:has(#chatInput):focus-within {
+    border-color: #E5A93C !important;
+    box-shadow: 0 0 0 2px rgba(229, 169, 60, 0.25) !important;
+}
+
+/* Judul Sambutan di Atas Kotak Chat */
+html.dark #welcomeScreen h2 {
+    color: #FFFFFF !important;
+}
+
+/* Garis Pembatas Toolbar Bawah di Dalam Kotak Input */
+html.dark div:has(> #welcomeInput) .border-t,
+html.dark div:has(> #chatInput) .border-t,
+html.dark .border-t.border-gray-100,
+html.dark .border-t.border-\[\#f0e8e0\] {
+    border-color: rgba(113, 90, 90, 0.45) !important;
+}
+
+/* Tombol Lampirkan PDF */
+html.dark button[onclick*="FileInput"]:has(.fa-paperclip) {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: #715A5A !important;
+    color: #E5E7EB !important;
+}
+
+html.dark button[onclick*="FileInput"]:has(.fa-paperclip) * {
+    color: #E5E7EB !important;
+}
+
+html.dark button[onclick*="FileInput"]:has(.fa-paperclip):hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-color: #E5A93C !important;
+    color: #FFFFFF !important;
+}
+
+html.dark button[onclick*="FileInput"]:has(.fa-paperclip):hover * {
+    color: #FFFFFF !important;
+}
+
+/* Indikator "Tekan Enter" */
+html.dark span:has(> kbd) {
+    color: #9CA3AF !important;
+}
+
+html.dark kbd {
+    background-color: #2B2A32 !important;
+    background: #2B2A32 !important;
+    border: 1px solid #715A5A !important;
+    color: #CBD5E1 !important;
+}
+
+/* Tombol Kirim / Send Button */
+html.dark #welcomeSendBtn[disabled],
+html.dark #chatSendBtn[disabled] {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    color: #6B7280 !important;
+    border-color: transparent !important;
+}
+
+html.dark #welcomeSendBtn:not([disabled]),
+html.dark #chatSendBtn:not([disabled]) {
+    background-color: #E5A93C !important;
+    background: #E5A93C !important;
+    color: #1a1512 !important;
+    border-color: #E5A93C !important;
+    box-shadow: 0 4px 14px rgba(229, 169, 60, 0.35) !important;
+}
+
+html.dark #welcomeSendBtn:not([disabled]) *,
+html.dark #chatSendBtn:not([disabled]) * {
+    color: #1a1512 !important;
+}
+
+/* Quick Topic Filter Chips (Sanksi, Kewenangan, Hierarki) */
+html.dark div:has(#chatInput) button[onclick*="filterByTopic"] {
+    background-color: #2B2A32 !important;
+    background: #2B2A32 !important;
+    border-color: #715A5A !important;
+    color: #E5E7EB !important;
+}
+
+html.dark div:has(#chatInput) button[onclick*="filterByTopic"]:hover {
+    background-color: rgba(229, 169, 60, 0.15) !important;
+    border-color: #E5A93C !important;
+    color: #E5A93C !important;
+}
+
+/* Kartu Rekomendasi Prompt Awal (#welcomeScreen suggestions) */
+html.dark button[onclick*="startQueryWithPrompt"] {
+    background-color: #37353E !important;
+    background: #37353E !important;
+    border-color: #715A5A !important;
+}
+
+html.dark button[onclick*="startQueryWithPrompt"]:hover {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    border-color: #E5A93C !important;
+}
+
+html.dark button[onclick*="startQueryWithPrompt"] .font-bold {
+    color: #FFFFFF !important;
+}
+
+html.dark button[onclick*="startQueryWithPrompt"]:hover .font-bold {
+    color: #E5A93C !important;
+}
+
+html.dark button[onclick*="startQueryWithPrompt"] i {
+    color: #E5A93C !important;
+}
+
+html.dark button[onclick*="startQueryWithPrompt"] .text-gray-500 {
+    color: #CBD5E1 !important;
+}
+
+/* --------------------------------------------------------------------------
+   16. CHAT STREAM, BUBBLES, & EXECUTIVE LEGAL DOSSIER (chat.html)
+   - Latar belakang chat solid gelap tanpa fog putih/krem (#26252C)
+   - Bottom input gradient fade seragam dengan latar gelap
+   - User Bubble: Gold Emas Mewah (#E5A93C) dengan teks gelap kontras (#181513)
+   - AI Response Card: Permukaan gelap (#37353E), teks putih (#FFFFFF) & abu-abu terang (#CBD5E1)
+   -------------------------------------------------------------------------- */
+/* Latar Belakang Utama Chat Area & Message Stream */
+html.dark #chatMainArea,
+html.dark #chatMessagesContainer,
+html.dark #workspaceContainer {
+    background-color: #26252C !important;
+    background: #26252C !important;
+}
+
+/* Floating Bottom Input Container (Hilangkan Fog / Blur Putih Terang 100%) */
+html.dark #bottomChatInputContainer {
+    background: linear-gradient(to top, #26252C 0%, rgba(38, 37, 44, 0.95) 75%, transparent 100%) !important;
+    background-image: linear-gradient(to top, #26252C 0%, rgba(38, 37, 44, 0.95) 75%, transparent 100%) !important;
+    background-color: transparent !important;
+}
+
+html.dark #bottomChatInputContainer .text-stone-500 {
+    color: #94A3B8 !important;
+}
+
+/* Floating Composer Card */
+html.dark #bottomChatInputContainer .bg-white {
+    background-color: #37353E !important;
+    border-color: #715A5A !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4) !important;
+}
+
+html.dark #bottomChatInputContainer textarea#chatInput {
+    color: #FFFFFF !important;
+}
+
+html.dark #bottomChatInputContainer textarea#chatInput::placeholder {
+    color: #94A3B8 !important;
+}
+
+html.dark #bottomChatInputContainer .border-t.border-\[\#f0e8e0\] {
+    border-color: rgba(113, 90, 90, 0.5) !important;
+}
+
+/* Chip Dokumen Terlampir di Composer */
+html.dark #chatAttachedDocChip {
+    background-color: #2B2A32 !important;
+    border-color: #715A5A !important;
+    color: #E5A93C !important;
+}
+
+html.dark #chatAttachedDocChip span {
+    color: #FFFFFF !important;
+}
+
+/* Tombol Aksi di Toolbar Composer */
+html.dark #bottomChatInputContainer button.hover\:bg-\[\#f6eee7\] {
+    color: #CBD5E1 !important;
+}
+
+html.dark #bottomChatInputContainer button.hover\:bg-\[\#f6eee7\]:hover {
+    background-color: #2B2A32 !important;
+    color: #E5A93C !important;
+    border-color: #715A5A !important;
+}
+
+html.dark #bottomChatInputContainer .bg-\[\#faf8f5\] {
+    background-color: #2B2A32 !important;
+    border-color: #715A5A !important;
+    color: #CBD5E1 !important;
+}
+
+html.dark #bottomChatInputContainer .bg-\[\#faf8f5\]:hover {
+    background-color: #34323D !important;
+    color: #E5A93C !important;
+}
+
+/* BUBBLE PESAN PENGGUNA (USER MESSAGE BUBBLE): GOLD SOLID DENGAN KONTRAS TINGGI */
+html.dark #chatMessagesContainer .flex.justify-end > div,
+html.dark #chatMessagesContainer div.max-w-xl.bg-\[\#26150d\] {
+    background-color: #E5A93C !important;
+    background: #E5A93C !important;
+    color: #181513 !important;
+    font-weight: 600 !important;
+    box-shadow: 0 4px 16px rgba(229, 169, 60, 0.25) !important;
+    border: none !important;
+}
+
+html.dark #chatMessagesContainer .flex.justify-end > div *,
+html.dark #chatMessagesContainer div.max-w-xl.bg-\[\#26150d\] * {
+    color: #181513 !important;
+}
+
+html.dark #chatMessagesContainer .flex.justify-end .bg-white\/10 {
+    background-color: rgba(0, 0, 0, 0.12) !important;
+    border-color: rgba(0, 0, 0, 0.18) !important;
+}
+
+html.dark #chatMessagesContainer .flex.justify-end .text-stone-300 {
+    color: #382b1c !important;
+}
+
+html.dark #chatMessagesContainer .flex.justify-end i.fa-file-pdf {
+    color: #b91c1c !important;
+}
+
+/* BUBBLE PESAN AI & KARTU EKSEKUTIF DOSSIER HUKUM (AI RESPONSE CARD) */
+html.dark #chatMessagesContainer .flex.items-start .bg-white,
+html.dark #chatMessagesContainer div.p-4.sm\:p-5.rounded-2xl.bg-white,
+html.dark #chatMessagesContainer div.p-4.rounded-2xl.bg-white {
+    background-color: #37353E !important;
+    background: #37353E !important;
+    border-color: #715A5A !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Header Naskah Rujukan di Atas Kartu AI */
+html.dark #chatMessagesContainer div.bg-\[\#f6eee7\].border-\[\#d6c4b7\] {
+    background-color: #2B2A32 !important;
+    background: #2B2A32 !important;
+    border-color: #715A5A !important;
+    color: #FFFFFF !important;
+}
+
+html.dark #chatMessagesContainer div.bg-\[\#f6eee7\].border-\[\#d6c4b7\] * {
+    color: #FFFFFF !important;
+}
+
+html.dark #chatMessagesContainer div.bg-\[\#f6eee7\].border-\[\#d6c4b7\] strong {
+    color: #E5A93C !important;
+}
+
+html.dark #chatMessagesContainer div.bg-\[\#f6eee7\].border-\[\#d6c4b7\] i {
+    color: #E5A93C !important;
+}
+
+html.dark #chatMessagesContainer div.bg-\[\#f6eee7\].border-\[\#d6c4b7\] span.text-\[10px\] {
+    background-color: rgba(229, 169, 60, 0.15) !important;
+    border-color: rgba(229, 169, 60, 0.4) !important;
+    color: #E5A93C !important;
+}
+
+/* Judul Ringkasan Analisis Yuridis & Teks Paragraf */
+html.dark #chatMessagesContainer h4 {
+    color: #FFFFFF !important;
+}
+
+html.dark #chatMessagesContainer p.text-stone-600,
+html.dark #chatMessagesContainer p.text-gray-800,
+html.dark #chatMessagesContainer .space-y-3.leading-relaxed {
+    color: #CBD5E1 !important;
+}
+
+html.dark #chatMessagesContainer p strong {
+    color: #FFFFFF !important;
+}
+
+/* Matriks Tabel Pasal Interaktif (Pasal 85, Pasal 84, Pasal 93) */
+html.dark #chatMessagesContainer div.rounded-xl.border.divide-y {
+    background-color: #2B2A32 !important;
+    background: #2B2A32 !important;
+    border-color: #715A5A !important;
+}
+
+html.dark #chatMessagesContainer div.rounded-xl.border.divide-y > div {
+    border-color: #715A5A !important;
+}
+
+html.dark #chatMessagesContainer div.rounded-xl.border.divide-y > div:hover {
+    background-color: #34323D !important;
+    background: #34323D !important;
+}
+
+html.dark #chatMessagesContainer div.rounded-xl.border.divide-y .font-bold.text-\[\#26150d\] {
+    color: #FFFFFF !important;
+}
+
+html.dark #chatMessagesContainer div.rounded-xl.border.divide-y > div:hover .font-bold.text-\[\#26150d\] {
+    color: #E5A93C !important;
+}
+
+html.dark #chatMessagesContainer p.text-stone-700 {
+    color: #CBD5E1 !important;
+}
+
+html.dark #chatMessagesContainer p.text-stone-700 strong {
+    color: #FFFFFF !important;
+}
+
+/* Badges Status Pasal */
+html.dark #chatMessagesContainer .bg-rose-50 {
+    background-color: rgba(239, 68, 68, 0.2) !important;
+    border-color: rgba(239, 68, 68, 0.4) !important;
+    color: #FCA5A5 !important;
+}
+
+html.dark #chatMessagesContainer .bg-stone-100 {
+    background-color: rgba(74, 222, 128, 0.18) !important;
+    border-color: rgba(74, 222, 128, 0.35) !important;
+    color: #86EFAC !important;
+}
+
+/* Tombol Rujukan Halaman (Hal. 29, Hal. 28, Hal. 30) */
+html.dark #chatMessagesContainer button:has(.fa-arrow-up-right-from-square) {
+    background-color: #37353E !important;
+    border-color: #715A5A !important;
+    color: #E5A93C !important;
+}
+
+html.dark #chatMessagesContainer button:has(.fa-arrow-up-right-from-square) * {
+    color: #E5A93C !important;
+}
+
+html.dark #chatMessagesContainer button:has(.fa-arrow-up-right-from-square):hover {
+    background-color: #E5A93C !important;
+    border-color: #E5A93C !important;
+    color: #181513 !important;
+}
+
+html.dark #chatMessagesContainer button:has(.fa-arrow-up-right-from-square):hover * {
+    color: #181513 !important;
+}
+
+/* Footer Verifikasi & Salin Rujukan */
+html.dark #chatMessagesContainer .border-t.border-stone-100 {
+    border-color: rgba(113, 90, 90, 0.4) !important;
+}
+
+html.dark #chatMessagesContainer .text-stone-500 {
+    color: #CBD5E1 !important;
+}
+
+html.dark #chatMessagesContainer button:has(.fa-copy) {
+    color: #E5A93C !important;
+}
+
+html.dark #chatMessagesContainer button:has(.fa-copy):hover {
+    background-color: rgba(229, 169, 60, 0.15) !important;
+    color: #FFFFFF !important;
+}
+
+/* Box Tips Riset pada Percakapan Bebas */
+html.dark #chatMessagesContainer div.bg-\[\#faf8f5\] {
+    background-color: #2B2A32 !important;
+    border-color: #715A5A !important;
+    color: #CBD5E1 !important;
+}
+
+html.dark #chatMessagesContainer div.bg-\[\#faf8f5\] * {
+    color: #CBD5E1 !important;
+}
+
+html.dark #chatMessagesContainer div.bg-\[\#faf8f5\] strong {
+    color: #E5A93C !important;
+}
+
+/* --------------------------------------------------------------------------
+   17. AUTHENTIC LEGAL PDF DOCUMENT VIEWER (SAMA DENGAN LIGHTMODE)
+   - Permintaan User: PDF viewer di pustaka dokumen dan saat chat disamakan
+     persis dengan di lightmode, tidak boleh berubah menjadi hitam/gelap.
+   - Lembaran naskah hukum tetap berupa KERTAS PUTIH BERSIH (#FFFFFF) dengan
+     TINTA HITAM PEKAT (#111827 / #000000) dan tipografi otentik Lembaran Negara.
+   - Canvas di luar kertas menggunakan framing Adobe / Chrome Reader standar.
+   - Bounding box rujukan pasal tetap merah (#e11d48) dengan background tint halus.
+   -------------------------------------------------------------------------- */
+
+/* A. CHAT PDF VIEWER PANEL (#pdfViewerPanel di chat.html) */
+html.dark #pdfViewerPanel {
+    background-color: #3d3835 !important;
+    background: #3d3835 !important;
+    border-left-color: #26150d !important;
+}
+
+/* Toolbar Header Panel PDF Chat */
+html.dark #pdfViewerPanel > div:first-child,
+html.dark #pdfViewerPanel .h-12.bg-\[\#2a2624\] {
+    background-color: #2a2624 !important;
+    background: #2a2624 !important;
+    border-bottom-color: #4d4743 !important;
+    color: #FFFFFF !important;
+}
+
+html.dark #pdfViewerPanel #pdfViewerDocTitle {
+    color: #FFFFFF !important;
+}
+
+html.dark #pdfViewerPanel #pdfPageIndicator {
+    color: #FBBF24 !important;
+}
+
+html.dark #pdfViewerPanel .bg-\[\#1a1716\] {
+    background-color: #1a1716 !important;
+}
+
+html.dark #pdfViewerPanel button[onclick*="adjustPdfZoom"] {
+    background-color: #3d3835 !important;
+    color: #D1D5DB !important;
+}
+
+html.dark #pdfViewerPanel button[onclick*="adjustPdfZoom"]:hover {
+    background-color: #4d4743 !important;
+    color: #FFFFFF !important;
+}
+
+html.dark #pdfViewerPanel button[onclick*="closePdfViewer"] {
+    background-color: rgba(159, 18, 57, 0.6) !important;
+    border-color: rgba(190, 18, 60, 0.6) !important;
+    color: #FFFFFF !important;
+}
+
+/* Canvas Viewport PDF Chat */
+html.dark #pdfViewport {
+    background-color: #383330 !important;
+    background: #383330 !important;
+}
+
+/* KERTAS PUTIH RESMI LEMBARAN NEGARA RI (PDF SHEET DI CHAT) */
+html.dark #pdfSheet,
+html.dark #pdfViewerPanel .pdf-page-sheet {
+    background-color: #FFFFFF !important;
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important;
+    border-color: #D1D5DB !important;
+}
+
+/* Teks & Paragraf di Dalam Kertas PDF Chat (Tinta Hitam Tegas) */
+html.dark #pdfSheet p,
+html.dark #pdfSheet div,
+html.dark #pdfSheet span,
+html.dark #pdfSheet strong,
+html.dark #pdfSheet b,
+html.dark #pdfSheet h1,
+html.dark #pdfSheet h2,
+html.dark #pdfSheet h3,
+html.dark #pdfSheet h4 {
+    color: #111827 !important;
+}
+
+html.dark #pdfSheet .text-gray-900,
+html.dark #pdfSheet .text-gray-800,
+html.dark #pdfSheet p.text-gray-900,
+html.dark #pdfSheet p.text-gray-800 {
+    color: #111827 !important;
+}
+
+html.dark #pdfSheet .text-gray-700,
+html.dark #pdfSheet .text-gray-600,
+html.dark #pdfSheet p.text-gray-700,
+html.dark #pdfSheet p.text-gray-600 {
+    color: #374151 !important;
+}
+
+html.dark #pdfSheet .text-gray-500,
+html.dark #pdfSheet span.text-gray-500,
+html.dark #pdfSheet div.text-gray-500 {
+    color: #6B7280 !important;
+}
+
+html.dark #pdfSheet .border-gray-300,
+html.dark #pdfSheet .border-b,
+html.dark #pdfSheet .border-t {
+    border-color: #D1D5DB !important;
+}
+
+/* Bounding Box Visual Grounding Pasal Terindeks (Chat) */
+html.dark #pdfSheet .citation-box-highlight {
+    border: 2px solid #e11d48 !important;
+    background-color: rgba(225, 29, 72, 0.06) !important;
+    box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.15) !important;
+}
+
+html.dark #pdfSheet .clause-indicator,
+html.dark #pdfSheet .clause-indicator span,
+html.dark #pdfSheet .clause-indicator i {
+    color: #b91c1c !important;
+}
+
+/* Bottom Strip Navigasi Cepat Pasal di Chat */
+html.dark #pdfViewerPanel > div:last-child,
+html.dark #pdfViewerPanel .h-10.bg-\[\#2a2624\] {
+    background-color: #2a2624 !important;
+    background: #2a2624 !important;
+    border-top-color: #4d4743 !important;
+    color: #D1D5DB !important;
+}
+
+html.dark #pdfShortcutButtons .pdf-shortcut-btn {
+    background-color: #3d3835 !important;
+    color: #E5E7EB !important;
+    border-color: transparent !important;
+}
+
+html.dark #pdfShortcutButtons .pdf-shortcut-btn:hover {
+    background-color: #4d4743 !important;
+    color: #FFFFFF !important;
+}
+
+html.dark #pdfShortcutButtons button#btn_shortcut_pasal85,
+html.dark #pdfShortcutButtons .pdf-shortcut-btn.bg-rose-900\/80 {
+    background-color: rgba(159, 18, 57, 0.8) !important;
+    border-color: #e11d48 !important;
+    color: #FFFFFF !important;
+}
+
+
+/* B. AUTHENTIC FULL DOCUMENT READER DI PUSTAKA (#fullDocReaderModal di pustaka.html) */
+html.dark #fullDocReaderModal {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+}
+
+/* Toolbar Chrome/Acrobat Header Reader Pustaka */
+html.dark #fullDocReaderModal header {
+    background-color: #323639 !important;
+    background: #323639 !important;
+    border-bottom-color: #212426 !important;
+    color: #FFFFFF !important;
+}
+
+html.dark #fullDocReaderModal #readerDocFileName {
+    color: #E5E7EB !important;
+}
+
+html.dark #fullDocReaderModal #readerDocMetaSize {
+    background-color: rgba(68, 64, 60, 0.7) !important;
+    color: #D6D3D1 !important;
+}
+
+html.dark #fullDocReaderModal .bg-\[\#242729\] {
+    background-color: #242729 !important;
+    border-color: rgba(120, 113, 108, 0.8) !important;
+    color: #E5E7EB !important;
+}
+
+html.dark #fullDocReaderModal input#pdfCurrentPageInput {
+    background-color: #323639 !important;
+    border-color: #57534E !important;
+    color: #F5F5F4 !important;
+}
+
+html.dark #fullDocReaderModal input#readerSearchInput {
+    background-color: #242729 !important;
+    border-color: #44403C !important;
+    color: #E5E7EB !important;
+}
+
+html.dark #fullDocReaderModal button:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #FFFFFF !important;
+}
+
+html.dark #fullDocReaderModal button.bg-stone-700 {
+    background-color: #44403C !important;
+    color: #E7E5E4 !important;
+}
+
+html.dark #fullDocReaderModal button.bg-stone-700:hover {
+    background-color: #BE123C !important;
+    color: #FFFFFF !important;
+}
+
+/* Sidebar Thumbnail Halaman Reader Pustaka */
+html.dark #pdfSidebar {
+    background-color: #3a3d40 !important;
+    border-right-color: #2a2c2e !important;
+}
+
+html.dark #pdfSidebar > div.h-10 {
+    background-color: #3a3d40 !important;
+    border-bottom-color: #2a2c2e !important;
+    color: #FFFFFF !important;
+}
+
+html.dark #pdfThumbnailsContainer [id^="pdfThumb_"] .bg-white {
+    background-color: #FFFFFF !important;
+    background: #FFFFFF !important;
+    border-color: #A8A29E !important;
+}
+
+html.dark #pdfThumbnailsContainer [id^="pdfThumb_"] .bg-white * {
+    color: #1F2937 !important;
+}
+
+html.dark #pdfThumbnailsContainer [id^="pdfThumb_"] .bg-stone-300 {
+    background-color: #D6D3D1 !important;
+}
+
+html.dark #pdfThumbnailsContainer span.text-stone-300 {
+    color: #D1D5DB !important;
+}
+
+/* Canvas Viewport Lembar Reader Pustaka */
+html.dark #fullDocReaderModal .bg-\[\#525659\],
+html.dark #readerViewport {
+    background-color: #525659 !important;
+    background: #525659 !important;
+}
+
+/* KERTAS PUTIH RESMI MULTI-PAGE LEGAL SHEETS DI PUSTAKA */
+html.dark #readerDocumentContainer article,
+html.dark #readerDocumentContainer [id^="pdfPageSheet_"] {
+    background-color: #FFFFFF !important;
+    background: #FFFFFF !important;
+    color: #111827 !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3) !important;
+    border-color: #D1D5DB !important;
+}
+
+/* Teks & Tipografi Naskah Hukum Asli di Lembar Kertas Pustaka */
+html.dark #readerDocumentContainer article p,
+html.dark #readerDocumentContainer article div,
+html.dark #readerDocumentContainer article span,
+html.dark #readerDocumentContainer article strong,
+html.dark #readerDocumentContainer article b,
+html.dark #readerDocumentContainer article h1,
+html.dark #readerDocumentContainer article h2,
+html.dark #readerDocumentContainer article h3,
+html.dark #readerDocumentContainer article h4 {
+    color: #111827 !important;
+}
+
+html.dark #readerDocumentContainer article .text-stone-950,
+html.dark #readerDocumentContainer article .text-stone-900,
+html.dark #readerDocumentContainer article .text-gray-900 {
+    color: #0c0a09 !important;
+}
+
+html.dark #readerDocumentContainer article .text-stone-800,
+html.dark #readerDocumentContainer article .text-gray-800 {
+    color: #292524 !important;
+}
+
+html.dark #readerDocumentContainer article .text-stone-700,
+html.dark #readerDocumentContainer article .text-gray-700,
+html.dark #readerDocumentContainer article .text-stone-600,
+html.dark #readerDocumentContainer article .text-gray-600 {
+    color: #44403C !important;
+}
+
+html.dark #readerDocumentContainer article .text-stone-500,
+html.dark #readerDocumentContainer article .text-gray-500 {
+    color: #78716C !important;
+}
+
+html.dark #readerDocumentContainer article .border-b,
+html.dark #readerDocumentContainer article .border-t,
+html.dark #readerDocumentContainer article .border-stone-300,
+html.dark #readerDocumentContainer article .border-gray-300 {
+    border-color: #D6D3D1 !important;
+}
+
+/* Lambang Garuda Pancasila Hitam Resmi */
+html.dark #readerDocumentContainer article svg,
+html.dark #readerDocumentContainer article svg path {
+    fill: #1C1917 !important;
+    color: #1C1917 !important;
+}
+
+/* Footer Status Strip Reader Pustaka */
+html.dark #fullDocReaderModal footer {
+    background-color: #282b2d !important;
+    border-top-color: #1f2122 !important;
+    color: #9CA3AF !important;
+}
+
+
+
+
+

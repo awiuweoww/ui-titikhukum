@@ -24,8 +24,33 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
-    <!-- Tailwind CSS (v4) -->
-    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'Georgia', 'serif'],
+                        display: ['"Outfit"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    },
+                    colors: {
+                        brand: {
+                            brown: '#26150d',
+                            darkBrown: '#1f0f08',
+                            hoverBrown: '#381d12',
+                            lightBrown: '#f6eee7',
+                            borderBrown: '#e4d7cd',
+                            accentGold: '#d4af37',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -179,22 +204,22 @@
                 type="button" 
                 id="topActiveDocDropdownBtn" 
                 onclick="toggleTopDocDropdown(event)" 
-                class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#f6eee7] hover:bg-[#eedfd1] border border-[#d6c4b7] text-[11px] text-[#26150d] font-semibold transition active:scale-95 shadow-2xs cursor-pointer select-none"
+                class="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-[#f6eee7] dark:bg-[#37353E] hover:bg-[#eedfd1] dark:hover:bg-[#43404B] border border-[#d6c4b7] dark:border-[#715A5A] text-[11px] text-[#26150d] dark:text-white font-semibold transition active:scale-95 shadow-2xs cursor-pointer select-none"
                 title="Lihat dokumen pustaka terlampir"
             >
-                <i class="fa-regular fa-file-pdf text-rose-600 text-xs"></i>
+                <i class="fa-regular fa-file-pdf text-rose-600 dark:text-rose-400 text-xs"></i>
                 <span id="topActiveDocCountLabel" class="font-bold">1 Dokumen Terlampir</span>
-                <i id="topActiveDocChevron" class="fa-solid fa-chevron-down text-[10px] text-stone-600 transition-transform duration-200 ml-0.5"></i>
+                <i id="topActiveDocChevron" class="fa-solid fa-chevron-down text-[10px] text-stone-600 dark:text-gray-300 transition-transform duration-200 ml-0.5"></i>
             </button>
 
             <!-- Dropdown Menu List of Attached Docs -->
-            <div id="topActiveDocDropdownMenu" class="hidden absolute left-1/2 -translate-x-1/2 top-full mt-2 w-72 sm:w-80 bg-white rounded-2xl border border-[#d6c4b7] shadow-xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
-                <div class="flex items-center justify-between px-2.5 py-1.5 border-b border-stone-100 mb-1 text-[11px] font-bold text-stone-800">
+            <div id="topActiveDocDropdownMenu" class="hidden absolute left-1/2 -translate-x-1/2 top-full mt-2 w-72 sm:w-80 bg-white dark:bg-[#37353E] rounded-2xl border border-[#d6c4b7] dark:border-[#715A5A] shadow-xl p-2 z-50 animate-in fade-in zoom-in-95 duration-150">
+                <div class="flex items-center justify-between px-2.5 py-1.5 border-b border-stone-100 dark:border-[#715A5A]/50 mb-1 text-[11px] font-bold text-stone-800 dark:text-white">
                     <span class="flex items-center gap-1.5">
-                        <i class="fa-solid fa-book-bookmark text-[#8c5835] text-xs"></i>
+                        <i class="fa-solid fa-book-bookmark text-[#8c5835] dark:text-[#E5A93C] text-xs"></i>
                         <span>Dokumen Terlampir</span>
                     </span>
-                    <button type="button" onclick="detachAllPustakaDocs()" class="text-rose-600 hover:text-rose-700 text-[10px] font-semibold hover:underline cursor-pointer">
+                    <button type="button" onclick="detachAllPustakaDocs()" class="text-rose-600 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 text-[10px] font-semibold hover:underline cursor-pointer">
                         Lepas Semua
                     </button>
                 </div>
@@ -209,9 +234,9 @@
                 <span id="navThemeIconContainer" class="inline-flex items-center justify-center w-5 h-5 shrink-0"></span>
             </button>
 
-            <a href="pustaka.html" class="px-3 py-1.5 rounded-lg border border-gray-200 hover:bg-[#f6eee7] hover:border-[#cbb4a3] text-xs font-semibold text-gray-700 transition flex items-center gap-1.5">
-                <i class="fa-solid fa-book-bookmark text-xs text-[#8c5835]"></i>
-                <span class="hidden sm:inline">Pustaka Dokumen</span>
+            <a href="pustaka.html" class="px-3 py-1.5 rounded-lg border border-gray-200 dark:border-[#715A5A] hover:bg-[#f6eee7] dark:hover:bg-[#43404B] hover:border-[#cbb4a3] dark:hover:border-white/20 text-xs font-semibold text-gray-700 dark:text-white transition flex items-center gap-1.5">
+                <i class="fa-solid fa-book-bookmark text-xs text-[#8c5835] dark:text-[#E5A93C]"></i>
+                <span class="hidden sm:inline text-gray-700 dark:text-white">Pustaka Dokumen</span>
             </a>
 
             <button type="button" onclick="startNewChat()" class="px-3.5 py-1.5 rounded-lg bg-[#26150d] hover:bg-[#381d12] text-white text-xs font-semibold transition active:scale-95 flex items-center gap-1.5 shadow-xs">
@@ -229,52 +254,52 @@
         <!-- ==================================================== -->
         <!-- 1. LEFT SIDEBAR (History & Topics + Mini-Rail Mode) -->
         <!-- ==================================================== -->
-        <aside id="chatSidebar" class="fixed lg:static inset-y-14 left-0 z-40 w-64 bg-[#24140e] border-r border-[#3a2217] text-white flex flex-col justify-between transform -translate-x-full lg:translate-x-0 transition-all duration-300 shrink-0 shadow-xl">
+        <aside id="chatSidebar" class="fixed lg:static inset-y-14 left-0 z-40 w-64 bg-[#24140e] dark:bg-[#17140e] border-r border-[#3a2217] dark:border-[#E5A93C]/25 text-white flex flex-col justify-between transform -translate-x-full lg:translate-x-0 transition-all duration-300 shrink-0 shadow-xl">
             
-            <!-- 1. FULL EXPANDED SIDEBAR (Tampil saat sidebar terbuka - Warna BG Coklat) -->
-            <div id="sidebarFullContent" class="flex flex-col justify-between h-full w-64 overflow-hidden shrink-0 bg-[#24140e]">
+            <!-- 1. FULL EXPANDED SIDEBAR (Tampil saat sidebar terbuka - Warna BG Coklat di Light Mode, Gold di Dark Mode) -->
+            <div id="sidebarFullContent" class="flex flex-col justify-between h-full w-64 overflow-hidden shrink-0 bg-[#24140e] dark:bg-gradient-to-b dark:from-[#1f1a11] dark:to-[#15120c]">
                 <div class="p-3.5 space-y-4 overflow-y-auto">
                     
                     <!-- Sidebar Header Strip with Quick Collapse Button -->
-                    <div class="flex items-center justify-between pb-2 border-b border-white/10">
+                    <div class="flex items-center justify-between pb-2 border-b border-white/10 dark:border-[#E5A93C]/20">
                         <span class="text-[11px] font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-                            <i class="fa-solid fa-layer-group text-[#deb896] text-xs"></i>
+                            <i class="fa-solid fa-layer-group text-[#deb896] dark:text-[#E5A93C] text-xs"></i>
                             <span>Panel Riset Hukum</span>
                         </span>
-                        <button type="button" onclick="toggleSidebar()" class="w-6 h-6 rounded-md hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center transition" title="Tutup Sidebar (Ctrl+B)">
+                        <button type="button" onclick="toggleSidebar()" class="w-6 h-6 rounded-md hover:bg-white/10 dark:hover:bg-[#E5A93C]/15 text-stone-400 hover:text-white flex items-center justify-center transition" title="Tutup Sidebar (Ctrl+B)">
                             <i class="fa-solid fa-chevron-left text-[11px]"></i>
                         </button>
                     </div>
 
                     <!-- New Chat Quick Action -->
-                    <button type="button" onclick="startNewChat()" class="w-full py-2 px-3 rounded-xl bg-white/10 border border-white/20 hover:border-white/40 hover:bg-white/15 text-left text-xs font-bold text-white flex items-center justify-between shadow-xs transition active:scale-98">
+                    <button type="button" onclick="startNewChat()" class="w-full py-2 px-3 rounded-xl bg-white/10 dark:bg-[#E5A93C]/15 border border-white/20 dark:border-[#E5A93C]/35 hover:border-white/40 dark:hover:border-[#E5A93C]/60 hover:bg-white/15 dark:hover:bg-[#E5A93C]/25 text-left text-xs font-bold text-white flex items-center justify-between shadow-xs transition active:scale-98">
                         <span class="flex items-center gap-2">
-                            <i class="fa-solid fa-pen-to-square text-[#deb896]"></i>
+                            <i class="fa-solid fa-pen-to-square text-[#deb896] dark:text-[#E5A93C]"></i>
                             <span>Percakapan Baru</span>
                         </span>
-                        <span class="text-[10px] font-mono text-stone-300 bg-white/10 px-1.5 py-0.5 rounded border border-white/10">⌘K</span>
+                        <span class="text-[10px] font-mono text-stone-300 dark:text-[#E5A93C] bg-white/10 dark:bg-[#E5A93C]/20 px-1.5 py-0.5 rounded border border-white/10 dark:border-[#E5A93C]/30">⌘K</span>
                     </button>
 
                     <!-- Saved Sessions / Riwayat Riset -->
                     <div class="space-y-1">
-                        <div class="px-2 text-[10px] font-bold text-stone-400 uppercase tracking-wider">Riwayat Riset Hukum</div>
+                        <div class="px-2 text-[10px] font-bold text-stone-400 dark:text-[#E5A93C]/80 uppercase tracking-wider">Riwayat Riset Hukum</div>
                         <div class="space-y-1" id="historyList">
                             
                             <!-- History Item 1 -->
-                            <div id="historyRow_tindak_pidana" class="history-row group flex items-center justify-between rounded-xl px-2.5 py-1.5 bg-white/15 border border-[#deb896]/60 transition">
+                            <div id="historyRow_tindak_pidana" class="history-row group flex items-center justify-between rounded-xl px-2.5 py-1.5 bg-white/15 dark:bg-[#E5A93C]/15 border border-[#deb896]/60 dark:border-[#E5A93C] transition">
                                 <button type="button" onclick="loadSavedChat('tindak_pidana')" class="history-btn flex-1 text-left text-xs flex items-center gap-2 text-white font-semibold truncate cursor-pointer">
-                                    <i class="fa-regular fa-message text-[#deb896] text-[11px] shrink-0"></i>
+                                    <i class="fa-regular fa-message text-[#deb896] dark:text-[#E5A93C] text-[11px] shrink-0"></i>
                                     <span class="truncate">Sanksi Izin & Pasal 85 Perikanan</span>
                                 </button>
-                                <button type="button" onclick="confirmDeleteHistory('tindak_pidana', 'Sanksi Izin & Pasal 85 Perikanan', event)" class="opacity-60 group-hover:opacity-100 p-1.5 rounded-lg text-stone-400 hover:text-rose-400 hover:bg-white/10 transition ml-1 text-xs shrink-0 cursor-pointer" title="Hapus Riwayat">
+                                <button type="button" onclick="confirmDeleteHistory('tindak_pidana', 'Sanksi Izin & Pasal 85 Perikanan', event)" class="opacity-60 group-hover:opacity-100 p-1.5 rounded-lg text-stone-400 hover:text-rose-400 hover:bg-white/10 dark:hover:bg-white/10 transition ml-1 text-xs shrink-0 cursor-pointer" title="Hapus Riwayat">
                                     <i class="fa-regular fa-trash-can text-[11px]"></i>
                                 </button>
                             </div>
 
                             <!-- History Item 2 -->
-                            <div id="historyRow_kewenangan" class="history-row group flex items-center justify-between rounded-xl px-2.5 py-1.5 hover:bg-white/10 border border-transparent transition">
-                                <button type="button" onclick="loadSavedChat('kewenangan')" class="history-btn flex-1 text-left text-xs flex items-center gap-2 text-stone-300 hover:text-white truncate cursor-pointer">
-                                    <i class="fa-regular fa-message text-stone-400 text-[11px] shrink-0"></i>
+                            <div id="historyRow_kewenangan" class="history-row group flex items-center justify-between rounded-xl px-2.5 py-1.5 hover:bg-white/10 dark:hover:bg-[#E5A93C]/10 border border-transparent dark:hover:border-[#E5A93C]/30 transition">
+                                <button type="button" onclick="loadSavedChat('kewenangan')" class="history-btn flex-1 text-left text-xs flex items-center gap-2 text-stone-300 dark:text-gray-300 hover:text-white truncate cursor-pointer">
+                                    <i class="fa-regular fa-message text-stone-400 group-hover:text-[#deb896] dark:group-hover:text-[#E5A93C] text-[11px] shrink-0"></i>
                                     <span class="truncate">Kewenangan PPNS vs TNI AL di ZEE</span>
                                 </button>
                                 <button type="button" onclick="confirmDeleteHistory('kewenangan', 'Kewenangan PPNS vs TNI AL di ZEE', event)" class="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-stone-400 hover:text-rose-400 hover:bg-white/10 transition ml-1 text-xs shrink-0 cursor-pointer" title="Hapus Riwayat">
@@ -283,9 +308,9 @@
                             </div>
 
                             <!-- History Item 3 -->
-                            <div id="historyRow_rezim_laut" class="history-row group flex items-center justify-between rounded-xl px-2.5 py-1.5 hover:bg-white/10 border border-transparent transition">
-                                <button type="button" onclick="loadSavedChat('rezim_laut')" class="history-btn flex-1 text-left text-xs flex items-center gap-2 text-stone-300 hover:text-white truncate cursor-pointer">
-                                    <i class="fa-regular fa-message text-stone-400 text-[11px] shrink-0"></i>
+                            <div id="historyRow_rezim_laut" class="history-row group flex items-center justify-between rounded-xl px-2.5 py-1.5 hover:bg-white/10 dark:hover:bg-[#E5A93C]/10 border border-transparent dark:hover:border-[#E5A93C]/30 transition">
+                                <button type="button" onclick="loadSavedChat('rezim_laut')" class="history-btn flex-1 text-left text-xs flex items-center gap-2 text-stone-300 dark:text-gray-300 hover:text-white truncate cursor-pointer">
+                                    <i class="fa-regular fa-message text-stone-400 group-hover:text-[#deb896] dark:group-hover:text-[#E5A93C] text-[11px] shrink-0"></i>
                                     <span class="truncate">Uji Yurisdiksi Laut Teritorial 12 Mil</span>
                                 </button>
                                 <button type="button" onclick="confirmDeleteHistory('rezim_laut', 'Uji Yurisdiksi Laut Teritorial 12 Mil', event)" class="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-stone-400 hover:text-rose-400 hover:bg-white/10 transition ml-1 text-xs shrink-0 cursor-pointer" title="Hapus Riwayat">
@@ -294,9 +319,9 @@
                             </div>
 
                             <!-- History Item 4 -->
-                            <div id="historyRow_ite_cyber" class="history-row group flex items-center justify-between rounded-xl px-2.5 py-1.5 hover:bg-white/10 border border-transparent transition">
-                                <button type="button" onclick="loadSavedChat('ite_cyber')" class="history-btn flex-1 text-left text-xs flex items-center gap-2 text-stone-300 hover:text-white truncate cursor-pointer">
-                                    <i class="fa-regular fa-message text-stone-400 text-[11px] shrink-0"></i>
+                            <div id="historyRow_ite_cyber" class="history-row group flex items-center justify-between rounded-xl px-2.5 py-1.5 hover:bg-white/10 dark:hover:bg-[#E5A93C]/10 border border-transparent dark:hover:border-[#E5A93C]/30 transition">
+                                <button type="button" onclick="loadSavedChat('ite_cyber')" class="history-btn flex-1 text-left text-xs flex items-center gap-2 text-stone-300 dark:text-gray-300 hover:text-white truncate cursor-pointer">
+                                    <i class="fa-regular fa-message text-stone-400 group-hover:text-[#deb896] dark:group-hover:text-[#E5A93C] text-[11px] shrink-0"></i>
                                     <span class="truncate">Perubahan Klausul UU ITE 2024</span>
                                 </button>
                                 <button type="button" onclick="confirmDeleteHistory('ite_cyber', 'Perubahan Klausul UU ITE 2024', event)" class="opacity-0 group-hover:opacity-100 p-1.5 rounded-lg text-stone-400 hover:text-rose-400 hover:bg-white/10 transition ml-1 text-xs shrink-0 cursor-pointer" title="Hapus Riwayat">
@@ -308,53 +333,53 @@
                     </div>
 
                     <!-- Topik Regulasi Cepat -->
-                    <div class="space-y-1 pt-2 border-t border-white/10">
-                        <div class="px-2 text-[10px] font-bold text-stone-400 uppercase tracking-wider">Kategori Dokumen</div>
+                    <div class="space-y-1 pt-2 border-t border-white/10 dark:border-[#E5A93C]/20">
+                        <div class="px-2 text-[10px] font-bold text-stone-400 dark:text-[#E5A93C]/80 uppercase tracking-wider">Kategori Dokumen</div>
                         <div class="space-y-1 text-xs">
-                            <div onclick="filterByTopic('Kelautan & Perikanan')" class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/10 cursor-pointer transition">
+                            <div onclick="filterByTopic('Kelautan & Perikanan')" class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/10 dark:hover:bg-[#E5A93C]/15 cursor-pointer transition">
                                 <span class="flex items-center gap-2">
-                                    <i class="fa-solid fa-water text-[#deb896] text-xs"></i>
+                                    <i class="fa-solid fa-water text-[#deb896] dark:text-[#E5A93C] text-xs"></i>
                                     <span class="text-xs">Kelautan & Perikanan</span>
                                 </span>
-                                <span class="text-[10px] font-bold text-stone-300 bg-white/10 px-2 py-0.5 rounded">4 UU</span>
+                                <span class="text-[10px] font-bold text-stone-300 dark:text-[#E5A93C] bg-white/10 dark:bg-[#E5A93C]/20 px-2 py-0.5 rounded border border-transparent dark:border-[#E5A93C]/30">4 UU</span>
                             </div>
-                            <div onclick="filterByTopic('Pemerintahan SPBE')" class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/10 cursor-pointer transition">
+                            <div onclick="filterByTopic('Pemerintahan SPBE')" class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/10 dark:hover:bg-[#E5A93C]/15 cursor-pointer transition">
                                 <span class="flex items-center gap-2">
-                                    <i class="fa-solid fa-building-columns text-[#deb896] text-xs"></i>
+                                    <i class="fa-solid fa-building-columns text-[#deb896] dark:text-[#E5A93C] text-xs"></i>
                                     <span class="text-xs">Pemerintahan SPBE</span>
                                 </span>
-                                <span class="text-[10px] font-bold text-stone-300 bg-white/10 px-2 py-0.5 rounded">2 PP</span>
+                                <span class="text-[10px] font-bold text-stone-300 dark:text-[#E5A93C] bg-white/10 dark:bg-[#E5A93C]/20 px-2 py-0.5 rounded border border-transparent dark:border-[#E5A93C]/30">2 PP</span>
                             </div>
-                            <div onclick="filterByTopic('Digital & Siber')" class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/10 cursor-pointer transition">
+                            <div onclick="filterByTopic('Digital & Siber')" class="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-stone-300 hover:text-white hover:bg-white/10 dark:hover:bg-[#E5A93C]/15 cursor-pointer transition">
                                 <span class="flex items-center gap-2">
-                                    <i class="fa-solid fa-shield-halved text-[#deb896] text-xs"></i>
+                                    <i class="fa-solid fa-shield-halved text-[#deb896] dark:text-[#E5A93C] text-xs"></i>
                                     <span class="text-xs">Digital & Siber</span>
                                 </span>
-                                <span class="text-[10px] font-bold text-stone-300 bg-white/10 px-2 py-0.5 rounded">1 UU</span>
+                                <span class="text-[10px] font-bold text-stone-300 dark:text-[#E5A93C] bg-white/10 dark:bg-[#E5A93C]/20 px-2 py-0.5 rounded border border-transparent dark:border-[#E5A93C]/30">1 UU</span>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Sidebar Footer / Account -->
-                <div class="p-3 border-t border-white/10 bg-[#1d0e08] flex items-center justify-between">
+                <div class="p-3 border-t border-white/10 dark:border-[#E5A93C]/20 bg-[#1d0e08] dark:bg-[#110e09] flex items-center justify-between">
                     <a href="profil.html" class="flex items-center gap-2.5 group hover:opacity-90 transition cursor-pointer" title="Buka Profil Pengguna">
-                        <div class="w-8 h-8 rounded-full bg-white/15 group-hover:bg-white/25 text-[#deb896] border border-white/20 flex items-center justify-center text-xs font-bold font-serif shadow-xs transition">
+                        <div class="w-8 h-8 rounded-full bg-white/15 dark:bg-[#E5A93C]/20 group-hover:bg-white/25 text-[#deb896] dark:text-[#E5A93C] border border-white/20 dark:border-[#E5A93C]/40 flex items-center justify-center text-xs font-bold font-serif shadow-xs transition">
                             BR
                         </div>
                         <div class="flex flex-col">
-                            <span class="text-xs font-bold text-white group-hover:text-[#deb896] transition">Peneliti Hukum BRIN</span>
+                            <span class="text-xs font-bold text-white group-hover:text-[#deb896] dark:group-hover:text-[#E5A93C] transition">Peneliti Hukum BRIN</span>
                             <span class="text-[10px] text-stone-400">Akses Legal Penuh</span>
                         </div>
                     </a>
-                    <a href="index.html" title="Kembali ke Beranda" class="text-stone-400 hover:text-white p-1.5 rounded-lg hover:bg-white/10 transition">
+                    <a href="index.html" title="Kembali ke Beranda" class="text-stone-400 hover:text-white dark:hover:text-[#E5A93C] p-1.5 rounded-lg hover:bg-white/10 dark:hover:bg-[#E5A93C]/15 transition">
                         <i class="fa-solid fa-arrow-right-from-bracket text-xs"></i>
                     </a>
                 </div>
             </div>
 
             <!-- 2. MINI-RAIL SIDEBAR (Sleek Icon Rail Saat Sidebar Ditutup) -->
-            <div id="sidebarMiniContent" class="hidden flex-col justify-between items-center h-full w-full py-3.5 px-2 select-none shrink-0 bg-[#24140e]">
+            <div id="sidebarMiniContent" class="hidden flex-col justify-between items-center h-full w-full py-3.5 px-2 select-none shrink-0 bg-[#24140e] dark:bg-gradient-to-b dark:from-[#1f1a11] dark:to-[#15120c]">
                 
                 <!-- Top Mini Actions Column -->
                 <div class="flex flex-col items-center gap-2.5 w-full">
@@ -369,47 +394,47 @@
                     </button>
 
                     <!-- Mini Percakapan Baru -->
-                    <button type="button" onclick="startNewChat()" class="group relative w-10 h-10 rounded-xl bg-white/10 border border-white/20 hover:bg-white/20 hover:border-white/40 text-[#deb896] flex items-center justify-center transition active:scale-95 cursor-pointer shadow-2xs">
+                    <button type="button" onclick="startNewChat()" class="group relative w-10 h-10 rounded-xl bg-white/10 dark:bg-[#E5A93C]/15 border border-white/20 dark:border-[#E5A93C]/35 hover:bg-white/20 dark:hover:bg-[#E5A93C]/25 hover:border-white/40 dark:hover:border-[#E5A93C]/60 text-[#deb896] dark:text-[#E5A93C] flex items-center justify-center transition active:scale-95 cursor-pointer shadow-2xs">
                         <i class="fa-solid fa-pen-to-square text-sm"></i>
                         <div class="sidebar-mini-tooltip">
                             <span>Percakapan Baru</span>
-                            <span class="text-[9px] text-[#deb896] font-mono bg-white/10 px-1 py-0.2 rounded ml-1.5">⌘K</span>
+                            <span class="text-[9px] text-[#deb896] dark:text-[#E5A93C] font-mono bg-white/10 dark:bg-[#E5A93C]/20 px-1 py-0.2 rounded ml-1.5">⌘K</span>
                         </div>
                     </button>
 
                     <!-- Divider -->
-                    <div class="w-7 h-px bg-white/10 my-1"></div>
+                    <div class="w-7 h-px bg-white/10 dark:bg-[#E5A93C]/20 my-1"></div>
 
                     <!-- Mini Riwayat 1 -->
-                    <button type="button" onclick="loadSavedChat('tindak_pidana')" class="group relative w-10 h-10 rounded-xl bg-white/15 text-white border border-[#deb896]/60 flex items-center justify-center transition active:scale-95 cursor-pointer shadow-2xs">
-                        <i class="fa-regular fa-message text-sm text-[#deb896]"></i>
+                    <button type="button" onclick="loadSavedChat('tindak_pidana')" class="group relative w-10 h-10 rounded-xl bg-white/15 dark:bg-[#E5A93C]/20 text-white border border-[#deb896]/60 dark:border-[#E5A93C] flex items-center justify-center transition active:scale-95 cursor-pointer shadow-2xs">
+                        <i class="fa-regular fa-message text-sm text-[#deb896] dark:text-[#E5A93C]"></i>
                         <div class="sidebar-mini-tooltip">
                             <span>Sanksi Izin & Pasal 85 Perikanan</span>
                         </div>
                     </button>
 
                     <!-- Divider -->
-                    <div class="w-7 h-px bg-white/10 my-1"></div>
+                    <div class="w-7 h-px bg-white/10 dark:bg-[#E5A93C]/20 my-1"></div>
 
                     <!-- Mini Kategori Kelautan -->
-                    <button type="button" onclick="filterByTopic('Kelautan & Perikanan')" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
-                        <i class="fa-solid fa-water text-sm text-[#deb896]"></i>
+                    <button type="button" onclick="filterByTopic('Kelautan & Perikanan')" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 dark:hover:bg-[#E5A93C]/15 text-stone-400 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
+                        <i class="fa-solid fa-water text-sm text-[#deb896] dark:text-[#E5A93C]"></i>
                         <div class="sidebar-mini-tooltip">
                             <span>Kategori Kelautan (4 UU)</span>
                         </div>
                     </button>
 
                     <!-- Mini Kategori SPBE -->
-                    <button type="button" onclick="filterByTopic('Pemerintahan SPBE')" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
-                        <i class="fa-solid fa-building-columns text-sm text-[#deb896]"></i>
+                    <button type="button" onclick="filterByTopic('Pemerintahan SPBE')" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 dark:hover:bg-[#E5A93C]/15 text-stone-400 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
+                        <i class="fa-solid fa-building-columns text-sm text-[#deb896] dark:text-[#E5A93C]"></i>
                         <div class="sidebar-mini-tooltip">
                             <span>Pemerintahan SPBE (2 PP)</span>
                         </div>
                     </button>
 
                     <!-- Mini Kategori Digital -->
-                    <button type="button" onclick="filterByTopic('Digital & Siber')" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 text-stone-400 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
-                        <i class="fa-solid fa-shield-halved text-sm text-[#deb896]"></i>
+                    <button type="button" onclick="filterByTopic('Digital & Siber')" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 dark:hover:bg-[#E5A93C]/15 text-stone-400 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
+                        <i class="fa-solid fa-shield-halved text-sm text-[#deb896] dark:text-[#E5A93C]"></i>
                         <div class="sidebar-mini-tooltip">
                             <span>Digital & Siber (1 UU)</span>
                         </div>
@@ -418,18 +443,18 @@
                 </div>
 
                 <!-- Bottom Mini Actions Column -->
-                <div class="flex flex-col items-center gap-2.5 w-full pt-3 border-t border-white/10 bg-[#1d0e08]">
+                <div class="flex flex-col items-center gap-2.5 w-full pt-3 border-t border-white/10 dark:border-[#E5A93C]/20 bg-[#1d0e08] dark:bg-[#110e09]">
                     
                     <!-- Pustaka Dokumen Link -->
-                    <a href="pustaka.html" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 text-stone-300 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
-                        <i class="fa-solid fa-book-bookmark text-sm text-[#deb896]"></i>
+                    <a href="pustaka.html" class="group relative w-10 h-10 rounded-xl hover:bg-white/10 dark:hover:bg-[#E5A93C]/15 text-stone-300 hover:text-white flex items-center justify-center transition active:scale-95 cursor-pointer">
+                        <i class="fa-solid fa-book-bookmark text-sm text-[#deb896] dark:text-[#E5A93C]"></i>
                         <div class="sidebar-mini-tooltip">
                             <span>Buka Pustaka Dokumen</span>
                         </div>
                     </a>
 
                     <!-- Mini Account Avatar -->
-                    <a href="profil.html" class="group relative w-9 h-9 rounded-full bg-white/15 hover:bg-white/25 text-[#deb896] border border-white/20 flex items-center justify-center text-xs font-bold font-serif shadow-xs cursor-pointer transition" title="Buka Profil">
+                    <a href="profil.html" class="group relative w-9 h-9 rounded-full bg-white/15 dark:bg-[#E5A93C]/20 hover:bg-white/25 text-[#deb896] dark:text-[#E5A93C] border border-white/20 dark:border-[#E5A93C]/40 flex items-center justify-center text-xs font-bold font-serif shadow-xs cursor-pointer transition" title="Buka Profil">
                         BR
                         <div class="sidebar-mini-tooltip">
                             <span>Profil Pengguna (BRIN)</span>
@@ -946,17 +971,17 @@
             label.textContent = `${count} Dokumen Terlampir`;
 
             list.innerHTML = activePustakaDocs.map(docName => `
-                <div class="flex items-center justify-between p-2 rounded-xl hover:bg-[#faf7f4] transition group">
+                <div class="flex items-center justify-between p-2 rounded-xl hover:bg-[#faf7f4] dark:hover:bg-[#43404B] transition group">
                     <div class="flex items-center gap-2 min-w-0 flex-1 pr-2">
-                        <div class="w-6 h-6 rounded-lg bg-rose-50 border border-rose-100 flex items-center justify-center shrink-0">
-                            <i class="fa-regular fa-file-pdf text-rose-600 text-[10px]"></i>
+                        <div class="w-6 h-6 rounded-lg bg-rose-50 dark:bg-rose-950/40 border border-rose-100 dark:border-rose-800/40 flex items-center justify-center shrink-0">
+                            <i class="fa-regular fa-file-pdf text-rose-600 dark:text-rose-400 text-[10px]"></i>
                         </div>
                         <div class="min-w-0 flex-1">
-                            <div class="font-bold text-xs text-stone-900 truncate" title="${escapeHtml(docName)}">${escapeHtml(docName)}</div>
-                            <div class="text-[10px] text-stone-500">Pustaka Dokumen</div>
+                            <div class="font-bold text-xs text-stone-900 dark:text-white truncate" title="${escapeHtml(docName)}">${escapeHtml(docName)}</div>
+                            <div class="text-[10px] text-stone-500 dark:text-gray-300">Pustaka Dokumen</div>
                         </div>
                     </div>
-                    <button type="button" onclick="removePustakaDoc('${escapeHtml(docName)}', event)" class="w-6 h-6 rounded-lg hover:bg-rose-50 text-stone-400 hover:text-rose-600 flex items-center justify-center transition cursor-pointer text-xs shrink-0" title="Lepas dokumen ini">
+                    <button type="button" onclick="removePustakaDoc('${escapeHtml(docName)}', event)" class="w-6 h-6 rounded-lg hover:bg-rose-50 dark:hover:bg-rose-950/40 text-stone-400 dark:text-gray-400 hover:text-rose-600 dark:hover:text-rose-400 flex items-center justify-center transition cursor-pointer text-xs shrink-0" title="Lepas dokumen ini">
                         <i class="fa-solid fa-xmark"></i>
                     </button>
                 </div>
@@ -1659,21 +1684,21 @@ Dikutip dari TitikHukum AI (Naskah Resmi Lembaran Negara RI).`;
     <!-- DELETE HISTORY CONFIRMATION MODAL                        -->
     <!-- ======================================================== -->
     <div id="deleteHistoryModal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs animate-in fade-in duration-150">
-        <div class="bg-white rounded-2xl border border-[#e8dfd8] max-w-md w-full p-6 shadow-2xl space-y-4 animate-in zoom-in-95 duration-150">
+        <div class="bg-white dark:bg-[#37353E] rounded-2xl border border-[#e8dfd8] dark:border-[#715A5A] max-w-md w-full p-6 shadow-2xl space-y-4 animate-in zoom-in-95 duration-150">
             <div class="flex items-start gap-3.5">
-                <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0 border border-rose-100 text-base">
+                <div class="w-10 h-10 rounded-xl bg-rose-50 dark:bg-rose-950/40 text-rose-600 dark:text-rose-400 flex items-center justify-center shrink-0 border border-rose-100 dark:border-rose-800/50 text-base">
                     <i class="fa-solid fa-triangle-exclamation"></i>
                 </div>
                 <div class="space-y-1">
-                    <h4 class="text-sm sm:text-base font-bold text-[#26150d]">Hapus Riwayat Percakapan?</h4>
-                    <p class="text-xs text-stone-600 leading-relaxed">
-                        Apakah Anda yakin ingin menghapus riwayat riset <strong id="deleteHistoryTitle" class="text-stone-900"></strong>? Tindakan ini tidak dapat dibatalkan.
+                    <h4 class="text-sm sm:text-base font-bold text-[#26150d] dark:text-white">Hapus Riwayat Percakapan?</h4>
+                    <p class="text-xs text-stone-600 dark:text-gray-300 leading-relaxed">
+                        Apakah Anda yakin ingin menghapus riwayat riset <strong id="deleteHistoryTitle" class="text-stone-900 dark:text-white"></strong>? Tindakan ini tidak dapat dibatalkan.
                     </p>
                 </div>
             </div>
 
-            <div class="pt-3 flex items-center justify-end gap-2.5 border-t border-stone-100">
-                <button type="button" onclick="closeDeleteHistoryModal()" class="px-4 py-2 rounded-xl border border-[#d6c4b7] text-stone-700 hover:bg-rose-50 hover:border-rose-200 hover:text-rose-600 text-xs font-semibold transition cursor-pointer">
+            <div class="pt-3 flex items-center justify-end gap-2.5 border-t border-stone-100 dark:border-[#715A5A]/50">
+                <button type="button" onclick="closeDeleteHistoryModal()" class="px-4 py-2 rounded-xl border border-[#d6c4b7] dark:border-white/30 text-stone-700 dark:text-white hover:bg-rose-50 dark:hover:bg-white/10 hover:border-rose-200 dark:hover:border-white/50 hover:text-rose-600 dark:hover:text-white text-xs font-semibold transition cursor-pointer">
                     Batal
                 </button>
                 <button type="button" onclick="executeDeleteHistory()" class="px-4 py-2 rounded-xl bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold transition shadow-xs flex items-center gap-1.5 cursor-pointer">

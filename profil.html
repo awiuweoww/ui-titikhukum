@@ -35,8 +35,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="assets/darkmode.css?v=20260908_28">
-    <script src="assets/theme.js?v=20260908_28" defer></script>
+    <link rel="stylesheet" href="assets/darkmode.css?v=20260909_01">
+    <script src="assets/theme.js?v=20260909_01" defer></script>
 
     <script>
         tailwind.config = {
@@ -146,34 +146,34 @@
     </header>
 
     <main class="flex-1 flex justify-center items-start pt-28 pb-8 px-4 sm:px-8 md:pt-32 md:pb-12">
-        <div class="w-full max-w-[1100px] bg-white rounded-[24px] border border-brand-borderBrown shadow-[0_4px_24px_-8px_rgba(0,0,0,0.05)] flex flex-col md:flex-row overflow-hidden min-h-[620px] relative">
+        <div class="w-full max-w-[1100px] bg-white dark:bg-[#37353E] rounded-[24px] border border-brand-borderBrown dark:border-[#715A5A] shadow-[0_4px_24px_-8px_rgba(0,0,0,0.05)] flex flex-col md:flex-row overflow-hidden min-h-[620px] relative">
             
-            <aside class="w-full md:w-[280px] pt-16 p-8 md:border-r border-b md:border-b-0 border-brand-borderBrown shrink-0 bg-brand-lightBrown flex flex-col items-center relative z-10">
+            <aside class="w-full md:w-[280px] pt-16 p-8 md:border-r border-b md:border-b-0 border-brand-borderBrown dark:border-[#715A5A]/50 shrink-0 bg-brand-lightBrown dark:bg-[#37353E] flex flex-col items-center relative z-10">
                 <ul class="flex flex-col gap-2 w-full flex-1">
-                    <li class="px-4 py-2.5 text-[0.9rem] font-semibold text-brand-brown bg-white shadow-sm border border-brand-borderBrown rounded-lg relative cursor-default">Profil</li>
+                    <li class="px-4 py-2.5 text-[0.9rem] font-semibold text-brand-brown dark:text-[#E5A93C] bg-white dark:bg-[#2B2A32] shadow-sm border border-brand-borderBrown dark:border-[#715A5A] rounded-lg relative cursor-default">Profil</li>
                     
-                    <a href="javascript:void(0)" onclick="navigateTo('edit-profile.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Edit Profil</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('edit-profile.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 dark:text-gray-200 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown dark:hover:bg-[#2B2A32] dark:hover:text-[#E5A93C] hover:shadow-sm hover:translate-x-1 border border-transparent">Edit Profil</a>
                     
-                    <a href="javascript:void(0)" onclick="navigateTo('laporan-user.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Riwayat Laporan</a>                    
+                    <a href="javascript:void(0)" onclick="navigateTo('laporan-user.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 dark:text-gray-200 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown dark:hover:bg-[#2B2A32] dark:hover:text-[#E5A93C] hover:shadow-sm hover:translate-x-1 border border-transparent">Riwayat Laporan</a>                    
 
-                    <a href="javascript:void(0)" onclick="navigateTo('pengaturan-user.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown hover:shadow-sm hover:translate-x-1 border border-transparent">Pengaturan</a>
+                    <a href="javascript:void(0)" onclick="navigateTo('pengaturan-user.html')" class="block px-4 py-2.5 text-[0.9rem] text-gray-600 dark:text-gray-200 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown dark:hover:bg-[#2B2A32] dark:hover:text-[#E5A93C] hover:shadow-sm hover:translate-x-1 border border-transparent">Pengaturan</a>
                     
-                    <li onclick="showLogoutPopup()" class="px-4 py-2.5 text-[0.9rem] font-semibold text-red-500 rounded-lg cursor-pointer transition-all duration-300 hover:bg-red-50 border border-transparent">Keluar</li>
+                    <li onclick="showLogoutPopup()" class="px-4 py-2.5 text-[0.9rem] font-semibold text-red-500 rounded-lg cursor-pointer transition-all duration-300 hover:bg-red-50 dark:hover:bg-red-950/30 border border-transparent">Keluar</li>
                     
-                    <li onclick="showReportPopup()" class="mt-auto px-4 py-2.5 text-[0.88rem] text-gray-400 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown flex items-center justify-center gap-2 group border border-transparent">
+                    <li onclick="showReportPopup()" class="mt-auto px-4 py-2.5 text-[0.88rem] text-gray-400 dark:text-gray-300 rounded-lg cursor-pointer transition-all duration-300 hover:bg-white hover:text-brand-brown dark:hover:bg-[#2B2A32] dark:hover:text-[#E5A93C] flex items-center justify-center gap-2 group border border-transparent">
                         <span>Laporan</span>
-                        <i class="fa-solid fa-circle-exclamation group-hover:text-brand-brown transition-colors"></i>
+                        <i class="fa-solid fa-circle-exclamation group-hover:text-brand-brown dark:group-hover:text-[#E5A93C] transition-colors"></i>
                     </li>
                 </ul>
             </aside>
 
-            <section class="flex-1 flex flex-col relative bg-white">
+            <section class="flex-1 flex flex-col relative bg-white dark:bg-[#37353E]">
                 
                 <div class="h-[160px] md:h-[200px] w-full bg-brand-darkBrown relative overflow-hidden shrink-0">
                     <img src="https://images.unsplash.com/photo-1521587760476-6c12a4b040da?q=80&w=2070&auto=format&fit=crop" alt="Library Cover Image" class="w-full h-full object-cover opacity-60 mix-blend-screen">
                     <div class="absolute inset-0 bg-gradient-to-t from-brand-brown/90 via-brand-brown/40 to-transparent"></div>
                     
-                    <button onclick="navigateTo('edit-profile.html')" class="absolute top-4 right-4 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md text-brand-brown hover:bg-brand-brown hover:text-white transition-all transform hover:scale-105 z-20" title="Edit Profil">
+                    <button onclick="navigateTo('edit-profile.html')" class="absolute top-4 right-4 w-10 h-10 bg-white dark:bg-[#2B2A32] rounded-full flex items-center justify-center shadow-md text-brand-brown dark:text-[#E5A93C] hover:bg-brand-brown hover:text-white dark:hover:bg-[#E5A93C] dark:hover:text-[#1a1512] transition-all transform hover:scale-105 z-20 border border-transparent dark:border-[#715A5A]" title="Edit Profil">
                         <i class="fa-solid fa-pen text-[0.85rem]"></i>
                     </button>
                 </div>
@@ -183,12 +183,12 @@
                     <div class="flex items-start gap-5 -mt-14 mb-8 relative z-20">
                         
                         <div class="flex flex-col items-center w-[110px] shrink-0">
-                            <div class="w-[110px] h-[110px] rounded-full overflow-hidden border-[4px] border-white shadow-lg bg-gray-100 shrink-0 relative z-20">
+                            <div class="w-[110px] h-[110px] rounded-full overflow-hidden border-[4px] border-white dark:border-[#715A5A] shadow-lg bg-gray-100 dark:bg-[#2B2A32] shrink-0 relative z-20">
                                 <img id="main-pic" src="assets/pp.jpg" alt="Profile Picture" class="w-full h-full object-cover">
                             </div>
                             
                             <div class="mt-1.5 flex justify-center w-[160px]">
-                                <p id="main-handle" class="text-gray-500 font-medium tracking-wide truncate text-[0.85rem] text-center">@username</p>
+                                <p id="main-handle" class="text-gray-500 dark:text-gray-400 font-medium tracking-wide truncate text-[0.85rem] text-center">@username</p>
                             </div>
                         </div>
 
@@ -198,38 +198,38 @@
                         </div>
                     </div>
 
-                    <div class="bg-brand-lightBrown border border-brand-borderBrown rounded-2xl p-6 md:p-8 flex flex-col gap-6 flex-1 shadow-sm">
+                    <div class="bg-brand-lightBrown dark:bg-[#2B2A32]/60 border border-brand-borderBrown dark:border-[#715A5A]/50 rounded-2xl p-6 md:p-8 flex flex-col gap-6 flex-1 shadow-sm">
                         
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-white border border-brand-borderBrown flex items-center justify-center shrink-0 shadow-sm text-brand-brown">
+                                <div class="w-10 h-10 rounded-full bg-white dark:bg-[#2B2A32] border border-brand-borderBrown dark:border-[#715A5A] flex items-center justify-center shrink-0 shadow-sm text-brand-brown dark:text-[#E5A93C]">
                                     <i class="fa-regular fa-envelope"></i>
                                 </div>
-                                <p id="main-email" class="text-[0.95rem] font-semibold text-gray-800 break-all">email@example.com</p>
+                                <p id="main-email" class="text-[0.95rem] font-semibold text-gray-800 dark:text-gray-100 break-all">email@example.com</p>
                             </div>
 
                             <div class="flex items-center gap-4">
-                                <div class="w-10 h-10 rounded-full bg-white border border-brand-borderBrown flex items-center justify-center shrink-0 shadow-sm text-brand-brown">
+                                <div class="w-10 h-10 rounded-full bg-white dark:bg-[#2B2A32] border border-brand-borderBrown dark:border-[#715A5A] flex items-center justify-center shrink-0 shadow-sm text-brand-brown dark:text-[#E5A93C]">
                                     <i class="fa-solid fa-location-dot"></i>
                                 </div>
-                                <p id="main-location" class="text-[0.95rem] font-semibold text-gray-800">Domisili Anda</p>
+                                <p id="main-location" class="text-[0.95rem] font-semibold text-gray-800 dark:text-gray-100">Domisili Anda</p>
                             </div>
 
                             <div class="flex items-center gap-4 md:col-span-2">
-                                <div class="w-10 h-10 rounded-full bg-white border border-brand-borderBrown flex items-center justify-center shrink-0 shadow-sm text-brand-brown">
+                                <div class="w-10 h-10 rounded-full bg-white dark:bg-[#2B2A32] border border-brand-borderBrown dark:border-[#715A5A] flex items-center justify-center shrink-0 shadow-sm text-brand-brown dark:text-[#E5A93C]">
                                     <i class="fa-solid fa-link"></i>
                                 </div>
-                                <a id="main-website" href="#" target="_blank" class="text-[0.95rem] font-semibold text-blue-600 hover:underline break-all w-full truncate">Belum ditambahkan</a>
+                                <a id="main-website" href="#" target="_blank" class="text-[0.95rem] font-semibold text-blue-600 dark:text-sky-400 hover:underline break-all w-full truncate">Belum ditambahkan</a>
                             </div>
                         </div>
 
-                        <hr class="border-brand-borderBrown border-dashed my-2">
+                        <hr class="border-brand-borderBrown dark:border-[#715A5A]/40 border-dashed my-2">
 
                         <div class="flex flex-col">
-                            <p class="text-[0.7rem] font-bold text-gray-400 uppercase tracking-wider mb-3 flex items-center gap-2">
-                                <i class="fa-solid fa-quote-left text-brand-brown/50"></i> Tentang Saya
+                            <p class="text-[0.7rem] font-bold text-gray-400 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+                                <i class="fa-solid fa-quote-left text-brand-brown/50 dark:text-[#E5A93C]"></i> Tentang Saya
                             </p>
-                            <p id="main-bio" class="text-[0.95rem] text-gray-600 leading-relaxed bg-white p-5 rounded-xl border border-brand-borderBrown shadow-sm min-h-[100px]">
+                            <p id="main-bio" class="text-[0.95rem] text-gray-600 dark:text-gray-200 leading-relaxed bg-white dark:bg-[#2B2A32] p-5 rounded-xl border border-brand-borderBrown dark:border-[#715A5A] shadow-sm min-h-[100px]">
                                 Belum ada informasi bio yang ditambahkan.
                             </p>
                         </div>
@@ -241,14 +241,14 @@
 
         <!-- Pop-up Konfirmasi Keluar -->
     <div id="logoutPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
-        <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
-            <div class="w-12 h-12 rounded-full bg-red-50 text-red-500 flex items-center justify-center mx-auto mb-1">
+        <div class="bg-white dark:bg-[#2B2A32] border dark:border-[#715A5A] rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-red-50 dark:bg-red-950/40 text-red-500 flex items-center justify-center mx-auto mb-1">
                 <i class="fa-solid fa-arrow-right-from-bracket text-xl"></i>
             </div>
-            <h3 class="font-bold text-gray-900 text-lg">Konfirmasi Keluar</h3>
-            <p class="text-[0.8rem] text-gray-500">Apakah Anda yakin ingin keluar dari sesi ini?</p>
+            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Konfirmasi Keluar</h3>
+            <p class="text-[0.8rem] text-gray-500 dark:text-gray-300">Apakah Anda yakin ingin keluar dari sesi ini?</p>
             <div class="flex gap-3 mt-3">
-                <button onclick="closeLogoutPopup()" class="flex-1 py-2.5 text-gray-600 font-bold rounded-lg border border-gray-200 hover:bg-gray-50 transition">Batal</button>
+                <button onclick="closeLogoutPopup()" class="flex-1 py-2.5 text-gray-600 dark:text-gray-200 font-bold rounded-lg border border-gray-200 dark:border-[#715A5A] hover:bg-gray-50 dark:hover:bg-white/10 transition">Batal</button>
                 <button onclick="handleLogout()" class="flex-1 py-2.5 text-white font-bold rounded-lg bg-red-500 hover:bg-red-600 transition shadow-sm">Ya, Keluar</button>
             </div>
         </div>
@@ -256,14 +256,14 @@
 
     <!-- Pop-up Laporan / Keluhan -->
     <div id="reportPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
-        <div class="bg-white rounded-2xl p-6 w-[400px] shadow-2xl flex flex-col gap-4">
-            <div class="flex items-center gap-3 border-b border-gray-100 pb-3">
-                <div class="w-10 h-10 rounded-full bg-brand-lightBrown text-brand-brown flex items-center justify-center shrink-0">
+        <div class="bg-white dark:bg-[#2B2A32] border dark:border-[#715A5A] rounded-2xl p-6 w-[400px] shadow-2xl flex flex-col gap-4">
+            <div class="flex items-center gap-3 border-b border-gray-100 dark:border-[#715A5A]/50 pb-3">
+                <div class="w-10 h-10 rounded-full bg-brand-lightBrown dark:bg-white/10 text-brand-brown dark:text-[#E5A93C] flex items-center justify-center shrink-0">
                     <i class="fa-solid fa-envelope-open-text"></i>
                 </div>
                 <div>
-                    <h3 class="font-bold text-gray-900 text-[1.05rem]">Kirim Laporan</h3>
-                    <p class="text-[0.75rem] text-gray-500">Sampaikan kendala atau keluhan Anda.</p>
+                    <h3 class="font-bold text-gray-900 dark:text-white text-[1.05rem]">Kirim Laporan</h3>
+                    <p class="text-[0.75rem] text-gray-500 dark:text-gray-300">Sampaikan kendala atau keluhan Anda.</p>
                 </div>
             </div>
             
@@ -272,31 +272,31 @@
                 <!-- Kolom Subjek Laporan -->
                 <div class="flex flex-col gap-1.5">
                     <div class="flex justify-between items-baseline">
-                        <label for="reportSubject" class="text-[0.75rem] font-bold text-gray-700">Subjek <span class="text-red-500">*</span></label>
-                        <span id="subjectCharCount" class="text-[0.7rem] text-gray-500 transition-colors">0/30 karakter</span>
+                        <label for="reportSubject" class="text-[0.75rem] font-bold text-gray-700 dark:text-gray-200">Subjek <span class="text-red-500">*</span></label>
+                        <span id="subjectCharCount" class="text-[0.7rem] text-gray-500 dark:text-gray-400 transition-colors">0/30 karakter</span>
                     </div>
-                    <input type="text" id="reportSubject" required maxlength="30" placeholder="Contoh: Gagal unggah foto" class="w-full px-3 py-2 border border-gray-200 rounded-lg text-[0.85rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm" oninput="updateSubjectCharCount(this)">
+                    <input type="text" id="reportSubject" required maxlength="30" placeholder="Contoh: Gagal unggah foto" class="w-full px-3 py-2 border border-gray-200 dark:border-[#715A5A] rounded-lg text-[0.85rem] text-gray-800 dark:text-gray-100 bg-white dark:bg-[#37353E] focus:outline-none focus:border-brand-brown dark:focus:border-[#E5A93C] focus:ring-[3px] focus:ring-brand-brown/10 transition-all shadow-sm placeholder-gray-400 dark:placeholder-gray-500" oninput="updateSubjectCharCount(this)">
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label for="reportDetail" class="text-[0.75rem] font-bold text-gray-700">Detail Keluhan <span class="text-red-500">*</span></label>
-                    <textarea id="reportDetail" required placeholder="Jelaskan masalah yang Anda hadapi secara detail..." class="w-full px-3 py-2 border border-gray-200 rounded-lg text-[0.85rem] text-gray-800 bg-white focus:outline-none focus:border-brand-brown focus:ring-[3px] focus:ring-brand-brown/10 h-28 resize-none"></textarea>
+                    <label for="reportDetail" class="text-[0.75rem] font-bold text-gray-700 dark:text-gray-200">Detail Keluhan <span class="text-red-500">*</span></label>
+                    <textarea id="reportDetail" required placeholder="Jelaskan masalah yang Anda hadapi secara detail..." class="w-full px-3 py-2 border border-gray-200 dark:border-[#715A5A] rounded-lg text-[0.85rem] text-gray-800 dark:text-gray-100 bg-white dark:bg-[#37353E] focus:outline-none focus:border-brand-brown dark:focus:border-[#E5A93C] focus:ring-[3px] focus:ring-brand-brown/10 h-28 resize-none placeholder-gray-400 dark:placeholder-gray-500"></textarea>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-[0.75rem] font-bold text-gray-700">Lampirkan Screenshot (Opsional)</label>
+                    <label class="text-[0.75rem] font-bold text-gray-700 dark:text-gray-200">Lampirkan Screenshot (Opsional)</label>
                     
                     <div class="flex items-center gap-3">
                         <!-- Input file disembunyikan pakai class "hidden" -->
                         <input type="file" id="reportScreenshot" accept=".jpg, .jpeg, .png" class="hidden" onchange="handleFileSelect(event)">
                         
                         <!-- Tombol buatan sendiri yang memicu klik ke input yang disembunyikan -->
-                        <button type="button" onclick="document.getElementById('reportScreenshot').click()" class="py-2 px-4 rounded-lg font-semibold bg-brand-lightBrown text-brand-brown hover:bg-brand-borderBrown transition text-[0.8rem] shrink-0">
+                        <button type="button" onclick="document.getElementById('reportScreenshot').click()" class="py-2 px-4 rounded-lg font-semibold bg-brand-lightBrown dark:bg-white/10 text-brand-brown dark:text-[#E5A93C] hover:bg-brand-borderBrown dark:hover:bg-white/15 transition text-[0.8rem] shrink-0 border border-transparent dark:border-[#715A5A]/50">
                             Choose File
                         </button>
                         
                         <!-- Tempat teks nama file muncul -->
-                        <span id="fileNameDisplay" class="text-[0.8rem] text-gray-500 truncate max-w-[160px]">No file chosen</span>
+                        <span id="fileNameDisplay" class="text-[0.8rem] text-gray-500 dark:text-gray-400 truncate max-w-[160px]">No file chosen</span>
                         
                         <!-- Tombol silang merah (awalnya disembunyikan) -->
                         <button type="button" id="removeFileBtn" onclick="removeSelectedFile()" class="hidden text-red-500 hover:text-red-700 transition shrink-0" title="Hapus Lampiran">
@@ -306,8 +306,8 @@
                 </div>
 
                 <div class="flex gap-3 mt-2">
-                    <button type="button" onclick="closeReportPopup()" class="flex-1 py-2.5 text-gray-600 font-bold text-[0.85rem] rounded-lg border border-gray-200 hover:bg-gray-50 transition">Batal</button>
-                    <button type="submit" class="flex-1 py-2.5 text-white font-bold text-[0.85rem] rounded-lg bg-brand-brown hover:bg-brand-hoverBrown transition shadow-sm">Kirim Laporan</button>
+                    <button type="button" onclick="closeReportPopup()" class="flex-1 py-2.5 text-gray-600 dark:text-gray-200 font-bold text-[0.85rem] rounded-lg border border-gray-200 dark:border-[#715A5A] hover:bg-gray-50 dark:hover:bg-white/10 transition">Batal</button>
+                    <button type="submit" class="flex-1 py-2.5 text-white font-bold text-[0.85rem] rounded-lg bg-brand-brown hover:bg-brand-hoverBrown dark:bg-[#E5A93C] dark:hover:bg-[#d4962b] dark:text-[#1a1512] transition shadow-sm">Kirim Laporan</button>
                 </div>
             </form>
         </div>
@@ -315,13 +315,13 @@
 
     <!-- Pop-up Laporan Berhasil Dikirim -->
     <div id="successReportPopup" class="fixed inset-0 z-[100] bg-black/50 hidden flex items-center justify-center backdrop-blur-sm transition-opacity">
-        <div class="bg-white rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
-            <div class="w-12 h-12 rounded-full bg-green-50 text-green-500 flex items-center justify-center mx-auto mb-1">
+        <div class="bg-white dark:bg-[#2B2A32] border dark:border-[#715A5A] rounded-2xl p-6 w-[320px] shadow-2xl flex flex-col gap-4 text-center">
+            <div class="w-12 h-12 rounded-full bg-green-50 dark:bg-green-950/40 text-green-500 flex items-center justify-center mx-auto mb-1">
                 <i class="fa-solid fa-circle-check text-2xl"></i>
             </div>
-            <h3 class="font-bold text-gray-900 text-lg">Laporan Terkirim</h3>
-            <p class="text-[0.8rem] text-gray-500 leading-relaxed">Terima kasih! Laporan Anda telah berhasil dikirim dan akan segera kami proses.</p>
-            <button onclick="closeSuccessReportPopup()" class="mt-3 w-full py-2.5 text-white font-bold rounded-lg bg-brand-brown hover:bg-brand-hoverBrown transition shadow-sm">Tutup</button>
+            <h3 class="font-bold text-gray-900 dark:text-white text-lg">Laporan Terkirim</h3>
+            <p class="text-[0.8rem] text-gray-500 dark:text-gray-300 leading-relaxed">Terima kasih! Laporan Anda telah berhasil dikirim dan akan segera kami proses.</p>
+            <button onclick="closeSuccessReportPopup()" class="mt-3 w-full py-2.5 text-white font-bold rounded-lg bg-brand-brown hover:bg-brand-hoverBrown dark:bg-[#E5A93C] dark:text-[#1a1512] dark:hover:bg-[#d4962b] transition shadow-sm">Tutup</button>
         </div>
     </div>
     

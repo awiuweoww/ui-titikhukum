@@ -76,10 +76,10 @@ html.dark .text-neutral-900,
 html.dark .text-neutral-800,
 html.dark .text-slate-900,
 html.dark .text-slate-800,
-html.dark .text-[#18181b],
-html.dark .text-[#1a1512],
-html.dark .text-[#111827],
-html.dark .text-[#0f172a],
+html.dark .text-\[\#18181b\],
+html.dark .text-\[\#1a1512\],
+html.dark .text-\[\#111827\],
+html.dark .text-\[\#0f172a\],
 html.dark span.text-gray-900,
 html.dark span.text-gray-800,
 html.dark span.text-gray-700,
@@ -102,11 +102,11 @@ html.dark .text-gray-400 {
 /* Teks brand coklat/amber di light mode dijadikan Aksen Gold terang */
 html.dark .text-brand-brown,
 html.dark .text-brand-darkBrown,
-html.dark .text-[#26150d],
-html.dark .text-[#2d1a11],
-html.dark .text-[#1f0f08],
-html.dark .text-[#381d12],
-html.dark .text-[#4a2717],
+html.dark .text-\[\#26150d\],
+html.dark .text-\[\#2d1a11\],
+html.dark .text-\[\#1f0f08\],
+html.dark .text-\[\#381d12\],
+html.dark .text-\[\#4a2717\],
 html.dark .text-amber-950,
 html.dark .text-amber-900,
 html.dark .text-amber-800,
@@ -452,6 +452,13 @@ html.dark #docTable tbody tr td .font-semibold {
     color: #F3F4F6 !important;
 }
 
+/* Category Badge in Document Tables */
+html.dark #docTable tbody tr td span.inline-block {
+    background-color: rgba(229, 169, 60, 0.14) !important;
+    color: #E5A93C !important;
+    border-color: rgba(229, 169, 60, 0.3) !important;
+}
+
 html.dark [id^="sortIcon_"],
 html.dark [id^="sortIcon_"] i {
     color: var(--th-dark-accent) !important;
@@ -612,9 +619,118 @@ html.dark .bg-gray-100 {
 /* --------------------------------------------------------------------------
    8. CHATBOT ASISTEN AI (CHAT.HTML)
    -------------------------------------------------------------------------- */
+/* CHAT SIDEBAR - LUXURY GOLD THEME IN DARK MODE (Ganti coklat jadi gold) */
 html.dark #chatSidebar {
-    background-color: var(--th-dark-bg) !important;
-    border-right-color: var(--th-dark-border-subtle) !important;
+    background-color: #17140e !important;
+    border-right: 1px solid rgba(229, 169, 60, 0.25) !important;
+}
+
+html.dark #sidebarFullContent,
+html.dark #sidebarMiniContent {
+    background-color: #17140e !important;
+    background: linear-gradient(180deg, #1f1a11 0%, #15120c 100%) !important;
+}
+
+/* Header Panel Riset */
+html.dark #sidebarFullContent .border-b.border-white\/10 {
+    border-bottom-color: rgba(229, 169, 60, 0.2) !important;
+}
+html.dark #sidebarFullContent i.fa-layer-group {
+    color: #E5A93C !important;
+}
+
+/* Tombol Percakapan Baru */
+html.dark #sidebarFullContent button[onclick*="startNewChat"],
+html.dark #sidebarMiniContent button[onclick*="startNewChat"] {
+    background-color: rgba(229, 169, 60, 0.12) !important;
+    border-color: rgba(229, 169, 60, 0.35) !important;
+    color: #FFFFFF !important;
+}
+html.dark #sidebarFullContent button[onclick*="startNewChat"]:hover,
+html.dark #sidebarMiniContent button[onclick*="startNewChat"]:hover {
+    background-color: rgba(229, 169, 60, 0.22) !important;
+    border-color: #E5A93C !important;
+}
+html.dark #sidebarFullContent button[onclick*="startNewChat"] i,
+html.dark #sidebarMiniContent button[onclick*="startNewChat"] i {
+    color: #E5A93C !important;
+}
+html.dark #sidebarFullContent button[onclick*="startNewChat"] span.font-mono,
+html.dark #sidebarMiniContent .sidebar-mini-tooltip span.font-mono {
+    background-color: rgba(229, 169, 60, 0.2) !important;
+    color: #E5A93C !important;
+    border-color: rgba(229, 169, 60, 0.35) !important;
+}
+
+/* Judul Kategori & Riwayat */
+html.dark #sidebarFullContent .uppercase.tracking-wider {
+    color: rgba(229, 169, 60, 0.8) !important;
+}
+
+/* Riwayat Chat Aktif */
+html.dark .history-row.bg-white\/15 {
+    background-color: rgba(229, 169, 60, 0.18) !important;
+    border-color: #E5A93C !important;
+    box-shadow: 0 0 12px rgba(229, 169, 60, 0.15) !important;
+}
+html.dark .history-row.bg-white\/15 i {
+    color: #E5A93C !important;
+}
+html.dark .history-row.bg-white\/15 .history-btn {
+    color: #FFFFFF !important;
+}
+
+/* Riwayat Chat Hover */
+html.dark .history-row:not(.bg-white\/15):hover {
+    background-color: rgba(229, 169, 60, 0.08) !important;
+    border-color: rgba(229, 169, 60, 0.25) !important;
+}
+html.dark .history-row:not(.bg-white\/15):hover i {
+    color: #E5A93C !important;
+}
+
+/* Kategori Dokumen */
+html.dark #sidebarFullContent div[onclick*="filterByTopic"]:hover {
+    background-color: rgba(229, 169, 60, 0.12) !important;
+    color: #FFFFFF !important;
+}
+html.dark #sidebarFullContent div[onclick*="filterByTopic"] i {
+    color: #E5A93C !important;
+}
+html.dark #sidebarFullContent div[onclick*="filterByTopic"] span[class*="bg-white/10"] {
+    background-color: rgba(229, 169, 60, 0.16) !important;
+    color: #E5A93C !important;
+    border: 1px solid rgba(229, 169, 60, 0.25) !important;
+}
+
+/* Footer Akun Sidebar */
+html.dark #sidebarFullContent .bg-\[\#1d0e08\] {
+    background-color: #110e09 !important;
+    border-top-color: rgba(229, 169, 60, 0.2) !important;
+}
+html.dark #sidebarFullContent .w-8.h-8.rounded-full {
+    background-color: rgba(229, 169, 60, 0.18) !important;
+    color: #E5A93C !important;
+    border-color: rgba(229, 169, 60, 0.4) !important;
+}
+html.dark #sidebarFullContent a:hover span.text-xs {
+    color: #E5A93C !important;
+}
+html.dark #sidebarFullContent a[title*="Kembali"]:hover {
+    color: #E5A93C !important;
+}
+
+/* Mini Rail Items */
+html.dark #sidebarMiniContent button:hover {
+    background-color: rgba(229, 169, 60, 0.15) !important;
+    border-color: rgba(229, 169, 60, 0.35) !important;
+}
+html.dark #sidebarMiniContent i {
+    color: #E5A93C !important;
+}
+html.dark #sidebarMiniContent button.bg-white\/15 {
+    background-color: rgba(229, 169, 60, 0.2) !important;
+    border-color: #E5A93C !important;
 }
 
 html.dark header.h-14 {
@@ -993,7 +1109,16 @@ html.dark #mobileMenu a[href="login.html"]:hover {
     background-color: var(--th-dark-accent-hover) !important;
 }
 
-/* Item Menu Aktif di Sidebar Profil / Pengaturan */
+/* Item Menu & Navigasi di Sidebar Profil / Pengaturan */
+html.dark aside a {
+    color: var(--th-dark-text-secondary) !important;
+}
+
+html.dark aside a:hover {
+    background-color: var(--th-dark-surface-elevated) !important;
+    color: var(--th-dark-accent) !important;
+}
+
 html.dark aside li.bg-white,
 html.dark aside li.text-brand-brown {
     background-color: var(--th-dark-surface-elevated) !important;
@@ -1001,9 +1126,55 @@ html.dark aside li.text-brand-brown {
     border-color: var(--th-dark-border) !important;
 }
 
-html.dark aside a:hover {
-    background-color: var(--th-dark-surface-elevated) !important;
+html.dark aside #sidebar-name {
+    color: #FFFFFF !important;
+}
+
+html.dark aside #sidebar-handle,
+html.dark #main-handle {
+    color: var(--th-dark-text-muted) !important;
+}
+
+html.dark aside li.mt-auto {
+    color: var(--th-dark-text-muted) !important;
+}
+
+html.dark aside li.mt-auto:hover {
     color: var(--th-dark-accent) !important;
+}
+
+/* Bagian Detail Profil (profil.html) */
+html.dark #main-email,
+html.dark #main-location {
+    color: var(--th-dark-text-primary) !important;
+}
+
+html.dark #main-bio {
+    background-color: var(--th-dark-input) !important;
+    color: var(--th-dark-text-primary) !important;
+    border-color: var(--th-dark-border) !important;
+}
+
+html.dark section .w-10.h-10.rounded-full {
+    background-color: var(--th-dark-input) !important;
+    border-color: var(--th-dark-border) !important;
+    color: var(--th-dark-accent) !important;
+}
+
+/* Bagian Form Edit Profil (edit-profile.html) */
+html.dark #editProfileForm label {
+    color: var(--th-dark-accent) !important;
+}
+
+html.dark #editProfileForm span {
+    color: var(--th-dark-text-muted) !important;
+}
+
+html.dark #editProfileForm input,
+html.dark #editProfileForm textarea {
+    background-color: var(--th-dark-input) !important;
+    color: var(--th-dark-text-primary) !important;
+    border-color: var(--th-dark-border) !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -1014,12 +1185,82 @@ html.dark #settingsSuccessPopup > div,
 html.dark #settingsErrorPopup > div,
 html.dark #reportPopup > div,
 html.dark #reportDetailPopup > div,
+html.dark #successReportPopup > div,
+html.dark #photoPopup > div,
+html.dark #confirmPopup > div,
+html.dark #errorPopup > div,
 html.dark #topActiveDocDropdownMenu,
 html.dark .modal-content-box {
     background-color: var(--th-dark-surface) !important;
     border: 1px solid var(--th-dark-border) !important;
     color: var(--th-dark-text-primary) !important;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Judul dan Konten Teks di Seluruh Pop-up */
+html.dark #logoutPopup h3,
+html.dark #reportPopup h3,
+html.dark #successReportPopup h3,
+html.dark #photoPopup h3,
+html.dark #confirmPopup h3,
+html.dark #errorPopup h3,
+html.dark #settingsSuccessPopup h3,
+html.dark #settingsErrorPopup h3,
+html.dark #reportDetailPopup h3 {
+    color: #FFFFFF !important;
+}
+
+html.dark #logoutPopup p,
+html.dark #reportPopup p,
+html.dark #successReportPopup p,
+html.dark #photoPopup p,
+html.dark #confirmPopup p,
+html.dark #errorPopup p,
+html.dark #settingsSuccessPopup p,
+html.dark #settingsErrorPopup p,
+html.dark #reportDetailPopup p {
+    color: var(--th-dark-text-secondary) !important;
+}
+
+/* Label & Input dalam Modal Report */
+html.dark #reportPopup label {
+    color: #FFFFFF !important;
+}
+
+html.dark #reportPopup input,
+html.dark #reportPopup textarea {
+    background-color: var(--th-dark-input) !important;
+    color: var(--th-dark-text-primary) !important;
+    border-color: var(--th-dark-border) !important;
+}
+
+html.dark #reportPopup #subjectCharCount,
+html.dark #reportPopup #fileNameDisplay {
+    color: var(--th-dark-text-muted) !important;
+}
+
+html.dark #reportPopup button[type="button"][onclick*="reportScreenshot"] {
+    background-color: var(--th-dark-input) !important;
+    color: var(--th-dark-accent) !important;
+    border: 1px solid var(--th-dark-border) !important;
+}
+
+/* Tombol Batal / Tidak dalam Modal */
+html.dark #logoutPopup button[onclick*="closeLogoutPopup"],
+html.dark #confirmPopup button[onclick*="closeConfirmPopup"],
+html.dark #reportPopup button[onclick*="closeReportPopup"],
+html.dark #photoPopup button[onclick*="closePhotoPopup"] {
+    background-color: transparent !important;
+    color: var(--th-dark-text-primary) !important;
+    border-color: var(--th-dark-border) !important;
+}
+
+html.dark #logoutPopup button[onclick*="closeLogoutPopup"]:hover,
+html.dark #confirmPopup button[onclick*="closeConfirmPopup"]:hover,
+html.dark #reportPopup button[onclick*="closeReportPopup"]:hover,
+html.dark #photoPopup button[onclick*="closePhotoPopup"]:hover {
+    background-color: var(--th-dark-surface-elevated) !important;
+    color: var(--th-dark-accent) !important;
 }
 
 /* --------------------------------------------------------------------------
@@ -1632,6 +1873,99 @@ html.dark button[onclick*="startQueryWithPrompt"] i {
 
 html.dark button[onclick*="startQueryWithPrompt"] .text-gray-500 {
     color: #CBD5E1 !important;
+}
+
+/* Header Pustaka Dokumen Button in Chat Header */
+html.dark header a[href="pustaka.html"] {
+    color: #FFFFFF !important;
+    border-color: var(--th-dark-border) !important;
+}
+html.dark header a[href="pustaka.html"] span {
+    color: #FFFFFF !important;
+}
+html.dark header a[href="pustaka.html"] i {
+    color: var(--th-dark-accent) !important;
+}
+html.dark header a[href="pustaka.html"]:hover {
+    background-color: var(--th-dark-surface-elevated) !important;
+    border-color: var(--th-dark-accent) !important;
+}
+
+/* Modal Konfirmasi Hapus Riwayat Chat */
+html.dark #deleteHistoryModal .bg-white {
+    background-color: #37353E !important;
+    border-color: var(--th-dark-border) !important;
+}
+html.dark #deleteHistoryModal h4 {
+    color: #FFFFFF !important;
+}
+html.dark #deleteHistoryModal p,
+html.dark #deleteHistoryModal strong {
+    color: #F3F4F6 !important;
+}
+html.dark #deleteHistoryModal button[onclick*="closeDeleteHistoryModal"] {
+    color: #FFFFFF !important;
+    border-color: rgba(255, 255, 255, 0.3) !important;
+}
+html.dark #deleteHistoryModal button[onclick*="closeDeleteHistoryModal"]:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #FFFFFF !important;
+    border-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Dropdown Dokumen Terlampir di Top Header Chat */
+html.dark #topActiveDocDropdownBtn {
+    background-color: #37353E !important;
+    border-color: var(--th-dark-border) !important;
+    color: #FFFFFF !important;
+}
+html.dark #topActiveDocDropdownBtn span {
+    color: #FFFFFF !important;
+}
+html.dark #topActiveDocDropdownBtn i#topActiveDocChevron {
+    color: #CBD5E1 !important;
+}
+html.dark #topActiveDocDropdownMenu {
+    background-color: #37353E !important;
+    border-color: var(--th-dark-border) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5) !important;
+}
+html.dark #topActiveDocDropdownMenu .border-b {
+    border-bottom-color: rgba(113, 90, 90, 0.5) !important;
+    color: #FFFFFF !important;
+}
+html.dark #topActiveDocDropdownMenu .border-b span {
+    color: #FFFFFF !important;
+}
+html.dark #topActiveDocDropdownMenu i.fa-book-bookmark {
+    color: var(--th-dark-accent) !important;
+}
+html.dark #topActiveDocDropdownMenu button[onclick*="detachAllPustakaDocs"] {
+    color: #FB7185 !important;
+}
+html.dark #topActiveDocList > div:hover {
+    background-color: var(--th-dark-surface-hover) !important;
+}
+html.dark #topActiveDocList .font-bold.truncate,
+html.dark #topActiveDocList .text-stone-900 {
+    color: #FFFFFF !important;
+}
+html.dark #topActiveDocList .text-stone-500 {
+    color: #CBD5E1 !important;
+}
+html.dark #topActiveDocList .bg-rose-50 {
+    background-color: rgba(159, 18, 57, 0.35) !important;
+    border-color: rgba(225, 29, 72, 0.35) !important;
+}
+html.dark #topActiveDocList i.fa-file-pdf {
+    color: #FB7185 !important;
+}
+html.dark #topActiveDocList button[onclick*="removePustakaDoc"] {
+    color: #94A3B8 !important;
+}
+html.dark #topActiveDocList button[onclick*="removePustakaDoc"]:hover {
+    color: #FB7185 !important;
+    background-color: rgba(159, 18, 57, 0.3) !important;
 }
 
 /* --------------------------------------------------------------------------

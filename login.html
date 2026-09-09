@@ -26,8 +26,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="assets/darkmode.css?v=20260908_28">
-    <script src="assets/theme.js?v=20260908_28" defer></script>
+    <link rel="stylesheet" href="assets/darkmode.css?v=20260909_01">
+    <script src="assets/theme.js?v=20260909_01" defer></script>
 
     <script>
         tailwind.config = {
@@ -61,6 +61,27 @@
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: #f1f5f9;
+            transition: background-color 0.3s ease;
+        }
+
+        html.dark body,
+        html.dark body.min-h-screen {
+            background-color: #1a191f !important;
+        }
+
+        html.dark #authCard {
+            background-color: #1e1d24 !important;
+            border-color: #1e1d24 !important;
+            box-shadow: 0 30px 80px -15px rgba(0, 0, 0, 0.85) !important;
+        }
+
+        html.dark #slidingBanner {
+            background-color: #242226 !important;
+        }
+
+        html.dark #loginFormPanel,
+        html.dark #signupFormPanel {
+            background-color: #1e1d24 !important;
         }
 
         /* Smooth input style */
@@ -73,6 +94,19 @@
             border-color: #2b170d;
             box-shadow: 0 0 0 3px rgba(43, 23, 13, 0.12);
             outline: none;
+        }
+
+        html.dark .auth-input {
+            background-color: #2a2932 !important;
+            border-color: rgba(255, 255, 255, 0.1) !important;
+            color: #ffffff !important;
+        }
+        html.dark .auth-input::placeholder {
+            color: #9ca3af !important;
+        }
+        html.dark .auth-input:focus {
+            border-color: #e5a93c !important;
+            box-shadow: 0 0 0 3px rgba(229, 169, 60, 0.25) !important;
         }
 
         /* Luxurious Smooth Slow View Transition Animations */
@@ -120,7 +154,21 @@
         }
     </style>
 </head>
-<body class="min-h-screen relative flex items-center justify-center p-4 sm:p-6 md:p-8 overflow-x-hidden select-none bg-slate-100">
+<body class="min-h-screen relative flex items-center justify-center p-4 sm:p-6 md:p-8 overflow-x-hidden select-none bg-slate-100 dark:bg-[#1e1d24] transition-colors duration-300">
+
+    <!-- Floating Theme Switcher & Back to Home -->
+    <div class="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 flex items-center gap-2">
+        <a href="index.html" class="px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full text-xs font-semibold bg-white/90 dark:bg-[#26252d]/90 hover:bg-white dark:hover:bg-[#2f2e37] text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-white/10 shadow-sm backdrop-blur-md transition-all flex items-center gap-1.5" title="Kembali ke Beranda">
+            <i class="fa-solid fa-arrow-left text-[11px]"></i>
+            <span class="hidden sm:inline">Beranda</span>
+        </a>
+        <button type="button" onclick="toggleTheme()" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 dark:bg-[#26252d]/90 hover:bg-white dark:hover:bg-[#2f2e37] text-gray-700 dark:text-amber-400 border border-gray-200 dark:border-white/10 shadow-sm backdrop-blur-md flex items-center justify-center transition-all cursor-pointer" title="Ganti Tema (Dark / Light)">
+            <span class="theme-toggle-icon flex items-center justify-center">
+                <i class="fa-regular fa-moon text-sm dark:hidden"></i>
+                <i class="fa-regular fa-sun text-sm hidden dark:block text-amber-400"></i>
+            </span>
+        </button>
+    </div>
 
     <!-- SVG Definitions for Perfectly Smooth Slanted & Rounded Corners -->
     <svg class="absolute w-0 h-0 overflow-hidden pointer-events-none" width="0" height="0" aria-hidden="true">
@@ -155,17 +203,20 @@
     </svg>
 
     <!-- Main Modal Container -->
-    <div id="authCard" class="relative z-10 w-full max-w-[960px] min-h-[580px] bg-white rounded-[32px] sm:rounded-[36px] md:rounded-[40px] shadow-2xl border-[6px] sm:border-[8px] border-white overflow-hidden">
+    <div id="authCard" class="relative z-10 w-full max-w-[960px] min-h-[580px] bg-white dark:bg-[#1e1d24] rounded-[32px] sm:rounded-[36px] md:rounded-[40px] shadow-2xl dark:shadow-[0_30px_90px_-20px_rgba(0,0,0,0.85)] border-[6px] sm:border-[8px] border-white dark:border-[#1e1d24] overflow-hidden transition-all duration-300">
         
         <!-- ======================================================== -->
         <!-- THE SLIDING ARTWORK BANNER (Menyapu ke samping)         -->
         <!-- ======================================================== -->
         <div id="slidingBanner" 
-             class="relative md:absolute top-0 bottom-0 left-0 w-full md:w-[48%] min-h-[320px] md:min-h-full overflow-hidden flex flex-col justify-between p-4 sm:p-6 bg-[#f4ede4] z-30 transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)]"
+             class="relative md:absolute top-0 bottom-0 left-0 w-full md:w-[48%] min-h-[320px] md:min-h-full overflow-hidden flex flex-col justify-between p-4 sm:p-6 bg-[#f4ede4] dark:bg-[#242226] z-30 transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)]"
              style="clip-path: url(#slantedRoundedClipLeft); -webkit-clip-path: url(#slantedRoundedClipLeft);">
             
-            <!-- Full Lady Justice Image Layer -->
-            <img src="assets/image.png" alt="Titik Hukum Illustration" class="absolute inset-0 w-full h-full object-contain object-center scale-95 transition-transform duration-700 pointer-events-none" />
+            <!-- Full Lady Justice Image Layer (Light Mode) -->
+            <img src="assets/image.png" alt="Titik Hukum Illustration" class="absolute inset-0 w-full h-full object-contain object-center scale-95 transition-transform duration-700 pointer-events-none dark:hidden" />
+
+            <!-- Full Lady Justice Image Layer (Dark Mode - assets/imagedark.png) -->
+            <img src="assets/imagedark.png" alt="Titik Hukum Illustration" class="absolute inset-0 w-full h-full object-contain object-center scale-100 sm:scale-105 transition-transform duration-700 pointer-events-none hidden dark:block" />
 
             <!-- Spacers -->
             <div class="relative z-10"></div>
@@ -176,7 +227,7 @@
         <!-- LOGIN FORM PANEL (Right Side on Desktop)                 -->
         <!-- ======================================================== -->
         <div id="loginFormPanel" 
-             class="w-full md:w-[52%] md:absolute top-0 bottom-0 right-0 bg-white px-6 py-7 sm:px-10 sm:py-9 md:px-12 md:py-10 flex flex-col justify-between transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] z-10 opacity-100 translate-x-0 pointer-events-auto">
+             class="w-full md:w-[52%] md:absolute top-0 bottom-0 right-0 bg-white dark:bg-[#1e1d24] px-6 py-7 sm:px-10 sm:py-9 md:px-12 md:py-10 flex flex-col justify-between transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] z-10 opacity-100 translate-x-0 pointer-events-auto">
             
             <!-- Top Row: Brand Header & Language Selector -->
             <div class="flex items-center justify-between mb-4 md:mb-2">
@@ -186,7 +237,7 @@
                 </a>
 
                 <div class="relative">
-                    <button type="button" onclick="toggleLangMenu('langMenuLogin')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-700 shadow-sm transition-all focus:outline-none focus:ring-1 focus:ring-gray-300">
+                    <button type="button" onclick="toggleLangMenu('langMenuLogin')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-[#32313b] hover:bg-gray-50 dark:hover:bg-[#3d3c48] text-xs font-semibold text-gray-700 dark:text-gray-200 shadow-sm transition-all focus:outline-none">
                         <span class="langFlag flex items-center shrink-0">
                             <svg class="w-4 h-3 rounded-[2px] shadow-xs shrink-0" viewBox="0 0 640 480">
                                 <path fill="#012169" d="M0 0h640v480H0z"/>
@@ -196,12 +247,12 @@
                                 <path fill="#C8102E" d="M267 0v480h106V0H267zM0 187v106h640V187H0z"/>
                             </svg>
                         </span>
-                        <span class="langLabel text-[11px] font-bold text-gray-800">EN</span>
-                        <i class="fa-solid fa-chevron-down text-[9px] text-gray-500 ml-0.5"></i>
+                        <span class="langLabel text-[11px] font-bold text-gray-800 dark:text-gray-200">EN</span>
+                        <i class="fa-solid fa-chevron-down text-[9px] text-gray-500 dark:text-gray-400 ml-0.5"></i>
                     </button>
 
-                    <div id="langMenuLogin" class="lang-dropdown hidden absolute right-0 mt-1.5 w-32 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-30 text-xs">
-                        <button type="button" onclick="setLanguage('EN')" class="w-full px-3 py-1.5 text-left flex items-center gap-2 hover:bg-gray-50 text-gray-700 font-medium">
+                    <div id="langMenuLogin" class="lang-dropdown hidden absolute right-0 mt-1.5 w-32 bg-white dark:bg-[#2e2d36] rounded-xl shadow-lg border border-gray-100 dark:border-white/10 py-1.5 z-30 text-xs">
+                        <button type="button" onclick="setLanguage('EN')" class="w-full px-3 py-1.5 text-left flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-[#393844] text-gray-700 dark:text-gray-200 font-medium">
                             <svg class="w-4 h-3 rounded-[2px] shadow-xs shrink-0" viewBox="0 0 640 480">
                                 <path fill="#012169" d="M0 0h640v480H0z"/>
                                 <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 240l240 178v62h-80L320 301 81 480H0v-60l239-180L0 64V0h75z"/>
@@ -211,7 +262,7 @@
                             </svg>
                             <span>English</span>
                         </button>
-                        <button type="button" onclick="setLanguage('ID')" class="w-full px-3 py-1.5 text-left flex items-center gap-2 hover:bg-gray-50 text-gray-700 font-medium">
+                        <button type="button" onclick="setLanguage('ID')" class="w-full px-3 py-1.5 text-left flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-[#393844] text-gray-700 dark:text-gray-200 font-medium">
                             <svg class="w-4 h-3 rounded-[2px] shadow-xs border border-gray-200 shrink-0" viewBox="0 0 640 480">
                                 <path fill="#e11d48" d="M0 0h640v240H0z"/>
                                 <path fill="#ffffff" d="M0 240h640v240H0z"/>
@@ -225,81 +276,91 @@
             <!-- Center Login Content -->
             <div class="my-auto py-2">
                 <div class="text-center mb-6">
-                    <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight">
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
                         Hello!
                     </h1>
-                    <p class="text-xs sm:text-sm text-gray-500 font-medium mt-1">
+                    <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium mt-1">
                         Welcome to Titikhukum
                     </p>
                 </div>
 
                 <form class="space-y-3 sm:space-y-3.5 max-w-[340px] mx-auto" onsubmit="handleLogin(event)">
+                    <!-- Username / Email Input with Left User Icon -->
                     <div class="relative">
+                        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-400 pointer-events-none text-xs sm:text-sm">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
                         <input 
                             type="text" 
                             id="emailInput" 
                             placeholder="Username / Email" 
                             required 
-                            class="auth-input w-full px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-800 placeholder-gray-400 shadow-input-subtle"
+                            class="auth-input w-full pl-10 pr-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-800 dark:text-white placeholder-gray-400 shadow-input-subtle"
                         />
                     </div>
 
+                    <!-- Password Input with Left Lock Icon & Right Eye Toggle -->
                     <div class="relative space-y-1.5">
                         <div class="relative">
+                            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-400 pointer-events-none text-xs sm:text-sm">
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
                             <input 
                                 type="password" 
                                 id="passwordInput" 
                                 placeholder="Password" 
                                 required 
-                                class="auth-input w-full px-4 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-800 placeholder-gray-400 shadow-input-subtle pr-10"
+                                class="auth-input w-full pl-10 pr-10 py-2.5 sm:py-3 rounded-xl text-xs sm:text-sm text-gray-800 dark:text-white placeholder-gray-400 shadow-input-subtle"
                             />
                             <button 
                                 type="button" 
                                 onclick="togglePasswordVisibility('passwordInput', 'eyeIconLogin')" 
-                                class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none transition"
+                                class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 focus:outline-none transition cursor-pointer"
                             >
                                 <i id="eyeIconLogin" class="fa-regular fa-eye-slash text-xs sm:text-sm"></i>
                             </button>
                         </div>
 
                         <div class="text-right">
-                            <a href="javascript:void(0)" onclick="showToast('Password recovery link sent!', 'info')" class="text-[11px] font-semibold text-brand-coral hover:text-brand-red transition-colors inline-block">
+                            <a href="javascript:void(0)" onclick="showToast('Password recovery link sent!', 'info')" class="text-[11px] sm:text-xs font-semibold text-[#8c5835] dark:text-[#E5A93C] hover:underline transition-colors inline-block">
                                 Forgot password ?
                             </a>
                         </div>
                     </div>
 
                     <div class="flex items-center justify-center gap-3 py-1">
-                        <div class="h-[1px] w-12 bg-gray-200"></div>
+                        <div class="h-[1px] w-12 bg-gray-200 dark:bg-white/10"></div>
                         <span class="text-[11px] text-gray-400 font-medium">or</span>
-                        <div class="h-[1px] w-12 bg-gray-200"></div>
+                        <div class="h-[1px] w-12 bg-gray-200 dark:bg-white/10"></div>
                     </div>
 
+                    <!-- Login with Google (Dark mode aware, Google logo on the left) -->
                     <button 
                         type="button" 
                         onclick="handleGoogleAuth()" 
-                        class="w-full py-2.5 px-4 bg-white hover:bg-gray-50 border border-gray-200 rounded-xl text-xs sm:text-sm font-semibold text-gray-700 shadow-input-subtle flex items-center justify-center gap-2.5 transition-all active:scale-[0.99]"
+                        class="w-full py-2.5 px-4 bg-white dark:bg-[#2a2932] hover:bg-gray-50 dark:hover:bg-[#33323d] border border-gray-200 dark:border-white/10 rounded-xl text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-200 shadow-input-subtle flex items-center justify-center gap-2.5 transition-all active:scale-[0.99] cursor-pointer"
                     >
-                        <span>Login with Google</span>
-                        <svg class="w-4 h-4" viewBox="0 0 24 24">
+                        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24">
                             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                             <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
                             <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
                         </svg>
+                        <span>Login with Google</span>
                     </button>
 
+                    <!-- Primary Login Button (Gold gradient in Dark Mode) -->
                     <button 
                         type="submit" 
-                        class="w-full py-2.5 sm:py-3 px-4 bg-[#24140e] hover:bg-[#3d2016] text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition-all duration-200 active:scale-[0.99] flex items-center justify-center cursor-pointer"
+                        class="w-full py-2.5 sm:py-3 px-4 bg-[#24140e] hover:bg-[#3d2016] text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md dark:bg-gradient-to-r dark:from-[#e5a93c] dark:to-[#e8b248] dark:hover:from-[#d99b2e] dark:hover:to-[#dfa73a] dark:text-[#1a140e] dark:font-bold dark:shadow-[0_8px_25px_-5px_rgba(229,169,60,0.4)] transition-all duration-200 active:scale-[0.99] flex items-center justify-center cursor-pointer"
                     >
                         <span>Login</span>
                     </button>
 
                     <div class="text-center pt-1">
-                        <p class="text-[11px] sm:text-xs text-gray-500 font-medium">
+                        <p class="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400 font-medium">
                             Don't have an account? 
-                            <button type="button" id="goToSignupBtn" onclick="switchView('signup')" class="text-[#2b170d] font-bold hover:underline transition-all cursor-pointer">
+                            <button type="button" id="goToSignupBtn" onclick="switchView('signup')" class="text-[#2b170d] dark:text-[#E5A93C] font-bold hover:underline transition-all cursor-pointer">
                                 Sign up
                             </button>
                         </p>
@@ -308,17 +369,17 @@
             </div>
 
             <!-- Bottom Social Icons -->
-            <div class="flex items-center justify-center gap-4 pt-4 mt-auto">
-                <a href="#facebook" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="Facebook">
+            <div class="flex items-center justify-center gap-5 pt-4 mt-auto">
+                <a href="#facebook" class="w-6 h-6 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" title="Facebook">
                     <i class="fa-brands fa-facebook text-base"></i>
                 </a>
-                <a href="#twitter" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="Twitter / X">
+                <a href="#twitter" class="w-6 h-6 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" title="Twitter / X">
                     <i class="fa-brands fa-twitter text-base"></i>
                 </a>
-                <a href="#linkedin" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="LinkedIn">
+                <a href="#linkedin" class="w-6 h-6 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" title="LinkedIn">
                     <i class="fa-brands fa-linkedin-in text-base"></i>
                 </a>
-                <a href="#instagram" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="Instagram">
+                <a href="#instagram" class="w-6 h-6 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" title="Instagram">
                     <i class="fa-brands fa-instagram text-base"></i>
                 </a>
             </div>
@@ -329,7 +390,7 @@
         <!-- SIGN UP FORM PANEL (Left Side on Desktop)                -->
         <!-- ======================================================== -->
         <div id="signupFormPanel" 
-             class="w-full md:w-[52%] md:absolute top-0 bottom-0 left-0 bg-white px-6 py-7 sm:px-10 sm:py-8 md:px-12 md:py-9 flex flex-col justify-between transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] z-10 opacity-0 -translate-x-12 pointer-events-none">
+             class="w-full md:w-[52%] md:absolute top-0 bottom-0 left-0 bg-white dark:bg-[#1e1d24] px-6 py-7 sm:px-10 sm:py-8 md:px-12 md:py-9 flex flex-col justify-between transition-all duration-700 ease-[cubic-bezier(0.65,0,0.35,1)] z-10 opacity-0 -translate-x-12 pointer-events-none">
             
             <!-- Top Row: Brand Header & Language Selector -->
             <div class="flex items-center justify-between mb-3 md:mb-1">
@@ -339,7 +400,7 @@
                 </a>
 
                 <div class="relative">
-                    <button type="button" onclick="toggleLangMenu('langMenuSignup')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 bg-white hover:bg-gray-50 text-xs font-semibold text-gray-700 shadow-sm transition-all focus:outline-none focus:ring-1 focus:ring-gray-300">
+                    <button type="button" onclick="toggleLangMenu('langMenuSignup')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gray-200 dark:border-white/10 bg-white dark:bg-[#32313b] hover:bg-gray-50 dark:hover:bg-[#3d3c48] text-xs font-semibold text-gray-700 dark:text-gray-200 shadow-sm transition-all focus:outline-none">
                         <span class="langFlag flex items-center shrink-0">
                             <svg class="w-4 h-3 rounded-[2px] shadow-xs shrink-0" viewBox="0 0 640 480">
                                 <path fill="#012169" d="M0 0h640v480H0z"/>
@@ -349,12 +410,12 @@
                                 <path fill="#C8102E" d="M267 0v480h106V0H267zM0 187v106h640V187H0z"/>
                             </svg>
                         </span>
-                        <span class="langLabel text-[11px] font-bold text-gray-800">EN</span>
-                        <i class="fa-solid fa-chevron-down text-[9px] text-gray-500 ml-0.5"></i>
+                        <span class="langLabel text-[11px] font-bold text-gray-800 dark:text-gray-200">EN</span>
+                        <i class="fa-solid fa-chevron-down text-[9px] text-gray-500 dark:text-gray-400 ml-0.5"></i>
                     </button>
 
-                    <div id="langMenuSignup" class="lang-dropdown hidden absolute right-0 mt-1.5 w-32 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 z-30 text-xs">
-                        <button type="button" onclick="setLanguage('EN')" class="w-full px-3 py-1.5 text-left flex items-center gap-2 hover:bg-gray-50 text-gray-700 font-medium">
+                    <div id="langMenuSignup" class="lang-dropdown hidden absolute right-0 mt-1.5 w-32 bg-white dark:bg-[#2e2d36] rounded-xl shadow-lg border border-gray-100 dark:border-white/10 py-1.5 z-30 text-xs">
+                        <button type="button" onclick="setLanguage('EN')" class="w-full px-3 py-1.5 text-left flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-[#393844] text-gray-700 dark:text-gray-200 font-medium">
                             <svg class="w-4 h-3 rounded-[2px] shadow-xs shrink-0" viewBox="0 0 640 480">
                                 <path fill="#012169" d="M0 0h640v480H0z"/>
                                 <path fill="#FFF" d="m75 0 244 181L562 0h78v62L400 240l240 178v62h-80L320 301 81 480H0v-60l239-180L0 64V0h75z"/>
@@ -364,7 +425,7 @@
                             </svg>
                             <span>English</span>
                         </button>
-                        <button type="button" onclick="setLanguage('ID')" class="w-full px-3 py-1.5 text-left flex items-center gap-2 hover:bg-gray-50 text-gray-700 font-medium">
+                        <button type="button" onclick="setLanguage('ID')" class="w-full px-3 py-1.5 text-left flex items-center gap-2 hover:bg-gray-50 dark:hover:bg-[#393844] text-gray-700 dark:text-gray-200 font-medium">
                             <svg class="w-4 h-3 rounded-[2px] shadow-xs border border-gray-200 shrink-0" viewBox="0 0 640 480">
                                 <path fill="#e11d48" d="M0 0h640v240H0z"/>
                                 <path fill="#ffffff" d="M0 240h640v240H0z"/>
@@ -378,99 +439,108 @@
             <!-- Center Sign Up Content -->
             <div class="my-auto py-1">
                 <div class="text-center mt-3 sm:mt-4 mb-4 sm:mb-5">
-                    <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+                    <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
                         Create Account
                     </h1>
-                    <p class="text-xs sm:text-sm text-gray-500 font-medium mt-1">
+                    <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium mt-1">
                         Join Titikhukum to get started
                     </p>
                 </div>
 
                 <form class="space-y-2.5 sm:space-y-3 max-w-[340px] mx-auto" onsubmit="handleSignup(event)">
-                    <!-- Full Name Input -->
+                    <!-- Full Name Input with Left User Icon -->
                     <div class="relative">
+                        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs sm:text-sm">
+                            <i class="fa-solid fa-user"></i>
+                        </span>
                         <input 
                             type="text" 
                             id="signupName" 
                             placeholder="Full Name" 
                             required 
-                            class="auth-input w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm text-gray-800 placeholder-gray-400 shadow-input-subtle"
+                            class="auth-input w-full pl-10 pr-4 py-2.5 rounded-xl text-xs sm:text-sm text-gray-800 dark:text-white placeholder-gray-400 shadow-input-subtle"
                         />
                     </div>
 
-                    <!-- Email Input -->
+                    <!-- Email Input with Left Envelope Icon -->
                     <div class="relative">
+                        <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs sm:text-sm">
+                            <i class="fa-solid fa-envelope"></i>
+                        </span>
                         <input 
                             type="email" 
                             id="signupEmail" 
                             placeholder="Email" 
                             required 
-                            class="auth-input w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm text-gray-800 placeholder-gray-400 shadow-input-subtle"
+                            class="auth-input w-full pl-10 pr-4 py-2.5 rounded-xl text-xs sm:text-sm text-gray-800 dark:text-white placeholder-gray-400 shadow-input-subtle"
                         />
                     </div>
 
                     <!-- Password Input with Live Security Indicator -->
                     <div class="space-y-1.5">
                         <div class="relative">
+                            <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none text-xs sm:text-sm">
+                                <i class="fa-solid fa-lock"></i>
+                            </span>
                             <input 
                                 type="password" 
                                 id="signupPassword" 
                                 placeholder="Password" 
                                 required 
                                 oninput="checkPasswordSecurity(this.value)"
-                                class="auth-input w-full px-4 py-2.5 rounded-xl text-xs sm:text-sm text-gray-800 placeholder-gray-400 shadow-input-subtle pr-10"
+                                class="auth-input w-full pl-10 pr-10 py-2.5 rounded-xl text-xs sm:text-sm text-gray-800 dark:text-white placeholder-gray-400 shadow-input-subtle"
                             />
                             <button 
                                 type="button" 
                                 onclick="togglePasswordVisibility('signupPassword', 'eyeIconSignup')" 
-                                class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 focus:outline-none transition"
+                                class="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 focus:outline-none transition cursor-pointer"
                             >
                                 <i id="eyeIconSignup" class="fa-regular fa-eye-slash text-xs sm:text-sm"></i>
                             </button>
                         </div>
 
-                        <!-- Single Sleek Long Indicator Bar with Professional Status Beside It -->
+                        <!-- Single Sleek Long Indicator Bar with Status Beside It -->
                         <div class="flex items-center gap-2.5 px-1 pt-0.5">
-                            <span id="strengthBar" class="w-8 sm:w-9 h-1.5 rounded-full bg-gray-200 transition-all duration-300 shrink-0"></span>
+                            <span id="strengthBar" class="w-8 sm:w-9 h-1.5 rounded-full bg-gray-200 dark:bg-white/10 transition-all duration-300 shrink-0"></span>
                             <span id="strengthText" class="text-[11px] font-medium text-gray-400 transition-colors duration-300">
                                 Minimal 8 karakter
                             </span>
                         </div>
                     </div>
 
-                    <!-- Primary Brown Sign Up Button -->
+                    <!-- Primary Sign Up Button (Gold gradient in Dark Mode) -->
                     <button 
                         type="submit" 
-                        class="w-full py-2.5 sm:py-3 px-4 bg-[#24140e] hover:bg-[#3d2016] text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md transition-all duration-200 active:scale-[0.99] flex items-center justify-center mt-1 cursor-pointer"
+                        class="w-full py-2.5 sm:py-3 px-4 bg-[#24140e] hover:bg-[#3d2016] text-white text-xs sm:text-sm font-semibold rounded-xl shadow-md dark:bg-gradient-to-r dark:from-[#e5a93c] dark:to-[#e8b248] dark:hover:from-[#d99b2e] dark:hover:to-[#dfa73a] dark:text-[#1a140e] dark:font-bold dark:shadow-[0_8px_25px_-5px_rgba(229,169,60,0.4)] transition-all duration-200 active:scale-[0.99] flex items-center justify-center mt-1 cursor-pointer"
                     >
                         <span>Sign Up</span>
                     </button>
 
                     <div class="flex items-center justify-center gap-3 py-0.5">
-                        <div class="h-[1px] w-12 bg-gray-200"></div>
+                        <div class="h-[1px] w-12 bg-gray-200 dark:bg-white/10"></div>
                         <span class="text-[10px] text-gray-400 font-medium">or</span>
-                        <div class="h-[1px] w-12 bg-gray-200"></div>
+                        <div class="h-[1px] w-12 bg-gray-200 dark:bg-white/10"></div>
                     </div>
 
-                    <!-- Sign up with Google Button -->
+                    <!-- Sign up with Google Button (Dark mode aware, Google logo on the left) -->
                     <button 
                         type="button" 
                         onclick="handleGoogleAuth()" 
-                        class="w-full py-2 px-4 bg-white hover:bg-gray-50 border border-gray-200 rounded-xl text-xs font-semibold text-gray-700 shadow-input-subtle flex items-center justify-center gap-2.5 transition-all active:scale-[0.99]"
+                        class="w-full py-2 px-4 bg-white dark:bg-[#2a2932] hover:bg-gray-50 dark:hover:bg-[#33323d] border border-gray-200 dark:border-white/10 rounded-xl text-xs font-semibold text-gray-700 dark:text-gray-200 shadow-input-subtle flex items-center justify-center gap-2.5 transition-all active:scale-[0.99] cursor-pointer"
                     >
-                        <span>Sign up with Google</span>
-                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24">
+                        <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 24 24">
                             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                             <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
                             <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
                             <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
                         </svg>
+                        <span>Sign up with Google</span>
                     </button>
 
                     <div class="text-center pt-0.5">
-                        <p class="text-[11px] sm:text-xs text-gray-500 font-medium">
+                        <p class="text-[11px] sm:text-xs text-gray-500 dark:text-gray-400 font-medium">
                             Already have an account? 
-                            <button type="button" id="goToLoginBtn" onclick="switchView('login')" class="text-[#2b170d] font-bold hover:underline transition-all cursor-pointer">
+                            <button type="button" id="goToLoginBtn" onclick="switchView('login')" class="text-[#2b170d] dark:text-[#E5A93C] font-bold hover:underline transition-all cursor-pointer">
                                 Log in
                             </button>
                         </p>
@@ -479,17 +549,17 @@
             </div>
 
             <!-- Bottom Social Icons -->
-            <div class="flex items-center justify-center gap-4 pt-3 mt-auto">
-                <a href="#facebook" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="Facebook">
+            <div class="flex items-center justify-center gap-5 pt-3 mt-auto">
+                <a href="#facebook" class="w-6 h-6 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" title="Facebook">
                     <i class="fa-brands fa-facebook text-base"></i>
                 </a>
-                <a href="#twitter" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="Twitter / X">
+                <a href="#twitter" class="w-6 h-6 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" title="Twitter / X">
                     <i class="fa-brands fa-twitter text-base"></i>
                 </a>
-                <a href="#linkedin" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="LinkedIn">
+                <a href="#linkedin" class="w-6 h-6 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" title="LinkedIn">
                     <i class="fa-brands fa-linkedin-in text-base"></i>
                 </a>
-                <a href="#instagram" class="w-6 h-6 flex items-center justify-center text-gray-700 hover:text-gray-900 transition-colors" title="Instagram">
+                <a href="#instagram" class="w-6 h-6 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" title="Instagram">
                     <i class="fa-brands fa-instagram text-base"></i>
                 </a>
             </div>

@@ -63,10 +63,22 @@
             localStorage.setItem(STORAGE_KEY, theme);
         }
 
-        // Sinkronisasi logo putih di mode gelap jika tidak menggunakan dual-img markup
+        // Logo di navbar coklat (.navbar-brown) SELALU putih (logo-white.png) baik di mode terang maupun mode gelap.
+        // Logo gelap (logo.png) hanya dipakai di chatbot (chat.html) saat mode terang karena latar header-nya putih.
         const logoImgs = document.querySelectorAll('img[src$="logo.png"], img[src$="logo-white.png"]');
         logoImgs.forEach(img => {
+            // Jika menggunakan dual-img markup (dark:hidden / dark:block), serahkan ke Tailwind CSS
             if (img.classList.contains('dark:hidden') || img.classList.contains('dark:block')) return;
+
+            // Jika di dalam navbar-brown, pastikan SELALU logo-white.png
+            if (img.closest('.navbar-brown') || img.closest('header.navbar-brown') || !window.location.pathname.includes('chat')) {
+                if (!img.src.endsWith('logo-white.png')) {
+                    img.src = img.src.replace(/logo\.png$/, 'logo-white.png');
+                }
+                return;
+            }
+
+            // Khusus halaman chatbot (chat.html): mode gelap = logo-white.png, mode terang = logo.png
             if (isDark) {
                 img.src = img.src.replace(/logo\.png$/, 'logo-white.png');
             } else {
